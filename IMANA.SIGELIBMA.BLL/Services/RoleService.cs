@@ -17,11 +17,15 @@ namespace IMANA.SIGELIBMA.BLL.Services
             try
             {
                 List<Role> roles = null;
-                 using (var unitOfWork = (UnitOfWork)factory.CreateNew())
-                 {
-                    roles = unitOfWork.Repository<Role>().GetAll().ToList();
-                }
+                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
+                // {
+                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //}
 
+                var unitOfWork = (UnitOfWork)factory.CreateNew();
+                
+                    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                
                 return roles;
             }
             catch (Exception e)

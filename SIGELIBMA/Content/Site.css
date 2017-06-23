@@ -135,7 +135,7 @@ div.loading img{
   .title-bar.border-cyan {
     border-bottom-color: #00aeef; }
   .title-bar.border-green {
-    border-bottom-color: #003333; }
+    border-bottom-color: #005C5C; }
   .title-bar.border-orange {
     border-bottom-color: #FFA300; }
   .title-bar.border-yellow {
@@ -161,7 +161,7 @@ div.loading img{
   border-color: #edeff0; }
 
 .title-bar-title {
-  color: #53565a;
+  color: #003333;
   font-size: 1.5em;
   line-height: 30px;
   margin: 10px 0;
@@ -169,7 +169,7 @@ div.loading img{
 
 .title-bar-subtitle {
   border-left: 1px solid #b1babf;
-  color: #53565a;
+  color: #005C5C;
   font-size: 1.25em;
   line-height: 30px;
   margin: 10px 0;

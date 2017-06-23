@@ -9,7 +9,7 @@
     <link href="~/Content/Admin/Layout/Layout.css" rel="stylesheet" />
     <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
 </head>
-<body>
+<body id="pageMainContainer">
     <nav class="navbar-main navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -42,5 +42,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/VueJsFramework/vue1.js"></script>
+    <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
 </body>
 </html>

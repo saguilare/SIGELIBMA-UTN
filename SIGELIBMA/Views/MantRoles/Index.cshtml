@@ -102,13 +102,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr dir-paginate="device in vm.devices | filter:q | filter: { environment :{name: vm.tableFilter.env}} | filter:{ name: vm.tableFilter.device} | orderBy:vm.sortType:vm.sortReverse   | itemsPerPage: vm.pageSize " current-page="vm.currentPage">
+                                <tr v-for="rol in roles">
                                     <td>
                                         <button class="btn btn-small btn-success" ng-click="vm.openMaintainanceModal(device)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
                                         <button class="btn btn-small btn-danger" ng-click="vm.deleteDevice(device)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Remove</button>
                                     </td>
-                                    <td>{{device.environment.name}}</td>
-                                    <td>{{device.name}}</td>
+                                    <td>{{rol.Codigo}}</td>
+                                    <td>{{rol.Descripcion}}</td>
 
                                 </tr>
                             </tbody>

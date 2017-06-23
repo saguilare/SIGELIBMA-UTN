@@ -194,6 +194,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\VueJsFramework\vue1.js" />
     <Content Include="Scripts\VueJsFramework\vue2.js" />
+    <Content Include="Scripts\VueJs\Admin\MantRoles.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
