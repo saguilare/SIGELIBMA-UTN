@@ -1,9 +1,12 @@
 ﻿body {
     background-color:#f6f8f8;
-    padding: 0px 100px 0px 100px;
+    
 }
 
 #section-body {
     background-color:#e3e6e8;
 }
 
+#wrapper {
+    padding: 0px 100px;
+}

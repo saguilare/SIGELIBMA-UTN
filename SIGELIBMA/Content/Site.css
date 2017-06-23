@@ -8,8 +8,8 @@ body {
 
 /*override color in tool nav bar*/
 nav.navbar-main{
-    background-color: #0071C5;
-    border-color:#0071C5;
+    background-color: #005C5C;
+    border-color:#003333;
     border-radius: 0;
 }
 
@@ -34,7 +34,7 @@ nav.navbar-main .navbar-text{
 }
 
 .navbar-default .navbar-nav>.active>a:hover{
-    background-color: #0071C5;
+    background-color: #004d4d;
 }
 
 .navbar-main .navbar-header img{
@@ -42,16 +42,16 @@ nav.navbar-main .navbar-text{
 }
 
 .navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
-    background-color: #0071C5;
+    background-color: #005C5C;
 }
 
  .navbar-main .navbar-nav>.active>a:hover{
-    background-color: #003C71;
+    background-color: #004d4d;
  
 }
 
 #nameandjobtitlebar>a:hover{
-  background-color: #0071C5;
+  background-color: #004d4d;
 }
 
 /*-------------------------
@@ -135,7 +135,7 @@ div.loading img{
   .title-bar.border-cyan {
     border-bottom-color: #00aeef; }
   .title-bar.border-green {
-    border-bottom-color: #C4D600; }
+    border-bottom-color: #003333; }
   .title-bar.border-orange {
     border-bottom-color: #FFA300; }
   .title-bar.border-yellow {
