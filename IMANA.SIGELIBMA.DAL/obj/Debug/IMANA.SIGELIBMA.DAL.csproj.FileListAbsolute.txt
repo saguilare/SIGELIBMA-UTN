@@ -1,0 +1,31 @@
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/IMANA.SIGELIBMA.DAL.dll.config
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/IMANA.SIGELIBMA.DAL.dll
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/IMANA.SIGELIBMA.DAL.pdb
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.dll
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.SqlServer.dll
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.xml
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.SqlServer.xml
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.dll
+Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.pdb
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/IMANA.SIGELIBMA.DAL.dll.config
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/IMANA.SIGELIBMA.DAL.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/IMANA.SIGELIBMA.DAL.pdb
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.SqlServer.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.xml
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Debug/EntityFramework.SqlServer.xml
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.csproj.CoreCompileInputs.cache
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.dll.config
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.pdb

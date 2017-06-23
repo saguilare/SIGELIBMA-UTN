@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{53DE22B6-3CFD-4DDE-B1B6-271307D3E484}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SIGELIBMA/Views/MantRoles/Index.cshtml">
+    <Files>
+      <File FileName="SIGELIBMA/Views/MantRoles/Index.cshtml" Line="9" Column="1" />
+      <File FileName="SIGELIBMA/Views/Shared/_LayoutAdministrativo.cshtml" Line="7" Column="36" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.IMANA.SIGELIBMA.MVC PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

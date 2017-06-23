@@ -1,0 +1,130 @@
+﻿
+@{
+    //ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
+}
+
+<!--Loading info container-->
+@*<div class="row" ng-show="vm.spinner">
+    <div class="loading col-sm-12 ">
+        <img ng-src="./images/spinner.gif" width="100px" height="100px">
+        <p>Loading data...</p>
+    </div>
+</div>*@
+
+
+<div id="wrapper" class="" ng-hide="vm.spinner || vm.pageMalfunction">
+    <section class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs ">
+                <li role="presentation"><a href="#/home">{{vm.session.factory.name}}</a></li>
+                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/configuration">Configuration</a></li>
+                <li role="presentation" class="active" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/devices">Devices</a></li>
+                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/bna">BNA Criteria</a></li>
+                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/users">Users</a></li>
+                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/fabs">Fabs</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
+
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-bar border-cyan title-bar-blur">
+                        <span class="title-bar-title">Administracion</span>
+                        <span class="title-bar-subtitle">Roles</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <div class="row" style="padding-top:20px;">
+                <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
+                    <form name="addDevice" class="ng-pristine ng-valid" ng-submit="vm.addDevice(vm.device)">
+                        <div class="form-group has-feedback" ng-class="{'has-success ': addDevice.devname.$valid ,'has-error ': !addDevice.devname.$valid && vm.activateFieldValidations} ">
+                            <label for="">Device</label>
+                            <input name="devname" required type="text" ng-blur="vm.activateFieldValidations = true" class="form-control" ng-class="{'has-error':addDevice.devname.$invalid && addDevice.devname.$dirty}"
+                                   placeholder="Device Name" ng-model="vm.device.name">
+                            <span class="glyphicon  form-control-feedback" ng-class="{'glyphicon-ok' : addDevice.devname.$valid && addDevice.devname.$dirty , 'glyphicon-remove' : !addDevice.devname.$valid && vm.activateFieldValidations}"
+                                  aria-hidden="true"></span>
+                            <span class="sr-only">(success)</span>
+                        </div>
+                        <div class="form-group">
+                            <select required data-ng-options="o.name for o in vm.environments" data-ng-model="vm.device.environment" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Device</button>
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10 form-inline">
+                    <div class="form-group">
+                        <label for="search"><i class="glyphicon glyphicon-search"></i></label>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Search Table">
+
+                    </div>
+                    <div class="form-group pull-right">
+                        <label for="search">Items per page:</label>
+                        <input type="number" min="1" max="500" class="form-control" ng-model="vm.pageSize">
+                        <label>Page {{vm.currentPage}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10 ">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <!--<th class="text-center" style="color:#337ab7">Action</th>-->
+                                    <th></th>
+                                    <th>
+                                        <a ng-click="vm.sortType = 'environment.name'; vm.sortReverse = !vm.sortReverse">
+                                            Environment
+                                            <span ng-show="vm.sortType == 'environment.name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                            <span ng-show="vm.sortType == 'environment.name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                        </a>
+                                        <input type="text" class="form-control" ng-model="vm.tableFilter.env">
+                                    </th>
+                                    <th>
+                                        <a ng-click="vm.sortType = 'name'; vm.sortReverse = !vm.sortReverse">
+                                            Device
+                                            <span ng-show="vm.sortType == 'name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                            <span ng-show="vm.sortType == 'name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                        </a>
+                                        <input type="text" class="form-control" ng-model="vm.tableFilter.device">
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="device in vm.devices | filter:q | filter: { environment :{name: vm.tableFilter.env}} | filter:{ name: vm.tableFilter.device} | orderBy:vm.sortType:vm.sortReverse   | itemsPerPage: vm.pageSize " current-page="vm.currentPage">
+                                    <td>
+                                        <button class="btn btn-small btn-success" ng-click="vm.openMaintainanceModal(device)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
+                                        <button class="btn btn-small btn-danger" ng-click="vm.deleteDevice(device)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Remove</button>
+                                    </td>
+                                    <td>{{device.environment.name}}</td>
+                                    <td>{{device.name}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 other-controller">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+<!--custom directive-->
+@*<back-to-top />*@

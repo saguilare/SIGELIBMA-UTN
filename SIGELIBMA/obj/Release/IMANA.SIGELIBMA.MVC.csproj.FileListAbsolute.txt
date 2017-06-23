@@ -1,0 +1,2 @@
+/Users/stevenaguilar/Documents/SIGELIBMA/SIGELIBMA/obj/Release/IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
+/Users/stevenaguilar/Documents/SIGELIBMA/SIGELIBMA/obj/Release/IMANA.SIGELIBMA.MVC.csproj.CoreCompileInputs.cache

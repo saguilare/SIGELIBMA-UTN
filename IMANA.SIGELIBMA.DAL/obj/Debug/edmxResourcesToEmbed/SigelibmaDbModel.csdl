@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SIGELIBMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__Role_Id__1273C1CD" FromRole="Role" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Cedula" />
+    </Key>
+    <Property Name="Usuario1" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Clave" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Role_Id" Type="Int32" />
+    <Property Name="Cedula" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Segundo_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Usuario__Role_Id__1273C1CD" FromRole="Usuario" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK__Usuario__Role_Id__1273C1CD">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SIGELIBMAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Usuario__Role_Id__1273C1CD" Association="Self.FK__Usuario__Role_Id__1273C1CD">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

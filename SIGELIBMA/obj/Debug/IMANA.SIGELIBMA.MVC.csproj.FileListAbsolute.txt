@@ -1,0 +1,126 @@
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/ApplicationInsights.config
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/csc.exe
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/Microsoft.CodeAnalysis.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/Microsoft.CSharp.Core.targets
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/Microsoft.VisualBasic.Core.targets
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/System.Collections.Immutable.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/System.Reflection.Metadata.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/vbc.exe
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/VBCSCompiler.exe
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/roslyn/VBCSCompiler.exe.config
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/SIGELIBMA.dll.config
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/SIGELIBMA.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/SIGELIBMA.pdb
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Antlr3.Runtime.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.Agent.Intercept.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.DependencyCollector.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.PerfCounterCollector.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.ServerTelemetryChannel.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.Web.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.WindowsServer.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.ApplicationInsights.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.Web.Infrastructure.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Newtonsoft.Json.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Helpers.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Mvc.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Optimization.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Razor.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.WebPages.Deployment.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.WebPages.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.WebPages.Razor.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/WebGrease.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.DependencyCollector.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.ServerTelemetryChannel.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.Web.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.AI.WindowsServer.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.ApplicationInsights.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Helpers.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Mvc.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Optimization.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.Razor.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.WebPages.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.WebPages.Deployment.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/System.Web.WebPages.Razor.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Antlr3.Runtime.pdb
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/Newtonsoft.Json.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
+Z:/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/SIGELIBMA.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/SIGELIBMA.pdb
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/IMANA.SIGELIBMA.BLL.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/IMANA.SIGELIBMA.BLL.pdb
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/EntityFramework.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/EntityFramework.SqlServer.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/EntityFramework.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/EntityFramework.SqlServer.xml
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/IMANA.SIGELIBMA.DAL.dll
+Z:/Documents/SIGELIBMA/SIGELIBMA/bin/IMANA.SIGELIBMA.DAL.pdb
+/Users/stevenaguilar/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
+/Users/stevenaguilar/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/IMANA.SIGELIBMA.MVC.csproj.CoreCompileInputs.cache
+/Users/stevenaguilar/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/SIGELIBMA.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/SIGELIBMA/obj/Debug/SIGELIBMA.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\ApplicationInsights.config
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\csc.exe
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\Microsoft.CodeAnalysis.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\Microsoft.CSharp.Core.targets
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\Microsoft.VisualBasic.Core.targets
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\System.Collections.Immutable.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\System.Reflection.Metadata.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\vbc.exe
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\VBCSCompiler.exe
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\roslyn\VBCSCompiler.exe.config
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\SIGELIBMA.dll.config
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\SIGELIBMA.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\SIGELIBMA.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Antlr3.Runtime.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\EntityFramework.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\EntityFramework.SqlServer.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\IMANA.SIGELIBMA.BLL.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\IMANA.SIGELIBMA.DAL.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.Agent.Intercept.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.DependencyCollector.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.PerfCounterCollector.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.ServerTelemetryChannel.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.Web.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.WindowsServer.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.ApplicationInsights.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.Web.Infrastructure.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Newtonsoft.Json.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Helpers.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Mvc.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Optimization.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Razor.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.WebPages.Deployment.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.WebPages.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.WebPages.Razor.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\WebGrease.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\IMANA.SIGELIBMA.BLL.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\IMANA.SIGELIBMA.DAL.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\EntityFramework.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\EntityFramework.SqlServer.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.DependencyCollector.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.ServerTelemetryChannel.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.Web.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.AI.WindowsServer.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.ApplicationInsights.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Helpers.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Mvc.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Optimization.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.Razor.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.WebPages.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.WebPages.Deployment.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\System.Web.WebPages.Razor.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Antlr3.Runtime.pdb
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\bin\Newtonsoft.Json.xml
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\obj\Debug\IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\obj\Debug\SIGELIBMA.dll
+\\vmware-host\Shared Folders\Documents\SIGELIBMA\SIGELIBMA\obj\Debug\SIGELIBMA.pdb

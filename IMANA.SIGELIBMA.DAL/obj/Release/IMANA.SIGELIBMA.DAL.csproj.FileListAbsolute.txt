@@ -1,0 +1,10 @@
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/IMANA.SIGELIBMA.DAL.dll.config
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/IMANA.SIGELIBMA.DAL.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/IMANA.SIGELIBMA.DAL.pdb
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/EntityFramework.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/EntityFramework.SqlServer.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/EntityFramework.xml
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/bin/Release/EntityFramework.SqlServer.xml
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Release/IMANA.SIGELIBMA.DAL.csproj.CoreCompileInputs.cache
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Release/IMANA.SIGELIBMA.DAL.dll
+/Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Release/IMANA.SIGELIBMA.DAL.pdb
