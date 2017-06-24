@@ -63,6 +63,25 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
+        public bool Add(Role rolp)
+        {
+            try
+            {
+                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
+                // {
+                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //}
+                unitOfWork.Repository<Role>().Add(rolp);
+                unitOfWork.Save();
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
         public bool Delete(Role rolp)
         {
             try
@@ -72,6 +91,7 @@ namespace IMANA.SIGELIBMA.BLL.Services
                 //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
                 //}
                 unitOfWork.Repository<Role>().Delete(rolp);
+                unitOfWork.Save();
                 return true;
             }
             catch (Exception e)
@@ -91,6 +111,7 @@ namespace IMANA.SIGELIBMA.BLL.Services
                 //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
                 //}
                 unitOfWork.Repository<Role>().Update(rolp);
+                unitOfWork.Save();
                 return true;
             }
             catch (Exception e)

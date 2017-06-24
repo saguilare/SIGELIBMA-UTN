@@ -5,24 +5,24 @@
 }
 
 <!--Loading info container-->
-@*<div class="row" ng-show="vm.spinner">
+<div class="row" v-show="validations.showSpinner">
     <div class="loading col-sm-12 ">
-        <img ng-src="./images/spinner.gif" width="100px" height="100px">
-        <p>Loading data...</p>
+        <img src="~/Images/spinner.gif" width="100px" height="100px"/>
+        <p>{{validations.loadingMessage}}</p>
     </div>
-</div>*@
+</div>
 
 
-<div id="wrapper" class="" ng-hide="vm.spinner || vm.pageMalfunction">
+<div id="wrapper" v-show="!validations.showSpinner">
     <section class="row">
         <div class="col-sm-12">
             <ul class="nav nav-tabs ">
-                <li role="presentation"><a href="#/home">{{vm.session.factory.name}}</a></li>
-                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/configuration">Configuration</a></li>
-                <li role="presentation" class="active" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/devices">Devices</a></li>
-                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/bna">BNA Criteria</a></li>
-                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/users">Users</a></li>
-                <li role="presentation" ng-if="(vm.admin | lowercase) === 'admin'"><a href="#/fabs">Fabs</a></li>
+                <li role="presentation" class="active"><a href="#/home">Home</a></li>
+                <li role="presentation"> <a href="#/configuration">Configuration</a></li>
+                <li role="presentation"><a href="#/devices">Devices</a></li>
+                <li role="presentation"><a href="#/bna">BNA Criteria</a></li>
+                <li role="presentation"><a href="#/users">Users</a></li>
+                <li role="presentation"><a href="#/fabs">Fabs</a></li>
             </ul>
         </div>
     </section>
@@ -41,20 +41,17 @@
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <div class="row" style="padding-top:20px;">
                 <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
-                    <form name="addDevice" class="ng-pristine ng-valid" ng-submit="vm.addDevice(vm.device)">
-                        <div class="form-group has-feedback" ng-class="{'has-success ': addDevice.devname.$valid ,'has-error ': !addDevice.devname.$valid && vm.activateFieldValidations} ">
-                            <label for="">Device</label>
-                            <input name="devname" required type="text" ng-blur="vm.activateFieldValidations = true" class="form-control" ng-class="{'has-error':addDevice.devname.$invalid && addDevice.devname.$dirty}"
-                                   placeholder="Device Name" ng-model="vm.device.name">
-                            <span class="glyphicon  form-control-feedback" ng-class="{'glyphicon-ok' : addDevice.devname.$valid && addDevice.devname.$dirty , 'glyphicon-remove' : !addDevice.devname.$valid && vm.activateFieldValidations}"
+                    <form name="addDevice" class="" v-on:submit="addRol(rol)">
+                        <div class="form-group has-feedback" v-bind:class="{'has-success ': rol.Descripcion.$valid ,'has-error ': !rol.Descripcion.$valid && validations.activateFieldValidations} ">
+                            <label for="rol">Rol</label>
+                            <input name="rol" required type="text" v-on:blur="validations.activateFieldValidations = true" class="form-control" v-bind:class="{'has-error':rol.Descripcion.$invalid && rol.Descripcion.$dirty}"
+                                   placeholder="Descripcion" v-model="rol.Descripcion">
+                            <span class="glyphicon  form-control-feedback" v-bind:class="{'glyphicon-ok' : rol.Descripcion.$valid && rol.Descripcion.$dirty , 'glyphicon-remove' : !rol.Descripcion.$valid && validations.activateFieldValidations}"
                                   aria-hidden="true"></span>
                             <span class="sr-only">(success)</span>
                         </div>
                         <div class="form-group">
-                            <select required data-ng-options="o.name for o in vm.environments" data-ng-model="vm.device.environment" class="form-control"></select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Device</button>
+                            <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
                         </div>
                     </form>
                     <hr>
@@ -70,7 +67,7 @@
                     <div class="form-group pull-right">
                         <label for="search">Items per page:</label>
                         <input type="number" min="1" max="500" class="form-control" ng-model="vm.pageSize">
-                        <label>Page {{vm.currentPage}}</label>
+                        <label>Page @*{{currentPage}}*@</label>
                     </div>
                 </div>
             </div>
@@ -119,7 +116,7 @@
             <div class="row">
                 <div class="col-sm-12 other-controller">
                     <div class="text-center">
-                        <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+                        @*<dir-pagination-controls boundary-links="true"></dir-pagination-controls>*@
                     </div>
                 </div>
             </div>

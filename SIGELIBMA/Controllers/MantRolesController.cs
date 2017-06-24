@@ -85,5 +85,22 @@ namespace SIGELIBMA.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult Add(Role rolp)
+        {
+            try
+            {
+                bool result = false;
+                result = roleService.Add(rolp);
+                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+            }
+        }
+
     }
 }
