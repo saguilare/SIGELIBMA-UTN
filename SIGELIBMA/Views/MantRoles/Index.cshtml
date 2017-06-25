@@ -12,6 +12,13 @@
     </div>
 </div>
 
+<div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+    <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
+    <strong v-else>Info!</strong>
+    {{alert.message}}
+</div>
+
 
 <div id="wrapper" v-show="!validations.showSpinner">
     <section class="row">
@@ -78,10 +85,10 @@
                             <thead>
                                 <tr>
                                     <!--<th class="text-center" style="color:#337ab7">Action</th>-->
-                                    <th></th>
+                                    
                                     <th>
                                         <a ng-click="vm.sortType = 'environment.name'; vm.sortReverse = !vm.sortReverse">
-                                            Environment
+                                            Codigo
                                             <span ng-show="vm.sortType == 'environment.name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                                             <span ng-show="vm.sortType == 'environment.name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                                         </a>
@@ -89,24 +96,24 @@
                                     </th>
                                     <th>
                                         <a ng-click="vm.sortType = 'name'; vm.sortReverse = !vm.sortReverse">
-                                            Device
+                                            Descripcion
                                             <span ng-show="vm.sortType == 'name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                                             <span ng-show="vm.sortType == 'name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                                         </a>
                                         <input type="text" class="form-control" ng-model="vm.tableFilter.device">
                                     </th>
-
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="rol in roles">
-                                    <td>
-                                        <button class="btn btn-small btn-success" ng-click="vm.openMaintainanceModal(device)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
-                                        <button class="btn btn-small btn-danger" ng-click="vm.deleteDevice(device)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Remove</button>
-                                    </td>
+                                    
                                     <td>{{rol.Codigo}}</td>
                                     <td>{{rol.Descripcion}}</td>
-
+                                    <td>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(rol)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
+                                        <button class="btn btn-small btn-danger" v-on:click="deleteRol(rol)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -183,22 +183,22 @@ var vm = new Vue({
                 url: urlRoot + 'MantRoles/Add',
                 type: 'post',
                 dataType: 'json',
-                data: vm.rol,
+                data: rol,
                 success: function (result) {
-                    if (result.OperationStatus && result.Result) {
+                    if (result.OperationStatus) {
                         vm.getRoles();
-                        //todo call tostr
+                        vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
+                        
                     } else {
-                        //todo
-                    }
-                    vm.displaySpinner(false,'');
+                        vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    } 
+                    vm.displaySpinner(false);
                 },
                 error: function (error) {
-                    vm.displaySpinner(false,'');
+                    vm.displaySpinner(false);
+                    vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
             });
-
-
         },
 
         getRoles: function () {
@@ -272,22 +272,25 @@ var vm = new Vue({
         },
 
         deleteRol: function (rol) {
-            this.displaySpinner(true);
+            vm.displaySpinner(true, 'Desabilitando Rol');
             $.ajax({
-                url: urlRoot + 'MantRoles/GetAll',
-                type: 'get',
+                url: urlRoot + 'MantRoles/Delete',
+                type: 'post',
                 dataType: 'json',
-                async: true,
+                data: rol,
                 success: function (result) {
                     if (result.OperationStatus) {
-                        vm.roles = result.Roles;
+                        vm.getRoles();
+                        vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
+                        
                     } else {
-                        window.location.href = result.Url;
-                    }
-                    this.displaySpinner(false);
+                        vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    } 
+                    vm.displaySpinner(false);
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
+                    vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
             });
 
@@ -309,7 +312,8 @@ var vm = new Vue({
         },
 
         init: function () {
-            this.getRoles();
+            vm.getRoles();
+            vm.activateAlert('danger', '', false);
         }
 
     },
