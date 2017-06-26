@@ -30,7 +30,7 @@ namespace IMANA.SIGELIBMA.BLL.Services
                 // {
                 //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
                 //}
-                roles = unitOfWork.Repository<Rol>().GetAll().Where(x => x.Estado == 1).ToList();
+                roles = unitOfWork.Repository<Rol>().GetAll().ToList();
                 
                 return roles;
             }
