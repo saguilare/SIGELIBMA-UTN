@@ -97,7 +97,10 @@
                             <span class="glyphicon  form-control-feedback" v-bind:class="{'glyphicon-ok' : rol.Descripcion.$valid && rol.Descripcion.$dirty , 'glyphicon-remove' : !rol.Descripcion.$valid && validations.activateFieldValidations}"
                                   aria-hidden="true"></span>
                             <span class="sr-only">(success)</span>
-                            <select v-model="rol.Estado">
+                        </div>
+                        <div class="form-group">
+                            <label for="rol">Estado</label>
+                            <select v-model="rol.Estado" class="form-control">
                                 <option disabled value="">-- Seleccione una opcion --</option>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
@@ -157,7 +160,7 @@
                                     
                                     <td>{{rol.Codigo}}</td>
                                     <td>{{rol.Descripcion}}</td>
-                                    <td>{{rol.Estado=== 1 ? 'Activo' : 'Inactivo'}}</td>
+                                    <td>{{rol.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
                                     <td>
                                         <button class="btn btn-small btn-success" v-on:click="openEditModal(rol)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
                                         <button class="btn btn-small btn-danger" v-on:click="deleteRol(rol)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>

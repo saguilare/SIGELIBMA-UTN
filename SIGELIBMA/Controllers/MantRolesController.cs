@@ -25,7 +25,7 @@ namespace SIGELIBMA.Controllers
             try
             {
                 List<Rol> Roles = rolService.GetAll();
-                return Json(new { OperationStatus = true, Rols = Roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
+                return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
