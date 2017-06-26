@@ -15,6 +15,7 @@ var urlRoot = '';
 var data = {};
 data.rol = { Codigo: 0, Descripcion: '', Usuario : null };
 data.roles = [];
+data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null };
 data.alert = { type: 'success', message: 'alert', status: false };
 data.asideWiki = { show: false, title: '' };
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
@@ -202,7 +203,6 @@ var vm = new Vue({
         },
 
         getRoles: function () {
-            vm.displaySpinner(true, 'Cargando datos de la base de datos, por favor espere!');
                 $.ajax({
                     url: urlRoot + 'MantRoles/GetAll',
                     type: 'get',
@@ -212,7 +212,7 @@ var vm = new Vue({
                         if (result.OperationStatus) {
                             vm.roles = result.Roles;
                         } else {
-                            window.location.href = result.Url;
+                           // window.location.href = result.Url;
                         }
                         vm.displaySpinner(false,'');
                     },
@@ -248,26 +248,31 @@ var vm = new Vue({
         },
 
         updateRol: function (rol) {
-            this.displaySpinner(true);
+
+            $("#edit-modal").modal('hide' );
+            vm.displaySpinner(true, 'Editando Rol');
             $.ajax({
-                url: urlRoot + 'MantRoles/GetAll',
-                type: 'get',
+                url: urlRoot + 'MantRoles/Update',
+                type: 'post',
                 dataType: 'json',
-                async: true,
+                data: rol,
                 success: function (result) {
                     if (result.OperationStatus) {
-                        vm.roles = result.Roles;
+                        vm.getRoles();
+                        vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
+
                     } else {
-                        window.location.href = result.Url;
+                        vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                     }
-                    this.getRoles();
-                    this.displaySpinner(false);
+
+                    vm.displaySpinner(false);
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
+                    vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
+                
             });
-
 
         },
 
@@ -296,6 +301,11 @@ var vm = new Vue({
 
 
         },
+
+        openEditModal: function (rol) {
+            vm.modalObject = rol;
+            $("#edit-modal").modal({show:true});
+        },
      
         createWiki: function (title, html) {
             //clean before append new content
@@ -312,6 +322,7 @@ var vm = new Vue({
         },
 
         init: function () {
+            vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
             vm.getRoles();
             vm.activateAlert('danger', '', false);
         }

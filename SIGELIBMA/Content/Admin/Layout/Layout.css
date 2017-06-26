@@ -10,3 +10,9 @@
 #wrapper {
     padding: 0px 100px;
 }
+
+
+div.modal-header {
+     background-color: #005C5C;
+    border-color:#003333;
+}

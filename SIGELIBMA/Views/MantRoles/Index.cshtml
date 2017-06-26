@@ -4,6 +4,35 @@
     Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
 }
 
+<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form v-on:submit.prevent="updateRol(modalObject,event)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Editar Rol</h4>
+                </div>
+                <div class="modal-body">
+                  
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Codigo:</label>
+                            <input type="text" class="form-control" id="" v-model="modalObject.Codigo" required disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Descripcion:</label>
+                            <input class="form-control" id="" required v-model="modalObject.Descripcion">
+                        </div>
+                 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!--Loading info container-->
 <div class="row" v-show="validations.showSpinner">
     <div class="loading col-sm-12 ">
@@ -48,7 +77,7 @@
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <div class="row" style="padding-top:20px;">
                 <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
-                    <form name="addDevice" class="" v-on:submit="addRol(rol)">
+                    <form name="addDevice" class="" v-on:submit.prevent="addRol(rol)">
                         <div class="form-group has-feedback" v-bind:class="{'has-success ': rol.Descripcion.$valid ,'has-error ': !rol.Descripcion.$valid && validations.activateFieldValidations} ">
                             <label for="rol">Rol</label>
                             <input name="rol" required type="text" v-on:blur="validations.activateFieldValidations = true" class="form-control" v-bind:class="{'has-error':rol.Descripcion.$invalid && rol.Descripcion.$dirty}"
