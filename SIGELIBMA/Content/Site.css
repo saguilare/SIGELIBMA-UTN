@@ -54,43 +54,7 @@ nav.navbar-main .navbar-text{
   background-color: #004d4d;
 }
 
-/*-------------------------
-* MODAL
-*--------------------------
-*/
 
-/*div.modal-header{
-  background-color: #0071C5;
-  color: white;
-}
-
-div.modal-header h4, div.modal-header h3,div.modal-header h2{
-  color: white;
-}
-
-div.modal-Warning, {
-  background-color: #ED1C24;
-  color: whte;
-}
-
-div.modal-Warning h4, div.modal-Warning h3,div.modal-Warning h2{
-  color: white;
-}*/
-
-
-/*----------------------------
-* Loading window
-*-----------------------------
-*/
-
-.loading{
-    top: 50px;;
-    text-align: center;
-}
-
-div.loading img{
-    opacity: 0.5;
-}
 
 /* --------------------------
  * PAGE & SECTION TITLE BARS

@@ -12,7 +12,43 @@
 }
 
 
-div.modal-header {
-     background-color: #005C5C;
+
+
+/*-------------------------
+* MODAL
+*--------------------------
+*/
+
+div.modal-header{
+  background-color: #005C5C;
     border-color:#003333;
+  color: white;
+}
+
+div.modal-header h4, div.modal-header h3,div.modal-header h2{
+  color: white;
+}
+
+div.modal {
+  background-color: #005C5C;
+  color: whte;
+}
+
+div.modal h4, div.modal h3,div.modal h2{
+  color: white;
+}
+
+
+/*----------------------------
+* Loading window
+*-----------------------------
+*/
+
+.loading{
+    top: 50px;;
+    text-align: center;
+}
+
+div.loading img{
+    opacity: 0.5;
 }

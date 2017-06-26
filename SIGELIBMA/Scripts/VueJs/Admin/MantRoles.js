@@ -17,6 +17,7 @@ data.rol = { Codigo: 0, Descripcion: '', Usuario : null };
 data.roles = [];
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null };
 data.alert = { type: 'success', message: 'alert', status: false };
+data.alertModal = { type: 'success', message: 'alert', status: true };
 data.asideWiki = { show: false, title: '' };
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
 data.sortKey = 'deviceName';
@@ -174,6 +175,12 @@ var vm = new Vue({
             vm.alert.status = status;
         },
 
+        activateAlertModal: function (type, message, status) {
+            vm.alertModal.type = type;
+            vm.alertModal.message = message;
+            vm.alertModal.status = status;
+        },
+
         lowerCase: function (stringValue) {
             return stringValue.toLowerCase();
         },
@@ -262,14 +269,14 @@ var vm = new Vue({
                         vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
 
                     } else {
-                        vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.activateAlertModal('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                     }
 
                     vm.displaySpinner(false);
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
-                    vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    vm.activateAlertModal('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
                 
             });

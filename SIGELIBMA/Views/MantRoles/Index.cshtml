@@ -13,7 +13,12 @@
                     <h4 class="modal-title">Editar Rol</h4>
                 </div>
                 <div class="modal-body">
-                  
+                        <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">Codigo:</label>
                             <input type="text" class="form-control" id="" v-model="modalObject.Codigo" required disabled>
