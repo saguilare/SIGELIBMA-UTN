@@ -27,7 +27,14 @@
                             <label for="message-text" class="control-label">Descripcion:</label>
                             <input class="form-control" id="" required v-model="modalObject.Descripcion">
                         </div>
-                 
+                        <div class="form-group">
+                            <select v-model="modalObject.Estado"  class="control-label" >
+                                <option disabled value="">-- Seleccione una opcion --</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select> 
+                        </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -82,7 +89,7 @@
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <div class="row" style="padding-top:20px;">
                 <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
-                    <form name="addDevice" class="" v-on:submit.prevent="addRol(rol)">
+                    <form name="" class="" v-on:submit.prevent="addRol(rol)">
                         <div class="form-group has-feedback" v-bind:class="{'has-success ': rol.Descripcion.$valid ,'has-error ': !rol.Descripcion.$valid && validations.activateFieldValidations} ">
                             <label for="rol">Rol</label>
                             <input name="rol" required type="text" v-on:blur="validations.activateFieldValidations = true" class="form-control" v-bind:class="{'has-error':rol.Descripcion.$invalid && rol.Descripcion.$dirty}"
@@ -90,6 +97,11 @@
                             <span class="glyphicon  form-control-feedback" v-bind:class="{'glyphicon-ok' : rol.Descripcion.$valid && rol.Descripcion.$dirty , 'glyphicon-remove' : !rol.Descripcion.$valid && validations.activateFieldValidations}"
                                   aria-hidden="true"></span>
                             <span class="sr-only">(success)</span>
+                            <select v-model="rol.Estado">
+                                <option disabled value="">-- Seleccione una opcion --</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
@@ -136,6 +148,7 @@
                                         </a>
                                         <input type="text" class="form-control" ng-model="vm.tableFilter.device">
                                     </th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -144,6 +157,7 @@
                                     
                                     <td>{{rol.Codigo}}</td>
                                     <td>{{rol.Descripcion}}</td>
+                                    <td>{{rol.Estado=== 1 ? 'Activo' : 'Inactivo'}}</td>
                                     <td>
                                         <button class="btn btn-small btn-success" v-on:click="openEditModal(rol)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
                                         <button class="btn btn-small btn-danger" v-on:click="deleteRol(rol)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>

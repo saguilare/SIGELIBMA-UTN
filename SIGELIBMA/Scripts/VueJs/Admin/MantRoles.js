@@ -13,9 +13,9 @@ var urlRoot = '';
 
 
 var data = {};
-data.rol = { Codigo: 0, Descripcion: '', Usuario : null };
+data.rol = { Codigo: 0, Descripcion: '', Usuario : null, Estado:0 };
 data.roles = [];
-data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null };
+data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null ,Rol:0};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
 data.asideWiki = { show: false, title: '' };
