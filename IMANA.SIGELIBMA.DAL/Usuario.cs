@@ -23,7 +23,8 @@ namespace IMANA.SIGELIBMA.DAL
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
         public string Correo { get; set; }
+        public Nullable<int> Estado { get; set; }
     
-        public virtual Role Role { get; set; }
+        public virtual Rol Rol { get; set; }
     }
 }

@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SIGELIBMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Role">
+  <EntityType Name="Rol">
     <Key>
       <PropertyRef Name="Codigo" />
     </Key>
-    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__Role_Id__1273C1CD" FromRole="Role" ToRole="Usuario" />
+    <Property Name="Estado" Type="Int32" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__Role_Id__145C0A3F" FromRole="Rol" ToRole="Usuario" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
@@ -21,13 +22,14 @@
     <Property Name="Apellido1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Apellido2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Role" Relationship="Self.FK__Usuario__Role_Id__1273C1CD" FromRole="Usuario" ToRole="Role" />
+    <Property Name="Estado" Type="Int32" />
+    <NavigationProperty Name="Rol" Relationship="Self.FK__Usuario__Role_Id__145C0A3F" FromRole="Usuario" ToRole="Rol" />
   </EntityType>
-  <Association Name="FK__Usuario__Role_Id__1273C1CD">
-    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+  <Association Name="FK__Usuario__Role_Id__145C0A3F">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Role">
+      <Principal Role="Rol">
         <PropertyRef Name="Codigo" />
       </Principal>
       <Dependent Role="Usuario">
@@ -36,10 +38,10 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="SIGELIBMAEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-    <AssociationSet Name="FK__Usuario__Role_Id__1273C1CD" Association="Self.FK__Usuario__Role_Id__1273C1CD">
-      <End Role="Role" EntitySet="Role" />
+    <AssociationSet Name="FK__Usuario__Role_Id__145C0A3F" Association="Self.FK__Usuario__Role_Id__145C0A3F">
+      <End Role="Rol" EntitySet="Rol" />
       <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
   </EntityContainer>

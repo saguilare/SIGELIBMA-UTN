@@ -10,7 +10,7 @@ namespace SIGELIBMA.Controllers
 {
     public class MantRolesController : Controller
     {
-        private RolService roleService = new RolService();
+        private RolService rolService = new RolService();
 
 
         [HttpGet]
@@ -24,8 +24,8 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                List<Role> roles = roleService.GetAll();
-                return Json(new { OperationStatus = true, Roles = roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
+                List<Rol> Roles = rolService.GetAll();
+                return Json(new { OperationStatus = true, Rols = Roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -36,11 +36,11 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetById(Role rolp)
+        public JsonResult GetById(Rol rolp)
         {
             try
             {
-                Role rol = roleService.GetById(rolp);
+                Rol rol = rolService.GetById(rolp);
                 return Json(new { OperationStatus = true, Rol = rol, Message = "Operation OK" });
             }
             catch (Exception e)
@@ -52,12 +52,12 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(Role rolp)
+        public JsonResult Delete(Rol rolp)
         {
             try
             {
                 bool result = false;
-                result = roleService.Delete(rolp);
+                result = rolService.Delete(rolp);
                 return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
             }
             catch (Exception e)
@@ -69,12 +69,12 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Update(Role rolp)
+        public JsonResult Update(Rol rolp)
         {
             try
             {
                 bool result = false;
-                result = roleService.Update(rolp);
+                result = rolService.Update(rolp);
                 return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
             }
             catch (Exception e)
@@ -86,12 +86,12 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(Role rolp)
+        public JsonResult Add(Rol rolp)
         {
             try
             {
                 bool result = false;
-                result = roleService.Add(rolp);
+                result = rolService.Add(rolp);
                 return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
             }
             catch (Exception e)

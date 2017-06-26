@@ -25,7 +25,7 @@ namespace IMANA.SIGELIBMA.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

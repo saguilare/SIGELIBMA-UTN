@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SIGELIBMAModelStoreContainer" CdmEntityContainer="SIGELIBMAEntities">
-    <EntitySetMapping Name="Role">
-      <EntityTypeMapping TypeName="SIGELIBMAModel.Role">
-        <MappingFragment StoreEntitySet="Role">
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Rol">
+        <MappingFragment StoreEntitySet="Rol">
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -21,6 +22,7 @@
           <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
           <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
           <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

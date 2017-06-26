@@ -59,7 +59,7 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Repository\UnitOfWorkFactory.cs" />
-    <Compile Include="Role.cs">
+    <Compile Include="Rol.cs">
       <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SigelibmaDbModel.Context.cs">
@@ -93,6 +93,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="SigelibmaDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
@@ -103,9 +106,6 @@
       <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
       <LastGenOutput>SigelibmaDbModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

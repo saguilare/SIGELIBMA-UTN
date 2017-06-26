@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SIGELIBMAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Role">
+  <EntityType Name="Rol">
     <Key>
       <PropertyRef Name="Codigo" />
     </Key>
     <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Estado" Type="int" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
@@ -20,12 +21,13 @@
     <Property Name="Apellido1" Type="nvarchar" MaxLength="100" />
     <Property Name="Apellido2" Type="nvarchar" MaxLength="100" />
     <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Estado" Type="int" />
   </EntityType>
-  <Association Name="FK__Usuario__Role_Id__25869641">
-    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+  <Association Name="FK__Usuario__Role_Id__145C0A3F">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Role">
+      <Principal Role="Rol">
         <PropertyRef Name="Codigo" />
       </Principal>
       <Dependent Role="Usuario">
@@ -34,10 +36,10 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="SIGELIBMAModelStoreContainer">
-    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Usuario__Role_Id__25869641" Association="Self.FK__Usuario__Role_Id__25869641">
-      <End Role="Role" EntitySet="Role" />
+    <AssociationSet Name="FK__Usuario__Role_Id__145C0A3F" Association="Self.FK__Usuario__Role_Id__145C0A3F">
+      <End Role="Rol" EntitySet="Rol" />
       <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
   </EntityContainer>
