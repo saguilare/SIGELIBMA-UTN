@@ -156,16 +156,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MantRolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\Layout\Layout.css" />
+    <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -196,6 +199,7 @@
     <Content Include="Scripts\vue-strap\vue-strap.js" />
     <Content Include="Scripts\VueJsFramework\vue1.js" />
     <Content Include="Scripts\VueJsFramework\vue2.js" />
+    <Content Include="Scripts\VueJs\Admin\login.js" />
     <Content Include="Scripts\VueJs\Admin\MantRoles.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -213,9 +217,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdministrativo.cshtml" />
     <Content Include="Views\MantRoles\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Facturacion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

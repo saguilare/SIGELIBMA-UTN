@@ -5,11 +5,9 @@ using System.Web;
 
 namespace SIGELIBMA.Models
 {
-    public partial class RoleModel
+    public class UserLoginModel
     {
-
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
