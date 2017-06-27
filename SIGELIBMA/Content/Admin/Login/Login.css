@@ -80,13 +80,17 @@ input[type="button" i], input[type="submit" i], input[type="reset" i], input[typ
     margin: 10% auto ;
     border:1px solid #ccc;
 }
+.btn-login {
+    background-color:#003333;
+    color:white;
+}
 
 hr {
-    border-color: #00AEEF;
+    border-color: #003333;
 }
 
 label {
-    color: #003C71;
+    color: #003333;
 }
 
 hr {
@@ -146,3 +150,52 @@ body form div p{
     border-top-right-radius: 0;
     margin-bottom: 10px;
 }
+
+/*override color in tool nav bar*/
+nav.navbar-main{
+    background-color: #005C5C;
+    border-color:#003333;
+    border-radius: 0;
+}
+
+nav.navbar-main .navbar-brand{
+    color: white;
+}
+
+nav.navbar-main .navbar-brand:hover{
+    color: white;
+}
+
+nav.navbar-main .navbar-text{
+    color: white;
+}
+
+.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color:white;
+}
+
+.navbar-main .navbar-nav>.active>p, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color:white;
+}
+
+.navbar-default .navbar-nav>.active>a:hover{
+    background-color: #004d4d;
+}
+
+.navbar-main .navbar-header img{
+    padding: 10px 15px;
+}
+
+.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
+    background-color: #005C5C;
+}
+
+ .navbar-main .navbar-nav>.active>a:hover{
+    background-color: #004d4d;
+ 
+}
+
+#nameandjobtitlebar>a:hover{
+  background-color: #004d4d;
+}
+

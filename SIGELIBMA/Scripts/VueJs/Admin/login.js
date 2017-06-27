@@ -11,11 +11,7 @@ var urlRoot = '';
 //Dev
 //var urlRoot = '';
 
-//bootstrap modal opptions
 
-
-//var options = { backdrop: false, keyboard: false, show: false };
-//$('#modal').modal(options);
 var indexFound = 0;
 var comeBackToSecction3 = false;
 var enableDevice = {};
@@ -29,7 +25,7 @@ enableDevice.asideWiki = { show: false, title: '' };
 
 
 var vm = new Vue({
-    el: '#pageMainContainer',
+    el: '#LoginContainer',
     data: enableDevice,
     components: {
         //typeahead: customAutocomplete,
@@ -38,7 +34,7 @@ var vm = new Vue({
         //bug in vue-strap
         //using bootstrap modal instead
         //modal: VueStrap.modal,
-        vueStrapAside: VueStrap.aside,
+        //vueStrapAside: VueStrap.aside,
         //popover: VueStrap.popover,
 
     },

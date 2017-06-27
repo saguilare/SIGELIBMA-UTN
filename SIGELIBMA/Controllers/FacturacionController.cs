@@ -5,29 +5,35 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SIGELIBMA.Controllers
+namespace IMANA.SIGELIBMA.MVC.Controllers
 {
     public class FacturacionController : Controller
     {
-        // GET: Facturacion
         public ActionResult Index()
         {
             if (System.Web.HttpContext.Current.Session["session"] != null)
             {
                 SystemSession session = System.Web.HttpContext.Current.Session["session"] as SystemSession;
-                if (session.Status == true)
+                if (session.Status)
                 {
                     return View();
                 }
-
             }
-     
-             return RedirectToAction("Login", "Login");
-            
-           
+            return RedirectToAction("Login", "Login");
         }
 
-        
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
 
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
