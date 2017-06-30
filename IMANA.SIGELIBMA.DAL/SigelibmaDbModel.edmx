@@ -4,8 +4,30 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SIGELIBMAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Rol">
+    <Schema Namespace="SIGELIBMAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cajero" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HoraApertura" Type="datetime" Nullable="false" />
+          <Property Name="HoraCierre" Type="datetime" />
+          <Property Name="MontoApertura" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MontoCierre" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
@@ -13,122 +35,1274 @@
           <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
           <Property Name="Estado" Type="int" />
         </EntityType>
+        <EntityType Name="Descuento">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="FechaFinalizacion" Type="datetime" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="DetalleFactura">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Factura" Type="int" Nullable="false" />
+          <Property Name="Articulo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadoCaja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="EstadoFactura">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="Numero" />
+          </Key>
+          <Property Name="Numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cliente" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Caja" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="FechaCancelacion" Type="datetime" />
+          <Property Name="ImpuestoVenta" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Subtotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Pendiente" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="300" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Categoria" Type="int" Nullable="false" />
+          <Property Name="Autor" Type="int" Nullable="false" />
+          <Property Name="Proveedor" Type="int" Nullable="false" />
+          <Property Name="PrecioCompra" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PrecioCompra" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="MovimientoCaja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Caja" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Recibo">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Factura" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Abono" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SaldoAnterior" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SaldoActual" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Sesion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Inicio" Type="datetime" Nullable="false" />
+          <Property Name="Finalizacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TipoMovimientoCaja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoTransaccion">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Transacion">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Sesion" Type="int" Nullable="false" />
+          <Property Name="Tabla" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="TuplaNueva" Type="nvarchar" MaxLength="1500" Nullable="false" />
+          <Property Name="TuplaAnterior" Type="nvarchar" MaxLength="1500" Nullable="false" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsarioRoles">
+          <Key>
+            <PropertyRef Name="Usuario" />
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Rol" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Cedula" />
           </Key>
-          <Property Name="Usuario" Type="nvarchar" MaxLength="25" />
-          <Property Name="Clave" Type="nvarchar" MaxLength="25" />
-          <Property Name="Role_Id" Type="int" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Cedula" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Segundo_Nombre" Type="nvarchar" MaxLength="50" />
-          <Property Name="Apellido1" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellido1" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Apellido2" Type="nvarchar" MaxLength="100" />
           <Property Name="Correo" Type="nvarchar" MaxLength="100" />
           <Property Name="Estado" Type="int" />
         </EntityType>
-        <Association Name="FK__Usuario__Role_Id__145C0A3F">
-          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+        <Association Name="FK__Caja__Cajero__3C69FB99">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="Cajero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Caja__Estado__3D5E1FD2">
+          <End Role="EstadoCaja" Type="Self.EstadoCaja" Multiplicity="1" />
+          <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoCaja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleFa__Artic__4CA06362">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleFa__Factu__4BAC3F29">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__Caja__48CFD27E">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="Caja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__Cliente__46E78A0C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__Estado__47DBAE45">
+          <End Role="EstadoFactura" Type="Self.EstadoFactura" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoFactura">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__Autor__2D27B809">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="Autor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__Categoria__2C3393D0">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__Proveedor__2E1BDC42">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="Proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimiento__Caja__4316F928">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
+          <End Role="MovimientoCaja" Type="Self.MovimientoCaja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="MovimientoCaja">
+              <PropertyRef Name="Caja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimiento__Tipo__440B1D61">
+          <End Role="TipoMovimientoCaja" Type="Self.TipoMovimientoCaja" Multiplicity="1" />
+          <End Role="MovimientoCaja" Type="Self.MovimientoCaja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovimientoCaja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="MovimientoCaja">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recibo__Factura__4F7CD00D">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="Recibo">
+              <PropertyRef Name="Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sesion__Usuario__1A14E395">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Sesion" Type="Self.Sesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Sesion">
+              <PropertyRef Name="Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacio__Sesio__1FCDBCEB">
+          <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
+          <End Role="Transacion" Type="Self.Transacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sesion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transacion">
+              <PropertyRef Name="Sesion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacion__Tipo__20C1E124">
+          <End Role="TipoTransaccion" Type="Self.TipoTransaccion" Multiplicity="1" />
+          <End Role="Transacion" Type="Self.Transacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTransaccion">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Transacion">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsarioRol__Usuar__164452B1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsarioRoles" Type="Self.UsarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="UsarioRoles">
+              <PropertyRef Name="Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsarioRoles__Rol__173876EA">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="UsarioRoles" Type="Self.UsarioRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rol">
               <PropertyRef Name="Codigo" />
             </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="Role_Id" />
+            <Dependent Role="UsarioRoles">
+              <PropertyRef Name="Rol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SIGELIBMAModelStoreContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Descuento" EntityType="Self.Descuento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleFactura" EntityType="Self.DetalleFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoCaja" EntityType="Self.EstadoCaja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoFactura" EntityType="Self.EstadoFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovimientoCaja" EntityType="Self.MovimientoCaja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transacion" EntityType="Self.Transacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsarioRoles" EntityType="Self.UsarioRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Usuario__Role_Id__145C0A3F" Association="Self.FK__Usuario__Role_Id__145C0A3F">
-            <End Role="Rol" EntitySet="Rol" />
+          <AssociationSet Name="FK__Caja__Cajero__3C69FB99" Association="Self.FK__Caja__Cajero__3C69FB99">
             <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Caja__Estado__3D5E1FD2" Association="Self.FK__Caja__Estado__3D5E1FD2">
+            <End Role="EstadoCaja" EntitySet="EstadoCaja" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleFa__Artic__4CA06362" Association="Self.FK__DetalleFa__Artic__4CA06362">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleFa__Factu__4BAC3F29" Association="Self.FK__DetalleFa__Factu__4BAC3F29">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__Caja__48CFD27E" Association="Self.FK__Factura__Caja__48CFD27E">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__Cliente__46E78A0C" Association="Self.FK__Factura__Cliente__46E78A0C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__Estado__47DBAE45" Association="Self.FK__Factura__Estado__47DBAE45">
+            <End Role="EstadoFactura" EntitySet="EstadoFactura" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__Autor__2D27B809" Association="Self.FK__Libro__Autor__2D27B809">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__Categoria__2C3393D0" Association="Self.FK__Libro__Categoria__2C3393D0">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__Proveedor__2E1BDC42" Association="Self.FK__Libro__Proveedor__2E1BDC42">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimiento__Caja__4316F928" Association="Self.FK__Movimiento__Caja__4316F928">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimiento__Tipo__440B1D61" Association="Self.FK__Movimiento__Tipo__440B1D61">
+            <End Role="TipoMovimientoCaja" EntitySet="TipoMovimientoCaja" />
+            <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recibo__Factura__4F7CD00D" Association="Self.FK__Recibo__Factura__4F7CD00D">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Recibo" EntitySet="Recibo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sesion__Usuario__1A14E395" Association="Self.FK__Sesion__Usuario__1A14E395">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Sesion" EntitySet="Sesion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacio__Sesio__1FCDBCEB" Association="Self.FK__Transacio__Sesio__1FCDBCEB">
+            <End Role="Sesion" EntitySet="Sesion" />
+            <End Role="Transacion" EntitySet="Transacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacion__Tipo__20C1E124" Association="Self.FK__Transacion__Tipo__20C1E124">
+            <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
+            <End Role="Transacion" EntitySet="Transacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsarioRol__Usuar__164452B1" Association="Self.FK__UsarioRol__Usuar__164452B1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsarioRoles" EntitySet="UsarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsarioRoles__Rol__173876EA" Association="Self.FK__UsarioRoles__Rol__173876EA">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="UsarioRoles" EntitySet="UsarioRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SIGELIBMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Rol">
+        <EntityContainer Name="SIGELIBMAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autor" EntityType="SIGELIBMAModel.Autor" />
+          <EntitySet Name="Caja" EntityType="SIGELIBMAModel.Caja" />
+          <EntitySet Name="Categoria" EntityType="SIGELIBMAModel.Categoria" />
+          <EntitySet Name="Descuento" EntityType="SIGELIBMAModel.Descuento" />
+          <EntitySet Name="DetalleFactura" EntityType="SIGELIBMAModel.DetalleFactura" />
+          <EntitySet Name="EstadoCaja" EntityType="SIGELIBMAModel.EstadoCaja" />
+          <EntitySet Name="EstadoFactura" EntityType="SIGELIBMAModel.EstadoFactura" />
+          <EntitySet Name="Factura" EntityType="SIGELIBMAModel.Factura" />
+          <EntitySet Name="Libro" EntityType="SIGELIBMAModel.Libro" />
+          <EntitySet Name="Moneda" EntityType="SIGELIBMAModel.Moneda" />
+          <EntitySet Name="MovimientoCaja" EntityType="SIGELIBMAModel.MovimientoCaja" />
+          <EntitySet Name="Proveedor" EntityType="SIGELIBMAModel.Proveedor" />
+          <EntitySet Name="Recibo" EntityType="SIGELIBMAModel.Recibo" />
+          <EntitySet Name="Sesion" EntityType="SIGELIBMAModel.Sesion" />
+          <EntitySet Name="sysdiagrams" EntityType="SIGELIBMAModel.sysdiagrams" />
+          <EntitySet Name="TipoMovimientoCaja" EntityType="SIGELIBMAModel.TipoMovimientoCaja" />
+          <EntitySet Name="TipoTransaccion" EntityType="SIGELIBMAModel.TipoTransaccion" />
+          <EntitySet Name="Transacion" EntityType="SIGELIBMAModel.Transacion" />
+          <AssociationSet Name="FK__Libro__Autor__2D27B809" Association="SIGELIBMAModel.FK__Libro__Autor__2D27B809">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Caja__Estado__3D5E1FD2" Association="SIGELIBMAModel.FK__Caja__Estado__3D5E1FD2">
+            <End Role="EstadoCaja" EntitySet="EstadoCaja" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__Caja__48CFD27E" Association="SIGELIBMAModel.FK__Factura__Caja__48CFD27E">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimiento__Caja__4316F928" Association="SIGELIBMAModel.FK__Movimiento__Caja__4316F928">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__Categoria__2C3393D0" Association="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleFa__Artic__4CA06362" Association="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleFa__Factu__4BAC3F29" Association="SIGELIBMAModel.FK__DetalleFa__Factu__4BAC3F29">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__Estado__47DBAE45" Association="SIGELIBMAModel.FK__Factura__Estado__47DBAE45">
+            <End Role="EstadoFactura" EntitySet="EstadoFactura" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recibo__Factura__4F7CD00D" Association="SIGELIBMAModel.FK__Recibo__Factura__4F7CD00D">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Recibo" EntitySet="Recibo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__Proveedor__2E1BDC42" Association="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimiento__Tipo__440B1D61" Association="SIGELIBMAModel.FK__Movimiento__Tipo__440B1D61">
+            <End Role="TipoMovimientoCaja" EntitySet="TipoMovimientoCaja" />
+            <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacio__Sesio__1FCDBCEB" Association="SIGELIBMAModel.FK__Transacio__Sesio__1FCDBCEB">
+            <End Role="Sesion" EntitySet="Sesion" />
+            <End Role="Transacion" EntitySet="Transacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacion__Tipo__20C1E124" Association="SIGELIBMAModel.FK__Transacion__Tipo__20C1E124">
+            <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
+            <End Role="Transacion" EntitySet="Transacion" />
+          </AssociationSet>
+          <EntitySet Name="Rol" EntityType="SIGELIBMAModel.Rol" />
+          <EntitySet Name="Usuario" EntityType="SIGELIBMAModel.Usuario" />
+          <AssociationSet Name="FK__Caja__Cajero__3C69FB99" Association="SIGELIBMAModel.FK__Caja__Cajero__3C69FB99">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__Cliente__46E78A0C" Association="SIGELIBMAModel.FK__Factura__Cliente__46E78A0C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sesion__Usuario__1A14E395" Association="SIGELIBMAModel.FK__Sesion__Usuario__1A14E395">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Sesion" EntitySet="Sesion" />
+          </AssociationSet>
+          <AssociationSet Name="UsarioRoles" Association="SIGELIBMAModel.UsarioRoles">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Libro" Relationship="SIGELIBMAModel.FK__Libro__Autor__2D27B809" FromRole="Autor" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cajero" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HoraApertura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HoraCierre" Type="DateTime" Precision="3" />
+          <Property Name="MontoApertura" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="MontoCierre" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EstadoCaja" Relationship="SIGELIBMAModel.FK__Caja__Estado__3D5E1FD2" FromRole="Caja" ToRole="EstadoCaja" />
+          <NavigationProperty Name="Factura" Relationship="SIGELIBMAModel.FK__Factura__Caja__48CFD27E" FromRole="Caja" ToRole="Factura" />
+          <NavigationProperty Name="MovimientoCaja" Relationship="SIGELIBMAModel.FK__Movimiento__Caja__4316F928" FromRole="Caja" ToRole="MovimientoCaja" />
+          <NavigationProperty Name="Usuario" Relationship="SIGELIBMAModel.FK__Caja__Cajero__3C69FB99" FromRole="Caja" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__Role_Id__145C0A3F" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="Libro" Relationship="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0" FromRole="Categoria" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Descuento">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFinalizacion" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DetalleFactura">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Factura" Type="Int32" Nullable="false" />
+          <Property Name="Articulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Libro" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="DetalleFactura" ToRole="Libro" />
+          <NavigationProperty Name="Factura1" Relationship="SIGELIBMAModel.FK__DetalleFa__Factu__4BAC3F29" FromRole="DetalleFactura" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="EstadoCaja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Caja" Relationship="SIGELIBMAModel.FK__Caja__Estado__3D5E1FD2" FromRole="EstadoCaja" ToRole="Caja" />
+        </EntityType>
+        <EntityType Name="EstadoFactura">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Factura" Relationship="SIGELIBMAModel.FK__Factura__Estado__47DBAE45" FromRole="EstadoFactura" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="Numero" />
+          </Key>
+          <Property Name="Numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Caja" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaCancelacion" Type="DateTime" Precision="3" />
+          <Property Name="ImpuestoVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Subtotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Pendiente" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Caja1" Relationship="SIGELIBMAModel.FK__Factura__Caja__48CFD27E" FromRole="Factura" ToRole="Caja" />
+          <NavigationProperty Name="DetalleFactura" Relationship="SIGELIBMAModel.FK__DetalleFa__Factu__4BAC3F29" FromRole="Factura" ToRole="DetalleFactura" />
+          <NavigationProperty Name="EstadoFactura" Relationship="SIGELIBMAModel.FK__Factura__Estado__47DBAE45" FromRole="Factura" ToRole="EstadoFactura" />
+          <NavigationProperty Name="Recibo" Relationship="SIGELIBMAModel.FK__Recibo__Factura__4F7CD00D" FromRole="Factura" ToRole="Recibo" />
+          <NavigationProperty Name="Usuario" Relationship="SIGELIBMAModel.FK__Factura__Cliente__46E78A0C" FromRole="Factura" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Autor" Type="Int32" Nullable="false" />
+          <Property Name="Proveedor" Type="Int32" Nullable="false" />
+          <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autor1" Relationship="SIGELIBMAModel.FK__Libro__Autor__2D27B809" FromRole="Libro" ToRole="Autor" />
+          <NavigationProperty Name="Categoria1" Relationship="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0" FromRole="Libro" ToRole="Categoria" />
+          <NavigationProperty Name="DetalleFactura" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="Libro" ToRole="DetalleFactura" />
+          <NavigationProperty Name="Proveedor1" Relationship="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42" FromRole="Libro" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MovimientoCaja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Caja" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Caja1" Relationship="SIGELIBMAModel.FK__Movimiento__Caja__4316F928" FromRole="MovimientoCaja" ToRole="Caja" />
+          <NavigationProperty Name="TipoMovimientoCaja" Relationship="SIGELIBMAModel.FK__Movimiento__Tipo__440B1D61" FromRole="MovimientoCaja" ToRole="TipoMovimientoCaja" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Libro" Relationship="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42" FromRole="Proveedor" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Recibo">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Factura" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Abono" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SaldoAnterior" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SaldoActual" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Factura1" Relationship="SIGELIBMAModel.FK__Recibo__Factura__4F7CD00D" FromRole="Recibo" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Sesion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Finalizacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Transacion" Relationship="SIGELIBMAModel.FK__Transacio__Sesio__1FCDBCEB" FromRole="Sesion" ToRole="Transacion" />
+          <NavigationProperty Name="Usuario1" Relationship="SIGELIBMAModel.FK__Sesion__Usuario__1A14E395" FromRole="Sesion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TipoMovimientoCaja">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="MovimientoCaja" Relationship="SIGELIBMAModel.FK__Movimiento__Tipo__440B1D61" FromRole="TipoMovimientoCaja" ToRole="MovimientoCaja" />
+        </EntityType>
+        <EntityType Name="TipoTransaccion">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Transacion" Relationship="SIGELIBMAModel.FK__Transacion__Tipo__20C1E124" FromRole="TipoTransaccion" ToRole="Transacion" />
+        </EntityType>
+        <EntityType Name="Transacion">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Sesion" Type="Int32" Nullable="false" />
+          <Property Name="Tabla" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TuplaNueva" Type="String" Nullable="false" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="TuplaAnterior" Type="String" Nullable="false" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sesion1" Relationship="SIGELIBMAModel.FK__Transacio__Sesio__1FCDBCEB" FromRole="Transacion" ToRole="Sesion" />
+          <NavigationProperty Name="TipoTransaccion" Relationship="SIGELIBMAModel.FK__Transacion__Tipo__20C1E124" FromRole="Transacion" ToRole="TipoTransaccion" />
+        </EntityType>
+        <Association Name="FK__Libro__Autor__2D27B809">
+          <End Type="SIGELIBMAModel.Autor" Role="Autor" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="Autor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Caja__Estado__3D5E1FD2">
+          <End Type="SIGELIBMAModel.EstadoCaja" Role="EstadoCaja" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Caja" Role="Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoCaja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__Caja__48CFD27E">
+          <End Type="SIGELIBMAModel.Caja" Role="Caja" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="Caja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimiento__Caja__4316F928">
+          <End Type="SIGELIBMAModel.Caja" Role="Caja" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.MovimientoCaja" Role="MovimientoCaja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="MovimientoCaja">
+              <PropertyRef Name="Caja" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__Categoria__2C3393D0">
+          <End Type="SIGELIBMAModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleFa__Artic__4CA06362">
+          <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleFa__Factu__4BAC3F29">
+          <End Type="SIGELIBMAModel.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__Estado__47DBAE45">
+          <End Type="SIGELIBMAModel.EstadoFactura" Role="EstadoFactura" Multiplicity="0..1" />
+          <End Type="SIGELIBMAModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoFactura">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recibo__Factura__4F7CD00D">
+          <End Type="SIGELIBMAModel.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Recibo" Role="Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="Recibo">
+              <PropertyRef Name="Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__Proveedor__2E1BDC42">
+          <End Type="SIGELIBMAModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="Proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimiento__Tipo__440B1D61">
+          <End Type="SIGELIBMAModel.TipoMovimientoCaja" Role="TipoMovimientoCaja" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.MovimientoCaja" Role="MovimientoCaja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovimientoCaja">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="MovimientoCaja">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacio__Sesio__1FCDBCEB">
+          <End Type="SIGELIBMAModel.Sesion" Role="Sesion" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Transacion" Role="Transacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sesion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transacion">
+              <PropertyRef Name="Sesion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacion__Tipo__20C1E124">
+          <End Type="SIGELIBMAModel.TipoTransaccion" Role="TipoTransaccion" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Transacion" Role="Transacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTransaccion">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Transacion">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="SIGELIBMAModel.UsarioRoles" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Cedula" />
           </Key>
-          <Property Name="Usuario1" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Clave" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Role_Id" Type="Int32" />
-          <Property Name="Cedula" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario1" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Cedula" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Segundo_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Apellido1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Apellido2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Rol" Relationship="Self.FK__Usuario__Role_Id__145C0A3F" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Caja" Relationship="SIGELIBMAModel.FK__Caja__Cajero__3C69FB99" FromRole="Usuario" ToRole="Caja" />
+          <NavigationProperty Name="Factura" Relationship="SIGELIBMAModel.FK__Factura__Cliente__46E78A0C" FromRole="Usuario" ToRole="Factura" />
+          <NavigationProperty Name="Sesion" Relationship="SIGELIBMAModel.FK__Sesion__Usuario__1A14E395" FromRole="Usuario" ToRole="Sesion" />
+          <NavigationProperty Name="Rol" Relationship="SIGELIBMAModel.UsarioRoles" FromRole="Usuario" ToRole="Rol" />
         </EntityType>
-        <Association Name="FK__Usuario__Role_Id__145C0A3F">
-          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+        <Association Name="FK__Caja__Cajero__3C69FB99">
+          <End Type="SIGELIBMAModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Caja" Role="Caja" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Rol">
-              <PropertyRef Name="Codigo" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
             </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="Role_Id" />
+            <Dependent Role="Caja">
+              <PropertyRef Name="Cajero" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SIGELIBMAEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Rol" EntityType="Self.Rol" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK__Usuario__Role_Id__145C0A3F" Association="Self.FK__Usuario__Role_Id__145C0A3F">
-            <End Role="Rol" EntitySet="Rol" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK__Factura__Cliente__46E78A0C">
+          <End Type="SIGELIBMAModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sesion__Usuario__1A14E395">
+          <End Type="SIGELIBMAModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SIGELIBMAModel.Sesion" Role="Sesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Sesion">
+              <PropertyRef Name="Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsarioRoles">
+          <End Type="SIGELIBMAModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <End Type="SIGELIBMAModel.Rol" Role="Rol" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SIGELIBMAModelStoreContainer" CdmEntityContainer="SIGELIBMAEntities">
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caja">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Caja">
+              <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="MontoCierre" ColumnName="MontoCierre" />
+                <ScalarProperty Name="MontoApertura" ColumnName="MontoApertura" />
+                <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
+                <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
+                <ScalarProperty Name="Cajero" ColumnName="Cajero" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descuento">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Descuento">
+              <MappingFragment StoreEntitySet="Descuento">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleFactura">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.DetalleFactura">
+              <MappingFragment StoreEntitySet="DetalleFactura">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+                <ScalarProperty Name="Factura" ColumnName="Factura" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoCaja">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.EstadoCaja">
+              <MappingFragment StoreEntitySet="EstadoCaja">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoFactura">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.EstadoFactura">
+              <MappingFragment StoreEntitySet="EstadoFactura">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="ImpuestoVenta" ColumnName="ImpuestoVenta" />
+                <ScalarProperty Name="FechaCancelacion" ColumnName="FechaCancelacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Caja" ColumnName="Caja" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libro">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Libro">
+              <MappingFragment StoreEntitySet="Libro">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="PrecioCompra" ColumnName="PrecioCompra" />
+                <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Moneda">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Moneda">
+              <MappingFragment StoreEntitySet="Moneda">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="PrecioCompra" ColumnName="PrecioCompra" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovimientoCaja">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.MovimientoCaja">
+              <MappingFragment StoreEntitySet="MovimientoCaja">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Caja" ColumnName="Caja" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recibo">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Recibo">
+              <MappingFragment StoreEntitySet="Recibo">
+                <ScalarProperty Name="SaldoActual" ColumnName="SaldoActual" />
+                <ScalarProperty Name="SaldoAnterior" ColumnName="SaldoAnterior" />
+                <ScalarProperty Name="Abono" ColumnName="Abono" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Factura" ColumnName="Factura" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sesion">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Sesion">
+              <MappingFragment StoreEntitySet="Sesion">
+                <ScalarProperty Name="Finalizacion" ColumnName="Finalizacion" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoMovimientoCaja">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.TipoMovimientoCaja">
+              <MappingFragment StoreEntitySet="TipoMovimientoCaja">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoTransaccion">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.TipoTransaccion">
+              <MappingFragment StoreEntitySet="TipoTransaccion">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transacion">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.Transacion">
+              <MappingFragment StoreEntitySet="Transacion">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="TuplaAnterior" ColumnName="TuplaAnterior" />
+                <ScalarProperty Name="TuplaNueva" ColumnName="TuplaNueva" />
+                <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+                <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Rol">
             <EntityTypeMapping TypeName="SIGELIBMAModel.Rol">
               <MappingFragment StoreEntitySet="Rol">
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="SIGELIBMAModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
-                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Segundo_Nombre" ColumnName="Segundo_Nombre" />
-                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
-                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+                <ScalarProperty Name="Segundo_Nombre" ColumnName="Segundo_Nombre" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="UsarioRoles" TypeName="SIGELIBMAModel.UsarioRoles" StoreEntitySet="UsarioRoles">
+            <EndProperty Name="Rol">
+              <ScalarProperty Name="Codigo" ColumnName="Rol" />
+            </EndProperty>
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="Cedula" ColumnName="Usuario" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

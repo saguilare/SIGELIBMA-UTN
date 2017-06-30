@@ -51,8 +51,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autor.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Caja.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categoria.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Descuento.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleFactura.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DTOs\SystemSession.cs" />
+    <Compile Include="EstadoCaja.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EstadoFactura.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factura.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Libro.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Moneda.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovimientoCaja.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Recibo.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\Extensions\QueryExtension.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
@@ -61,6 +100,9 @@
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Repository\UnitOfWorkFactory.cs" />
     <Compile Include="Rol.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sesion.cs">
       <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SigelibmaDbModel.Context.cs">
@@ -77,6 +119,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoMovimientoCaja.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoTransaccion.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transacion.cs">
+      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs">
       <DependentUpon>SigelibmaDbModel.tt</DependentUpon>

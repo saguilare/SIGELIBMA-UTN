@@ -5,9 +5,43 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="30f55c07458f4c1991258e15b709358d" Name="Diagram1">
-        <EntityTypeShape EntityType="SIGELIBMAModel.Rol" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Usuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Usuario__Role_Id__145C0A3F" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Autor" Width="1.5" PointX="8" PointY="10.875" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Caja" Width="1.5" PointX="8" PointY="3.75" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Categoria" Width="1.5" PointX="8" PointY="8.25" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Descuento" Width="1.5" PointX="0.75" PointY="13.375" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.DetalleFactura" Width="1.5" PointX="12.5" PointY="0.75" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.EstadoCaja" Width="1.5" PointX="5.75" PointY="6.375" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.EstadoFactura" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Factura" Width="1.5" PointX="10.25" PointY="2.875" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Libro" Width="1.5" PointX="10.25" PointY="10.125" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Moneda" Width="1.5" PointX="2.75" PointY="13.375" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.MovimientoCaja" Width="1.5" PointX="13.25" PointY="4.125" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Proveedor" Width="1.5" PointX="8" PointY="13.625" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Recibo" Width="1.5" PointX="12.5" PointY="7.5" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Sesion" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="13.375" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.TipoMovimientoCaja" Width="1.5" PointX="11" PointY="15.5" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.TipoTransaccion" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Transacion" Width="1.5" PointX="3" PointY="9.625" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Autor__2D27B809" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Caja__Estado__3D5E1FD2" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Caja__48CFD27E" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Movimiento__Caja__4316F928" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Factu__4BAC3F29" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Estado__47DBAE45" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Recibo__Factura__4F7CD00D" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Movimiento__Tipo__440B1D61" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Transacio__Sesio__1FCDBCEB" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Transacion__Tipo__20C1E124" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Rol" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Usuario" Width="1.5" PointX="0.75" PointY="4.25" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Caja__Cajero__3C69FB99" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Cliente__46E78A0C" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Sesion__Usuario__1A14E395" />
+        <AssociationConnector Association="SIGELIBMAModel.UsarioRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

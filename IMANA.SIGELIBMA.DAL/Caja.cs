@@ -12,34 +12,29 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Caja
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public Caja()
         {
-            this.Caja = new HashSet<Caja>();
             this.Factura = new HashSet<Factura>();
-            this.Sesion = new HashSet<Sesion>();
-            this.Rol = new HashSet<Rol>();
+            this.MovimientoCaja = new HashSet<MovimientoCaja>();
         }
     
-        public string Usuario1 { get; set; }
-        public string Clave { get; set; }
-        public string Cedula { get; set; }
-        public string Nombre { get; set; }
-        public string Segundo_Nombre { get; set; }
-        public string Apellido1 { get; set; }
-        public string Apellido2 { get; set; }
-        public string Correo { get; set; }
-        public Nullable<int> Estado { get; set; }
+        public int Codigo { get; set; }
+        public string Descripcion { get; set; }
+        public string Cajero { get; set; }
+        public System.DateTime HoraApertura { get; set; }
+        public Nullable<System.DateTime> HoraCierre { get; set; }
+        public decimal MontoApertura { get; set; }
+        public Nullable<decimal> MontoCierre { get; set; }
+        public int Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Caja> Caja { get; set; }
+        public virtual EstadoCaja EstadoCaja { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sesion> Sesion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rol> Rol { get; set; }
+        public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
