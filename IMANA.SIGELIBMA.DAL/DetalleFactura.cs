@@ -19,7 +19,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Articulo { get; set; }
         public int Cantidad { get; set; }
     
-        public virtual Libro Libro { get; set; }
         public virtual Factura Factura1 { get; set; }
+        public virtual Libro Libro { get; set; }
     }
 }

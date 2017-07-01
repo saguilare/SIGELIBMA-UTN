@@ -66,7 +66,6 @@
     <Compile Include="DetalleFactura.cs">
       <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DTOs\SystemSession.cs" />
     <Compile Include="EstadoCaja.cs">
       <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
     </Compile>
@@ -161,6 +160,9 @@
       <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
       <LastGenOutput>SigelibmaDbModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

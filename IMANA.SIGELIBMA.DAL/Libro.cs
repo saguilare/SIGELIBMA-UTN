@@ -30,6 +30,7 @@ namespace IMANA.SIGELIBMA.DAL
         public decimal PrecioCompra { get; set; }
         public decimal PrecioVenta { get; set; }
         public int Cantidad { get; set; }
+        public string Imagen { get; set; }
     
         public virtual Autor Autor1 { get; set; }
         public virtual Categoria Categoria1 { get; set; }

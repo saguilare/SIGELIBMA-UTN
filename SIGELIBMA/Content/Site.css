@@ -6,6 +6,12 @@ body {
     
 }
 
+div.producto{
+    max-width:200px;
+    margin-right: 50px;
+}
+
+
 /*override color in tool nav bar*/
 nav.navbar-main{
     background-color: #005C5C;
@@ -52,6 +58,11 @@ nav.navbar-main .navbar-text{
 
 #nameandjobtitlebar>a:hover{
   background-color: #004d4d;
+}
+
+
+.navbar-clientes {
+    background-color:#232f3e;
 }
 
 

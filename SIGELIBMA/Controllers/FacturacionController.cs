@@ -1,4 +1,4 @@
-﻿using IMANA.SIGELIBMA.DAL.DTOs;
+﻿using IMANA.SIGELIBMA.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +13,8 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         {
             if (System.Web.HttpContext.Current.Session["session"] != null)
             {
-                SystemSession session = System.Web.HttpContext.Current.Session["session"] as SystemSession;
-                if (session.Status)
+                Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
+                if (session != null)
                 {
                     return View();
                 }

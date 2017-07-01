@@ -1,4 +1,4 @@
-﻿using IMANA.SIGELIBMA.DAL.DTOs;
+﻿using IMANA.SIGELIBMA.DAL;
 using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
@@ -15,8 +15,8 @@ namespace SIGELIBMA.Controllers
         {
             if (System.Web.HttpContext.Current.Session["session"] != null)
             {
-                SystemSession session = System.Web.HttpContext.Current.Session["session"] as SystemSession;
-                if (session.Status)
+                Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
+                if (session != null)
                 {
                     return RedirectToAction("Index", "Home");
                 }

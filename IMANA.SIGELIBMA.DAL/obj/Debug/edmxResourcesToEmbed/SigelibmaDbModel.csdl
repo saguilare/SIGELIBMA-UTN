@@ -9,7 +9,6 @@
     <EntitySet Name="EstadoCaja" EntityType="SIGELIBMAModel.EstadoCaja" />
     <EntitySet Name="EstadoFactura" EntityType="SIGELIBMAModel.EstadoFactura" />
     <EntitySet Name="Factura" EntityType="SIGELIBMAModel.Factura" />
-    <EntitySet Name="Libro" EntityType="SIGELIBMAModel.Libro" />
     <EntitySet Name="Moneda" EntityType="SIGELIBMAModel.Moneda" />
     <EntitySet Name="MovimientoCaja" EntityType="SIGELIBMAModel.MovimientoCaja" />
     <EntitySet Name="Proveedor" EntityType="SIGELIBMAModel.Proveedor" />
@@ -19,10 +18,6 @@
     <EntitySet Name="TipoMovimientoCaja" EntityType="SIGELIBMAModel.TipoMovimientoCaja" />
     <EntitySet Name="TipoTransaccion" EntityType="SIGELIBMAModel.TipoTransaccion" />
     <EntitySet Name="Transacion" EntityType="SIGELIBMAModel.Transacion" />
-    <AssociationSet Name="FK__Libro__Autor__2D27B809" Association="SIGELIBMAModel.FK__Libro__Autor__2D27B809">
-      <End Role="Autor" EntitySet="Autor" />
-      <End Role="Libro" EntitySet="Libro" />
-    </AssociationSet>
     <AssociationSet Name="FK__Caja__Estado__3D5E1FD2" Association="SIGELIBMAModel.FK__Caja__Estado__3D5E1FD2">
       <End Role="EstadoCaja" EntitySet="EstadoCaja" />
       <End Role="Caja" EntitySet="Caja" />
@@ -35,14 +30,6 @@
       <End Role="Caja" EntitySet="Caja" />
       <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
     </AssociationSet>
-    <AssociationSet Name="FK__Libro__Categoria__2C3393D0" Association="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0">
-      <End Role="Categoria" EntitySet="Categoria" />
-      <End Role="Libro" EntitySet="Libro" />
-    </AssociationSet>
-    <AssociationSet Name="FK__DetalleFa__Artic__4CA06362" Association="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362">
-      <End Role="Libro" EntitySet="Libro" />
-      <End Role="DetalleFactura" EntitySet="DetalleFactura" />
-    </AssociationSet>
     <AssociationSet Name="FK__DetalleFa__Factu__4BAC3F29" Association="SIGELIBMAModel.FK__DetalleFa__Factu__4BAC3F29">
       <End Role="Factura" EntitySet="Factura" />
       <End Role="DetalleFactura" EntitySet="DetalleFactura" />
@@ -54,10 +41,6 @@
     <AssociationSet Name="FK__Recibo__Factura__4F7CD00D" Association="SIGELIBMAModel.FK__Recibo__Factura__4F7CD00D">
       <End Role="Factura" EntitySet="Factura" />
       <End Role="Recibo" EntitySet="Recibo" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Libro__Proveedor__2E1BDC42" Association="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42">
-      <End Role="Proveedor" EntitySet="Proveedor" />
-      <End Role="Libro" EntitySet="Libro" />
     </AssociationSet>
     <AssociationSet Name="FK__Movimiento__Tipo__440B1D61" Association="SIGELIBMAModel.FK__Movimiento__Tipo__440B1D61">
       <End Role="TipoMovimientoCaja" EntitySet="TipoMovimientoCaja" />
@@ -88,6 +71,23 @@
     <AssociationSet Name="UsarioRoles" Association="SIGELIBMAModel.UsarioRoles">
       <End Role="Usuario" EntitySet="Usuario" />
       <End Role="Rol" EntitySet="Rol" />
+    </AssociationSet>
+    <EntitySet Name="Libro" EntityType="SIGELIBMAModel.Libro" />
+    <AssociationSet Name="FK__Libro__Autor__2D27B809" Association="SIGELIBMAModel.FK__Libro__Autor__2D27B809">
+      <End Role="Autor" EntitySet="Autor" />
+      <End Role="Libro" EntitySet="Libro" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Libro__Categoria__2C3393D0" Association="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Libro" EntitySet="Libro" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetalleFa__Artic__4CA06362" Association="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362">
+      <End Role="Libro" EntitySet="Libro" />
+      <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Libro__Proveedor__2E1BDC42" Association="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Libro" EntitySet="Libro" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Autor">
@@ -144,8 +144,8 @@
     <Property Name="Factura" Type="Int32" Nullable="false" />
     <Property Name="Articulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Cantidad" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Libro" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="DetalleFactura" ToRole="Libro" />
     <NavigationProperty Name="Factura1" Relationship="SIGELIBMAModel.FK__DetalleFa__Factu__4BAC3F29" FromRole="DetalleFactura" ToRole="Factura" />
+    <NavigationProperty Name="Libro" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="DetalleFactura" ToRole="Libro" />
   </EntityType>
   <EntityType Name="EstadoCaja">
     <Key>
@@ -184,25 +184,6 @@
     <NavigationProperty Name="EstadoFactura" Relationship="SIGELIBMAModel.FK__Factura__Estado__47DBAE45" FromRole="Factura" ToRole="EstadoFactura" />
     <NavigationProperty Name="Recibo" Relationship="SIGELIBMAModel.FK__Recibo__Factura__4F7CD00D" FromRole="Factura" ToRole="Recibo" />
     <NavigationProperty Name="Usuario" Relationship="SIGELIBMAModel.FK__Factura__Cliente__46E78A0C" FromRole="Factura" ToRole="Usuario" />
-  </EntityType>
-  <EntityType Name="Libro">
-    <Key>
-      <PropertyRef Name="Codigo" />
-    </Key>
-    <Property Name="Codigo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Titulo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Fecha" Type="DateTime" Precision="3" />
-    <Property Name="Categoria" Type="Int32" Nullable="false" />
-    <Property Name="Autor" Type="Int32" Nullable="false" />
-    <Property Name="Proveedor" Type="Int32" Nullable="false" />
-    <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="Cantidad" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Autor1" Relationship="SIGELIBMAModel.FK__Libro__Autor__2D27B809" FromRole="Libro" ToRole="Autor" />
-    <NavigationProperty Name="Categoria1" Relationship="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0" FromRole="Libro" ToRole="Categoria" />
-    <NavigationProperty Name="DetalleFactura" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="Libro" ToRole="DetalleFactura" />
-    <NavigationProperty Name="Proveedor1" Relationship="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42" FromRole="Libro" ToRole="Proveedor" />
   </EntityType>
   <EntityType Name="Moneda">
     <Key>
@@ -304,18 +285,6 @@
     <NavigationProperty Name="Sesion1" Relationship="SIGELIBMAModel.FK__Transacio__Sesio__1FCDBCEB" FromRole="Transacion" ToRole="Sesion" />
     <NavigationProperty Name="TipoTransaccion" Relationship="SIGELIBMAModel.FK__Transacion__Tipo__20C1E124" FromRole="Transacion" ToRole="TipoTransaccion" />
   </EntityType>
-  <Association Name="FK__Libro__Autor__2D27B809">
-    <End Type="SIGELIBMAModel.Autor" Role="Autor" Multiplicity="1" />
-    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Autor">
-        <PropertyRef Name="Codigo" />
-      </Principal>
-      <Dependent Role="Libro">
-        <PropertyRef Name="Autor" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Caja__Estado__3D5E1FD2">
     <End Type="SIGELIBMAModel.EstadoCaja" Role="EstadoCaja" Multiplicity="1" />
     <End Type="SIGELIBMAModel.Caja" Role="Caja" Multiplicity="*" />
@@ -352,30 +321,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Libro__Categoria__2C3393D0">
-    <End Type="SIGELIBMAModel.Categoria" Role="Categoria" Multiplicity="1" />
-    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Categoria">
-        <PropertyRef Name="Codigo" />
-      </Principal>
-      <Dependent Role="Libro">
-        <PropertyRef Name="Categoria" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__DetalleFa__Artic__4CA06362">
-    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="1" />
-    <End Type="SIGELIBMAModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Libro">
-        <PropertyRef Name="Codigo" />
-      </Principal>
-      <Dependent Role="DetalleFactura">
-        <PropertyRef Name="Articulo" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__DetalleFa__Factu__4BAC3F29">
     <End Type="SIGELIBMAModel.Factura" Role="Factura" Multiplicity="1" />
     <End Type="SIGELIBMAModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
@@ -409,18 +354,6 @@
       </Principal>
       <Dependent Role="Recibo">
         <PropertyRef Name="Factura" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Libro__Proveedor__2E1BDC42">
-    <End Type="SIGELIBMAModel.Proveedor" Role="Proveedor" Multiplicity="1" />
-    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Proveedor">
-        <PropertyRef Name="Codigo" />
-      </Principal>
-      <Dependent Role="Libro">
-        <PropertyRef Name="Proveedor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -526,5 +459,73 @@
   <Association Name="UsarioRoles">
     <End Type="SIGELIBMAModel.Usuario" Role="Usuario" Multiplicity="*" />
     <End Type="SIGELIBMAModel.Rol" Role="Rol" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Libro">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Titulo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Fecha" Type="DateTime" Precision="3" />
+    <Property Name="Categoria" Type="Int32" Nullable="false" />
+    <Property Name="Autor" Type="Int32" Nullable="false" />
+    <Property Name="Proveedor" Type="Int32" Nullable="false" />
+    <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="Imagen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Autor1" Relationship="SIGELIBMAModel.FK__Libro__Autor__2D27B809" FromRole="Libro" ToRole="Autor" />
+    <NavigationProperty Name="Categoria1" Relationship="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0" FromRole="Libro" ToRole="Categoria" />
+    <NavigationProperty Name="DetalleFactura" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="Libro" ToRole="DetalleFactura" />
+    <NavigationProperty Name="Proveedor1" Relationship="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42" FromRole="Libro" ToRole="Proveedor" />
+  </EntityType>
+  <Association Name="FK__Libro__Autor__2D27B809">
+    <End Type="SIGELIBMAModel.Autor" Role="Autor" Multiplicity="1" />
+    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autor">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="Autor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Libro__Categoria__2C3393D0">
+    <End Type="SIGELIBMAModel.Categoria" Role="Categoria" Multiplicity="1" />
+    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetalleFa__Artic__4CA06362">
+    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="1" />
+    <End Type="SIGELIBMAModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="DetalleFactura">
+        <PropertyRef Name="Articulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Libro__Proveedor__2E1BDC42">
+    <End Type="SIGELIBMAModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+    <End Type="SIGELIBMAModel.Libro" Role="Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="Proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

@@ -94,6 +94,7 @@
     <Property Name="PrecioCompra" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="PrecioVenta" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Imagen" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Moneda">
     <Key>
