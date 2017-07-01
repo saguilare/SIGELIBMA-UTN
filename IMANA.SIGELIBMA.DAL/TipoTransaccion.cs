@@ -14,7 +14,6 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class TipoTransaccion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TipoTransaccion()
         {
             this.Transacion = new HashSet<Transacion>();
@@ -24,7 +23,6 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transacion> Transacion { get; set; }
     }
 }

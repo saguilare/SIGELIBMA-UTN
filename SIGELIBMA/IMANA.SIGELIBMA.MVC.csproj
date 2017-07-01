@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -178,6 +179,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\libreriaBanner.jpg" />
+    <Content Include="Images\libros\dracula.jpg" />
+    <Content Include="Images\libros\eso.jpg" />
+    <Content Include="Images\libros\mundoperdido.jpg" />
+    <Content Include="Images\libros\paruqejurasico.jpg" />
+    <Content Include="Images\libros\torreoscura.jpg" />
+    <Content Include="Images\libros\viajealcentrodelatierra.jpg" />
     <Content Include="Images\spinner.gif" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -221,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Book\" />
     <Folder Include="Views\Facturacion\" />
   </ItemGroup>
   <ItemGroup>

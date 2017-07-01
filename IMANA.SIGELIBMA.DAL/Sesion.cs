@@ -14,7 +14,6 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Sesion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sesion()
         {
             this.Transacion = new HashSet<Transacion>();
@@ -25,8 +24,7 @@ namespace IMANA.SIGELIBMA.DAL
         public System.DateTime Inicio { get; set; }
         public Nullable<System.DateTime> Finalizacion { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transacion> Transacion { get; set; }
         public virtual Usuario Usuario1 { get; set; }
+        public virtual ICollection<Transacion> Transacion { get; set; }
     }
 }

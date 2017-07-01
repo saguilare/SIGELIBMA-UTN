@@ -474,11 +474,12 @@
     <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
     <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
     <Property Name="Cantidad" Type="Int32" Nullable="false" />
-    <Property Name="Imagen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Imagen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Autor1" Relationship="SIGELIBMAModel.FK__Libro__Autor__2D27B809" FromRole="Libro" ToRole="Autor" />
     <NavigationProperty Name="Categoria1" Relationship="SIGELIBMAModel.FK__Libro__Categoria__2C3393D0" FromRole="Libro" ToRole="Categoria" />
     <NavigationProperty Name="DetalleFactura" Relationship="SIGELIBMAModel.FK__DetalleFa__Artic__4CA06362" FromRole="Libro" ToRole="DetalleFactura" />
     <NavigationProperty Name="Proveedor1" Relationship="SIGELIBMAModel.FK__Libro__Proveedor__2E1BDC42" FromRole="Libro" ToRole="Proveedor" />
+    <Property Name="Estado" Type="Int32" />
   </EntityType>
   <Association Name="FK__Libro__Autor__2D27B809">
     <End Type="SIGELIBMAModel.Autor" Role="Autor" Multiplicity="1" />

@@ -7,6 +7,8 @@ var urlRoot = '';
 
 
 var data = {};
+data.books = [];
+data.categories = [];
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null ,Rol:0};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
@@ -83,15 +85,15 @@ addRol: function (rol) {
     });
 },
 
-getRoles: function () {
+getPageData: function () {
     $.ajax({
-        url: urlRoot + 'MantRoles/GetAll',
+        url: urlRoot + 'Home/Init',
         type: 'get',
         dataType: 'json',
-        async: true,
         success: function (result) {
             if (result.OperationStatus) {
-                vm.roles = result.Roles;
+                vm.books = result.Books;
+                vm.categories = result.Categories;
             } else {
                 // window.location.href = result.Url;
             }
@@ -127,6 +129,7 @@ showWikiSection1: function () {
 init: function () {
     vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
     vm.activateAlert('danger', '', false);
+    vm.getPageData();
 }
 
 },
