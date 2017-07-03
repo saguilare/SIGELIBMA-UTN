@@ -6,10 +6,68 @@ body {
     
 }
 
-div.producto{
-    max-width:200px;
-    margin-right: 50px;
+.testimonial-group .row {
+  overflow-x: hidden;
+  white-space:nowrap;
+  margin:70px;
+  
 }
+.testimonial-group  .row  .col-xs-4 {
+  display: inline-block;
+  float: none;
+  white-space:normal;
+}
+
+#scrollleft,#scrollright {
+position:relative;
+top:270px;
+z-index:1;
+background-color:transparent;
+border:none;
+color:#232f3e;
+font-size: 50px;
+}
+
+#scrollleft:focus,#scrollright:focus { outline: none; }
+
+
+
+
+div.producto{
+    width:300px;
+    min-height:340px;
+    margin-right: 50px;
+    background-color:#fafafa;
+    border: 3px ridge #f08804;
+    border-radius: 10px;
+    padding:30px;
+}
+
+.category-header h1{
+    color:#232f3e;
+}
+.category-header hr{
+
+    border-top: 4px solid #48a3c6;
+}
+
+div.producto img{
+    border: 5px ridge #232f3e;
+    border-radius: 10px;
+
+}
+
+.precio {
+    color:#f08804;
+}
+
+.btn-details {
+    background-color:#f08804;
+    color:#232f3e;
+
+}
+
+
 
 
 /*override color in tool nav bar*/

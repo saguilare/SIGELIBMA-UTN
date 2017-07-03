@@ -1,4 +1,10 @@
-﻿
+﻿function move_right() {
+    document.getElementById('mainbookcontainer').scrollLeft += 90;
+}
+
+function move_left() {
+    document.getElementById('mainbookcontainer').scrollLeft -= 90;
+}
 
 //prod
 var urlRoot = '';
@@ -18,7 +24,7 @@ data.validations = { activateFieldValidations:false, showSpinner: false, loading
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
-})
+});
 
 var vm = new Vue({
     el: '#pageMainContainer',
@@ -59,6 +65,10 @@ activateAlertModal: function (type, message, status) {
 
 lowerCase: function (stringValue) {
     return stringValue.toLowerCase();
+},
+
+scrollRight: function () {
+    window.scrollBy(100, 0);
 },
 
 addRol: function (rol) {

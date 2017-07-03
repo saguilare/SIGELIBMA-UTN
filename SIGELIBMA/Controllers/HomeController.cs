@@ -25,8 +25,8 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                List<Libro> books = GetBooks();
-                List<Categoria> categories = GetCategories();
+                var books = GetBooks();
+                var categories = GetCategories();
                 return Json(new { OperationStatus = true, Categories =categories, Books = books, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -38,13 +38,26 @@ namespace SIGELIBMA.Controllers
         }
         
 
-        private List<Libro> GetBooks()
+        private object GetBooks()
         {
             try 
 	        {	        
+                
 		        BookService service = new BookService();
                 List<Libro> books = service.GetAll();
-                return books;
+                //transform and simplify list to avoid circular dependency issues 
+                var newList = books.Select(item => new {
+                    Codigo = item.Codigo,
+                    Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
+                    Precio = item.PrecioVenta,
+                    Descripcion = item.Descripcion,
+                    Image = item.Imagen,
+                    Titulo =item.Titulo
+                    
+                });
+
+
+                return newList;
 	        }
 	        catch (Exception)
 	        {
@@ -53,13 +66,28 @@ namespace SIGELIBMA.Controllers
 	        }
         }
 
-        private List<Categoria> GetCategories()
+        private object GetCategories()
         {
             try
             {
                 BookCatService service = new BookCatService();
-                List<Categoria> cats = service.GetAll();
-                return cats;
+                List<Categoria> cats = service.GetAll().Where(x => x.Estado == 1).ToList();
+                //remove child elements to avoid circular dependency errors
+                var newList = cats.Select(item =>new {
+                    Codigo = item.Codigo,
+                    Descripcion = item.Descripcion,
+                    Libros = item.Libro.Select(libro => new {
+                        Codigo = libro.Codigo,
+                        Autor = libro.Autor1.Apellidos + ", " + libro.Autor1.Nombre,
+                        Precio = libro.PrecioVenta,
+                        Descripcion = libro.Descripcion,
+                        Image = libro.Imagen,
+                        Titulo =libro.Titulo
+                    })
+                });
+
+
+                return newList;
             }
             catch (Exception)
             {
