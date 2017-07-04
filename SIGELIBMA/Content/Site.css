@@ -18,7 +18,7 @@ body {
   white-space:normal;
 }
 
-.scrollleft,.scrollright {
+.scrollBtn {
 position:relative;
 top:270px;
 z-index:1;
@@ -28,7 +28,7 @@ color:#232f3e;
 font-size: 50px;
 }
 
-.scrollleft:focus,.scrollright:focus { outline: none; }
+.scrollBtn:focus { outline: none; }
 
 
 

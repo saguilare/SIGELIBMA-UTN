@@ -19,11 +19,11 @@
 </head>
 <!-- NAVBAR
 ================================================== -->
-<body
+<body onresize="updateArrows()"> 
     @*main conatiner*@
     <div id="pageMainContainer">
         <div id="" class="navbar-wrapper">
-            <div class="container">
+            <div class="container" >
                 @RenderBody()
                 <nav class="navbar navbar-inverse navbar-static-top navbar-clientes">
                     <div class="container">
@@ -123,16 +123,16 @@
         
 
     <div class="container testimonial-group">
-        <div class="">
+        <div v-el:categories class="">
             
-            <div v-show="category.Libros.length > 0" v-for="(index,category) in categories">
-                <button id="scrollleft{{index}}" class="pull-left scrollleft" onclick="move_left({{index}})"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
-                <button id="scrollright{{index}}" class="pull-right scrollright" onclick="move_right({{index}})"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+            <div class="category" v-if="category.Libros.length > 0" v-for="(index,category) in categories">
+                <button id="scrollleft{{index}}" class="pull-left scrollBtn" onclick="move_left({{index}})"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                <button id="scrollright{{index}}" class="pull-right scrollBtn" onclick="move_right({{index}})"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
 
                 <div class="category-header">
                     <h1>{{category.Descripcion}}</h1><hr />
                 </div>
-                <div class="row" id="mainbookcontainer{{index}}" v-on:change="showArrows(index)">
+                <div class="row category-body" id="mainbookcontainer{{index}}">
                     <div class="col-xs-4 producto text-center" v-for="book in category.Libros">
                         <img class="img-circle popimage" src="~/Images/libros/{{book.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
                         @*<h2>{{book.Titulo}}</h2>*@

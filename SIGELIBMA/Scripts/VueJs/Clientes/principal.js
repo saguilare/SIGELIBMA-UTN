@@ -1,4 +1,11 @@
-﻿function move_right(index) {
+﻿
+
+
+
+
+
+
+function move_right(index) {
     document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
 }
 
@@ -7,15 +14,19 @@ function move_left(index) {
 }
 
 
-function showArrows(index) {
-    if ($('#mainbookcontainer' + index).prop('scrollWidth') > $('#mainbookcontainer' + index).width()) {
-        $('#scrollleft' + index).show();
-        $('#scrollRight' + index).show();
-        
-    } else {
-        $('#scrollleft' + index).hide();
-        $('#scrollRight' + index).hide();
-    }
+function updateArrows() {
+    $(".category").each(function (key, value) {
+        var row = $(this).find('.category-body');
+        if ($(row).prop('scrollWidth') > $(row).width()) {
+            $(this).find('.scrollBtn').show();
+            $(this).find('.scrollBtn').show();
+        } else {
+            $(this).find('.scrollBtn').hide();
+            $(this).find('.scrollBtn').hide();
+        }
+    });
+
+    
 }
 
 //prod
@@ -83,6 +94,7 @@ scrollRight: function () {
     window.scrollBy(100, 0);
 },
 
+
 addRol: function (rol) {
     vm.displaySpinner(true,'Agregando Rol');
     $.ajax({
@@ -119,6 +131,7 @@ getPageData: function () {
             } else {
                 // window.location.href = result.Url;
             }
+            vm.hideShowArrowsOnLoad();
             vm.displaySpinner(false,'');
         },
         error: function (error) {
@@ -141,6 +154,18 @@ createWiki: function (title, html) {
     vm.asideWiki.title = title
     vm.asideWiki.show = true;
 },
+hideShowArrowsOnLoad: function() {
+    $(".category").each(function (key, value) {
+        var row = $(this).find('.category-body');
+        if ($(row).prop('scrollWidth') > $(row).width()) {
+            $(this).find('.scrollBtn').show();
+            $(this).find('.scrollBtn').show();
+        } else {
+            $(this).find('.scrollBtn').hide();
+            $(this).find('.scrollBtn').hide();
+        }
+    });
+},
 
 showWikiSection1: function () {
     var html = "<p>aqui va el codigo html</p>";
@@ -152,6 +177,7 @@ init: function () {
     vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
     vm.activateAlert('danger', '', false);
     vm.getPageData();
+    
 }
 
 },
@@ -169,8 +195,6 @@ filters: {
     );
 
 vm.init();
-
-
 
 
 
