@@ -18,7 +18,7 @@ body {
   white-space:normal;
 }
 
-#scrollleft,#scrollright {
+.scrollleft,.scrollright {
 position:relative;
 top:270px;
 z-index:1;
@@ -28,19 +28,20 @@ color:#232f3e;
 font-size: 50px;
 }
 
-#scrollleft:focus,#scrollright:focus { outline: none; }
+.scrollleft:focus,.scrollright:focus { outline: none; }
 
 
 
 
 div.producto{
-    width:300px;
-    min-height:340px;
+    
+    
     margin-right: 50px;
     background-color:#fafafa;
     border: 3px ridge #f08804;
     border-radius: 10px;
-    padding:30px;
+    width:180px;
+    padding:40px 0px;
 }
 
 .category-header h1{
@@ -258,3 +259,17 @@ TABLES
     width: 1%;
 }*/
 
+
+.popimage {
+    margin-left:50%;
+    margin-top: 15%;
+
+    width: 100%;
+    height: 100%;
+    
+    -webkit-transform: translate(-50%,-50%); /* Safari and Chrome */
+    -moz-transform: translate(-50%,-50%); /* Firefox */
+    -ms-transform: translate(-50%,-50%); /* IE 9 */
+    -o-transform: translate(-50%,-50%); /* Opera */
+    transform: translate(-50%,-50%);
+}

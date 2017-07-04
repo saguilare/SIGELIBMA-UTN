@@ -1,9 +1,21 @@
-﻿function move_right() {
-    document.getElementById('mainbookcontainer').scrollLeft += 90;
+﻿function move_right(index) {
+    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
 }
 
-function move_left() {
-    document.getElementById('mainbookcontainer').scrollLeft -= 90;
+function move_left(index) {
+    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
+}
+
+
+function showArrows(index) {
+    if ($('#mainbookcontainer' + index).prop('scrollWidth') > $('#mainbookcontainer' + index).width()) {
+        $('#scrollleft' + index).show();
+        $('#scrollRight' + index).show();
+        
+    } else {
+        $('#scrollleft' + index).hide();
+        $('#scrollRight' + index).hide();
+    }
 }
 
 //prod
