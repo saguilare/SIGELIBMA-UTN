@@ -19,13 +19,39 @@
 </head>
 <!-- NAVBAR
 ================================================== -->
-<body onresize="updateArrows()"> 
+<body onresize="updateArrows()">
+    
+    
+     
     @*main conatiner*@
     <div id="pageMainContainer">
+
+        <div id="modalDetails" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Detalle Producto</h4>
+                    </div>
+                    <div class="modal-body text-center" >
+                        <img class="img-circle popimage" src="~/Images/libros/{{modalObject.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                        <h2>{{modalObject.Titulo}}</h2>
+                        <p>{{modalObject.Descripcion}}</p>
+                        <p class="precio">&#162;{{modalObject.Precio}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary btn-addtocart">Agregar al carro</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+
         <div id="" class="navbar-wrapper">
             <div class="container" >
                 @RenderBody()
-                <nav class="navbar navbar-inverse navbar-static-top navbar-clientes">
+                <nav class="navbar navbar-inverse navbar-static-top navbar-main">
                     <div class="container">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -49,15 +75,35 @@
                                         <li><a href="#">Novelas</a></li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <form class="navbar-form navbar-left">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Buscar ...">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" style="background-color:#f08804;color:#232f3e" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </form>
+                                </li>
+              
                             </ul>
-                            <form class="navbar-form navbar-left">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Buscar ...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" style="background-color:#f08804;color:#232f3e" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                    </span>
-                                </div><!-- /input-group -->
-                            </form>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                
+                                <li>
+                                    <a href="#">
+                                        <strong>Articulos: </strong>
+                                        <span class="badge badgequantity">10</span>
+                                        <strong>Precio Total: </strong><strong class="navprice">&#162;1550</strong>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a>
+                                </li>
+                            </ul>
+                            
+                           
                         </div>
                     </div>
                 </nav>
@@ -121,11 +167,10 @@
         <!-- Wrap the rest of the page in another container to center all the content. -->
 
         
-
     <div class="container testimonial-group">
         <div v-el:categories class="">
             
-            <div class="category" v-if="category.Libros.length > 0" v-for="(index,category) in categories">
+            <div class="category" v-show="category.Libros.length > 0" v-for="(index,category) in categories">
                 <button id="scrollleft{{index}}" class="pull-left scrollBtn" onclick="move_left({{index}})"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                 <button id="scrollright{{index}}" class="pull-right scrollBtn" onclick="move_right({{index}})"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
 
@@ -134,10 +179,10 @@
                 </div>
                 <div class="row category-body" id="mainbookcontainer{{index}}">
                     <div class="col-xs-4 producto text-center" v-for="book in category.Libros">
-                        <img class="img-circle popimage" src="~/Images/libros/{{book.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                        <img class="img-circle " src="~/Images/libros/{{book.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
                         @*<h2>{{book.Titulo}}</h2>*@
                         <p class="precio">&#162;{{book.Precio}}</p>
-                        <p><a class="btn btn-default btn-details" href="#" role="button">Ver Detalles »</a></p>
+                        <p><a class="btn btn-default btn-details"  v-on:click="openModal(book,'bookDetails')" role="button">Ver Detalles »</a></p>
                     </div>
                 </div>
             </div>

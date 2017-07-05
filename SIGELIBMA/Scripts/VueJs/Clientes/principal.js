@@ -37,8 +37,8 @@ var urlRoot = '';
 
 var data = {};
 data.books = [];
+data.modalObject = {};
 data.categories = [];
-data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null ,Rol:0};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
 data.asideWiki = { show: false, title: '' };
@@ -142,9 +142,12 @@ getPageData: function () {
             
 },
 
-openEditModal: function (rol) {
-    vm.modalObject = rol;
-    $("#edit-modal").modal({show:true});
+openModal: function (object, type) {
+    if (type === 'bookDetails') {
+        vm.modalObject = object;
+        $("#modalDetails").modal({ show: true });
+    }
+    
 },
      
 createWiki: function (title, html) {

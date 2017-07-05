@@ -1,0 +1,191 @@
+﻿html{
+    height: 100%;
+}
+
+body {
+    
+
+
+
+    /*override color in tool nav bar*/
+nav.navbar-main{
+    background-color: #005C5c;
+    border-color:#003333;
+    border-radius: 0;
+}
+
+nav.navbar-main .navbar-brand{
+    color: white;
+}
+
+nav.navbar-main .navbar-brand:hover{
+    color: white;
+}
+
+nav.navbar-main .navbar-text{
+    color: white;
+}
+
+.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color:white;
+}
+
+.navbar-main .navbar-nav>.active>p, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color:white;
+}
+
+.navbar-default .navbar-nav>.active>a:hover{
+    background-color: #004d4d;
+}
+
+.navbar-main .navbar-header img{
+    padding: 10px 15px;
+}
+
+.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
+    background-color: #005C5C;
+}
+
+ .navbar-main .navbar-nav>.active>a:hover{
+    background-color: #004d4d;
+ 
+}
+
+#nameandjobtitlebar>a:hover{
+  background-color: #004d4d;
+}
+
+
+
+/* --------------------------
+ * PAGE & SECTION TITLE BARS
+ * --------------------------
+*/
+.title-bar {
+  border: 2px solid #b1babf;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  display: block;
+  margin-bottom: 10px;
+  /*** Left Border (optional) ***/
+  /*** Bottom Border ***/ }
+  .title-bar:before,
+  .title-bar:after {
+    content: " ";
+    display: table; }
+  .title-bar:after {
+    clear: both; }
+  .title-bar.intel-bg-light {
+    background-color: #fff; }
+  .title-bar.intel-left-border:before {
+    background: url("../images/circuit_549x549.png") -10px -338px;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 15px; }
+  .title-bar.intel-border-none {
+    border-radius: 0;
+    border-width: 0 0 2px 0; }
+  .title-bar.intel-border-blue,
+  .title-bar.intel-border-cyan,
+  .title-bar.intel-border-green,
+  .title-bar.intel-border-orange,
+  .title-bar.intel-border-yellow {
+    border-bottom-width: 2px; }
+  .title-bar.border-blue {
+    border-bottom-color: #0071c5; }
+  .title-bar.border-cyan {
+    border-bottom-color: #00aeef; }
+  .title-bar.border-green {
+    border-bottom-color: #005C5C; }
+  .title-bar.border-orange {
+    border-bottom-color: #FFA300; }
+  .title-bar.border-yellow {
+    border-bottom-color: #F3D54E; }
+
+.title-bar-order,
+.title-bar-subtitle,
+.title-bar-title {
+  float: left; }
+
+.title-bar-order {
+  background-color: #edeff0;
+  border-radius: 20px;
+  color: #53565a;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px 15px;
+  width: 40px;
+  text-align: center; }
+
+.title-bar-order.intel-bg-dark {
+  background-color: #edeff0;
+  border-color: #edeff0; }
+
+.title-bar-title {
+  color: #003333;
+  font-size: 1.5em;
+  line-height: 30px;
+  margin: 10px 0;
+  padding: 0 15px; }
+
+.title-bar-subtitle {
+  border-left: 1px solid #b1babf;
+  color: #005C5C;
+  font-size: 1.25em;
+  line-height: 30px;
+  margin: 10px 0;
+  padding: 0 15px; }
+
+.title-bar-blur {
+    background-color: #e3e6e8;
+    background: -webkit-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Firefox 3.6 to 15 */
+    background: linear-gradient(right bottom, #e3e6e8 , #ffffff) !important; /* Standard syntax */
+}
+
+/*********************
+ Back to top styles
+*********************/
+/*.back-to-top {
+	position: fixed;
+	bottom: 70px;
+	right:20px;
+	z-index: 1;
+	width: 50px;
+	height: 50px;
+	background: #0071c5;
+	opacity: 0.5;
+
+
+	&:hover {
+		opacity: 5;
+		cursor: pointer;
+	}
+
+	i {
+		font-size: 25px;
+		padding: 12px;
+		color: #fff;
+	}
+
+}*/
+
+/***********************
+TABLES
+***********************/
+//change cursor to pointer when selecting sort order in table th
+/*th a {
+   cursor: pointer;
+}
+
+//make columns adjusts to content
+.table td, 
+.table th {
+    white-space: nowrap;
+    width: 1%;
+}*/
