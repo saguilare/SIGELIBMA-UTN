@@ -158,6 +158,11 @@ nav.navbar-main .navbar-text{
 }
 
 
+.book-quantity {
+    display:inline-block;
+    max-width:60px;
+    border:none;
+}
 /*.popimage {
     margin-left:50%;
     margin-top: 15%;

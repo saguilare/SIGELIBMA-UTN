@@ -37,10 +37,12 @@ var urlRoot = '';
 
 var data = {};
 data.books = [];
-data.modalObject = {};
+data.modalObject = {Quantity:1,Total:0};
 data.categories = [];
+data.shoppingCart = { items: [], total: 0 };
 data.alert = { type: 'success', message: 'alert', status: false };
-data.alertModal = { type: 'success', message: 'alert', status: true };
+data.alertModal = { type: 'success', message: 'alert', status: true }; 
+data.alertModalBookDetails = { type: 'success', message: 'alert', status: true };
 data.asideWiki = { show: false, title: '' };
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
 
@@ -86,6 +88,14 @@ activateAlertModal: function (type, message, status) {
     vm.alertModal.status = status;
 },
 
+activateAlertModalBookDetails: function (type, message, status) {
+    vm.alertModalBookDetails.type = type;
+    vm.alertModalBookDetails.message = message;
+    vm.alertModalBookDetails.status = status;
+},
+
+        
+
 lowerCase: function (stringValue) {
     return stringValue.toLowerCase();
 },
@@ -95,29 +105,29 @@ scrollRight: function () {
 },
 
 
-addRol: function (rol) {
-    vm.displaySpinner(true,'Agregando Rol');
-    $.ajax({
-        url: urlRoot + 'MantRoles/Add',
-        type: 'post',
-        dataType: 'json',
-        data: rol,
-        success: function (result) {
-            if (result.OperationStatus) {
-                vm.getRoles();
-                vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
+//addRol: function (rol) {
+//    vm.displaySpinner(true,'Agregando Rol');
+//    $.ajax({
+//        url: urlRoot + 'MantRoles/Add',
+//        type: 'post',
+//        dataType: 'json',
+//        data: rol,
+//        success: function (result) {
+//            if (result.OperationStatus) {
+//                vm.getRoles();
+//                vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
                         
-            } else {
-                vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-            } 
-            vm.displaySpinner(false);
-        },
-        error: function (error) {
-            vm.displaySpinner(false);
-            vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-        }
-    });
-},
+//            } else {
+//                vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+//            } 
+//            vm.displaySpinner(false);
+//        },
+//        error: function (error) {
+//            vm.displaySpinner(false);
+//            vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+//        }
+//    });
+//},
 
 getPageData: function () {
     $.ajax({
@@ -144,8 +154,14 @@ getPageData: function () {
 
 openModal: function (object, type) {
     if (type === 'bookDetails') {
+        vm.activateAlertModalBookDetails('success', '', false);
         vm.modalObject = object;
+        vm.modalObject.Quantity = 1;
+        vm.modalObject.Total = 0;
+        vm.updateModalDetailTotal();
         $("#modalDetails").modal({ show: true });
+    } else if (type === 'modalShoppingCart') {
+        $("#modalShoppingCart").modal({ show: true });
     }
     
 },
@@ -169,7 +185,37 @@ hideShowArrowsOnLoad: function() {
         }
     });
 },
+ 
+removeFromCart: function (item) {
+    if (item !== null && item != undefined && item.Precio !== '') {
+        for (var i = 1; i <= item.Quantity; i++) {
+            vm.shoppingCart.items.slice(item, 1);
+            vm.shoppingCart.total -= item.Precio;
+        }
+        
+        vm.activateAlertModalBookDetails('success','El producto fue eliminado con exito del carrito', true);
+    } else {
+        vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para eliminar el producto del carrito,por favor intente de nuevo', true);
+    }
+    
+},
 
+addToCart: function (item) {
+    if (item !== null && item != undefined && item.Precio !== '') {
+        for (var i = 1; i <= item.Quantity; i++) {
+            vm.shoppingCart.items.push(item);
+            vm.shoppingCart.total += item.Precio;
+        };
+        vm.activateAlertModalBookDetails('success', 'El producto fue agregado con exito al carrito', true);
+    } else {
+        vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para agregar el producto al carrito,por favor intente de nuevo', true);
+    }
+},
+
+updateModalDetailTotal: function () {
+    
+    vm.modalObject.Total = (vm.modalObject.Precio * vm.modalObject.Quantity);
+},
 showWikiSection1: function () {
     var html = "<p>aqui va el codigo html</p>";
     var title = "SIGELIBMA - Assistant";
