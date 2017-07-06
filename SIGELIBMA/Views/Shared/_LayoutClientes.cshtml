@@ -66,14 +66,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Detalle Producto</h4>
+                        <h4 class="modal-title">Carro de Compras</h4>
                     </div>
                     <div class="modal-body text-center">
-                        <div v-if="alertModalBookDetails.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalBookDetails.type) === 'danger' , 'alert-info ' : lowerCase(alertModalBookDetails.type) === 'info','alert-success ' : lowerCase(alertModalBookDetails.type) === 'success'}">
-                            <button type="button" class="close" v-on:click="alertModalBookDetails.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong v-if="lowerCase(alertModalBookDetails.type) === 'danger' ">Atencion!</strong>
+                        <div v-if="alertModalShoppingCart.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalShoppingCart.type) === 'danger' , 'alert-info ' : lowerCase(alertModalShoppingCart.type) === 'info','alert-success ' : lowerCase(alertModalShoppingCart.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModalShoppingCart.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModalShoppingCart.type) === 'danger' ">Atencion!</strong>
                             <strong v-else>Info!</strong>
-                            {{alertModalBookDetails.message}}
+                            {{alertModalShoppingCart.message}}
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped" >
@@ -88,30 +88,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in shoppingCart.items" track-by="Codigo">
+                                    <tr v-for="item in shoppingCart.items" track-by="$index">
                                         <td>{{item.Codigo}}</td>
                                         <td>{{item.Titulo}}</td>
                                         <td>{{item.Quantity}}</td>
                                         <td>{{item.Precio}}</td>
                                         <td>{{item.Total}}</td>
-                                        <td><button class="btn btn-danger">Eliminar</button></td>
+                                        <td><button class="btn btn-danger" v-on:click="removeFromCart($index,item)">Eliminar</button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <img class="img-circle popimage" src="~/Images/libros/{{modalObject.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
                         
-                        <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.Precio}}</p>
-                        <div class="form-group text-center">
-                            <label>Cantidad:</label>
-                            <input class="form-control book-quantity" type="number" min="1" max="10" v-model="modalObject.Quantity" v-on:change="updateModalDetailTotal()" />
-
-                        </div>
-                        <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.Total}}</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)">Agregar al carro</button>
+                        <button type="button" class="btn btn-primary btn-addtocart" v-on:click="">Proceder con la compra</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

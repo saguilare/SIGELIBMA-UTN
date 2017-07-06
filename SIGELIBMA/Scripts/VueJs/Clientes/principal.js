@@ -42,6 +42,7 @@ data.categories = [];
 data.shoppingCart = { items: [], total: 0 };
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true }; 
+data.alertModalShoppingCart = { type: 'success', message: 'alert', status: true };
 data.alertModalBookDetails = { type: 'success', message: 'alert', status: true };
 data.asideWiki = { show: false, title: '' };
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
@@ -92,6 +93,12 @@ activateAlertModalBookDetails: function (type, message, status) {
     vm.alertModalBookDetails.type = type;
     vm.alertModalBookDetails.message = message;
     vm.alertModalBookDetails.status = status;
+},
+
+activateAlertModalShoppingCart: function (type, message, status) {
+    vm.alertModalShoppingCart.type = type;
+    vm.alertModalShoppingCart.message = message;
+    vm.alertModalShoppingCart.status = status;
 },
 
         
@@ -161,6 +168,7 @@ openModal: function (object, type) {
         vm.updateModalDetailTotal();
         $("#modalDetails").modal({ show: true });
     } else if (type === 'modalShoppingCart') {
+        vm.activateAlertModalShoppingCart('success', '', false);
         $("#modalShoppingCart").modal({ show: true });
     }
     
@@ -186,12 +194,12 @@ hideShowArrowsOnLoad: function() {
     });
 },
  
-removeFromCart: function (item) {
+removeFromCart: function (index,item) {
     if (item !== null && item != undefined && item.Precio !== '') {
-        for (var i = 1; i <= item.Quantity; i++) {
-            vm.shoppingCart.items.slice(item, 1);
+
+            vm.shoppingCart.items.splice(index, 1);
             vm.shoppingCart.total -= item.Precio;
-        }
+ 
         
         vm.activateAlertModalBookDetails('success','El producto fue eliminado con exito del carrito', true);
     } else {
