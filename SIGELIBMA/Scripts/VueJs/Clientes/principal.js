@@ -83,9 +83,9 @@ displaySpinner: function (status, message) {
 activateToastr: function (type,message,status) {
     vm.toastr.show = status;
     vm.toastr.placement = 'top-right';
-    vm.toastr.duration = 3000;
+    vm.toastr.duration = 10000;
     vm.toastr.type = type;
-    vm.toastr.width = '400px';
+    vm.toastr.width = '300px';
     vm.toastr.dismissable = true;
     vm.toastr.message = message;
 },

@@ -28,7 +28,7 @@
         <!--VUESTRAP ALERT == TOASTR-->
 
         <alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
-            <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-alert" ></span>
+            <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign" ></span>
             <span v-else class="glyphicon glyphicon-info-sign"></span>
             <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
             <strong v-else>Info!</strong>
