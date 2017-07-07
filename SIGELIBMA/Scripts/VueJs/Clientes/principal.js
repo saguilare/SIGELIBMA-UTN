@@ -37,9 +37,11 @@ var urlRoot = '';
 
 var data = {};
 data.books = [];
-data.modalObject = {Quantity:1,Total:0};
+data.modalObject = { item: {}, quantity: 1, total: 0 };
+data.enableProccedBtn = false;
 data.categories = [];
-data.shoppingCart = { items: [], total: 0 };
+data.shoppingCart = { items: [], total: 0, totalItems: 0 };
+data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true }; 
 data.alertModalShoppingCart = { type: 'success', message: 'alert', status: true };
@@ -56,6 +58,7 @@ var vm = new Vue({
     el: '#pageMainContainer',
     data: data,
     components: {
+        alert: VueStrap.alert
         //typeahead: customAutocomplete,
         //datepicker: VueStrap.datepicker,
         //modal not working the second time
@@ -77,6 +80,15 @@ displaySpinner: function (status, message) {
     vm.validations.loadingMessage = message;
 },
 
+activateToastr: function (type,message,status) {
+    vm.toastr.show = status;
+    vm.toastr.placement = 'top-right';
+    vm.toastr.duration = 50000;
+    vm.toastr.type = type;
+    vm.toastr.width = '400px';
+    vm.toastr.dismissable = true;
+    vm.toastr.message = message;
+},
 activateAlert: function (type, message, status) {
     vm.alert.type = type;
     vm.alert.message = message;
@@ -162,14 +174,25 @@ getPageData: function () {
 openModal: function (object, type) {
     if (type === 'bookDetails') {
         vm.activateAlertModalBookDetails('success', '', false);
-        vm.modalObject = object;
-        vm.modalObject.Quantity = 1;
-        vm.modalObject.Total = 0;
+        vm.modalObject = { item: {}, quantity: 1, total: 0 };
+        vm.modalObject.item = object;
         vm.updateModalDetailTotal();
         $("#modalDetails").modal({ show: true });
     } else if (type === 'modalShoppingCart') {
-        vm.activateAlertModalShoppingCart('success', '', false);
-        $("#modalShoppingCart").modal({ show: true });
+        if (vm.shoppingCart.items.length <= 0) {
+            vm.activateToastr('danger', 'El carrito esta vacio.', true);
+            //vm.activateAlertModalShoppingCart('info', ' El carrito esta vacio', true);
+            //vm.enableProccedBtn = false;
+            //$("#modalShoppingCart").modal({ show: true });
+        } else {
+            
+            vm.activateAlertModalShoppingCart('success', '', false);
+            $("#modalShoppingCart").modal({ show: true });
+            vm.enableProccedBtn = true;
+            
+        }
+        
+        
     }
     
 },
@@ -194,14 +217,12 @@ hideShowArrowsOnLoad: function() {
     });
 },
  
-removeFromCart: function (index,item) {
-    if (item !== null && item != undefined && item.Precio !== '') {
-
+removeFromCart: function (index, object) {
+    if (object !== null && object != undefined && object.item !== null) {
             vm.shoppingCart.items.splice(index, 1);
-            vm.shoppingCart.total -= item.Precio;
- 
-        
-        vm.activateAlertModalBookDetails('success','El producto fue eliminado con exito del carrito', true);
+            vm.shoppingCart.total -= object.total;
+            vm.shoppingCart.totalItems -= object.quantity;
+            vm.activateAlertModalBookDetails('success','El producto fue eliminado con exito del carrito', true);
     } else {
         vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para eliminar el producto del carrito,por favor intente de nuevo', true);
     }
@@ -210,10 +231,9 @@ removeFromCart: function (index,item) {
 
 addToCart: function (item) {
     if (item !== null && item != undefined && item.Precio !== '') {
-        for (var i = 1; i <= item.Quantity; i++) {
-            vm.shoppingCart.items.push(item);
-            vm.shoppingCart.total += item.Precio;
-        };
+        vm.shoppingCart.items.push(item);
+        vm.shoppingCart.total += item.total;
+        vm.shoppingCart.totalItems += item.quantity;
         vm.activateAlertModalBookDetails('success', 'El producto fue agregado con exito al carrito', true);
     } else {
         vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para agregar el producto al carrito,por favor intente de nuevo', true);
@@ -221,8 +241,7 @@ addToCart: function (item) {
 },
 
 updateModalDetailTotal: function () {
-    
-    vm.modalObject.Total = (vm.modalObject.Precio * vm.modalObject.Quantity);
+    vm.modalObject.total = (vm.modalObject.item.Precio * vm.modalObject.quantity);
 },
 showWikiSection1: function () {
     var html = "<p>aqui va el codigo html</p>";

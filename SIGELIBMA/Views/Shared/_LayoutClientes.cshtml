@@ -25,7 +25,15 @@
      
     @*main conatiner*@
     <div id="pageMainContainer">
+        <!--VUESTRAP ALERT == TOASTR-->
 
+        <alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+            <span v-if="lowerCase(toastr.type) === 'danger' " class="icon-ok-circled alert-icon-float-left"></span>
+            <span v-else class="icon-info-circled alert-icon-float-left"></span>
+            <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+            <strong v-else>Info!</strong>
+            <p>{{toastr.message}}</p>
+        </alert>
         <!-- MODAL BOOK DETAILS -->
         <div id="modalDetails" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -41,16 +49,15 @@
                             <strong v-else>Info!</strong>
                             {{alertModalBookDetails.message}}
                         </div>
-                        <img class="img-circle popimage" src="~/Images/libros/{{modalObject.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
-                        <h2>{{modalObject.Titulo}}</h2>
-                        <p>{{modalObject.Descripcion}}</p>
-                        <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.Precio}}</p>
+                        <img class="img-circle popimage" src="~/Images/libros/{{modalObject.item.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                        <h2>{{modalObject.item.Titulo}}</h2>
+                        <p>{{modalObject.item.Descripcion}}</p>
+                        <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.item.Precio}}</p>
                         <div class="form-group text-center">
                             <label>Cantidad:</label>
-                            <input class="form-control book-quantity" type="number" min="1" max="10" v-model="modalObject.Quantity" v-on:change="updateModalDetailTotal()" />
-                            
+                            <input class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />
                         </div>
-                        <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.Total}}</span>
+                        <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.total}}</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -66,7 +73,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Carro de Compras</h4>
+                        <h4 class="modal-title"><a href="#" ><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a> Carro de Compras</h4>
                     </div>
                     <div class="modal-body text-center">
                         <div v-if="alertModalShoppingCart.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalShoppingCart.type) === 'danger' , 'alert-info ' : lowerCase(alertModalShoppingCart.type) === 'info','alert-success ' : lowerCase(alertModalShoppingCart.type) === 'success'}">
@@ -76,25 +83,33 @@
                             {{alertModalShoppingCart.message}}
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped" >
+                            <table v-if="shoppingCart.items.length > 0" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
                                         <th>Titulo</th>
-                                        <th>Cantidad</th>
                                         <th>Precio</th>
+                                        <th>Cantidad</th>
                                         <th>Total</th>
                                         <th>Remover</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in shoppingCart.items" track-by="$index">
-                                        <td>{{item.Codigo}}</td>
-                                        <td>{{item.Titulo}}</td>
-                                        <td>{{item.Quantity}}</td>
-                                        <td>{{item.Precio}}</td>
-                                        <td>{{item.Total}}</td>
-                                        <td><button class="btn btn-danger" v-on:click="removeFromCart($index,item)">Eliminar</button></td>
+                                    <tr v-for="object in shoppingCart.items" track-by="$index">
+                                        <td>{{object.item.Codigo}}</td>
+                                        <td>{{object.item.Titulo}}</td>
+                                        <td>&#162;{{object.item.Precio}}</td>
+                                        <td>{{object.quantity}}</td>
+                                        <td>&#162;{{object.total}}</td>
+                                        <td><button class="btn btn-danger" v-on:click="removeFromCart($index,object)">Eliminar</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{shoppingCart.totalItems}}</td>
+                                        <td>{{shoppingCart.total}}</td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -103,7 +118,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary btn-addtocart" v-on:click="">Proceder con la compra</button>
+                        <button type="button" class="btn btn-primary btn-addtocart"  v-bind:disabled="enableProccedBtn == true? true:false" v-on:click="">Proceder con la compra</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -155,7 +170,7 @@
                                 <li>
                                     <a href="#">
                                         <strong>Articulos: </strong>
-                                        <span class="badge badgequantity">{{shoppingCart.items ?shoppingCart.items.length:0}}</span>
+                                        <span class="badge badgequantity">{{shoppingCart.totalItems}}</span>
                                         <strong>Precio Total: </strong><strong class="navprice">&#162;{{shoppingCart.total}}</strong>
 
                                     </a>
