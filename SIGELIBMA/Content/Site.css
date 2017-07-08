@@ -150,10 +150,16 @@ nav.navbar-main .navbar-text{
     border-radius: 10px;
 }
 
+ .btn-proceed{
+    background-color:#f08804;
+    color:#232f3e;
+}
+
 .modal-footer {
     border-top: 1px solid #f08804;
 }
-.modal-footer .btn-addtocart{
+
+ .btn-proceed{
     background-color:#f08804;
     color:#232f3e;
 }
@@ -164,6 +170,28 @@ nav.navbar-main .navbar-text{
     max-width:60px;
     border:none;
 }
+
+/*MODAL SHOPPING CART*/
+
+#modalShoppingCart .modal-body {
+    padding:15px;
+}
+
+#modalShoppingCart .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a {
+    color:#337ab7;
+    background-color:transparent;
+    border-bottom: 2px solid #f4d078 ;
+}
+
+#modalShoppingCart hr.navbar-separator {
+   border-top:  1px solid #232f3e;
+}
+
+
+#modalShoppingCart .modal-body {
+}
+
+
 /*.popimage {
     margin-left:50%;
     margin-top: 15%;

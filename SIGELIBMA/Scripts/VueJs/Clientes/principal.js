@@ -43,7 +43,8 @@ data.categories = [];
 data.shoppingCart = { items: [], total: 0, totalItems: 0 };
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.alert = { type: 'success', message: 'alert', status: false };
-data.alertModal = { type: 'success', message: 'alert', status: true }; 
+data.alertModal = { type: 'success', message: 'alert', status: true };
+data.modalCart = { currentPage : 0};
 data.alertModalShoppingCart = { type: 'success', message: 'alert', status: true };
 data.alertModalBookDetails = { type: 'success', message: 'alert', status: true };
 data.asideWiki = { show: false, title: '' };
@@ -179,6 +180,7 @@ openModal: function (object, type) {
         vm.updateModalDetailTotal();
         $("#modalDetails").modal({ show: true });
     } else if (type === 'modalShoppingCart') {
+        vm.modalCart.currentPage = 1;
         if (vm.shoppingCart.items.length <= 0) {
             vm.activateToastr('danger', 'El carrito esta vacio.', true);
             //vm.activateAlertModalShoppingCart('info', ' El carrito esta vacio', true);
