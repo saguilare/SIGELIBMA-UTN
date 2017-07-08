@@ -106,6 +106,7 @@
                             <!-- Content-->
                             <div class="row">
                                 <div class="col-sm-12 table-responsive">
+                                    <!--page 1-->
                                     <div v-if="modalCart.currentPage === 1">
                                         <h3>Resumen Productos</h3><hr />
                                         <table class="table table-hover table-striped">
@@ -141,12 +142,75 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <!--page 2-->
                                     <div v-if="modalCart.currentPage === 2">
                                         <h3>Datos Personales</h3><hr />
+                                        <div class="form-group">
+                                            <label>Nombre: </label>
+                                            <input class="form-control" type="text" placeholder="Nombre" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Apellidos: </label>
+                                            <input class="form-control" type="text" placeholder="Apellidos" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cedula: </label>
+                                            <input class="form-control" type="text" placeholder="Cedula" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefono: </label>
+                                            <input class="form-control" type="tel" placeholder="Telefono" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Correo: </label>
+                                            <input class="form-control" type="email" placeholder="Correo" required/>
+                                        </div>
                                     </div>
+                                    <!--page 3-->
                                     <div v-if="modalCart.currentPage === 3">
+                                        <div class="bg-info">
+                                            <h5>Cuentas Bancarias:</h5>
+                                            <p><strong>Cedula Juridica:</strong> 3-00456-90</p> 
+                                            <p><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</p> 
+                                            <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p> 
+                                                 
+                                                
+                                        </div>
                                         <h3>Datos Bancarios</h3><hr />
+                                        <div class="form-group">
+                                            <label>Fecha Deposito: </label>
+                                            <datepicker v-bind:value.sync="datepickerOptions.value" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                                            </datepicker>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Referencia: </label>
+                                            <input class="form-control" type="text" placeholder="No. Referencia:" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Banco Emisor: </label>
+                                            <select required class="form-control">
+                                                <option value="value" selected disabled>-- Seleccione un Banco --</option>
+                                                <option value="1">BCR</option>
+                                                <option value="2">BNCR</option>
+                                                <option value="3">BAC</option>
+                                                <option value="4">Scottia Bank</option>
+                                                <option value="4">LAFISE</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Banco Destino: </label>
+                                            <select required class="form-control" >
+                                                <option value="value"  selected disabled>-- Seleccione un Banco --</option>
+                                                <option value="1">BCR</option>
+                                                <option value="2">BNCR</option>
+                                                <option value="3">BAC</option>
+                                                <option value="4">Scottia Bank</option>
+                                                <option value="4">LAFISE</option>
+                                            </select>
+                                        </div>
+                                        
                                     </div>
+                                    <!--page 4-->
                                     <div v-if="modalCart.currentPage === 4">
                                         <h3>Resumen TRansaccion</h3><hr />
                                     </div>
@@ -178,7 +242,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         
-    
+        <!--NAVBAR-->
         <div id="" class="navbar-wrapper">
             <div class="container" >
                 @RenderBody()
@@ -223,9 +287,12 @@
                                 
                                 <li>
                                     <a href="#">
-                                        <strong>Articulos: </strong>
-                                        <span class="badge badgequantity">{{shoppingCart.totalItems}}</span>
-                                        <strong>Precio Total: </strong><strong class="navprice">&#162;{{shoppingCart.total}}</strong>
+                                        
+                                        <span class="badge badgequantity">
+                                            <strong>Articulos: </strong>{{shoppingCart.totalItems}}
+                                            <strong>Precio Total: </strong><strong class="">&#162;{{shoppingCart.total}}</strong>
+                                        </span>
+                                        
 
                                     </a>
                                 </li>

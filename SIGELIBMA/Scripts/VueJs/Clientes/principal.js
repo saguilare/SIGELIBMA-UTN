@@ -36,6 +36,7 @@ var urlRoot = '';
 
 
 var data = {};
+data.datepickerOptions = { format: 'dd/MM/yyyy' ,placeholder:'dd/mm/yyyy', close:true, value:''};
 data.books = [];
 data.modalObject = { item: {}, quantity: 1, total: 0 };
 data.enableProccedBtn = false;
@@ -59,9 +60,10 @@ var vm = new Vue({
     el: '#pageMainContainer',
     data: data,
     components: {
-        alert: VueStrap.alert
+        alert: VueStrap.alert,
+        datepicker: VueStrap.datepicker,
         //typeahead: customAutocomplete,
-        //datepicker: VueStrap.datepicker,
+        
         //modal not working the second time
         //bug in vue-strap
         //using bootstrap modal instead
