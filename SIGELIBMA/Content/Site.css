@@ -30,12 +30,7 @@ font-size: 50px;
 
 .scrollBtn:focus { outline: none; }
 
-
-
-
-div.producto{
-    
-    
+div.producto{ 
     margin-right: 50px;
     background-color:#fafafa;
     border: 3px ridge #f08804;
@@ -74,7 +69,6 @@ div.producto img{
 /*override color in tool nav bar*/
 nav.navbar-main{
     background-color:#232f3e;
-   
     border-radius: 0;
 }
 
@@ -187,8 +181,14 @@ nav.navbar-main .navbar-text{
    border-top:  1px solid #232f3e;
 }
 
-
-#modalShoppingCart .modal-body {
+#modalShoppingCart .bg-info,.bg-danger, .bg-warning {
+    padding:20px;
+    border-radius:10pt;
+}
+/*section 3 bank info*/
+#modalShoppingCart .bg-accts {
+    padding:20px;
+    border-radius:10pt;
 }
 
 

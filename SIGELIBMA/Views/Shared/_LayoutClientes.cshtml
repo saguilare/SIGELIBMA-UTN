@@ -68,12 +68,12 @@
         </div><!-- /.modal -->
 
         <!-- MODAL Shooping Cart -->
-        <div id="modalShoppingCart" class="modal fade" tabindex="-1" role="dialog">
+        <div id="modalShoppingCart" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><a href="#" ><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a> Carro de Compras</h4>
+                        <h4 class="modal-title"><a href="#"><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a> Carro de Compras</h4>
                     </div>
                     <div class="modal-body ">
                         <div v-if="shoppingCart.items.length > 0">
@@ -86,7 +86,7 @@
                                     {{alertModalShoppingCart.message}}
                                 </div>
                             </div>
-                           <!-- Navbar-->
+                            <!-- Navbar-->
                             <div class="row">
                                 <div class="col-sm-12">
                                     <ul class="nav nav-pills nav-justified">
@@ -106,6 +106,7 @@
                             <!-- Content-->
                             <div class="row">
                                 <div class="col-sm-12 table-responsive">
+                                    <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
                                     <!--page 1-->
                                     <div v-if="modalCart.currentPage === 1">
                                         <h3>Resumen Productos</h3><hr />
@@ -135,9 +136,7 @@
                                                     <td>Totales</td>
                                                     <td>{{shoppingCart.totalItems}}</td>
                                                     <td>&#162;{{shoppingCart.total}}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success" v-bind:disabled="enableProccedBtn == true? true:false" v-on:click="">Comprar</button>
-                                                    </td>
+                                                    <td></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -163,18 +162,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Correo: </label>
-                                            <input class="form-control" type="email" placeholder="Correo" required/>
+                                            <input class="form-control" type="email" placeholder="Correo" required />
                                         </div>
                                     </div>
                                     <!--page 3-->
                                     <div v-if="modalCart.currentPage === 3">
-                                        <div class="bg-info">
-                                            <h5>Cuentas Bancarias:</h5>
-                                            <p><strong>Cedula Juridica:</strong> 3-00456-90</p> 
-                                            <p><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</p> 
-                                            <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p> 
-                                                 
-                                                
+                                        <div class="bg-info bg-accts">
+                                            <h4><b>Cuentas Bancarias:</b></h4>
+                                            <p><strong>Cedula Juridica:</strong> 3-00456-90</p>
+                                            <p><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</p>
+                                            <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p>
                                         </div>
                                         <h3>Datos Bancarios</h3><hr />
                                         <div class="form-group">
@@ -199,8 +196,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Banco Destino: </label>
-                                            <select required class="form-control" >
-                                                <option value="value"  selected disabled>-- Seleccione un Banco --</option>
+                                            <select required class="form-control">
+                                                <option value="value" selected disabled>-- Seleccione un Banco --</option>
                                                 <option value="1">BCR</option>
                                                 <option value="2">BNCR</option>
                                                 <option value="3">BAC</option>
@@ -208,11 +205,21 @@
                                                 <option value="4">LAFISE</option>
                                             </select>
                                         </div>
-                                        
+
                                     </div>
                                     <!--page 4-->
                                     <div v-if="modalCart.currentPage === 4">
-                                        <h3>Resumen TRansaccion</h3><hr />
+                                        <h3>Resumen Transaccion</h3><hr />
+                                        <div class="bg-info" v-if="shoppingCart.payment.status" >                                            
+                                            <h5><b>Su compra ha sido procesada!</b></h5>
+                                            <p>Usted recibira un correo con el detalle de su compra. </p>
+                                            <p>Confirmacion # <strong>{{shoppingCart.payment.code}}</strong></p>
+                                        </div>
+                                        <div v-else class="bg-danger" >
+                                            <h5><b>Ha sucedido un problema!</b></h5>
+                                            <p>Por favor intente de nuevo, si el problema persiste envie un correo a 
+                                                <strong><a href="mailto:{{emailSupport}}" target="_top">Soporte Iglesia Mana</a></strong>. </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -221,22 +228,25 @@
                                 <div class="col-sm-12 text-center">
                                     <nav aria-label="...">
                                         <ul class="pager">
-                                            <li v-if="modalCart.currentPage > 1 && modalCart.currentPage <=4" v-on:click="modalCart.currentPage -= 1">
+                                            <li v-if="modalCart.currentPage > 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage -= 1">
                                                 <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
                                             </li>
-                                            <li v-if="modalCart.currentPage >= 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage += 1">
+                                            <li v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="modalCart.currentPage += 1 ">
                                                 <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                            </li>
+                                            <li v-if="modalCart.currentPage === 3" v-on:click="processPayment() ">
+                                                <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
                                             </li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
-                        </div> 
-                        <h4 v-else class="text-center">El carrito esta vacio</h4>       
+                        </div>
+                        <h4 v-else class="text-center">El carrito esta vacio</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

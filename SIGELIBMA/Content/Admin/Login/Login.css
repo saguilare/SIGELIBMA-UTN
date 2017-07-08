@@ -12,29 +12,29 @@ img {
     float: left;
 }
 
-.btn-primary {
+/*.btn-primary {
     color: #ffffff;
     background-color: #428bca;
     border-color: #357ebd;
-}
+}*/
 
-.btn-block {
+/*.btn-block {
     display: block;
     width: 100%;
     padding-right: 0;
     padding-left: 0;
-}
+}*/
 
-p {
+/*p {
     display: block;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
-}
+}*/
 
 
-input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
+/*input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
     align-items: flex-start;
     text-align: center;
     cursor: default;
@@ -70,40 +70,37 @@ input[type="button" i], input[type="submit" i], input[type="reset" i], input[typ
 
 .intelicon-user-person-outlined{
     padding-right: 3px; 
-}
+}*/
 
 .logincontainer{
     background-color: white;
-    //opacity: 0.9; 
+    opacity: 0.9; 
     padding: 20px 30px 15px;
     width: 360px;
     margin: 10% auto ;
-    border:1px solid #ccc;
+    border:1px solid #f08804;
 }
+
+.form-signin-heading{
+    color:#232f3e;
+    text-align: center;
+}
+
+
+hr {
+    border: 2px solid #f08804;
+}
+
 .btn-login {
-    background-color:#003333;
+    background-color:#232f3e;
     color:white;
 }
 
-hr {
-    border-color: #003333;
+.btn-login:hover {
+    color: white;
 }
 
-label {
-    color: #003333;
-}
-
-hr {
-    display: block;
-    -webkit-margin-before: 0.5em;
-    -webkit-margin-after: 0.5em;
-    -webkit-margin-start: auto;
-    -webkit-margin-end: auto;
-    border-style: inset;
-    border-width: 1px;
-}
-
-body form div.alertBox {
+/*body form div.alertBox {
     border: 2px solid #eed3d7; 
     border-radius: 5px;
     margin-bottom: 4px;
@@ -111,50 +108,11 @@ body form div.alertBox {
     padding: 9px 7px 0px 7px;
     display:none;
 } 
-body form div p{
-    color: #b94a48;
-    text-align: justify;
-}
-// .form-signin {
-//     margin: 0 auto;
-//     max-width: 330px;
-//     padding: 15px;
-// }
-.form-signin-heading{
-    color: black;
-    text-align: center;
-}
-.form-signin .form-signin-heading, .form-signin .checkbox {
-    margin-bottom: 10px;
-}
-.form-signin .checkbox {
-    font-weight: normal;
-}
-.form-signin .form-control {
-    box-sizing: border-box;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    position: relative;
-}
-.form-signin .form-control:focus {
-    z-index: 2;
-}
-.form-signin input[type="text"] {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    margin-bottom: -1px;
-}
-.form-signin input[type="password"] {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    margin-bottom: 10px;
-}
 
 /*override color in tool nav bar*/
 nav.navbar-main{
-    background-color: #005C5C;
-    border-color:#003333;
+    background-color: #232f3e;
+    border-color:#232f3e;
     border-radius: 0;
 }
 
@@ -195,7 +153,5 @@ nav.navbar-main .navbar-text{
  
 }
 
-#nameandjobtitlebar>a:hover{
-  background-color: #004d4d;
-}
+
 

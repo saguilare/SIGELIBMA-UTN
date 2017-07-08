@@ -168,7 +168,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Admin\Layout\Layout.css" />
     <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
     <Content Include="Content\bootstrap.css" />

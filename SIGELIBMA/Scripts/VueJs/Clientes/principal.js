@@ -36,12 +36,14 @@ var urlRoot = '';
 
 
 var data = {};
+data.emailSupport = "iglesiamana@gmail.com";
 data.datepickerOptions = { format: 'dd/MM/yyyy' ,placeholder:'dd/mm/yyyy', close:true, value:''};
 data.books = [];
 data.modalObject = { item: {}, quantity: 1, total: 0 };
 data.enableProccedBtn = false;
 data.categories = [];
-data.shoppingCart = { items: [], total: 0, totalItems: 0 };
+data.shoppingCart = { items: [], total: 0, totalItems: 0, sections: [], payment: {} };
+data.shoppingCart.payment = { code: '',status: false };
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
@@ -62,6 +64,7 @@ var vm = new Vue({
     components: {
         alert: VueStrap.alert,
         datepicker: VueStrap.datepicker,
+        spinner: VueStrap.spinner,
         //typeahead: customAutocomplete,
         
         //modal not working the second time
@@ -126,31 +129,6 @@ scrollRight: function () {
     window.scrollBy(100, 0);
 },
 
-
-//addRol: function (rol) {
-//    vm.displaySpinner(true,'Agregando Rol');
-//    $.ajax({
-//        url: urlRoot + 'MantRoles/Add',
-//        type: 'post',
-//        dataType: 'json',
-//        data: rol,
-//        success: function (result) {
-//            if (result.OperationStatus) {
-//                vm.getRoles();
-//                vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
-                        
-//            } else {
-//                vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-//            } 
-//            vm.displaySpinner(false);
-//        },
-//        error: function (error) {
-//            vm.displaySpinner(false);
-//            vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-//        }
-//    });
-//},
-
 getPageData: function () {
     $.ajax({
         url: urlRoot + 'Home/Init',
@@ -200,6 +178,30 @@ openModal: function (object, type) {
     }
     
 },
+
+processPayment: function () {
+    vm.modalCart.currentPage = 4;
+    this.$refs.spinner1.show();
+    
+    var param = 'test';
+    $.ajax({
+        url: urlRoot + 'Home/ProcessPayment',
+        type: 'post',
+        dataType: 'json',
+        data: param,
+        success: function (result) {
+            if (result.OperationStatus) {
+                vm.shoppingCart.payment.code = result.ConfirmationCode;
+                vm.shoppingCart.payment.status = true;
+            } 
+            vm.$refs.spinner1.hide();
+        },
+        error: function (error) {
+            vm.$refs.spinner1.hide();
+        }
+    });
+    
+},
      
 createWiki: function (title, html) {
     //clean before append new content
@@ -208,6 +210,7 @@ createWiki: function (title, html) {
     vm.asideWiki.title = title
     vm.asideWiki.show = true;
 },
+
 hideShowArrowsOnLoad: function() {
     $(".category").each(function (key, value) {
         var row = $(this).find('.category-body');
@@ -247,6 +250,7 @@ addToCart: function (item) {
 updateModalDetailTotal: function () {
     vm.modalObject.total = (vm.modalObject.item.Precio * vm.modalObject.quantity);
 },
+
 showWikiSection1: function () {
     var html = "<p>aqui va el codigo html</p>";
     var title = "SIGELIBMA - Assistant";

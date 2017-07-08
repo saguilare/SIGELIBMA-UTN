@@ -2,15 +2,27 @@
     height: 100%;
 }
 
-body {
     
+body {
+    background-color:#f6f8f8;
+    
+}
+
+#section-body {
+    background-color:#e3e6e8;
+}
+
+#wrapper {
+    padding: 0px 100px;
+}
 
 
 
-    /*override color in tool nav bar*/
+
+/*override color in tool nav bar*/
 nav.navbar-main{
-    background-color: #005C5c;
-    border-color:#003333;
+    background-color: #232f3e;
+    border-color:#232f3e;
     border-radius: 0;
 }
 
@@ -189,3 +201,43 @@ TABLES
     white-space: nowrap;
     width: 1%;
 }*/
+
+
+/*-------------------------
+* MODAL
+*--------------------------
+*/
+
+div.modal-header{
+  background-color: #005C5C;
+    border-color:#003333;
+  color: white;
+}
+
+div.modal-header h4, div.modal-header h3,div.modal-header h2{
+  color: white;
+}
+
+div.modal {
+  background-color: #005C5C;
+ 
+}
+
+div.modal h4, div.modal h3,div.modal h2{
+  
+}
+
+
+/*----------------------------
+* Loading window
+*-----------------------------
+*/
+
+.loading{
+    top: 50px;;
+    text-align: center;
+}
+
+div.loading img{
+    opacity: 0.5;
+}

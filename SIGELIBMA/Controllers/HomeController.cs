@@ -36,7 +36,23 @@ namespace SIGELIBMA.Controllers
                 return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
+
+        [HttpPost]
+        public JsonResult ProcessPayment(string param)
+        {
+            try
+            {
+              
+                return Json(new { OperationStatus = true, ConfirmationCode = "AZ-5456",  Message = "Operation OK" });
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                return Json(new { OperationStatus = false,  Message = "Operation FAILED" });
+            }
+        }
 
         private object GetBooks()
         {

@@ -12,22 +12,16 @@ var urlRoot = '';
 //var urlRoot = '';
 
 
-var indexFound = 0;
-var comeBackToSecction3 = false;
-var enableDevice = {};
-enableDevice.login = { account: '', passwd: '' };
-enableDevice.employee = {};
-enableDevice.retrieveUser = true;
-enableDevice.device = { deviceName: '', devicePort: '' };
-enableDevice.alert = { type: 'success', message: 'alert', status: false };
-enableDevice.asideWiki = { show: false, title: '' };
 
-
+var data = {};
+data.login = { Username: '', Password: '' };
+data.alert = { type: 'success', message: 'alert', status: false };
 
 var vm = new Vue({
     el: '#LoginContainer',
-    data: enableDevice,
+    data: data,
     components: {
+         vueinput: VueStrap.input,
         //typeahead: customAutocomplete,
         //datepicker: VueStrap.datepicker,
         //modal not working the second time
@@ -45,22 +39,18 @@ var vm = new Vue({
             vm.alert.type = type;
             vm.alert.message = message;
             vm.alert.status = status;
-
-
         },
 
         lowerCase: function (stringValue) {
             return stringValue.toLowerCase();
         },
 
-        setlogin: function () {
-            if (!vm.login.passwd || !vm.login.account) {
-                vm.activateAlert('Danger', 'PLease provide username and password', true);
+        login: function () {
+            if (!vm.login.Password || !vm.login.Username) {
+                vm.activateAlert('Danger', 'Debe ingresar su usuario y contraseña.', true);
                 return;
             }
-
-
-            console.log(urlRoot + 'Login/validateLogin');
+            
             $.ajax({
                 url: urlRoot + 'Login/validateLogin',
                 type: 'post',
@@ -73,54 +63,18 @@ var vm = new Vue({
                     } else {
                         vm.activateAlert('Danger', result.Message, true);
                     }
-
-
                 },
                 error: function (error) {
-                
-                    vm.activateAlert('Danger',"Unexpected system error, please try again or report incident to Network Automation Group" , true);
+                    vm.activateAlert('Danger',"Error inesperado, por favor intente de nuevo o notifique a soporte tecnico." , true);
                 }
             });
         },
 
-        getUser: function () {
-           
-                $.ajax({
-                    url: urlRoot + 'Login/GetUsername',
-                    type: 'get',
-                    dataType: 'json',
-                    async: true,
-                    success: function (result) {
-                        if (result.OperationStatus) {
-                            vm.employee = result.Employee;
-                            vm.login.account = vm.employee.Idsid;
-                        } else {
-                            vm.activateAlert('Danger', result.Message, true);
-                        }
-                        
-                    },
-                    error: function (error) {
-              
-                        vm.activateAlert('Danger', "Unexpected system error, please try again or report incident to Network Automation Group", true);
-                    }
-                });
-                vm.retrieveUser = false;
+      
+        init: function () {
           
 
         },
-        checkForErrors: function () {
-            var url = window.location.href;
-            var query = window.location.search.substring(1);
-            var code = query.split('=');
-            if (code[0].toLowerCase() === 'errorcode' && code[1] === '1') {
-                vm.activateAlert('Danger', "Session Expired/Terminated, pLease log in again", true);
-            }
-        },
-        init: function () {
-            this.checkForErrors();
-            this.getUser();
-
-        }
 
       
 
@@ -136,9 +90,7 @@ var vm = new Vue({
     }
 
 
-}
-
-    );
+});
 
 vm.init();
 

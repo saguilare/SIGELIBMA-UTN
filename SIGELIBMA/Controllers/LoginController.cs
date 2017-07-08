@@ -13,6 +13,7 @@ namespace SIGELIBMA.Controllers
 
         public ActionResult Login(int? code)
         {
+            int errorCode = Convert.ToInt32((code != null) ? code : 1);
             if (System.Web.HttpContext.Current.Session["session"] != null)
             {
                 Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
@@ -21,7 +22,8 @@ namespace SIGELIBMA.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            ViewBag.code = code;
+
+            ViewBag.code = errorCode;
             return View();
         }
 
