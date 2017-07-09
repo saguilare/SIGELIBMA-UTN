@@ -3,15 +3,71 @@
     Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
 }
 
-<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+<!--VUESTRAP ALERT == TOASTR-->
+<toastr v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+    <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
+    <span v-else class="glyphicon glyphicon-info-sign"></span>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+    <strong v-else>Info!</strong>
+    <p>{{toastr.message}}</p>
+</toastr>
+<!--MODAL FACTURA-->
+<div id="modal-factura" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form v-on:submit.prevent="updateRol(modalObject,event)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Factura</h4>
+                </div>
+                <div class="modal-body">
+                    <spinner v-ref:spinner1 size="md" fixed text="Inicializando caja, por favor espere."></spinner>
+
+                        <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="session.user.name" label="Usuario" v-bind:enter-submit="true" readonly required></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="session.user.username" label="Nombre de Usuario" v-bind:enter-submit="true" readonly required></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Caja:</label>
+                            <select v-model="" class="form-control">
+                                <option value="value" selected disabled>-- Seleccione una Caja --</option>
+                                <option value="1">Caja 1</option>
+                                <option value="2">Caja 2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="" label="Monto Inicio"type="number" v-bind:enter-submit="true"  required></vueinput>
+                        </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-save " v-on:click="initializeCashBox()">Iniciar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--MODAL CAJA-->
+<div id="modal-caja" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form v-on:submit.prevent="updateRol(modalObject,event)">
                 <div class="modal-header modal-mant">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Editar Rol</h4>
+                    <h4 class="modal-title">Iniciar Caja</h4>
                 </div>
                 <div class="modal-body">
+                    <spinner v-ref:spinner1 size="md" fixed text="Inicializando caja, por favor espere."></spinner>
+
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
@@ -19,27 +75,61 @@
                         {{alertModal.message}}
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="control-label">Codigo:</label>
-                        <input type="text" class="form-control" id="" v-model="modalObject.Codigo" required disabled>
+                        <vueinput v-bind:value.sync="session.user.name" label="Usuario" v-bind:enter-submit="true" readonly required></vueinput>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="control-label">Descripcion:</label>
-                        <input class="form-control" id="" required v-model="modalObject.Descripcion">
+                        <vueinput v-bind:value.sync="session.user.username" label="Nombre de Usuario" v-bind:enter-submit="true" readonly required></vueinput>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="control-label">Estado:</label>
-                        <select v-model="modalObject.Estado" class="form-control">
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
+                        <label for="message-text" class="control-label">Caja:</label>
+                        <select v-model="" class="form-control">
+                            <option value="value" selected disabled>-- Seleccione una Caja --</option>
+                            <option value="1">Caja 1</option>
+                            <option value="2">Caja 2</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <vueinput v-bind:value.sync="" label="Monto Inicio" type="number" v-bind:enter-submit="true" required></vueinput>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-save ">Salvar</button>
+                    <button type="button" class="btn btn-save " v-on:click="initializeCashBox()">Iniciar</button>
                 </div>
             </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- MODAL BOOK DETAILS -->
+<div id="modal-product" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Detalle Producto</h4>
+            </div>
+            <div class="modal-body text-center">
+                @*<div v-if="alertModalBookDetails.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalBookDetails.type) === 'danger' , 'alert-info ' : lowerCase(alertModalBookDetails.type) === 'info','alert-success ' : lowerCase(alertModalBookDetails.type) === 'success'}">
+                    <button type="button" class="close" v-on:click="alertModalBookDetails.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong v-if="lowerCase(alertModalBookDetails.type) === 'danger' ">Atencion!</strong>
+                    <strong v-else>Info!</strong>
+                    {{alertModalBookDetails.message}}
+                </div>*@
+                <img class="img-circle popimage" src="~/Images/libros/{{product.item.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                <h2>{{product.item.Titulo}}</h2>
+                <p>{{product.item.Descripcion}}</p>
+                <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{product.item.Precio}}</p>
+                <div class="form-group text-center">
+                    <label>Cantidad:</label>
+                    <input class="form-control book-quantity" type="number" min="1" max="100" v-model="product.quantity" v-on:click="updateModalDetailProdTotal() " />
+                </div>
+                <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{product.total}}</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button v-on:click="addToFactura(product)" type="button" class="btn btn-primary btn-proceed"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -50,7 +140,7 @@
         <p>{{validations.loadingMessage}}</p>
     </div>
 </div>
-
+<!-- Alert page critical errors-->
 <div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
     <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
@@ -60,6 +150,7 @@
 
 
 <div id="wrapper" v-show="!validations.showSpinner">
+    <!--NAVBAR-->
     <section class="row">
         <div class="col-sm-12">
             <ul class="nav nav-tabs ">
@@ -72,8 +163,9 @@
             </ul>
         </div>
     </section>
+    <!-- PAGE BODY -->
     <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
-
+        <!-- TITLE BAR -->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <div class="row">
                 <div class="col-sm-12">
@@ -81,94 +173,88 @@
                         <span class="title-bar-title">Ventas</span>
                         <span class="title-bar-subtitle">Facturacion</span>
                     </div>
+                    <button v-if="cashBox.status === false" v-on:click="openModal(null, 'modal-caja')" class="btn btn-primary pull-right" type="button" @*data-toggle="collapse" data-target="#collapseFactMain"*@ aria-expanded="false" aria-controls="collapseFactMain">
+                        Abrir Caja
+                    </button>
+                    <button v-else v-on:click="closeCashBox()" class="btn btn-primary pull-right" type="button" @*data-toggle="collapse" data-target="#collapseFactMain"*@ aria-expanded="false" aria-controls="collapseFactMain">
+                        Cerrar Caja
+                    </button>
                 </div>
             </div>
         </section>
-        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
-            <div class="row" style="padding-top:20px;">
-                <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
-                    <form name="" class="" v-on:submit.prevent="addRol(rol)">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscar Por: <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li v-on:click="changeSearch(1)"><a href="#">Codigo</a></li>
-                                    <li v-on:click="changeSearch(2)"><a href="#">Titulo</a></li>
-                                    
-                                </ul>
-                            </div><!-- /btn-group -->
-                            <typeahead v-bind:data="searchByData" placeholder="Busqueda">
-                            </typeahead>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div><!-- /input-group -->
-                      
-                    </form>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-10 form-inline">
-                    <div class="form-group">
-                        <label for="search"><i class="glyphicon glyphicon-search"></i></label>
-                        <input ng-model="q" id="search" class="form-control" placeholder="Search Table">
+        <!-- BODY -->
+        <section class="collapse " id="collapseFactMain" style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">        
+                <div class="row" style="padding-top:20px;">
+                    <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
+                        <form name="" class="" v-on:submit.prevent="addRol(rol)">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscar Por: <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li v-on:click="searchByData = codigos"><a href="#">Codigo</a></li>
+                                        <li v-on:click="searchByData = titulos"><a href="#">Titulo</a></li>
 
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-10 ">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <!--<th class="text-center" style="color:#337ab7">Action</th>-->
+                                    </ul>
+                                </div><!-- /btn-group -->
+                                <typeahead v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Busqueda">
+                                </typeahead>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" v-on:click="openModal(null,'modal-product')" type="button">Agregar!</button>
+                                </span>
+                            </div><!-- /input-group -->
 
-                                    <th>
-                                        <a ng-click="vm.sortType = 'environment.name'; vm.sortReverse = !vm.sortReverse">
-                                            Codigo
-                                            <span ng-show="vm.sortType == 'environment.name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                                            <span ng-show="vm.sortType == 'environment.name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
-                                        </a>
-                                        <input type="text" class="form-control" ng-model="vm.tableFilter.env">
-                                    </th>
-                                    <th>
-                                        <a ng-click="vm.sortType = 'name'; vm.sortReverse = !vm.sortReverse">
-                                            Descripcion
-                                            <span ng-show="vm.sortType == 'name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                                            <span ng-show="vm.sortType == 'name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
-                                        </a>
-                                        <input type="text" class="form-control" ng-model="vm.tableFilter.device">
-                                    </th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="rol in roles">
-
-                                    <td>{{rol.Codigo}}</td>
-                                    <td>{{rol.Descripcion}}</td>
-                                    <td>{{rol.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
-                                    <td>
-                                        
-                                        <button class="btn btn-small btn-danger" v-on:click="deleteRol(rol)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        </form>
+                        <hr>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 other-controller">
-                    <div class="text-center">
-                        @*<dir-pagination-controls boundary-links="true"></dir-pagination-controls>*@
+
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-10 ">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><a>Accion</a></th>
+                                        <th><a>Codigo</a></th>
+                                        <th><a>Titulo</a></th>
+                                        <th><a>Precio Unitario</a></th>
+                                        <th><a>Cantidad</a></th>
+                                        <th><a>Precio Total</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="detail in factura.details">
+                                        <td>
+                                            <button class="btn btn-small btn-danger btn-removeFromFactura" v-on:click="removeFromFactura($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar</button>
+                                        </td>
+                                        <td>{{detail.item.Codigo}}</td>
+                                        <td>{{detail.item.Titulo}}</td>
+                                        <td>&#162;{{detail.item.Precio}}</td>
+                                        <td>{{detail.quantity}}</td>
+                                        <td>&#162;{{detail.total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="btn btn-small btn-info" v-on:click="openModal(null, 'modal-factura')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Facturar</button>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{factura.totalItems}}</td>
+                                        <td>&#162;{{factura.total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-12 other-controller">
+                        <div class="text-center">
+                            @*<dir-pagination-controls boundary-links="true"></dir-pagination-controls>*@
+                        </div>
+                    </div>
+                </div>
         </section>
     </section>
 </div>
