@@ -7,10 +7,11 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/SiteAdmin.css" rel="stylesheet" />
-    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "MantRoles")
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
     {
         <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
-    }else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Facturacion")
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <link href="~/Content/Admin/Facturacion/Fact.css" rel="stylesheet" />
     }
@@ -51,11 +52,11 @@
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/VueJsFramework/vue1.js"></script>
     <script src="~/Scripts/vue-strap/vue-strap.js"></script>
-    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "MantRoles")
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
     {
         <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
     }
-    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Facturacion")
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
         

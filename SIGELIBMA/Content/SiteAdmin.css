@@ -47,7 +47,7 @@ nav.navbar-main .navbar-text{
 }
 
 .navbar-default .navbar-nav>.active>a:hover{
-    background-color: #004d4d;
+    background-color: black;
 }
 
 .navbar-main .navbar-header img{
@@ -55,16 +55,22 @@ nav.navbar-main .navbar-text{
 }
 
 .navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
-    background-color: #005C5C;
+    background-color: black;
 }
 
  .navbar-main .navbar-nav>.active>a:hover{
-    background-color: #004d4d;
- 
+    background-color: black;
 }
 
+  .navbar-main .navbar-nav>.active>a{
+    background-color: #232f3e;
+}
 #nameandjobtitlebar>a:hover{
-  background-color: #004d4d;
+  background-color: black;
+}
+
+#nameandjobtitlebar>a{
+  background-color: #232f3e;
 }
 
 
@@ -74,7 +80,7 @@ nav.navbar-main .navbar-text{
  * --------------------------
 */
 .title-bar {
-  border: 2px solid #b1babf;
+  border: 2px solid #f08804;
   border-left: 0px;
   border-right: 0px;
   border-top: 0px;
@@ -88,35 +94,7 @@ nav.navbar-main .navbar-text{
     display: table; }
   .title-bar:after {
     clear: both; }
-  .title-bar.intel-bg-light {
-    background-color: #fff; }
-  .title-bar.intel-left-border:before {
-    background: url("../images/circuit_549x549.png") -10px -338px;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 15px; }
-  .title-bar.intel-border-none {
-    border-radius: 0;
-    border-width: 0 0 2px 0; }
-  .title-bar.intel-border-blue,
-  .title-bar.intel-border-cyan,
-  .title-bar.intel-border-green,
-  .title-bar.intel-border-orange,
-  .title-bar.intel-border-yellow {
-    border-bottom-width: 2px; }
-  .title-bar.border-blue {
-    border-bottom-color: #0071c5; }
-  .title-bar.border-cyan {
-    border-bottom-color: #00aeef; }
-  .title-bar.border-green {
-    border-bottom-color: #005C5C; }
-  .title-bar.border-orange {
-    border-bottom-color: #FFA300; }
-  .title-bar.border-yellow {
-    border-bottom-color: #F3D54E; }
+ 
 
 .title-bar-order,
 .title-bar-subtitle,
@@ -133,12 +111,8 @@ nav.navbar-main .navbar-text{
   width: 40px;
   text-align: center; }
 
-.title-bar-order.intel-bg-dark {
-  background-color: #edeff0;
-  border-color: #edeff0; }
-
 .title-bar-title {
-  color: #003333;
+  color: #232f3e;
   font-size: 1.5em;
   line-height: 30px;
   margin: 10px 0;
@@ -146,7 +120,7 @@ nav.navbar-main .navbar-text{
 
 .title-bar-subtitle {
   border-left: 1px solid #b1babf;
-  color: #005C5C;
+  color: #232f3e;
   font-size: 1.25em;
   line-height: 30px;
   margin: 10px 0;
@@ -160,6 +134,10 @@ nav.navbar-main .navbar-text{
     background: linear-gradient(right bottom, #e3e6e8 , #ffffff) !important; /* Standard syntax */
 }
 
+/*----------------------------
+* Loading window
+*-----------------------------
+*/
 
 .loading{
     top: 50px;
@@ -217,33 +195,24 @@ TABLES
 * MODAL MAINTAINANCE 
 *--------------------------
 */
-
-div.modal-header{
-  background-color: #005C5C;
-    border-color:#003333;
-  color: white;
+.modal-header {
+    background-color:#232f3e;
+    color:#f08804;
+    
 }
 
 div.modal-header h4, div.modal-header h3,div.modal-header h2{
-  color: white;
+  color: #f08804;
 }
 
-div.modal {
-  background-color: #005C5C;
- 
+.modal-footer .btn-save {
+    background-color: #232f3e;
+    color:#f08804;
 }
 
-div.modal h4, div.modal h3,div.modal h2{
-  
-}
+/*END MODAL MAINT*/
 
 
-div.container-fluid section {
-    background-color:white;
-    margin:15px;
-}
-/*----------------------------
-* Loading window
-*-----------------------------
-*/
+
+
 
