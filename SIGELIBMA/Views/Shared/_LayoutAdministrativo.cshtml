@@ -3,11 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/SiteAdmin.css" rel="stylesheet" />
-    <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "MantRoles")
+    {
+        <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
+    }else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Facturacion")
+    {
+        <link href="~/Content/Admin/Facturacion/Fact.css" rel="stylesheet" />
+    }
+    
 </head>
 <body id="pageMainContainer">
     <nav class="navbar-main navbar navbar-default">
@@ -44,6 +51,15 @@
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/VueJsFramework/vue1.js"></script>
     <script src="~/Scripts/vue-strap/vue-strap.js"></script>
-    <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "MantRoles")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Facturacion")
+    {
+        <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
+        
+    }
+   
 </body>
 </html>

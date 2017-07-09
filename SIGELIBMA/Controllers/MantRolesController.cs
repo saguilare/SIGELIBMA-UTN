@@ -15,7 +15,8 @@ namespace SIGELIBMA.Controllers
 
         [HttpGet]
         public ActionResult Index()
-        { 
+        {
+            ViewBag.Title = "Roles";
             return View();
         }
 

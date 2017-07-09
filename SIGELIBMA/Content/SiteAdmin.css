@@ -160,6 +160,16 @@ nav.navbar-main .navbar-text{
     background: linear-gradient(right bottom, #e3e6e8 , #ffffff) !important; /* Standard syntax */
 }
 
+
+.loading{
+    top: 50px;
+    text-align: center;
+}
+
+div.loading img{
+    opacity: 0.5;
+}
+
 /*********************
  Back to top styles
 *********************/
@@ -204,7 +214,7 @@ TABLES
 
 
 /*-------------------------
-* MODAL
+* MODAL MAINTAINANCE 
 *--------------------------
 */
 
@@ -228,16 +238,12 @@ div.modal h4, div.modal h3,div.modal h2{
 }
 
 
+div.container-fluid section {
+    background-color:white;
+    margin:15px;
+}
 /*----------------------------
 * Loading window
 *-----------------------------
 */
 
-.loading{
-    top: 50px;;
-    text-align: center;
-}
-
-div.loading img{
-    opacity: 0.5;
-}

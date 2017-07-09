@@ -19,11 +19,12 @@ namespace SIGELIBMA.Controllers
                 Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
                 if (session != null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Facturacion");
                 }
             }
 
             ViewBag.code = errorCode;
+            ViewBag.Title = "Login";
             return View();
         }
 
@@ -41,7 +42,7 @@ namespace SIGELIBMA.Controllers
                 }
                 else
                 {
-                    return Json(new { OperationStatus = false, Message = "Access Denied, please verify your password" });
+                    return Json(new { OperationStatus = false, Message = "Acceso denegado, por favor verifique sus credenciales." });
                 }
             }
             catch (Exception e)

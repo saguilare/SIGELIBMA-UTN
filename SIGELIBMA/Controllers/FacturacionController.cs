@@ -16,6 +16,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
                 if (session != null)
                 {
+                    ViewBag.Title = "Facturacion";
                     return View();
                 }
             }

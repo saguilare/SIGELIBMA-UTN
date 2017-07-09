@@ -14,7 +14,7 @@ namespace SIGELIBMA.Controllers
         public ActionResult Index()
         {
 
-            
+            ViewBag.Title = "Principal";
             return View();
         }
 

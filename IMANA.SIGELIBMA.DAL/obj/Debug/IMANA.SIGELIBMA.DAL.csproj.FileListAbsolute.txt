@@ -58,4 +58,3 @@ Z:\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.xml
 Z:\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.xml
 Z:\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.dll
 Z:\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.pdb
-Z:\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache

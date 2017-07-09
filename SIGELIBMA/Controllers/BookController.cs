@@ -15,6 +15,7 @@ namespace SIGELIBMA.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.Title = "Libros";
             return View();
         }
 
