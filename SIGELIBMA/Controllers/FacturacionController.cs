@@ -65,6 +65,29 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult ProcessPayment(string param)
+        {
+            try
+            {
+                bool result = true;
+                if (result)
+                {
+                    return Json(new { OperationStatus = true,Factura = 456456, Message = "Transaccion Exitosa"});
+                }
+                else
+                {
+                    return Json(new { OperationStatus = false, Message = "Error: No se registro la factura" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //TODO
+                throw ex;
+            }
+        }
+
         private bool OpenCashBox() {
             return true;
         }

@@ -21,12 +21,13 @@ data.searchByData = data.codigos;
 data.searchSelected = "";
 data.product = { item: {}, quantity: 1,total:0 };
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null, Rol: 0 };
+data.modalFact = { currentPage: 1 };
 data.cashBox = {id:0,status:false};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
 data.toastr = { show: false, placement: "top-right", duration: "3000", type: "danger", width: "400px", dismissable: true, message: '' };
 data.session = { id: 1, user: {name : 'steven aguilar', username : 'saguilar'}};
-data.factura = { master: {}, details: [], taxes: 0, total:0, totalItems:0 };
+data.factura = { master: { id: 0, client: { id: 0, name: '' }, taxes: 0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
 data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion de la base de datos, por favor espere.'};
 
 Vue.filter('numeral', function (value) {
@@ -160,6 +161,7 @@ var vm = new Vue({
         },
 
         openModal: function (object, target) {
+            vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
                 $("#modal-caja").modal({ show: true });
             } else if (target.toLowerCase() === 'modal-product') {
@@ -207,9 +209,9 @@ var vm = new Vue({
                  vm.factura.details.push(obj);   
             }
             
-            vm.factura.total = (parseInt(vm.factura.total) + parseInt(vm.product.total));
-            vm.factura.totalItems = parseInt(vm.factura.totalItems) + parseInt(vm.product.quantity);
-            vm.factura.taxes = vm.factura.taxes + (vm.product.total / 13 * 100);
+            vm.factura.master.total = (parseInt(vm.factura.master.total) + parseInt(vm.product.total));
+            vm.factura.master.totalItems = parseInt(vm.factura.master.totalItems) + parseInt(vm.product.quantity);
+            vm.factura.master.taxes = vm.factura.master.taxes + (vm.product.total / 13 * 100);
             
             vm.searchSelected = "";
             $('#modal-product').modal('hide');
@@ -223,39 +225,47 @@ var vm = new Vue({
             
         },
 
-        //deleteRol: function (rol) {
-        //    vm.displaySpinner(true, 'Desabilitando Rol');
-        //    $.ajax({
-        //        url: urlRoot + 'MantRoles/Delete',
-        //        type: 'post',
-        //        dataType: 'json',
-        //        data: rol,
-        //        success: function (result) {
-        //            if (result.OperationStatus) {
-        //                vm.getRoles();
-        //                vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
-                        
-        //            } else {
-        //                vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-        //            } 
-        //            vm.displaySpinner(false);
-        //        },
-        //        error: function (error) {
-        //            vm.displaySpinner(false);
-        //            vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-        //        }
-        //    });
+        updateChange : function(){
+            vm.factura.master.change = (parseInt(vm.factura.master.totalReceived) - parseInt(vm.factura.master.total));
+        },
 
+        processPayment: function () {
+            vm.modalFact.currentPage = 4;
+            this.$refs.spinner1.show();
 
-        //},
+            var param = 'test';
+            $.ajax({
+                url: urlRoot + 'Facturacion/ProcessPayment',
+                type: 'post',
+                dataType: 'json',
+                data: param,
+                success: function (result) {
+                    if (result.OperationStatus) {
+                        vm.factura.master.id = result.Factura;
+                        vm.modalFact.currentPage = 3;
+                    } else {
+                        vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
+                        vm.modalFact.currentPage = 2;
+                    }
+                    
+                    vm.$refs.spinner1.hide();
+                },
+                error: function (error) {
+                    vm.$refs.spinner1.hide();
+                    $('#modal-factura').modal('hide');
+                    vm.activateToastr('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
+                }
+            });
 
+        },
        
      
         init: function () {
             vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
             vm.activateAlert('danger', '', false);
             vm.getInitData();
-            $('#collapseFactMain').collapse('show')
+            //$('#collapseFactMain').collapse('show');
+            //$("#modal-factura").modal({ show: true });
         }
 
         },
