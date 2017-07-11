@@ -36,6 +36,9 @@ var urlRoot = '';
 
 
 var data = {};
+data.codigos = [];
+data.titulos = [];
+data.searchByData = data.codigos;
 data.emailSupport = "iglesiamana@gmail.com";
 data.datepickerOptions = { format: 'dd/MM/yyyy' ,placeholder:'dd/mm/yyyy', close:true, value:''};
 data.books = [];
@@ -65,7 +68,7 @@ var vm = new Vue({
         alert: VueStrap.alert,
         datepicker: VueStrap.datepicker,
         spinner: VueStrap.spinner,
-        //typeahead: customAutocomplete,
+        typeahead: VueStrap.typeahead,
         
         //modal not working the second time
         //bug in vue-strap
@@ -129,6 +132,14 @@ scrollRight: function () {
     window.scrollBy(100, 0);
 },
 
+changeSearch: function (search) {
+    if (search === 1) {
+        vm.searchByData = vm.codigos;
+    } else {
+        vm.searchByData = vm.titulos;
+    }
+},
+
 getPageData: function () {
     $.ajax({
         url: urlRoot + 'Home/Init',
@@ -137,6 +148,12 @@ getPageData: function () {
         success: function (result) {
             if (result.OperationStatus) {
                 vm.books = result.Books;
+                if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
+                    $.each(vm.books, function (key, book) {
+                        vm.codigos.push(book.Codigo.toString());
+                        vm.titulos.push(book.Titulo);
+                    });
+                }
                 vm.categories = result.Categories;
             } else {
                 // window.location.href = result.Url;
@@ -203,12 +220,26 @@ processPayment: function () {
     
 },
      
-createWiki: function (title, html) {
-    //clean before append new content
-    $("#divaside").html("");
-    $("#divaside").prepend(html);
-    vm.asideWiki.title = title
-    vm.asideWiki.show = true;
+search: function () {
+    if (vm.searchSelected === '') {
+        vm.activateToastr('danger','Debe ingresar los datos del producto que busca', true);
+    } else {
+        $.each(vm.books, function (index, book) {
+            if (vm.searchSelected.toString().toLowerCase() === book.Codigo.toString().toLowerCase()
+                || vm.searchSelected.toString().toLowerCase() === book.Titulo.toString().toLowerCase()) {
+                vm.product.item = book;
+                vm.product.quantity = 1;
+                vm.product.total = book.Precio;
+                $('#modal-product').modal('show');
+                return;
+            }
+        });
+        vm.activateToastr('danger', 'Ninguno de nuestros productos coincide con los paramtetros de busqueda que ingreso', true);
+    }
+    
+
+    
+    
 },
 
 hideShowArrowsOnLoad: function() {
@@ -251,11 +282,11 @@ updateModalDetailTotal: function () {
     vm.modalObject.total = (vm.modalObject.item.Precio * vm.modalObject.quantity);
 },
 
-showWikiSection1: function () {
-    var html = "<p>aqui va el codigo html</p>";
-    var title = "SIGELIBMA - Assistant";
-    this.createWiki(title, html);
-},
+//showWikiSection1: function () {
+//    var html = "<p>aqui va el codigo html</p>";
+//    var title = "SIGELIBMA - Assistant";
+//    this.createWiki(title, html);
+//},
 
 init: function () {
     vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');

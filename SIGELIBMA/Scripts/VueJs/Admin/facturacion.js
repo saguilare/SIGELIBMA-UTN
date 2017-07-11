@@ -58,13 +58,13 @@ var vm = new Vue({
 
         //PaginationMethods
 
-        //changeSearch: function (search) {
-        //    if (search === 1) {
-        //        vm.searchByData = vm.codigos;
-        //    } else {
-        //        vm.searchByData = vm.titulos;
-        //    }
-        //},
+        changeSearch: function (search) {
+            if (search === 1) {
+                vm.searchByData = vm.codigos;
+            } else {
+                vm.searchByData = vm.titulos;
+            }
+        },
         lowerCase: function (stringValue) {
             return stringValue.toLowerCase();
         },

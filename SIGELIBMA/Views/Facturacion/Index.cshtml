@@ -266,13 +266,12 @@
                 <div class="row" style="padding-top:20px;">
                     <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
                         <form name="" class="" v-on:submit.prevent="addRol(rol)">
-                            <div class="input-group">
+                            <div class="input-group-btn">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscar Por: <span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtro <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         <li v-on:click="searchByData = codigos"><a href="#">Codigo</a></li>
                                         <li v-on:click="searchByData = titulos"><a href="#">Titulo</a></li>
-
                                     </ul>
                                 </div><!-- /btn-group -->
                                 <typeahead v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Busqueda">
