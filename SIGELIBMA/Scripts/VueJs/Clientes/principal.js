@@ -38,13 +38,16 @@ var urlRoot = '';
 var data = {};
 data.codigos = [];
 data.titulos = [];
-data.searchByData = data.codigos;
+data.searchByData = data.titulos;
+data.searchSelected = "";
 data.emailSupport = "iglesiamana@gmail.com";
 data.datepickerOptions = { format: 'dd/MM/yyyy' ,placeholder:'dd/mm/yyyy', close:true, value:''};
 data.books = [];
 data.modalObject = { item: {}, quantity: 1, total: 0 };
 data.enableProccedBtn = false;
 data.categories = [];
+data.filteredCategories = [];
+data.categoryFilter = {};
 data.shoppingCart = { items: [], total: 0, totalItems: 0, sections: [], payment: {} };
 data.shoppingCart.payment = { code: '',status: false };
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
@@ -61,6 +64,39 @@ Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
 });
 
+Vue.component('backtotop', {
+    template: '<button id="" class="goTop pull-right" v-if="isVisible" v-on:click="backToTop"><span class="fa glyphicon glyphicon-chevron-up" aria-hidden="true"></span> </button>',
+    data: function () {
+        return {
+            isVisible: true
+        };
+    },
+    methods: {
+        initToTopButton: function () {
+            document.getElementById('#pageMainContainer').bind('scroll', function () {
+                var backToTopButton = $('.goTop');
+                if (document.getElementById('#pageMainContainer').scrollTop() > 250) {
+                    backToTopButton.addClass('isVisible');
+                    this.isVisible = true;
+                } else {
+                    backToTopButton.removeClass('isVisible');
+                    this.isVisible = false;
+                }
+            }.bind(this));
+        },
+        backToTop: function () {
+            $('html,body').stop().animate({
+                scrollTop: 0
+            }, 'slow', 'swing');
+        }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            this.initToTopButton();
+        });
+    }
+});
+
 var vm = new Vue({
     el: '#pageMainContainer',
     data: data,
@@ -68,8 +104,7 @@ var vm = new Vue({
         alert: VueStrap.alert,
         datepicker: VueStrap.datepicker,
         spinner: VueStrap.spinner,
-        typeahead: VueStrap.typeahead,
-        
+        typeahead: VueStrap.typeahead
         //modal not working the second time
         //bug in vue-strap
         //using bootstrap modal instead
@@ -128,6 +163,15 @@ lowerCase: function (stringValue) {
     return stringValue.toLowerCase();
 },
 
+filterCategory: function (category) {
+    
+    vm.filteredCategories = [];
+    vm.filteredCategories.push(category);
+  
+},
+
+
+
 scrollRight: function () {
     window.scrollBy(100, 0);
 },
@@ -155,6 +199,8 @@ getPageData: function () {
                     });
                 }
                 vm.categories = result.Categories;
+                vm.filteredCategories = vm.categories;
+                
             } else {
                 // window.location.href = result.Url;
             }
@@ -224,17 +270,24 @@ search: function () {
     if (vm.searchSelected === '') {
         vm.activateToastr('danger','Debe ingresar los datos del producto que busca', true);
     } else {
+
+        var itemFound = false;
         $.each(vm.books, function (index, book) {
             if (vm.searchSelected.toString().toLowerCase() === book.Codigo.toString().toLowerCase()
                 || vm.searchSelected.toString().toLowerCase() === book.Titulo.toString().toLowerCase()) {
-                vm.product.item = book;
-                vm.product.quantity = 1;
-                vm.product.total = book.Precio;
-                $('#modal-product').modal('show');
+                vm.activateAlertModalBookDetails('success', '', false);
+                vm.modalObject = { item: {}, quantity: 1, total: 0 };
+                vm.modalObject.item = book;
+                vm.updateModalDetailTotal();
+                $("#modalDetails").modal({ show: true });
+                itemFound = true;
                 return;
             }
         });
-        vm.activateToastr('danger', 'Ninguno de nuestros productos coincide con los paramtetros de busqueda que ingreso', true);
+        if (itemFound === false) {
+            vm.activateToastr('danger', 'Ninguno de nuestros productos coincide con los paramtetros de busqueda que ingreso', true);
+        }
+        
     }
     
 

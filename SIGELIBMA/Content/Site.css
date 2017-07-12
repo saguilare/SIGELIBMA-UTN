@@ -127,6 +127,22 @@ nav.navbar-main .navbar-text{
      color:#f08804;
 }
 
+div.search {
+   border: 2px #232f3e solid;
+}
+
+.navbar .search button{
+   background-color:#f08804;
+   color:#232f3e;
+}
+
+
+    .search-input input{
+         max-width:160px;
+    }
+
+
+
 
 .modal-header {
     background-color:#232f3e;
@@ -205,3 +221,39 @@ nav.navbar-main .navbar-text{
     -o-transform: translate(-50%,-50%); /* opera */
     transform: translate(-50%,-50%);
 }*/
+
+
+ .goTop {
+  border-radius: 5px;
+  background-color: rgb(1,14,27);
+  background-color: rgba(1, 14, 27, .7);
+  position: fixed;
+  width: 45px;
+  height: 45px;
+  display: block;
+  right: 15px;
+  bottom: 15px;
+  border: none;
+  opacity: 0;
+  z-index: -1;
+  
+}
+
+
+
+ .goTop span {
+    color: black;
+    font-size: 22px;
+  }
+
+  .goTop span :hover {
+    opacity: 1;
+    background-color: rgb(1,14,27);
+    background-color: rgba(1, 14, 27, .9);
+  }
+
+.isVisible {
+  opacity: .6;
+  z-index: 4;
+  transition: all .4s ease-in;
+}
