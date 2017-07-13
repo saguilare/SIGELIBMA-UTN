@@ -52,16 +52,25 @@
         <p>{{validations.loadingMessage}}</p>
     </div>
 </div>
-
-<div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
-    <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
-    <strong v-else>Info!</strong>
-    {{alert.message}}
+<!-- Alert for critical error -->
+<div class="row" v-if="alert.status">
+    <div class="col-sm-offset-2 col-sm-8 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+        <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
+        <strong v-else>Info!</strong>
+        {{alert.message}}
+    </div>
 </div>
+<!--VUESTRAP ALERT == TOASTR-->
+<alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+    <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
+    <span v-else class="glyphicon glyphicon-info-sign"></span>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+    <strong v-else>Info!</strong>
+    <p>{{toastr.message}}</p>
+</alert>
 
-
-<div id="wrapper" v-show="!validations.showSpinner">
+<div id="wrapper" v-show="!validations.showSpinner && alert.status === false">
     <section class="row">
         <div class="col-sm-12">
             <ul class="nav nav-tabs ">
@@ -88,19 +97,14 @@
         </section>
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <div class="row" style="padding-top:20px;">
-                <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
-                    <form name="" class="" v-on:submit.prevent="addRol(rol)">
-                        <div class="form-group has-feedback" v-bind:class="{'has-success ': rol.Descripcion.$valid ,'has-error ': !rol.Descripcion.$valid && validations.activateFieldValidations} ">
-                            <label for="rol">Rol</label>
-                            <input name="rol" required type="text" v-on:blur="validations.activateFieldValidations = true" class="form-control" v-bind:class="{'has-error':rol.Descripcion.$invalid && rol.Descripcion.$dirty}"
-                                   placeholder="Descripcion" v-model="rol.Descripcion">
-                            <span class="glyphicon  form-control-feedback" v-bind:class="{'glyphicon-ok' : rol.Descripcion.$valid && rol.Descripcion.$dirty , 'glyphicon-remove' : !rol.Descripcion.$valid && validations.activateFieldValidations}"
-                                  aria-hidden="true"></span>
-                            <span class="sr-only">(success)</span>
+                <div class="col-sm-offset-1 col-sm-10 " style="min-height:100px; margin-bottom:25px">
+                    <form name="" class="form-inline" v-on:submit.prevent="addRol(rol)">
+                        <div class="form-group ">
+                            <vueinput v-bind:value.sync="rol.Descripcion" label="Rol" help="" error="" placeholder="Descripcion" pattern="^[a-z][a-z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                         </div>
                         <div class="form-group">
                             <label for="rol">Estado</label>
-                            <select v-model="rol.Estado" class="form-control">
+                            <select v-model="rol.Estado" required class="form-control">
                                 <option disabled value="">-- Seleccione una opcion --</option>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>

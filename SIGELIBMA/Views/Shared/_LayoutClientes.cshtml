@@ -20,8 +20,7 @@
 
 <body onresize="updateArrows()">
     @*main conatiner*@
-    <div id="pageMainContainer">
-        
+    <div id="pageMainContainer">    
         <!--VUESTRAP ALERT == TOASTR-->
         <alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
             <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
@@ -251,7 +250,6 @@
         <!--NAVBAR-->
         <div id="" class="navbar-wrapper">
             <div class="container">
-
                 <nav class="navbar navbar-inverse navbar-static-top navbar-main">
                     <div class="container">
                         <div class="navbar-header">
@@ -271,7 +269,6 @@
                                     <ul class="dropdown-menu">
                                         <li v-on:click="filteredCategories = categories"><a href="#">Todas</a></li>
                                         <li v-if="item.Libros && item.Libros.length > 0" v-for="item in categories" v-on:click="filterCategory(item)"><a href="#">{{item.Descripcion}}</a></li>
-
                                     </ul>
                                 </li>
                                 <li><a href="#contact">Contactenos</a></li>
@@ -279,13 +276,13 @@
                                 <li>
                                     <form class="navbar-form navbar-left">
                                         <div class="input-group search">
-                                            <div class="input-group-btn">
+                                            @*<div class="input-group-btn">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtrar <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
                                                     <li v-on:click="searchByData = codigos"><a href="#">Codigo</a></li>
                                                     <li v-on:click="searchByData = titulos"><a href="#">Titulo</a></li>
                                                 </ul>
-                                            </div><!-- /btn-group -->
+                                            </div>*@<!-- /btn-group -->
                                             <typeahead class="search-input" v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Buscar..."></typeahead>
                                             <span class="input-group-btn">
                                                 <button v-on:click="search()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

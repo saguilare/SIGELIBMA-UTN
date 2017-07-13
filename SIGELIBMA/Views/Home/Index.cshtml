@@ -3,33 +3,27 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutClientes.cshtml";
 }
-
-
-
-    
-
-
     <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        @*<ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class=""></li>
             <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-        </ol>
-        <div class="carousel-inner" role="listbox" v-for:"category in categories">
-            <div class="item">
+        </ol>*@
+        <div class="carousel-inner" role="listbox" >
+            <div class="item active">
                 <img class="first-slide" src="~/Images/libreriaBanner.jpg" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Bienvenido</h1>
                         <p>A nuestra nueva libreria en linea.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Crear cuenta</a></p>
+                        @*<p><a class="btn btn-lg btn-primary" href="#" role="button">Crear cuenta</a></p>*@
                     </div>
                 </div>
             </div>
-            <div class="item active">
+            @*<div class="item active">
                 <img class="second-slide" src="~/Images/libreriaBanner.jpg" alt="Second slide">
                 <div class="container">
                     <div class="carousel-caption">
@@ -48,29 +42,23 @@
                         <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        @*<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
-        </a>
+        </a>*@
     </div><!-- /.carousel -->
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-
-
     <div class="container testimonial-group">
         <div v-el:categories class="">
-
             <div class="category" v-show="category.Libros && category.Libros.length > 0" v-for="(index,category) in filteredCategories  ">
                 <button id="scrollleft{{index}}" class="pull-left scrollBtn" onclick="move_left({{index}})"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                 <button id="scrollright{{index}}" class="pull-right scrollBtn" onclick="move_right({{index}})"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-
                 <div class="category-header">
                     <h1>{{category.Descripcion}}</h1><hr />
                 </div>
@@ -86,7 +74,7 @@
         </div>
         <footer style="margin-top:30px;">
             <hr />
-            <p>© 2017 SIGELIBMA. </p>
+            <p>© 2017 SIGELIBMA. Libreria Iglesia Mana </p>
         </footer>
     </div>
 

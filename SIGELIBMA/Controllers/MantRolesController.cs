@@ -20,11 +20,31 @@ namespace SIGELIBMA.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public JsonResult GetInitData()
+        {
+
+            try
+            {
+                List<Rol> Roles = rolService.GetAll();
+                return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                Response.StatusCode = 400;
+                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpGet]
         public JsonResult GetAll() {
 
             try
             {
+               
                 List<Rol> Roles = rolService.GetAll();
                 return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
             }
@@ -32,6 +52,7 @@ namespace SIGELIBMA.Controllers
             {
 
                 //TODO handle ex
+                Response.StatusCode = 400;
                 return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -48,7 +69,8 @@ namespace SIGELIBMA.Controllers
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                Response.StatusCode = 400;
+                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -65,7 +87,8 @@ namespace SIGELIBMA.Controllers
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                Response.StatusCode = 400;
+                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -82,7 +105,8 @@ namespace SIGELIBMA.Controllers
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                Response.StatusCode = 400;
+                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -99,7 +123,8 @@ namespace SIGELIBMA.Controllers
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                Response.StatusCode = 400;
+                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 

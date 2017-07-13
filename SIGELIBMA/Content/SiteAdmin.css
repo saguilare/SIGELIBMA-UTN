@@ -148,6 +148,50 @@ div.loading img{
     opacity: 0.5;
 }
 
+
+/***********************
+TABLES
+***********************/
+/*change cursor to pointer when selecting sort order in table th*/
+th a {
+   cursor: pointer;
+}
+
+/*//make columns adjusts to content*/
+.table td, 
+.table th {
+    white-space: nowrap;
+    width: 1%;
+}
+
+
+/*-------------------------
+* MODAL MAINTAINANCE 
+*--------------------------
+*/
+.modal-header {
+    background-color:#232f3e;
+    color:#f08804;
+    border-bottom: 2px solid #f08804;
+    
+}
+
+div.modal-header h4, div.modal-header h3,div.modal-header h2{
+  color: #f08804;
+}
+
+.modal-footer .btn-save {
+    background-color: #232f3e;
+    color:#f08804;
+}
+
+/*END MODAL MAINT*/
+
+
+
+
+
+
 /*********************
  Back to top styles
 *********************/
@@ -174,45 +218,3 @@ div.loading img{
 	}
 
 }*/
-
-/***********************
-TABLES
-***********************/
-//change cursor to pointer when selecting sort order in table th
-/*th a {
-   cursor: pointer;
-}
-
-//make columns adjusts to content
-.table td, 
-.table th {
-    white-space: nowrap;
-    width: 1%;
-}*/
-
-
-/*-------------------------
-* MODAL MAINTAINANCE 
-*--------------------------
-*/
-.modal-header {
-    background-color:#232f3e;
-    color:#f08804;
-    
-}
-
-div.modal-header h4, div.modal-header h3,div.modal-header h2{
-  color: #f08804;
-}
-
-.modal-footer .btn-save {
-    background-color: #232f3e;
-    color:#f08804;
-}
-
-/*END MODAL MAINT*/
-
-
-
-
-
