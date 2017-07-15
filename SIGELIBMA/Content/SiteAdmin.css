@@ -21,7 +21,7 @@ body {
 
 /*override color in tool nav bar*/
 nav.navbar-main{
-    background-color: #232f3e;
+    background-color: #232f3E;
     border-color:#232f3e;
     border-radius: 0;
 }
@@ -188,6 +188,38 @@ div.modal-header h4, div.modal-header h3,div.modal-header h2{
 /*END MODAL MAINT*/
 
 
+/*PAGINATION*/
+
+
+.nav-PaginationJustified {
+    margin-left:35%;
+    width: 5%;
+}
+
+.nav-PaginationJustified > li {
+    display: table-cell;
+    width: 1%;
+    border: 1px solid #ccc;
+}
+
+.nav-PaginationJustified li.active {
+    border-bottom: solid;
+    border-color: #00aeeF;
+}
+
+.nav-PaginationJustified > li >a {
+    text-align: center;
+    color: #2a6496;
+}
+
+
+.nav-PaginationJustified li.first {
+    border-radius: 5pt 0pt 0pt 5pt;
+}
+
+.nav-PaginationJustified li.last {
+ border-radius: 0pt 5pt 5pt 0pt;
+}
 
 
 

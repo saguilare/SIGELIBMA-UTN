@@ -21,14 +21,11 @@ data.alertModal = { type: 'success', message: 'alert', status: true };
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
 
-data.sortKey = 'deviceName';
-data.reverse = false;
+data.sortKey = 'Codigo';
+data.reverse = 1;
 data.search = '';
-data.showEnableButtons = false;
-data.showSearchTab = false;
-data.columns = ['deviceName', 'devicePort'];
-data.searchItem = '';
 data.items = [];
+data.searchItem = '';
 data.paginatedItems = [];
 data.selectedItems = [];
 data.pagination = { range: 5, currentPage: 1, itemPerPage: 8, items: [], filteredItems: [] };
@@ -45,15 +42,7 @@ var vm = new Vue({
         datepicker: VueStrap.datepicker,
         spinner: VueStrap.spinner,
         typeahead: VueStrap.typeahead,
-        vueinput: VueStrap.input,
-        //typeahead: customAutocomplete,
-        //datepicker: VueStrap.datepicker,
-        //modal not working the second time
-        //bug in vue-strap
-        //using bootstrap modal instead
-        //modal: VueStrap.modal,
-        //vueStrapAside: VueStrap.aside,
-        //popover: VueStrap.popover,
+        vueinput: VueStrap.input
 
     },
 
@@ -62,27 +51,32 @@ var vm = new Vue({
 
         //PaginationMethods
 
-        clearSearchItem () {
+        clearSearchItem : function() {
             this.searchItem = undefined
             this.searchInTheList('')
         },
 
-        searchInTheList(searchText, currentPage) {
+        setSort: function(sortkey, reverse){
+            vm.sortKey = sortkey;
+            vm.reverse = reverse;
+        },
+
+        searchInTheList : function(searchText, currentPage) {
             if (_.isUndefined(searchText)) {
-                this.filteredItems = _.filter(items, function (v, k) {
+                this.filteredItems = _.filter(vm.items, function (v, k) {
                     return !v.selected
                 })
             }
             else {
-                this.filteredItems = _.filter(items, function (v, k) {
-                    if ((v.deviceName!=null)&&(v.hostName!=null)) {
-                        return (!v.selected && v.deviceName.toLowerCase().indexOf(searchText.toLowerCase()) > -1) | (!v.selected && v.hostName.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                this.filteredItems = _.filter(vm.items, function (v, k) {
+                    if ((v.Codigo!=null)&&(v.Descripcion!=null)) {
+                        return (!v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1) | (!v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
                     } else {
-                        if (v.deviceName != null) {
-                               return !v.selected && v.deviceName.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                        if (v.Codigo != null) {
+                            return !v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1
                         } else {
-                            if (v.hostName != null) {
-                                return !v.selected && v.hostName.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                            if (v.Descripcion != null) {
+                                return !v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
                             }
                         }
                     }
@@ -102,7 +96,7 @@ var vm = new Vue({
             }
         },
 
-        buildPagination() {
+        buildPagination : function() {
             let numberOfPage = Math.ceil(this.filteredItems.length / this.pagination.itemPerPage)
             this.pagination.items = []
             for (var i = 0; i < numberOfPage; i++) {
@@ -110,7 +104,7 @@ var vm = new Vue({
             }
         },
 
-        selectPage(item) {
+        selectPage : function(item) {
             this.pagination.currentPage = item
 
             let start = 0
@@ -144,30 +138,14 @@ var vm = new Vue({
             })
         },
 
-        selectItem(item) {
-            item.selected = true
-            this.selectedItems.push(item)
-            this.searchInTheList(this.searchItem, this.pagination.currentPage)
+        changePagination: function () {
+            vm.buildPagination();
+            vm.selectPage(1);
         },
 
-        removeSelectedItem(item) {
-            item.selected = false
-            this.selectedItems.$remove(item)
-            this.searchInTheList(this.searchItem, this.pagination.currentPage)
-        },
+
         //EndPafinationMothods
 
-        customFilter: function(device) {
-            return device.deviceName.indexOf(this.search) != -1
-            || device.hostName.indexOf(this.search) != -1
-            ;
-        },
-
-        sortBy: function (sortKey) {
-            this.reverse = (this.sortKey == sortKey) ? !this.reverse : false;
-
-            this.sortKey = sortKey;
-        },
 
         displaySpinner: function (status, message) {
             vm.validations.showSpinner = status;
@@ -224,7 +202,7 @@ var vm = new Vue({
             });
         },
 
-    getInitData: function () {
+        getInitData: function () {
                 $.ajax({
                     url: urlRoot + 'MantRoles/GetInitData',
                     type: 'get',
@@ -233,6 +211,10 @@ var vm = new Vue({
                     success: function (result) {
                         if (result.OperationStatus) {
                             vm.roles = result.Roles;
+                            vm.items = vm.roles;
+                            vm.filteredItems = vm.roles;
+                            vm.buildPagination();
+                            vm.selectPage(1);
                         } else {
                             vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
                         }
@@ -247,29 +229,31 @@ var vm = new Vue({
             
         },
 
-getRoles: function () {
-    $.ajax({
-        url: urlRoot + 'MantRoles/GetAll',
-        type: 'get',
-        dataType: 'json',
-        async: true,
-        success: function (result) {
-            if (result.OperationStatus) {
-                vm.roles = result.Roles;
-                vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-            } else {
-                vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
-            }
-            vm.displaySpinner(false,'');
-        },
-        error: function (error) {
-            vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
-            vm.displaySpinner(false,'');
-        }
-    });
+        getRoles: function () {
+            $.ajax({
+                url: urlRoot + 'MantRoles/GetAll',
+                type: 'get',
+                dataType: 'json',
+                async: true,
+                success: function (result) {
+                    if (result.OperationStatus) {
+                        vm.roles = result.Roles;
+                        vm.items = vm.roles;
+                        vm.filteredItems = vm.roles;
+                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
+                    } else {
+                        vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                    }
+                    vm.displaySpinner(false,'');
+                },
+                error: function (error) {
+                    vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                    vm.displaySpinner(false,'');
+                }
+            });
               
             
-},
+        },
 
         updateRol: function (rol) {
 
@@ -326,7 +310,7 @@ getRoles: function () {
 
         },
 
-openEditModal: function (rol) {
+        openEditModal: function (rol) {
             vm.activateAlertModal('','',false);
             vm.modalObject = rol;
             $("#edit-modal").modal({show:true});

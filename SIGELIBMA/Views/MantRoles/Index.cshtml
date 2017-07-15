@@ -1,9 +1,12 @@
 ﻿
 @{
+    
+
     //ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
 }
 
+<!-- EDIT MODAL --->
 <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -44,8 +47,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<!--Loading info container-->
+<!--Loading page container-->
 <div class="row" v-show="validations.showSpinner">
     <div class="loading col-sm-12 ">
         <img src="~/Images/spinner.gif" width="100px" height="100px"/>
@@ -71,6 +73,7 @@
 </alert>
 
 <div id="wrapper" v-show="!validations.showSpinner && alert.status === false">
+    <!--nav bar-->
     <section class="row">
         <div class="col-sm-12">
             <ul class="nav nav-tabs ">
@@ -84,7 +87,7 @@
         </div>
     </section>
     <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
-
+        <!--title bar-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <div class="row">
                 <div class="col-sm-12">
@@ -95,9 +98,11 @@
                 </div>
             </div>
         </section>
+        <!--content-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
-            <div class="row" style="padding-top:20px;">
-                <div class="col-sm-offset-1 col-sm-10 " style="min-height:100px; margin-bottom:25px">
+            <!--add itme-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class="col-sm-offset-1 col-sm-10 " style=" ">
                     <form name="" class="form-inline" v-on:submit.prevent="addRol(rol)">
                         <div class="form-group ">
                             <vueinput v-bind:value.sync="rol.Descripcion" label="Rol" help="" error="" placeholder="Descripcion" pattern="^[a-z][a-z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
@@ -117,20 +122,19 @@
                     <hr>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-10 form-inline">
-                    <div class="form-group">
-                        <label for="search"><i class="glyphicon glyphicon-search"></i></label>
-                        <input ng-model="q" id="search" class="form-control" placeholder="Search Table">
-
-                    </div>
-                    <div class="form-group pull-right">
-                        <label for="search">Items per page:</label>
-                        <input type="number" min="1" max="500" class="form-control" ng-model="vm.pageSize">
-                        <label>Page @*{{currentPage}}*@</label>
-                    </div>
+            <!--table search-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class=" col-sm-offset-1 col-sm-10 form-inline">
+                <div class="pull-left">
+                    <span class="glyphicon glyphicon-search"> </span> <input v-model="searchItem" v-on:keyup="searchInTheList(searchItem)" class="form-control" type="text" placeholder="Buscar en la tabla ...">
+                </div>
+                <div class="form-group pull-right">
+                    <label for="search">Items per page: </label>
+                    <input type="number" min="1" max="15" class="form-control" size="10" v-model="pagination.itemPerPage" v-on:click="changePagination()" v-on:keyup="changePagination()">
                 </div>
             </div>
+            </div>
+            <!--table content-->
             <div class="row">
                 <div class="col-sm-offset-1 col-sm-10 ">
                     <div class="table-responsive">
@@ -140,28 +144,29 @@
                                     <!--<th class="text-center" style="color:#337ab7">Action</th>-->
                                     
                                     <th>
-                                        <a ng-click="vm.sortType = 'environment.name'; vm.sortReverse = !vm.sortReverse">
+                                        <a v-on:click="setSort('Codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
                                             Codigo
-                                            <span ng-show="vm.sortType == 'environment.name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                                            <span ng-show="vm.sortType == 'environment.name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
-                                        <input type="text" class="form-control" ng-model="vm.tableFilter.env">
                                     </th>
                                     <th>
-                                        <a ng-click="vm.sortType = 'name'; vm.sortReverse = !vm.sortReverse">
+                                        <a v-on:click="setSort('Descripcion',reverse === 1 ? reverse = -1 : reverse = 1)">
                                             Descripcion
-                                            <span ng-show="vm.sortType == 'name' && !vm.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                                            <span ng-show="vm.sortType == 'name' && vm.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
-                                        <input type="text" class="form-control" ng-model="vm.tableFilter.device">
                                     </th>
-                                    <th>Estado</th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Estado
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="rol in roles">
-                                    
+                                <tr v-for="rol in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
+
                                     <td>{{rol.Codigo}}</td>
                                     <td>{{rol.Descripcion}}</td>
                                     <td>{{rol.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
@@ -175,10 +180,29 @@
                     </div>
                 </div>
             </div>
+            <!--pagination navbar-->
             <div class="row">
                 <div class="col-sm-12 other-controller">
                     <div class="text-center">
-                        @*<dir-pagination-controls boundary-links="true"></dir-pagination-controls>*@
+                        <nav>
+                            <ul class="nav nav-PaginationJustified">
+                                <li class="first">
+                                    <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
+                                        First
+                                    </a>
+                                </li>
+                              
+                                <li v-for="item in pagination.filteredItems">
+                                    <a class="button" v-on:click="selectPage(item)" v-bind:class="{'is-info': item == pagination.currentPage}">{{item}}</a>
+                                </li>
+                            
+                                <li class="last">
+                                    <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
+                                        Last
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
