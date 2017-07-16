@@ -108,7 +108,8 @@
           <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
           <ScalarProperty Name="PrecioBase" ColumnName="PrecioBase" />
           <ScalarProperty Name="PorcentajeGanancia" ColumnName="PorcentajeGanancia" />
-          <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+          <ScalarProperty Name="PrecioVentaSinImpuestos" ColumnName="PrecioVentaSinImpuestos" />
+          <ScalarProperty Name="PrecioVentaConImpuestos" ColumnName="PrecioVentaConImpuestos" />
           <ScalarProperty Name="Imagen" ColumnName="Imagen" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>

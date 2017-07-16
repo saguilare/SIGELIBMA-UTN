@@ -65,7 +65,7 @@ namespace SIGELIBMA.Controllers
                 var newList = books.Select(item => new {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
-                    Precio = item.PrecioVenta,
+                    Precio = item.PrecioVentaConImpuestos,
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
                     Titulo =item.Titulo
@@ -95,7 +95,7 @@ namespace SIGELIBMA.Controllers
                     Libros = item.Libro.Select(libro => new {
                         Codigo = libro.Codigo,
                         Autor = libro.Autor1.Apellidos + ", " + libro.Autor1.Nombre,
-                        Precio = libro.PrecioVenta,
+                        Precio = libro.PrecioVentaConImpuestos,
                         Descripcion = libro.Descripcion,
                         Image = libro.Imagen,
                         Titulo =libro.Titulo

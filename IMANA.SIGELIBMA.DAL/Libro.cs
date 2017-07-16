@@ -28,7 +28,8 @@ namespace IMANA.SIGELIBMA.DAL
         public int Proveedor { get; set; }
         public decimal PrecioBase { get; set; }
         public decimal PorcentajeGanancia { get; set; }
-        public decimal PrecioVenta { get; set; }
+        public decimal PrecioVentaSinImpuestos { get; set; }
+        public decimal PrecioVentaConImpuestos { get; set; }
         public string Imagen { get; set; }
         public Nullable<int> Estado { get; set; }
     
