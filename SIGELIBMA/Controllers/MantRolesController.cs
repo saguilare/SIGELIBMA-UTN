@@ -27,7 +27,12 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                List<Rol> Roles = rolService.GetAll();
+                var Roles =  rolService.GetAll().Select(x => new
+                { 
+                                    Codigo = x.Codigo, 
+                                    Descripcion = x.Descripcion, 
+                                    Estado = x.Estado
+                });
                 return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -44,8 +49,13 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-               
-                List<Rol> Roles = rolService.GetAll();
+
+                var Roles = rolService.GetAll().Select(x => new
+                {
+                    Codigo = x.Codigo,
+                    Descripcion = x.Descripcion,
+                    Estado = x.Estado
+                });
                 return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
