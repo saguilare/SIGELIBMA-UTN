@@ -36,7 +36,6 @@ Z:/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Debug/IMANA.SIGELIBMA.DAL.pdb
 \\vmware-host\Shared Folders\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.dll
 \\vmware-host\Shared Folders\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.xml
 \\vmware-host\Shared Folders\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.xml
-\\vmware-host\Shared Folders\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache
 \\vmware-host\Shared Folders\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.dll
 \\vmware-host\Shared Folders\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.pdb
 \\MACBOOKPRO-D051\stevenaguilar\Documents\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.dll.config

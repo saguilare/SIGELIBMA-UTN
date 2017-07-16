@@ -12,19 +12,14 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Descuento
+    public partial class Inventario
     {
-        public Descuento()
-        {
-            this.Factura = new HashSet<Factura>();
-        }
-    
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public System.DateTime FechaInicio { get; set; }
-        public Nullable<System.DateTime> FechaFinalizacion { get; set; }
+        public string CodigoLibro { get; set; }
+        public int CantidadStock { get; set; }
+        public int CantidadMinima { get; set; }
+        public Nullable<int> CantidadMaxima { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        public virtual ICollection<Factura> Factura { get; set; }
+        public virtual Libro Libro { get; set; }
     }
 }

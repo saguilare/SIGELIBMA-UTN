@@ -16,13 +16,13 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public TipoTransaccion()
         {
-            this.Transacion = new HashSet<Transacion>();
+            this.Transaccion = new HashSet<Transaccion>();
         }
     
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        public virtual ICollection<Transacion> Transacion { get; set; }
+        public virtual ICollection<Transaccion> Transaccion { get; set; }
     }
 }

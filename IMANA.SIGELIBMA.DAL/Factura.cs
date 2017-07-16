@@ -29,9 +29,11 @@ namespace IMANA.SIGELIBMA.DAL
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
         public Nullable<decimal> Pendiente { get; set; }
+        public Nullable<int> Descuento { get; set; }
         public Nullable<int> Estado { get; set; }
     
         public virtual Caja Caja1 { get; set; }
+        public virtual Descuento Descuento1 { get; set; }
         public virtual ICollection<DetalleFactura> DetalleFactura { get; set; }
         public virtual EstadoFactura EstadoFactura { get; set; }
         public virtual Usuario Usuario { get; set; }

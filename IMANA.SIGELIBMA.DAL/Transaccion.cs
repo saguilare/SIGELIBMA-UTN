@@ -12,7 +12,7 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Transacion
+    public partial class Transaccion
     {
         public int Codigo { get; set; }
         public string Descripcion { get; set; }

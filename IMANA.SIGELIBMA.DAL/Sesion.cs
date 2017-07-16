@@ -16,7 +16,7 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public Sesion()
         {
-            this.Transacion = new HashSet<Transacion>();
+            this.Transaccion = new HashSet<Transaccion>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace IMANA.SIGELIBMA.DAL
         public Nullable<System.DateTime> Finalizacion { get; set; }
     
         public virtual Usuario Usuario1 { get; set; }
-        public virtual ICollection<Transacion> Transacion { get; set; }
+        public virtual ICollection<Transaccion> Transaccion { get; set; }
     }
 }
