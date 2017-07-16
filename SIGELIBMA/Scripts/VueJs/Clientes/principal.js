@@ -190,15 +190,15 @@ getPageData: function () {
         type: 'get',
         dataType: 'json',
         success: function (result) {
-            if (result.OperationStatus) {
-                vm.books = result.Books;
+            if (result.EstadoOperacion) {
+                vm.books = result.Libros;
                 if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
                     $.each(vm.books, function (key, book) {
                         vm.codigos.push(book.Codigo.toString());
                         vm.titulos.push(book.Titulo);
                     });
                 }
-                vm.categories = result.Categories;
+                vm.categories = result.Categorias;
                 vm.filteredCategories = vm.categories;
                 
             } else {
@@ -248,13 +248,13 @@ processPayment: function () {
     
     var param = 'test';
     $.ajax({
-        url: urlRoot + 'Home/ProcessPayment',
+        url: urlRoot + 'Home/ProcesarCompra',
         type: 'post',
         dataType: 'json',
         data: param,
         success: function (result) {
-            if (result.OperationStatus) {
-                vm.shoppingCart.payment.code = result.ConfirmationCode;
+            if (result.EstadoOperacion) {
+                vm.shoppingCart.payment.code = result.Confirmacion;
                 vm.shoppingCart.payment.status = true;
             } 
             vm.$refs.spinner1.hide();

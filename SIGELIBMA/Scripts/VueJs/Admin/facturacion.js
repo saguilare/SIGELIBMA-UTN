@@ -106,7 +106,7 @@ var vm = new Vue({
                 data: param,
                 success: function (result) {
                     vm.$refs.spinner1.hide();
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         $('#modal-caja').modal('hide');
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
@@ -139,8 +139,8 @@ var vm = new Vue({
                 type: 'get',
                 dataType: 'json',
                 success: function (result) {
-                    if (result.OperationStatus) {
-                        vm.books = result.Books;
+                    if (result.EstadoOperacion) {
+                        vm.books = result.Libros;
                         if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
                             $.each(vm.books,function (key, book) {
                                 vm.codigos.push(book.Codigo.toString());
@@ -240,7 +240,7 @@ var vm = new Vue({
                 dataType: 'json',
                 data: param,
                 success: function (result) {
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         vm.factura.master.id = result.Factura;
                         vm.modalFact.currentPage = 3;
                     } else {

@@ -25,32 +25,32 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                var books = ObtenerLibros();
-                var categories = ObtenerCategorias();
-                return Json(new { OperationStatus = true, Categories =categories, Books = books, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
+                var libros = ObtenerLibros();
+                var categorias = ObtenerCategorias();
+                return Json(new { EstadoOperacion = true, Categorias =categorias, Libros = libros, Mensaje = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
 
         [HttpPost]
-        public JsonResult ProcessPayment(string param)
+        public JsonResult ProcesarCompra(string param)
         {
             try
             {
               
-                return Json(new { OperationStatus = true, ConfirmationCode = "AZ-5456",  Message = "Operation OK" });
+                return Json(new { EstadoOperacion = true, Confirmacion = "AZ-5456",  Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false,  Message = "Operation FAILED" });
+                return Json(new { EstadoOperacion = false,  Mensaje = "Operation FAILED" });
             }
         }
 
@@ -59,10 +59,11 @@ namespace SIGELIBMA.Controllers
             try 
 	        {	        
                 
-		        LibroServicio service = new LibroServicio();
-                List<Libro> books = service.ObtenerTodos();
+		        LibroServicio servicio = new LibroServicio();
+                List<Libro> libros = servicio.ObtenerTodos();
                 //transform and simplify list to avoid circular dependency issues 
-                var newList = books.Select(item => new {
+                var newList = libros.Select(item => new
+                {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
                     Precio = item.PrecioVentaConImpuestos,
@@ -86,8 +87,8 @@ namespace SIGELIBMA.Controllers
         {
             try
             {
-                CategoriasLibroServicio service = new CategoriasLibroServicio();
-                List<Categoria> cats = service.ObtenerTodos().Where(x => x.Estado == 1).ToList();
+                CategoriasLibroServicio servicio = new CategoriasLibroServicio();
+                List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = cats.Select(item =>new {
                     Codigo = item.Codigo,

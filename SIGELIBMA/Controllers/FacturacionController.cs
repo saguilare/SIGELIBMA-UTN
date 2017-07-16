@@ -31,10 +31,10 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         public JsonResult Init() {
             try
             {
-                var books = ObtenerLibros();
+                var libros = ObtenerLibros();
                 //var categories = ObtenerCategorias();
 
-                return Json(new { OperationStatus = true,Books = books, Message = "Operacion exitosa" },JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Libros = libros, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
    
             }
             catch (Exception)
@@ -49,13 +49,13 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             try
             {
                 string caja = "45";
-                if (OpenCashBox())
+                if (AbrirCaja())
                 {
-                    return Json(new { OperationStatus = true, Message = string.Format("Caja {0} inicializada", caja) });
+                    return Json(new { EstadoOperacion = true, Mensaje = string.Format("Caja {0} inicializada", caja) });
                 }
                 else
                 {
-                    return Json(new { OperationStatus = false, Message = string.Format("No se pudo inicializar la Caja {0} ", caja) });
+                    return Json(new { EstadoOperacion = false, Mensaje = string.Format("No se pudo inicializar la Caja {0} ", caja) });
                 }
                 
             }
@@ -71,14 +71,14 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         {
             try
             {
-                bool result = true;
-                if (result)
+                bool resultado = true;
+                if (resultado)
                 {
-                    return Json(new { OperationStatus = true,Factura = 456456, Message = "Transaccion Exitosa"});
+                    return Json(new { EstadoOperacion = true,Factura = 456456, Mensaje = "Transaccion Exitosa"});
                 }
                 else
                 {
-                    return Json(new { OperationStatus = false, Message = "Error: No se registro la factura" });
+                    return Json(new { EstadoOperacion = false, Mensaje = "Error: No se registro la factura" });
                 }
 
             }
@@ -89,7 +89,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
-        private bool OpenCashBox() {
+        private bool AbrirCaja() {
             return true;
         }
 

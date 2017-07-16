@@ -59,7 +59,7 @@ namespace SIGELIBMA.Controllers
             {
                 bool resultado = false;
                 resultado = LibroServicio.Desabilitar(librop);
-                return Json(new { EstadoOperacion = true, Resultado = resultado, Mensaje = "Operation OK" });
+                return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
@@ -76,7 +76,7 @@ namespace SIGELIBMA.Controllers
             {
                 bool resultado = false;
                 resultado = LibroServicio.Modificar(librop);
-                return Json(new { EstadoOperacion = true, Resultado = resultado, Mensaje = "Operation OK" });
+                return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
@@ -93,7 +93,7 @@ namespace SIGELIBMA.Controllers
             {
                 bool resultado = false;
                 resultado = LibroServicio.Agregar(librop);
-                return Json(new { EstadoOperacion = true, Resultado = resultado, Mensaje = "Operation OK" });
+                return Json(new { EstadoOperacion =  resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
