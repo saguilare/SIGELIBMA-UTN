@@ -16,11 +16,6 @@
         <MappingFragment StoreEntitySet="Caja">
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="Cajero" ColumnName="Cajero" />
-          <ScalarProperty Name="HoraApertura" ColumnName="HoraApertura" />
-          <ScalarProperty Name="HoraCierre" ColumnName="HoraCierre" />
-          <ScalarProperty Name="MontoApertura" ColumnName="MontoApertura" />
-          <ScalarProperty Name="MontoCierre" ColumnName="MontoCierre" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>

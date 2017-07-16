@@ -16,7 +16,6 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public Usuario()
         {
-            this.Caja = new HashSet<Caja>();
             this.Factura = new HashSet<Factura>();
             this.Sesion = new HashSet<Sesion>();
             this.UsarioRoles = new HashSet<UsarioRoles>();
@@ -32,7 +31,6 @@ namespace IMANA.SIGELIBMA.DAL
         public string Correo { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        public virtual ICollection<Caja> Caja { get; set; }
         public virtual ICollection<Factura> Factura { get; set; }
         public virtual ICollection<Sesion> Sesion { get; set; }
         public virtual ICollection<UsarioRoles> UsarioRoles { get; set; }

@@ -22,14 +22,8 @@ namespace IMANA.SIGELIBMA.DAL
     
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
-        public string Cajero { get; set; }
-        public System.DateTime HoraApertura { get; set; }
-        public Nullable<System.DateTime> HoraCierre { get; set; }
-        public decimal MontoApertura { get; set; }
-        public Nullable<decimal> MontoCierre { get; set; }
         public int Estado { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
         public virtual EstadoCaja EstadoCaja { get; set; }
         public virtual ICollection<Factura> Factura { get; set; }
         public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
