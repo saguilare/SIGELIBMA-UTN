@@ -52,16 +52,16 @@ var vm = new Vue({
             }
             
             $.ajax({
-                url: urlRoot + 'Login/validateLogin',
+                url: urlRoot + 'Login/ValidarLogin',
                 type: 'post',
                 dataType: 'json',
                 data: vm.login,
                 async: true,
                 success: function (result) {
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         window.location.href = result.Url;
                     } else {
-                        vm.activateAlert('Danger', result.Message, true);
+                        vm.activateAlert('Danger', result.Mensaje, true);
                     }
                 },
                 error: function (error) {

@@ -38,17 +38,17 @@ namespace SIGELIBMA.Controllers
                 if (ValidarUsuario(login))
                 {
                     var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Home");
-                    return Json(new { OperationStatus = true, Url = redirectUrl });
+                    return Json(new { EstadoOperacion = true, Url = redirectUrl });
                 }
                 else
                 {
-                    return Json(new { OperationStatus = false, Message = "Acceso denegado, por favor verifique sus credenciales." });
+                    return Json(new { EstadoOperacion = false, Mensaje = "Acceso denegado, por favor verifique sus credenciales." });
                 }
             }
             catch (Exception e)
             {
                 Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "System error,validate login ex thrown" });
+                return Json(new { EstadoOperacion = false, Mensaje = "System error,validate login ex thrown" });
             }
 
         }
