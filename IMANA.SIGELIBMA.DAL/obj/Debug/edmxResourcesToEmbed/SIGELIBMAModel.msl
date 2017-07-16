@@ -104,7 +104,6 @@
     <EntitySetMapping Name="Libro">
       <EntityTypeMapping TypeName="SIGELIBMAModel.Libro">
         <MappingFragment StoreEntitySet="Libro">
-          <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Titulo" ColumnName="Titulo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -114,6 +113,7 @@
           <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
           <ScalarProperty Name="PrecioBase" ColumnName="PrecioBase" />
           <ScalarProperty Name="PorcentajeGanancia" ColumnName="PorcentajeGanancia" />
+          <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
           <ScalarProperty Name="Imagen" ColumnName="Imagen" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
