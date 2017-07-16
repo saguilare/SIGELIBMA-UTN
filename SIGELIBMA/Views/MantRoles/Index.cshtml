@@ -131,6 +131,7 @@
                 <div class="form-group pull-right">
                     <label for="search">Items per page: </label>
                     <input type="number" min="1" max="15" class="form-control" size="10" v-model="pagination.itemPerPage" v-on:click="changePagination()" v-on:keyup="changePagination()">
+                    <label>Page: {{pagination.currentPage}}</label>
                 </div>
             </div>
             </div>
@@ -191,11 +192,19 @@
                                         First
                                     </a>
                                 </li>
-                              
+                                <li v-if="pagination.filteredItems.length > 0 && pagination.currentPage > 1" v-on:click="selectPage(pagination.currentPage - 1)">
+                                    <a>
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                </li>
                                 <li v-for="item in pagination.filteredItems">
                                     <a class="button" v-on:click="selectPage(item)" v-bind:class="{'is-info': item == pagination.currentPage}">{{item}}</a>
                                 </li>
-                            
+                                <li v-if="pagination.currentPage < pagination.filteredItems.length " v-on:click="selectPage(pagination.currentPage + 1)">
+                                    <a>
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </li>
                                 <li class="last">
                                     <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
                                         Last

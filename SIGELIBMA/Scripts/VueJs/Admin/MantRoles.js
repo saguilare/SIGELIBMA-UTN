@@ -178,30 +178,6 @@ var vm = new Vue({
             return stringValue.toLowerCase();
         },
 
-        addRol: function (rol) {
-            vm.displaySpinner(true,'Agregando Rol');
-            $.ajax({
-                url: urlRoot + 'MantRoles/Add',
-                type: 'post',
-                dataType: 'json',
-                data: rol,
-                success: function (result) {
-                    if (result.OperationStatus) {
-                        vm.getRoles();
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-                        
-                    } else {
-                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                    } 
-                    vm.displaySpinner(false);
-                },
-                error: function (error) {
-                    vm.displaySpinner(false);
-                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                }
-            });
-        },
-
         getInitData: function () {
                 $.ajax({
                     url: urlRoot + 'MantRoles/GetInitData',
@@ -240,6 +216,7 @@ var vm = new Vue({
                         vm.roles = result.Roles;
                         vm.items = vm.roles;
                         vm.filteredItems = vm.roles;
+                        vm.buildPagination();
                         vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
@@ -255,8 +232,29 @@ var vm = new Vue({
             
         },
 
-        updateRol: function (rol) {
+        addRol: function (rol) {
+            vm.displaySpinner(true,'Agregando Rol');
+            $.ajax({
+                url: urlRoot + 'MantRoles/Add',
+                type: 'post',
+                dataType: 'json',
+                data: rol,
+                success: function (result) {
+                    if (result.OperationStatus) {
+                        vm.getRoles();                        
+                    } else {
+                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.displaySpinner(false);
+                    }          
+                },
+                error: function (error) {
+                    vm.displaySpinner(false);
+                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                }
+            });
+        },
 
+        updateRol: function (rol) {
             $("#edit-modal").modal('hide' );
             vm.displaySpinner(true, 'Editando Rol');
             $.ajax({
@@ -267,13 +265,10 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.OperationStatus) {
                         vm.getRoles();
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-
                     } else {
                         vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                    }
-
-                    vm.displaySpinner(false);
+                        vm.displaySpinner(false);
+                    }   
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
@@ -293,13 +288,11 @@ var vm = new Vue({
                 data: rol,
                 success: function (result) {
                     if (result.OperationStatus) {
-                        vm.getRoles();
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-                        
+                        vm.getRoles();    
                     } else {
                         vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.displaySpinner(false);
                     } 
-                    vm.displaySpinner(false);
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
@@ -316,8 +309,6 @@ var vm = new Vue({
             $("#edit-modal").modal({show:true});
         },
      
-        
-
         init: function () {
             vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
             vm.getInitData();
@@ -334,9 +325,7 @@ var vm = new Vue({
     }
 
     
-}
-
-    );
+});//close vue instance
 
 vm.init();
 
