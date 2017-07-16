@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -167,16 +168,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Admin\Layout\Layout.css" />
+    <Content Include="Content\Admin\Facturacion\Fact.css" />
     <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\carousel.css" />
+    <Content Include="Content\SiteAdmin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\libreriaBanner.jpg" />
+    <Content Include="Images\libros\dracula.jpg" />
+    <Content Include="Images\libros\eso.jpg" />
+    <Content Include="Images\libros\mundojurasico.jpg" />
+    <Content Include="Images\libros\mundoperdido.jpg" />
+    <Content Include="Images\libros\parquejurasico.jpg" />
+    <Content Include="Images\libros\parquejurasico3.jpg" />
+    <Content Include="Images\libros\torreoscura.jpg" />
+    <Content Include="Images\libros\viajealcentrodelatierra.jpg" />
     <Content Include="Images\spinner.gif" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -196,11 +207,14 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Underscore.js" />
     <Content Include="Scripts\vue-strap\vue-strap.js" />
     <Content Include="Scripts\VueJsFramework\vue1.js" />
     <Content Include="Scripts\VueJsFramework\vue2.js" />
+    <Content Include="Scripts\VueJs\Admin\facturacion.js" />
     <Content Include="Scripts\VueJs\Admin\login.js" />
     <Content Include="Scripts\VueJs\Admin\MantRoles.js" />
+    <Content Include="Scripts\VueJs\Clientes\principal.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -216,10 +230,11 @@
     <Content Include="Views\Shared\_LayoutAdministrativo.cshtml" />
     <Content Include="Views\MantRoles\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Facturacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Facturacion\" />
+    <Folder Include="Views\Book\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

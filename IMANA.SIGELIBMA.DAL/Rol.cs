@@ -14,17 +14,15 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Rol
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Rol()
         {
-            this.Usuario = new HashSet<Usuario>();
+            this.UsarioRoles = new HashSet<UsarioRoles>();
         }
     
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual ICollection<UsarioRoles> UsarioRoles { get; set; }
     }
 }

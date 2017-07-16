@@ -12,12 +12,13 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class UsarioRoles
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string Usuario { get; set; }
+        public int Rol { get; set; }
+        public Nullable<int> Estado { get; set; }
+    
+        public virtual Rol Rol1 { get; set; }
+        public virtual Usuario Usuario1 { get; set; }
     }
 }

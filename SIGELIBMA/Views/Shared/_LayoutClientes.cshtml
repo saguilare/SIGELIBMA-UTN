@@ -2,215 +2,341 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Carousel Template for Bootstrap</title>
+    <title>Libreria Mana</title>
 
     <!-- Bootstrap core CSS -->
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <!-- Custom styles for this template -->
     <link href="~/Content/carousel.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
 </head>
-<!-- NAVBAR
-================================================== -->
-<body>
-    <div class="navbar-wrapper">
-        <div class="container">
-            @RenderBody()
-            <nav class="navbar navbar-inverse navbar-static-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Project name</a>
+
+<body onresize="updateArrows()">
+    @*main conatiner*@
+    <div id="pageMainContainer">    
+        <!--VUESTRAP ALERT == TOASTR-->
+        <alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+            <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
+            <span v-else class="glyphicon glyphicon-info-sign"></span>
+            <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+            <strong v-else>Info!</strong>
+            <p>{{toastr.message}}</p>
+        </alert>
+        <!-- MODAL BOOK DETAILS -->
+        <div id="modalDetails" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Detalle Producto</h4>
                     </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                    <div class="modal-body text-center">
+                        <div v-if="alertModalBookDetails.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalBookDetails.type) === 'danger' , 'alert-info ' : lowerCase(alertModalBookDetails.type) === 'info','alert-success ' : lowerCase(alertModalBookDetails.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModalBookDetails.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModalBookDetails.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModalBookDetails.message}}
+                        </div>
+                        <img class="img-circle popimage" src="~/Images/libros/{{modalObject.item.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                        <h2>{{modalObject.item.Titulo}}</h2>
+                        <p>{{modalObject.item.Descripcion}}</p>
+                        <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.item.Precio}}</p>
+                        <div class="form-group text-center">
+                            <label>Cantidad:</label>
+                            <input class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />
+                        </div>
+                        <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.total}}</span>
                     </div>
-                </div>
-            </nav>
-
-        </div>
-    </div>
-
-
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-            <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="item">
-                <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Example headline.</h1>
-                        <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
                     </div>
-                </div>
-            </div>
-            <div class="item active">
-                <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- MODAL Shooping Cart -->
+        <div id="modalShoppingCart" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><a href="#"><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a> Carro de Compras</h4>
                     </div>
-                </div>
-            </div>
-            <div class="item">
-                <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>One more for good measure.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    <div class="modal-body ">
+                        <div v-if="shoppingCart.items.length > 0">
+                            <!-- Alert-->
+                            <div class="row">
+                                <div v-if="alertModalShoppingCart.status" class="col-sm-12 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalShoppingCart.type) === 'danger' , 'alert-info ' : lowerCase(alertModalShoppingCart.type) === 'info','alert-success ' : lowerCase(alertModalShoppingCart.type) === 'success'}">
+                                    <button type="button" class="close" v-on:click="alertModalShoppingCart.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong v-if="lowerCase(alertModalShoppingCart.type) === 'danger' ">Atencion!</strong>
+                                    <strong v-else>Info!</strong>
+                                    {{alertModalShoppingCart.message}}
+                                </div>
+                            </div>
+                            <!-- Navbar-->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 1 }" v-on:click="modalCart.currentPage = 1">
+                                            <a href="#">Info Productos</a>
+                                        </li>
+                                        <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 2 }" v-on:click="modalCart.currentPage = 2">
+                                            <a href="#">Info Personal</a>
+                                        </li>
+                                        <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 3 }" v-on:click="modalCart.currentPage = 3">
+                                            <a href="#">Info Bancaria</a>
+                                        </li>
+                                    </ul>
+                                    <hr class="navbar-separator" />
+                                </div>
+                            </div>
+                            <!-- Content-->
+                            <div class="row">
+                                <div class="col-sm-12 table-responsive">
+                                    <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
+                                    <!--page 1-->
+                                    <div v-if="modalCart.currentPage === 1">
+                                        <h3>Resumen Productos</h3><hr />
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Codigo</th>
+                                                    <th>Titulo</th>
+                                                    <th>Precio</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Total</th>
+                                                    <th>Remover</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="object in shoppingCart.items" track-by="$index">
+                                                    <td>{{object.item.Codigo}}</td>
+                                                    <td>{{object.item.Titulo}}</td>
+                                                    <td>&#162;{{object.item.Precio}}</td>
+                                                    <td>{{object.quantity}}</td>
+                                                    <td>&#162;{{object.total}}</td>
+                                                    <td><button class="btn btn-danger" v-on:click="removeFromCart($index,object)">Remover</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Totales</td>
+                                                    <td>{{shoppingCart.totalItems}}</td>
+                                                    <td>&#162;{{shoppingCart.total}}</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--page 2-->
+                                    <div v-if="modalCart.currentPage === 2">
+                                        <h3>Datos Personales</h3><hr />
+                                        <div class="form-group">
+                                            <label>Nombre: </label>
+                                            <input class="form-control" type="text" placeholder="Nombre" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Apellidos: </label>
+                                            <input class="form-control" type="text" placeholder="Apellidos" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cedula: </label>
+                                            <input class="form-control" type="text" placeholder="Cedula" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefono: </label>
+                                            <input class="form-control" type="tel" placeholder="Telefono" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Correo: </label>
+                                            <input class="form-control" type="email" placeholder="Correo" required />
+                                        </div>
+                                    </div>
+                                    <!--page 3-->
+                                    <div v-if="modalCart.currentPage === 3">
+                                        <div class="bg-info bg-accts">
+                                            <h4><b>Cuentas Bancarias:</b></h4>
+                                            <p><strong>Cedula Juridica:</strong> 3-00456-90</p>
+                                            <p><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</p>
+                                            <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p>
+                                        </div>
+                                        <h3>Datos Bancarios</h3><hr />
+                                        <div class="form-group">
+                                            <label>Fecha Deposito: </label>
+                                            <datepicker v-bind:value.sync="datepickerOptions.value" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                                            </datepicker>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Referencia: </label>
+                                            <input class="form-control" type="text" placeholder="No. Referencia:" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Banco Emisor: </label>
+                                            <select required class="form-control">
+                                                <option value="value" selected disabled>-- Seleccione un Banco --</option>
+                                                <option value="1">BCR</option>
+                                                <option value="2">BNCR</option>
+                                                <option value="3">BAC</option>
+                                                <option value="4">Scottia Bank</option>
+                                                <option value="4">LAFISE</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Banco Destino: </label>
+                                            <select required class="form-control">
+                                                <option value="value" selected disabled>-- Seleccione un Banco --</option>
+                                                <option value="1">BCR</option>
+                                                <option value="2">BNCR</option>
+                                                <option value="3">BAC</option>
+                                                <option value="4">Scottia Bank</option>
+                                                <option value="4">LAFISE</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <!--page 4-->
+                                    <div v-if="modalCart.currentPage === 4">
+                                        <h3>Resumen Transaccion</h3><hr />
+                                        <div class="bg-info" v-if="shoppingCart.payment.status">
+                                            <h5><b>Su compra ha sido procesada!</b></h5>
+                                            <p>Usted recibira un correo con el detalle de su compra. </p>
+                                            <p>Confirmacion # <strong>{{shoppingCart.payment.code}}</strong></p>
+                                        </div>
+                                        <div v-else class="bg-danger">
+                                            <h5><b>Ha sucedido un problema!</b></h5>
+                                            <p>
+                                                Por favor intente de nuevo, si el problema persiste envie un correo a
+                                                <strong><a href="mailto:{{emailSupport}}" target="_top">Soporte Iglesia Mana</a></strong>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pager Btns-->
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <nav aria-label="...">
+                                        <ul class="pager">
+                                            <li v-if="modalCart.currentPage > 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage -= 1">
+                                                <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+                                            </li>
+                                            <li v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="modalCart.currentPage += 1 ">
+                                                <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                            </li>
+                                            <li v-if="modalCart.currentPage === 3" v-on:click="processPayment() ">
+                                                <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 v-else class="text-center">El carrito esta vacio</h4>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--NAVBAR-->
+        <div id="" class="navbar-wrapper">
+            <div class="container">
+                <nav class="navbar navbar-inverse navbar-static-top navbar-main">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" style="color:white">Libreria Mana</a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                @*<li class="active"><a href="#">Principal</a></li>*@
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li v-on:click="filteredCategories = categories"><a href="#">Todas</a></li>
+                                        <li v-if="item.Libros && item.Libros.length > 0" v-for="item in categories" v-on:click="filterCategory(item)"><a href="#">{{item.Descripcion}}</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#contact">Contactenos</a></li>
+                                <li><a href="#about">Acerca</a></li>
+                                <li>
+                                    <form class="navbar-form navbar-left">
+                                        <div class="input-group search">
+                                            @*<div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtrar <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li v-on:click="searchByData = codigos"><a href="#">Codigo</a></li>
+                                                    <li v-on:click="searchByData = titulos"><a href="#">Titulo</a></li>
+                                                </ul>
+                                            </div>*@<!-- /btn-group -->
+                                            <typeahead class="search-input" v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Buscar..."></typeahead>
+                                            <span class="input-group-btn">
+                                                <button v-on:click="search()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </form>
+                                </li>
+
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+
+                                <li>
+                                    <a href="#">
+
+                                        <span class="badge badgequantity">
+                                            <strong>Articulos: </strong>{{shoppingCart.totalItems}}
+                                            <strong>Precio Total: </strong><strong class="">&#162;{{shoppingCart.total}}</strong>
+                                        </span>
+
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" v-on:click="openModal(null,'modalShoppingCart')"><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </nav>
+
             </div>
         </div>
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div><!-- /.carousel -->
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-        <!-- Three columns of text below the carousel -->
-        <div class="row">
-            <div class="col-lg-4">
-                <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzUwMHg1MDAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE1Y2EyZTI0NGUxIHRleHQgeyBmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTVjYTJlMjQ0ZTEiPjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iMTg1LjEyNSIgeT0iMjYxLjEiPjUwMHg1MDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7 col-md-push-5">
-                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5 col-md-pull-7">
-                <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzUwMHg1MDAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE1Y2EyZTI1OGI1IHRleHQgeyBmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTVjYTJlMjU4YjUiPjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iMTg1LjEyNSIgeT0iMjYxLjEiPjUwMHg1MDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzUwMHg1MDAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE1Y2EyZTI4ODQ5IHRleHQgeyBmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTVjYTJlMjg4NDkiPjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iMTg1LjEyNSIgeT0iMjYxLjEiPjUwMHg1MDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-        <!-- FOOTER -->
-        <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>© 2016 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
-        </footer>
-
-    </div><!-- /.container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    
-    <script src="~/Scripts/bootstrap.js"></script>
-
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="../../assets/js/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg>
+
+        @RenderBody()
+
+        <backtotop></backtotop>
+    </div><!--Main container-->
+
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <script src="~/Scripts/VueJsFramework/vue1.js"></script>
+        <script src="~/Scripts/vue-strap/vue-strap.js"></script>
+        <script src="~/Scripts/VueJs/Clientes/principal.js"></script>
+
+
 </body>
 </html>

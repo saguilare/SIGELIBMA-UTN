@@ -18,17 +18,14 @@ data.roles = [];
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null ,Rol:0};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
-data.asideWiki = { show: false, title: '' };
+data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
-data.sortKey = 'deviceName';
-data.reverse = false;
-data.search = '';
-data.showEnableButtons = false;
-data.showSearchTab = false;
-data.columns = ['deviceName', 'devicePort'];
-data.searchItem = '';
-data.items = [];
 
+data.sortKey = 'Codigo';
+data.reverse = 1;
+data.search = '';
+data.items = [];
+data.searchItem = '';
 data.paginatedItems = [];
 data.selectedItems = [];
 data.pagination = { range: 5, currentPage: 1, itemPerPage: 8, items: [], filteredItems: [] };
@@ -41,14 +38,11 @@ var vm = new Vue({
     el: '#pageMainContainer',
     data: data,
     components: {
-        //typeahead: customAutocomplete,
-        //datepicker: VueStrap.datepicker,
-        //modal not working the second time
-        //bug in vue-strap
-        //using bootstrap modal instead
-        //modal: VueStrap.modal,
-        //vueStrapAside: VueStrap.aside,
-        //popover: VueStrap.popover,
+        alert: VueStrap.alert,
+        datepicker: VueStrap.datepicker,
+        spinner: VueStrap.spinner,
+        typeahead: VueStrap.typeahead,
+        vueinput: VueStrap.input
 
     },
 
@@ -57,27 +51,32 @@ var vm = new Vue({
 
         //PaginationMethods
 
-        clearSearchItem () {
+        clearSearchItem : function() {
             this.searchItem = undefined
             this.searchInTheList('')
         },
 
-        searchInTheList(searchText, currentPage) {
+        setSort: function(sortkey, reverse){
+            vm.sortKey = sortkey;
+            vm.reverse = reverse;
+        },
+
+        searchInTheList : function(searchText, currentPage) {
             if (_.isUndefined(searchText)) {
-                this.filteredItems = _.filter(items, function (v, k) {
+                this.filteredItems = _.filter(vm.items, function (v, k) {
                     return !v.selected
                 })
             }
             else {
-                this.filteredItems = _.filter(items, function (v, k) {
-                    if ((v.deviceName!=null)&&(v.hostName!=null)) {
-                        return (!v.selected && v.deviceName.toLowerCase().indexOf(searchText.toLowerCase()) > -1) | (!v.selected && v.hostName.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                this.filteredItems = _.filter(vm.items, function (v, k) {
+                    if ((v.Codigo!=null)&&(v.Descripcion!=null)) {
+                        return (!v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1) | (!v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
                     } else {
-                        if (v.deviceName != null) {
-                               return !v.selected && v.deviceName.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                        if (v.Codigo != null) {
+                            return !v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1
                         } else {
-                            if (v.hostName != null) {
-                                return !v.selected && v.hostName.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+                            if (v.Descripcion != null) {
+                                return !v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
                             }
                         }
                     }
@@ -97,7 +96,7 @@ var vm = new Vue({
             }
         },
 
-        buildPagination() {
+        buildPagination : function() {
             let numberOfPage = Math.ceil(this.filteredItems.length / this.pagination.itemPerPage)
             this.pagination.items = []
             for (var i = 0; i < numberOfPage; i++) {
@@ -105,7 +104,7 @@ var vm = new Vue({
             }
         },
 
-        selectPage(item) {
+        selectPage : function(item) {
             this.pagination.currentPage = item
 
             let start = 0
@@ -139,30 +138,14 @@ var vm = new Vue({
             })
         },
 
-        selectItem(item) {
-            item.selected = true
-            this.selectedItems.push(item)
-            this.searchInTheList(this.searchItem, this.pagination.currentPage)
+        changePagination: function () {
+            vm.buildPagination();
+            vm.selectPage(1);
         },
 
-        removeSelectedItem(item) {
-            item.selected = false
-            this.selectedItems.$remove(item)
-            this.searchInTheList(this.searchItem, this.pagination.currentPage)
-        },
+
         //EndPafinationMothods
 
-        customFilter: function(device) {
-            return device.deviceName.indexOf(this.search) != -1
-            || device.hostName.indexOf(this.search) != -1
-            ;
-        },
-
-        sortBy: function (sortKey) {
-            this.reverse = (this.sortKey == sortKey) ? !this.reverse : false;
-
-            this.sortKey = sortKey;
-        },
 
         displaySpinner: function (status, message) {
             vm.validations.showSpinner = status;
@@ -181,8 +164,72 @@ var vm = new Vue({
             vm.alertModal.status = status;
         },
 
+        activateToastr: function (type,message,status) {
+            vm.toastr.show = status;
+            vm.toastr.placement = 'top-right';
+            vm.toastr.duration = 10000;
+            vm.toastr.type = type;
+            vm.toastr.width = '300px';
+            vm.toastr.dismissable = true;
+            vm.toastr.message = message;
+        },
+
         lowerCase: function (stringValue) {
             return stringValue.toLowerCase();
+        },
+
+        getInitData: function () {
+                $.ajax({
+                    url: urlRoot + 'MantRoles/GetInitData',
+                    type: 'get',
+                    dataType: 'json',
+                    async: true,
+                    success: function (result) {
+                        if (result.OperationStatus) {
+                            vm.roles = result.Roles;
+                            vm.items = vm.roles;
+                            vm.filteredItems = vm.roles;
+                            vm.buildPagination();
+                            vm.selectPage(1);
+                        } else {
+                            vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                        }
+                        vm.displaySpinner(false,'');
+                    },
+                    error: function (error) {
+                        vm.activateAlert('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                        vm.displaySpinner(false,'');
+                    }
+                });
+              
+            
+        },
+
+        getRoles: function () {
+            $.ajax({
+                url: urlRoot + 'MantRoles/GetAll',
+                type: 'get',
+                dataType: 'json',
+                async: true,
+                success: function (result) {
+                    if (result.OperationStatus) {
+                        vm.roles = result.Roles;
+                        vm.items = vm.roles;
+                        vm.filteredItems = vm.roles;
+                        vm.buildPagination();
+                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
+                    } else {
+                        vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                    }
+                    vm.displaySpinner(false,'');
+                },
+                error: function (error) {
+                    vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                    vm.displaySpinner(false,'');
+                }
+            });
+              
+            
         },
 
         addRol: function (rol) {
@@ -194,68 +241,20 @@ var vm = new Vue({
                 data: rol,
                 success: function (result) {
                     if (result.OperationStatus) {
-                        vm.getRoles();
-                        vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
-                        
+                        vm.getRoles();                        
                     } else {
-                        vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                    } 
-                    vm.displaySpinner(false);
+                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.displaySpinner(false);
+                    }          
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
-                    vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
             });
-        },
-
-        getRoles: function () {
-                $.ajax({
-                    url: urlRoot + 'MantRoles/GetAll',
-                    type: 'get',
-                    dataType: 'json',
-                    async: true,
-                    success: function (result) {
-                        if (result.OperationStatus) {
-                            vm.roles = result.Roles;
-                        } else {
-                           // window.location.href = result.Url;
-                        }
-                        vm.displaySpinner(false,'');
-                    },
-                    error: function (error) {
-                        vm.displaySpinner(false,'');
-                    }
-                });
-              
-            
-        },
-
-        getRol: function (rol) {
-            this.displaySpinner(true);
-            $.ajax({
-                url: urlRoot + 'MantRoles/GetAll',
-                type: 'get',
-                dataType: 'json',
-                async: true,
-                success: function (result) {
-                    if (result.OperationStatus) {
-                        vm.roles = result.Roles;
-                    } else {
-                        window.location.href = result.Url;
-                    }
-                    this.displaySpinner(false);
-                },
-                error: function (error) {
-                    vm.displaySpinner(false);
-                }
-            });
-
-
         },
 
         updateRol: function (rol) {
-
             $("#edit-modal").modal('hide' );
             vm.displaySpinner(true, 'Editando Rol');
             $.ajax({
@@ -266,17 +265,14 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.OperationStatus) {
                         vm.getRoles();
-                        vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
-
                     } else {
-                        vm.activateAlertModal('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                    }
-
-                    vm.displaySpinner(false);
+                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.displaySpinner(false);
+                    }   
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
-                    vm.activateAlertModal('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
                 
             });
@@ -292,17 +288,15 @@ var vm = new Vue({
                 data: rol,
                 success: function (result) {
                     if (result.OperationStatus) {
-                        vm.getRoles();
-                        vm.activateAlert('success', 'La operacion se completo de manera exitosa.', true);
-                        
+                        vm.getRoles();    
                     } else {
-                        vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.displaySpinner(false);
                     } 
-                    vm.displaySpinner(false);
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
-                    vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                 }
             });
 
@@ -310,27 +304,14 @@ var vm = new Vue({
         },
 
         openEditModal: function (rol) {
+            vm.activateAlertModal('','',false);
             vm.modalObject = rol;
             $("#edit-modal").modal({show:true});
         },
      
-        createWiki: function (title, html) {
-            //clean before append new content
-            $("#divaside").html("");
-            $("#divaside").prepend(html);
-            vm.asideWiki.title = title
-            vm.asideWiki.show = true;
-        },
-
-        showWikiSection1: function () {
-            var html = "<p>aqui va el codigo html</p>";
-            var title = "SIGELIBMA - Assistant";
-            this.createWiki(title, html);
-        },
-
         init: function () {
             vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
-            vm.getRoles();
+            vm.getInitData();
             vm.activateAlert('danger', '', false);
         }
 
@@ -344,9 +325,7 @@ var vm = new Vue({
     }
 
     
-}
-
-    );
+});//close vue instance
 
 vm.init();
 

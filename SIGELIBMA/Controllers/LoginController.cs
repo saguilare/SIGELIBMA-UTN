@@ -1,4 +1,4 @@
-﻿using IMANA.SIGELIBMA.DAL.DTOs;
+﻿using IMANA.SIGELIBMA.DAL;
 using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
@@ -13,15 +13,18 @@ namespace SIGELIBMA.Controllers
 
         public ActionResult Login(int? code)
         {
+            int errorCode = Convert.ToInt32((code != null) ? code : 1);
             if (System.Web.HttpContext.Current.Session["session"] != null)
             {
-                SystemSession session = System.Web.HttpContext.Current.Session["session"] as SystemSession;
-                if (session.Status)
+                Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
+                if (session != null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Facturacion");
                 }
             }
-            ViewBag.code = code;
+
+            ViewBag.code = errorCode;
+            ViewBag.Title = "Login";
             return View();
         }
 
@@ -39,7 +42,7 @@ namespace SIGELIBMA.Controllers
                 }
                 else
                 {
-                    return Json(new { OperationStatus = false, Message = "Access Denied, please verify your password" });
+                    return Json(new { OperationStatus = false, Message = "Acceso denegado, por favor verifique sus credenciales." });
                 }
             }
             catch (Exception e)

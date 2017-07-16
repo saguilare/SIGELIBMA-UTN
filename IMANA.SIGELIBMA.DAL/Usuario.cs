@@ -14,13 +14,12 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Usuario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
             this.Caja = new HashSet<Caja>();
             this.Factura = new HashSet<Factura>();
             this.Sesion = new HashSet<Sesion>();
-            this.Rol = new HashSet<Rol>();
+            this.UsarioRoles = new HashSet<UsarioRoles>();
         }
     
         public string Usuario1 { get; set; }
@@ -33,13 +32,9 @@ namespace IMANA.SIGELIBMA.DAL
         public string Correo { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Caja> Caja { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sesion> Sesion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rol> Rol { get; set; }
+        public virtual ICollection<UsarioRoles> UsarioRoles { get; set; }
     }
 }

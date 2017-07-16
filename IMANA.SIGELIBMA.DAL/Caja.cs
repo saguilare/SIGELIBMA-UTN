@@ -14,7 +14,6 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Caja
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Caja()
         {
             this.Factura = new HashSet<Factura>();
@@ -30,11 +29,9 @@ namespace IMANA.SIGELIBMA.DAL
         public Nullable<decimal> MontoCierre { get; set; }
         public int Estado { get; set; }
     
-        public virtual EstadoCaja EstadoCaja { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Factura> Factura { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual EstadoCaja EstadoCaja { get; set; }
+        public virtual ICollection<Factura> Factura { get; set; }
+        public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
     }
 }
