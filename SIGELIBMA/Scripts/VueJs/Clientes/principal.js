@@ -41,7 +41,7 @@ data.titulos = [];
 data.searchByData = data.titulos;
 data.searchSelected = "";
 data.emailSupport = "iglesiamana@gmail.com";
-data.datepickerOptions = { format: 'dd/MM/yyyy' ,placeholder:'dd/mm/yyyy', close:true, value:''};
+data.datepickerOptions = { format: 'MM/dd/yyyy' ,placeholder:'mm/dd/yyyy', close:true};
 data.books = [];
 data.modalObject = { item: {}, quantity: 1, total: 0 };
 data.enableProccedBtn = false;
@@ -246,8 +246,12 @@ openModal: function (object, type) {
 processPayment: function () {
     vm.modalCart.currentPage = 4;
     this.$refs.spinner1.show();
-    
-    var compra = {Cliente:vm.cliente,Productos: productos, Desposito:vm.deposito};
+    var productos = [];
+    $.each(vm.shoppingCart.items, function (index, object) {
+        productos.push({ Codigo: object.item.Codigo, Cantidad: object.quantity });
+    });
+
+    var compra = { Cliente: vm.cliente, Productos: productos, Deposito: vm.deposito };
     $.ajax({
         url: urlRoot + 'Home/ProcesarCompra',
         type: 'post',

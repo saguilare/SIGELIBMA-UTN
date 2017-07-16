@@ -11,6 +11,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 {
     public class FacturacionController : Controller
     {
+
+        private FacturaServicio servicioFactura = new FacturaServicio();
+
         public ActionResult Index()
         {
             //if (System.Web.HttpContext.Current.Session["session"] != null)
@@ -152,6 +155,10 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
                 throw;
             }
+        }
+
+        public void Facturar(Factura factura) {
+            bool result = servicioFactura.Agregar(factura);
         }
     }
 }

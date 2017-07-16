@@ -50,8 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\CajaServicio.cs" />
     <Compile Include="Servicios\CategoriasLibroServicio.cs" />
+    <Compile Include="Servicios\FacturaServicio.cs" />
     <Compile Include="Servicios\LibroServicio.cs" />
+    <Compile Include="Servicios\UsuarioServicio.cs" />
     <Compile Include="Servicios\RolService.cs" />
   </ItemGroup>
   <ItemGroup>

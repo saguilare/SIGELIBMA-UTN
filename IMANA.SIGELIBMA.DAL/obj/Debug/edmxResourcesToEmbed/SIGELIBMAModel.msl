@@ -89,8 +89,8 @@
           <ScalarProperty Name="Caja" ColumnName="Caja" />
           <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="FechaCancelacion" ColumnName="FechaCancelacion" />
-          <ScalarProperty Name="ImpuestoVenta" ColumnName="ImpuestoVenta" />
           <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+          <ScalarProperty Name="Impuestos" ColumnName="Impuestos" />
           <ScalarProperty Name="Total" ColumnName="Total" />
           <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
           <ScalarProperty Name="Descuento" ColumnName="Descuento" />

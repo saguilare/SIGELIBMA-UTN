@@ -139,10 +139,10 @@
                                     <div v-if="modalCart.currentPage === 2">
                                         <h3>Datos Personales</h3><hr />
                                         <div class="form-group">
-                                            <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-z][a-z]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-gr<up">
-                                            <vueinput v-bind:value.sync="cliente.Apellido1" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-z][a-z]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="cliente.Apellido1" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-group">
                                             <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
@@ -165,16 +165,15 @@
                                         <h3>Datos Bancarios</h3><hr />
                                         <div class="form-group">
                                             <label>Fecha Deposito: </label>
-                                            <datepicker v-bind:value.sync="datepickerOptions.value" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                                            <datepicker v-bind:value.sync="deposito.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
                                             </datepicker>
                                         </div>
                                         <div class="form-group">
-                                            <label>Referencia: </label>
-                                            <input class="form-control" type="text" placeholder="No. Referencia:" required />
+                                            <vueinput v-bind:value.sync="deposito.Referencia" label="No Referencia:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-z0-9]$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-group">
                                             <label>Banco Emisor: </label>
-                                            <select required class="form-control">
+                                            <select required class="form-control" v-model="deposito.BancoEmisor">
                                                 <option value="value" selected disabled>-- Seleccione un Banco --</option>
                                                 <option value="1">BCR</option>
                                                 <option value="2">BNCR</option>
@@ -185,7 +184,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Banco Destino: </label>
-                                            <select required class="form-control">
+                                            <select required class="form-control" v-model="deposito.BancoReceptor">
                                                 <option value="value" selected disabled>-- Seleccione un Banco --</option>
                                                 <option value="1">BCR</option>
                                                 <option value="2">BNCR</option>

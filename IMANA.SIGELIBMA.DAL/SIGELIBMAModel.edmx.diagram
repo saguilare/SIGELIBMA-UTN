@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8a8d8f93e607411091a89e6023142016" Name="Diagram1">
+      <Diagram DiagramId="39aa41627c9348e09a0f33eb0c505ddb" Name="Diagram1">
         <EntityTypeShape EntityType="SIGELIBMAModel.Autor" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="SIGELIBMAModel.Caja" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="SIGELIBMAModel.Categoria" Width="1.5" PointX="0.75" PointY="21.75" IsExpanded="true" />
@@ -30,16 +30,16 @@
         <EntityTypeShape EntityType="SIGELIBMAModel.Usuario" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Autor__2F10007B" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Caja__Estado__4316F928" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Caja__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Caja__68487DD7" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Movimiento__Caja__48CFD27E" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Categoria__2E1BDC42" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Deposito__Factur__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Descuen__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Artic__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Factu__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Estado__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Cliente__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__Recibo__Factura__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Deposito__Factur__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Descuen__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Artic__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Factu__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Estado__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Cliente__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__Recibo__Factura__72C60C4A" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Inventari__Codig__34C8D9D1" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Proveedor__300424B4" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Movimiento__Tipo__49C3F6B7" ManuallyRouted="false" />

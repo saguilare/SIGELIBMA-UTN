@@ -26,8 +26,8 @@ namespace IMANA.SIGELIBMA.DAL
         public int Caja { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaCancelacion { get; set; }
-        public decimal ImpuestoVenta { get; set; }
         public decimal Subtotal { get; set; }
+        public decimal Impuestos { get; set; }
         public decimal Total { get; set; }
         public Nullable<decimal> Pendiente { get; set; }
         public Nullable<int> Descuento { get; set; }
