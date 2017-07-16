@@ -56,6 +56,8 @@ data.alertModal = { type: 'success', message: 'alert', status: true };
 data.modalCart = { currentPage : 0};
 data.alertModalShoppingCart = { type: 'success', message: 'alert', status: true };
 data.alertModalBookDetails = { type: 'success', message: 'alert', status: true };
+data.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
+data.deposito = {Fecha :"", Referencia :"", BancoEmisor:"", BancoReceptor:""};
 data.asideWiki = { show: false, title: '' };
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
 
@@ -104,7 +106,8 @@ var vm = new Vue({
         alert: VueStrap.alert,
         datepicker: VueStrap.datepicker,
         spinner: VueStrap.spinner,
-        typeahead: VueStrap.typeahead
+        typeahead: VueStrap.typeahead,
+        vueinput: VueStrap.input
         //modal not working the second time
         //bug in vue-strap
         //using bootstrap modal instead
@@ -133,6 +136,7 @@ activateToastr: function (type,message,status) {
     vm.toastr.dismissable = true;
     vm.toastr.message = message;
 },
+
 activateAlert: function (type, message, status) {
     vm.alert.type = type;
     vm.alert.message = message;
@@ -157,8 +161,7 @@ activateAlertModalShoppingCart: function (type, message, status) {
     vm.alertModalShoppingCart.status = status;
 },
 
-        
-
+       
 lowerCase: function (stringValue) {
     return stringValue.toLowerCase();
 },
@@ -169,8 +172,6 @@ filterCategory: function (category) {
     vm.filteredCategories.push(category);
   
 },
-
-
 
 scrollRight: function () {
     window.scrollBy(100, 0);
@@ -246,12 +247,12 @@ processPayment: function () {
     vm.modalCart.currentPage = 4;
     this.$refs.spinner1.show();
     
-    var param = 'test';
+    var compra = {Cliente:vm.cliente,Productos: productos, Desposito:vm.deposito};
     $.ajax({
         url: urlRoot + 'Home/ProcesarCompra',
         type: 'post',
         dataType: 'json',
-        data: param,
+        data: compra,
         success: function (result) {
             if (result.EstadoOperacion) {
                 vm.shoppingCart.payment.code = result.Confirmacion;

@@ -1,7 +1,9 @@
 ﻿using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
+using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +12,7 @@ namespace SIGELIBMA.Controllers
 {
     public class HomeController : Controller
     {
+        private decimal IVA = Convert.ToDecimal(ConfigurationManager.AppSettings["IVA"]);
         // GET: Home
         public ActionResult Index()
         {
@@ -39,7 +42,7 @@ namespace SIGELIBMA.Controllers
 
 
         [HttpPost]
-        public JsonResult ProcesarCompra(string param)
+        public JsonResult ProcesarCompra(CompraModel compra)
         {
             try
             {
