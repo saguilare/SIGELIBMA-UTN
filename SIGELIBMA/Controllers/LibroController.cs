@@ -1,4 +1,4 @@
-﻿using IMANA.SIGELIBMA.BLL.Services;
+﻿using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Controllers
 {
-    public class BookController : Controller
+    public class LibroController : Controller
     {
-        BookService bookService = new BookService();
+        LibroServicio LibroServicio = new LibroServicio();
 
         [HttpGet]
         public ActionResult Index()
@@ -25,7 +25,7 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                List<Libro> Books = bookService.GetAll();
+                List<Libro> Books = LibroServicio.ObtenerTodos();
                 return Json(new { OperationStatus = true, Books = Books, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -41,7 +41,7 @@ namespace SIGELIBMA.Controllers
         {
             try
             {
-                Libro book = bookService.GetById(bookp);
+                Libro book = LibroServicio.ObtenerPorId(bookp);
                 return Json(new { OperationStatus = true, Book = book, Message = "Operation OK" });
             }
             catch (Exception e)
@@ -58,7 +58,7 @@ namespace SIGELIBMA.Controllers
             try
             {
                 bool result = false;
-                result = bookService.Delete(bookp);
+                result = LibroServicio.Desabilitar(bookp);
                 return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
             }
             catch (Exception e)
@@ -75,7 +75,7 @@ namespace SIGELIBMA.Controllers
             try
             {
                 bool result = false;
-                result = bookService.Update(bookp);
+                result = LibroServicio.Modificar(bookp);
                 return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
             }
             catch (Exception e)
@@ -92,7 +92,7 @@ namespace SIGELIBMA.Controllers
             try
             {
                 bool result = false;
-                result = bookService.Add(bookp);
+                result = LibroServicio.Agregar(bookp);
                 return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
             }
             catch (Exception e)

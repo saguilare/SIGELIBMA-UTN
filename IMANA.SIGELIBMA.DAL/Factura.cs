@@ -16,6 +16,7 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public Factura()
         {
+            this.Deposito = new HashSet<Deposito>();
             this.DetalleFactura = new HashSet<DetalleFactura>();
             this.Recibo = new HashSet<Recibo>();
         }
@@ -33,6 +34,7 @@ namespace IMANA.SIGELIBMA.DAL
         public Nullable<int> Estado { get; set; }
     
         public virtual Caja Caja1 { get; set; }
+        public virtual ICollection<Deposito> Deposito { get; set; }
         public virtual Descuento Descuento1 { get; set; }
         public virtual ICollection<DetalleFactura> DetalleFactura { get; set; }
         public virtual EstadoFactura EstadoFactura { get; set; }

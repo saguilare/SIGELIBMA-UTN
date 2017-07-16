@@ -29,13 +29,13 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public ActionResult validateLogin(UserLoginModel login)
+        public ActionResult ValidarLogin(UserLoginModel login)
         {
 
             try
             {
 
-                if (ValidateUser(login))
+                if (ValidarUsuario(login))
                 {
                     var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Home");
                     return Json(new { OperationStatus = true, Url = redirectUrl });
@@ -53,7 +53,7 @@ namespace SIGELIBMA.Controllers
 
         }
 
-        private bool ValidateUser(UserLoginModel login) {
+        private bool ValidarUsuario(UserLoginModel login) {
             try
             {
                 //validate against DB

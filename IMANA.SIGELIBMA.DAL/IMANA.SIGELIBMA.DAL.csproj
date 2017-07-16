@@ -60,6 +60,9 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Deposito.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Descuento.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
@@ -121,6 +124,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoMovimientoCaja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>

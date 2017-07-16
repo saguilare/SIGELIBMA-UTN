@@ -7,27 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IMANA.SIGELIBMA.BLL.Services
+namespace IMANA.SIGELIBMA.BLL.Servicios
 {
-    public class BookCatService
+    public class LibroServicio
     {
         UnitOfWork unitOfWork  = null;
         DbContext context = null;
 
 
-        public BookCatService()
+        public LibroServicio()
         {
             this.context = new SIGELIBMAEntities();
             this.unitOfWork = new UnitOfWork(this.context);
         }
 
-        public List<Categoria> GetAll() {
+        public List<Libro> ObtenerTodos() {
             try
             {
-                List<Categoria> category = null;
-                category = unitOfWork.Repository<Categoria>().GetAll().ToList();
-
-                return category;
+                List<Libro> libros = null;
+                libros = unitOfWork.Repository<Libro>().GetAll().ToList();
+                
+                return libros;
             }
             catch (Exception e)
             {
@@ -37,14 +37,14 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
-        public Categoria GetById(Categoria categoryp)
+        public Libro ObtenerPorId(Libro librop)
         {
             try
             {
-                Categoria category = null;
-                category = (Categoria)unitOfWork.Repository<Categoria>().GetById(categoryp);
+                Libro libro = null;
+                libro = (Libro)unitOfWork.Repository<Libro>().GetById(librop);
 
-                return category;
+                return libro;
             }
             catch (Exception e)
             {
@@ -54,11 +54,11 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
-        public bool Add(Categoria categoryp)
+        public bool Agregar(Libro librop)
         {
             try
             {
-                unitOfWork.Repository<Categoria>().Add(categoryp);
+                unitOfWork.Repository<Libro>().Add(librop);
                 unitOfWork.Save();
                 return true;
             }
@@ -70,12 +70,12 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
        
-        public bool Delete(Categoria categoryp)
+        public bool Desabilitar(Libro librop)
         {
             try
             {
-                categoryp.Estado = 0;
-                unitOfWork.Repository<Categoria>().Update(categoryp);
+                librop.Estado = 0;
+                unitOfWork.Repository<Libro>().Update(librop);
                 unitOfWork.Save();
                 return true;
             }
@@ -87,11 +87,11 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
-        public bool Update(Categoria categoryp)
+        public bool Modificar(Libro librop)
         {
             try
             {
-                unitOfWork.Repository<Categoria>().Update(categoryp);
+                unitOfWork.Repository<Libro>().Update(librop);
                 unitOfWork.Save();
                 return true;
             }

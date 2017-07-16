@@ -1,4 +1,5 @@
-﻿using IMANA.SIGELIBMA.BLL.Services;
+﻿
+using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,8 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         public JsonResult Init() {
             try
             {
-                var books = GetBooks();
-                //var categories = GetCategories();
+                var books = ObtenerLibros();
+                //var categories = ObtenerCategorias();
 
                 return Json(new { OperationStatus = true,Books = books, Message = "Operacion exitosa" },JsonRequestBehavior.AllowGet);
    
@@ -44,7 +45,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult OpenCashBox(string param) {
+        public JsonResult AbrirCaja(string param) {
             try
             {
                 string caja = "45";
@@ -66,7 +67,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult ProcessPayment(string param)
+        public JsonResult ProcesarCompra(string param)
         {
             try
             {
@@ -92,15 +93,15 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             return true;
         }
 
-        private object GetBooks()
+        private object ObtenerLibros()
         {
             try
             {
 
-                BookService service = new BookService();
-                List<Libro> books = service.GetAll();
+                LibroServicio servicio = new LibroServicio();
+                List<Libro> libros = servicio.ObtenerTodos();
                 //transform and simplify list to avoid circular dependency issues 
-                var newList = books.Select(item => new
+                var newList = libros.Select(item => new
                 {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
@@ -121,12 +122,12 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
-        private object GetCategories()
+        private object ObtenerCategorias()
         {
             try
             {
-                BookCatService service = new BookCatService();
-                List<Categoria> cats = service.GetAll().Where(x => x.Estado == 1).ToList();
+                CategoriasLibroServicio servicio = new CategoriasLibroServicio();
+                List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = cats.Select(item => new
                 {

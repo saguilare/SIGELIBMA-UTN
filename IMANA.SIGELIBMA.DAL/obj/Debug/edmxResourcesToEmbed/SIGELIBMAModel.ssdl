@@ -25,6 +25,19 @@
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
     <Property Name="Estado" Type="int" />
   </EntityType>
+  <EntityType Name="Deposito">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="Factura" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Factura" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Referencia" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BancoEmisor" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BancoReceptor" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
   <EntityType Name="Descuento">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -164,6 +177,16 @@
     <Property Name="Inicio" Type="datetime" Nullable="false" />
     <Property Name="Finalizacion" Type="datetime" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TipoMovimientoCaja">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -224,6 +247,18 @@
       </Principal>
       <Dependent Role="Caja">
         <PropertyRef Name="Estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Deposito__Factur__59063A47">
+    <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+    <End Role="Deposito" Type="Self.Deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura">
+        <PropertyRef Name="Numero" />
+      </Principal>
+      <Dependent Role="Deposito">
+        <PropertyRef Name="Factura" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -447,6 +482,7 @@
     <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Deposito" EntityType="Self.Deposito" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Descuento" EntityType="Self.Descuento" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetalleFactura" EntityType="Self.DetalleFactura" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EstadoCaja" EntityType="Self.EstadoCaja" Schema="dbo" store:Type="Tables" />
@@ -460,6 +496,7 @@
     <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaccion" EntityType="Self.Transaccion" Schema="dbo" store:Type="Tables" />
@@ -468,6 +505,10 @@
     <AssociationSet Name="FK__Caja__Estado__4316F928" Association="Self.FK__Caja__Estado__4316F928">
       <End Role="EstadoCaja" EntitySet="EstadoCaja" />
       <End Role="Caja" EntitySet="Caja" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Deposito__Factur__59063A47" Association="Self.FK__Deposito__Factur__59063A47">
+      <End Role="Factura" EntitySet="Factura" />
+      <End Role="Deposito" EntitySet="Deposito" />
     </AssociationSet>
     <AssociationSet Name="FK__DetalleFa__Artic__534D60F1" Association="Self.FK__DetalleFa__Artic__534D60F1">
       <End Role="Libro" EntitySet="Libro" />

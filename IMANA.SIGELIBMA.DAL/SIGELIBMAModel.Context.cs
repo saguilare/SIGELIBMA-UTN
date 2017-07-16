@@ -28,6 +28,7 @@ namespace IMANA.SIGELIBMA.DAL
         public virtual DbSet<Autor> Autor { get; set; }
         public virtual DbSet<Caja> Caja { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<Deposito> Deposito { get; set; }
         public virtual DbSet<Descuento> Descuento { get; set; }
         public virtual DbSet<DetalleFactura> DetalleFactura { get; set; }
         public virtual DbSet<EstadoCaja> EstadoCaja { get; set; }
@@ -41,6 +42,7 @@ namespace IMANA.SIGELIBMA.DAL
         public virtual DbSet<Recibo> Recibo { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Sesion> Sesion { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoMovimientoCaja> TipoMovimientoCaja { get; set; }
         public virtual DbSet<TipoTransaccion> TipoTransaccion { get; set; }
         public virtual DbSet<Transaccion> Transaccion { get; set; }

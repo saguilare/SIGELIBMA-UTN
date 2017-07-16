@@ -30,6 +30,20 @@
     <Property Name="Estado" Type="Int32" />
     <NavigationProperty Name="Libro" Relationship="Self.FK__Libro__Categoria__2E1BDC42" FromRole="Categoria" ToRole="Libro" />
   </EntityType>
+  <EntityType Name="Deposito">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="Factura" />
+    </Key>
+    <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Factura" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Referencia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BancoEmisor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BancoReceptor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Factura1" Relationship="Self.FK__Deposito__Factur__59063A47" FromRole="Deposito" ToRole="Factura" />
+  </EntityType>
   <EntityType Name="Descuento">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -86,6 +100,7 @@
     <Property Name="Descuento" Type="Int32" />
     <Property Name="Estado" Type="Int32" />
     <NavigationProperty Name="Caja1" Relationship="Self.FK__Factura__Caja__4E88ABD4" FromRole="Factura" ToRole="Caja" />
+    <NavigationProperty Name="Deposito" Relationship="Self.FK__Deposito__Factur__59063A47" FromRole="Factura" ToRole="Deposito" />
     <NavigationProperty Name="Descuento1" Relationship="Self.FK__Factura__Descuen__4F7CD00D" FromRole="Factura" ToRole="Descuento" />
     <NavigationProperty Name="DetalleFactura" Relationship="Self.FK__DetalleFa__Factu__52593CB8" FromRole="Factura" ToRole="DetalleFactura" />
     <NavigationProperty Name="EstadoFactura" Relationship="Self.FK__Factura__Estado__4D94879B" FromRole="Factura" ToRole="EstadoFactura" />
@@ -192,6 +207,16 @@
     <Property Name="Finalizacion" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Usuario1" Relationship="Self.FK__Sesion__Usuario__1B0907CE" FromRole="Sesion" ToRole="Usuario" />
     <NavigationProperty Name="Transaccion" Relationship="Self.FK__Transacci__Sesio__20C1E124" FromRole="Sesion" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TipoMovimientoCaja">
     <Key>
@@ -310,6 +335,18 @@
       </Principal>
       <Dependent Role="Libro">
         <PropertyRef Name="Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Deposito__Factur__59063A47">
+    <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+    <End Role="Deposito" Type="Self.Deposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura">
+        <PropertyRef Name="Numero" />
+      </Principal>
+      <Dependent Role="Deposito">
+        <PropertyRef Name="Factura" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -485,6 +522,7 @@
     <EntitySet Name="Autor" EntityType="Self.Autor" />
     <EntitySet Name="Caja" EntityType="Self.Caja" />
     <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+    <EntitySet Name="Deposito" EntityType="Self.Deposito" />
     <EntitySet Name="Descuento" EntityType="Self.Descuento" />
     <EntitySet Name="DetalleFactura" EntityType="Self.DetalleFactura" />
     <EntitySet Name="EstadoCaja" EntityType="Self.EstadoCaja" />
@@ -498,6 +536,7 @@
     <EntitySet Name="Recibo" EntityType="Self.Recibo" />
     <EntitySet Name="Rol" EntityType="Self.Rol" />
     <EntitySet Name="Sesion" EntityType="Self.Sesion" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" />
     <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" />
     <EntitySet Name="Transaccion" EntityType="Self.Transaccion" />
@@ -522,6 +561,10 @@
     <AssociationSet Name="FK__Libro__Categoria__2E1BDC42" Association="Self.FK__Libro__Categoria__2E1BDC42">
       <End Role="Categoria" EntitySet="Categoria" />
       <End Role="Libro" EntitySet="Libro" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Deposito__Factur__59063A47" Association="Self.FK__Deposito__Factur__59063A47">
+      <End Role="Factura" EntitySet="Factura" />
+      <End Role="Deposito" EntitySet="Deposito" />
     </AssociationSet>
     <AssociationSet Name="FK__Factura__Descuen__4F7CD00D" Association="Self.FK__Factura__Descuen__4F7CD00D">
       <End Role="Descuento" EntitySet="Descuento" />

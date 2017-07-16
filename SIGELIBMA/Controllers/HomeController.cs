@@ -1,4 +1,4 @@
-﻿using IMANA.SIGELIBMA.BLL.Services;
+﻿using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
 using System;
 using System.Collections.Generic;
@@ -25,8 +25,8 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                var books = GetBooks();
-                var categories = GetCategories();
+                var books = ObtenerLibros();
+                var categories = ObtenerCategorias();
                 return Json(new { OperationStatus = true, Categories =categories, Books = books, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -54,13 +54,13 @@ namespace SIGELIBMA.Controllers
             }
         }
 
-        private object GetBooks()
+        private object ObtenerLibros()
         {
             try 
 	        {	        
                 
-		        BookService service = new BookService();
-                List<Libro> books = service.GetAll();
+		        LibroServicio service = new LibroServicio();
+                List<Libro> books = service.ObtenerTodos();
                 //transform and simplify list to avoid circular dependency issues 
                 var newList = books.Select(item => new {
                     Codigo = item.Codigo,
@@ -82,12 +82,12 @@ namespace SIGELIBMA.Controllers
 	        }
         }
 
-        private object GetCategories()
+        private object ObtenerCategorias()
         {
             try
             {
-                BookCatService service = new BookCatService();
-                List<Categoria> cats = service.GetAll().Where(x => x.Estado == 1).ToList();
+                CategoriasLibroServicio service = new CategoriasLibroServicio();
+                List<Categoria> cats = service.ObtenerTodos().Where(x => x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = cats.Select(item =>new {
                     Codigo = item.Codigo,

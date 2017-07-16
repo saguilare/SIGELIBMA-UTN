@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using IMANA.SIGELIBMA.BLL.Services;
+using IMANA.SIGELIBMA.BLL.Servicios;
 
 namespace SIGELIBMA.Controllers
 {
     public class MantRolesController : Controller
     {
-        private RolService rolService = new RolService();
+        private RolServicio rolServicio = new RolServicio();
 
 
         [HttpGet]
@@ -22,119 +22,119 @@ namespace SIGELIBMA.Controllers
 
 
         [HttpGet]
-        public JsonResult GetInitData()
+        public JsonResult ObtenerInitData()
         {
 
             try
             {
-                var Roles =  rolService.GetAll().Select(x => new
+                var Roles =  rolServicio.ObtenerTodos().Select(x => new
                 { 
                                     Codigo = x.Codigo, 
                                     Descripcion = x.Descripcion, 
                                     Estado = x.Estado
                 });
-                return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Roles = Roles, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpGet]
-        public JsonResult GetAll() {
+        public JsonResult ObtenerTodos() {
 
             try
             {
 
-                var Roles = rolService.GetAll().Select(x => new
+                var Roles = rolServicio.ObtenerTodos().Select(x => new
                 {
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
                     Estado = x.Estado
                 });
-                return Json(new { OperationStatus = true, Roles = Roles, Message = "Operation OK" },JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Roles = Roles, Mensaje = "Operacion OK" },JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult GetById(Rol rolp)
+        public JsonResult ObtenerPorId(Rol rolp)
         {
             try
             {
-                Rol rol = rolService.GetById(rolp);
-                return Json(new { OperationStatus = true, Rol = rol, Message = "Operation OK" });
+                Rol rol = rolServicio.ObtenerPorId(rolp);
+                return Json(new { EstadoOperacion = true, Rol = rol, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult Delete(Rol rolp)
-        {
-            try
-            {
-                bool result = false;
-                result = rolService.Delete(rolp);
-                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
-            }
-            catch (Exception e)
-            {
-
-                //TODO handle ex
-                Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult Update(Rol rolp)
+        public JsonResult Desabilitar(Rol rolp)
         {
             try
             {
                 bool result = false;
-                result = rolService.Update(rolp);
-                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
+                result = rolServicio.Desabilitar(rolp);
+                return Json(new { EstadoOperacion = true, Result = result, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult Add(Rol rolp)
+        public JsonResult Modificar(Rol rolp)
         {
             try
             {
                 bool result = false;
-                result = rolService.Add(rolp);
-                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
+                result = rolServicio.Modificar(rolp);
+                return Json(new { EstadoOperacion = true, Result = result, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Agregar(Rol rolp)
+        {
+            try
+            {
+                bool resultado = false;
+                resultado = rolServicio.Agregar(rolp);
+                return Json(new { EstadoOperacion = true, Result = resultado, Mensaje = "Operacion OK" });
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 

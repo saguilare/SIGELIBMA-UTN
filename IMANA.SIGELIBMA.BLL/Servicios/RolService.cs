@@ -9,26 +9,26 @@ using IMANA.SIGELIBMA.DAL;
 using IMANA.SIGELIBMA.DAL.Repository;
 using System.Data.Entity;
 
-namespace IMANA.SIGELIBMA.BLL.Services
+namespace IMANA.SIGELIBMA.BLL.Servicios
 {
-    public class RolService
+    public class RolServicio
     {
         UnitOfWork unitOfWork  = null;
         DbContext context = null;
 
 
-        public RolService() {
+        public RolServicio() {
             this.context = new SIGELIBMAEntities();
             this.unitOfWork = new UnitOfWork(this.context);
         }
 
-        public List<Rol> GetAll() {
+        public List<Rol> ObtenerTodos() {
             try
             {
                 List<Rol> roles = null;
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
                 roles = unitOfWork.Repository<Rol>().GetAll().ToList();
                 
@@ -42,14 +42,14 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
-        public Rol GetById(Rol rolp)
+        public Rol ObtenerPorId(Rol rolp)
         {
             try
             {
                 Rol rol = null;
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
                 rol = (Rol) unitOfWork.Repository<Rol>().GetById(rolp);
 
@@ -63,13 +63,13 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
-        public bool Add(Rol rolp)
+        public bool Agregar(Rol rolp)
         {
             try
             {
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
                 unitOfWork.Repository<Rol>().Add(rolp);
                 unitOfWork.Save();
@@ -82,13 +82,14 @@ namespace IMANA.SIGELIBMA.BLL.Services
             }
 
         }
-        public bool Delete(Rol rolp)
+
+        public bool Desabilitar(Rol rolp)
         {
             try
             {
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
                 rolp.Estado = 0;
                 unitOfWork.Repository<Rol>().Update(rolp);
@@ -103,13 +104,13 @@ namespace IMANA.SIGELIBMA.BLL.Services
 
         }
 
-        public bool Update(Rol rolp)
+        public bool Modificar(Rol rolp)
         {
             try
             {
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    roles = unitOfWork.Repository<Role>().GetAll().ToList();
+                //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
                 unitOfWork.Repository<Rol>().Update(rolp);
                 unitOfWork.Save();

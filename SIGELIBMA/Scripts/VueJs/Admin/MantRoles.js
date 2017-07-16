@@ -180,7 +180,7 @@ var vm = new Vue({
 
         getInitData: function () {
                 $.ajax({
-                    url: urlRoot + 'MantRoles/GetInitData',
+                    url: urlRoot + 'MantRoles/ObtenerInitData',
                     type: 'get',
                     dataType: 'json',
                     async: true,
@@ -207,7 +207,7 @@ var vm = new Vue({
 
         getRoles: function () {
             $.ajax({
-                url: urlRoot + 'MantRoles/GetAll',
+                url: urlRoot + 'MantRoles/ObtenerTodos',
                 type: 'get',
                 dataType: 'json',
                 async: true,
@@ -235,7 +235,7 @@ var vm = new Vue({
         addRol: function (rol) {
             vm.displaySpinner(true,'Agregando Rol');
             $.ajax({
-                url: urlRoot + 'MantRoles/Add',
+                url: urlRoot + 'MantRoles/Agregar',
                 type: 'post',
                 dataType: 'json',
                 data: rol,
@@ -258,7 +258,7 @@ var vm = new Vue({
             $("#edit-modal").modal('hide' );
             vm.displaySpinner(true, 'Editando Rol');
             $.ajax({
-                url: urlRoot + 'MantRoles/Update',
+                url: urlRoot + 'MantRoles/Modificar',
                 type: 'post',
                 dataType: 'json',
                 data: rol,
@@ -282,7 +282,7 @@ var vm = new Vue({
         deleteRol: function (rol) {
             vm.displaySpinner(true, 'Desabilitando Rol');
             $.ajax({
-                url: urlRoot + 'MantRoles/Delete',
+                url: urlRoot + 'MantRoles/Desabilitar',
                 type: 'post',
                 dataType: 'json',
                 data: rol,
