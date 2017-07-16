@@ -185,7 +185,7 @@ var vm = new Vue({
                     dataType: 'json',
                     async: true,
                     success: function (result) {
-                        if (result.OperationStatus) {
+                        if (result.EstadoOperacion) {
                             vm.roles = result.Roles;
                             vm.items = vm.roles;
                             vm.filteredItems = vm.roles;
@@ -212,7 +212,7 @@ var vm = new Vue({
                 dataType: 'json',
                 async: true,
                 success: function (result) {
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         vm.roles = result.Roles;
                         vm.items = vm.roles;
                         vm.filteredItems = vm.roles;
@@ -240,7 +240,7 @@ var vm = new Vue({
                 dataType: 'json',
                 data: rol,
                 success: function (result) {
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         vm.getRoles();                        
                     } else {
                         vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
@@ -263,7 +263,7 @@ var vm = new Vue({
                 dataType: 'json',
                 data: rol,
                 success: function (result) {
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         vm.getRoles();
                     } else {
                         vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
@@ -287,7 +287,7 @@ var vm = new Vue({
                 dataType: 'json',
                 data: rol,
                 success: function (result) {
-                    if (result.OperationStatus) {
+                    if (result.EstadoOperacion) {
                         vm.getRoles();    
                     } else {
                         vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
