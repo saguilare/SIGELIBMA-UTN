@@ -20,86 +20,86 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetAll()
+        public JsonResult ObtenerTodos()
         {
 
             try
             {
-                List<Libro> Books = LibroServicio.ObtenerTodos();
-                return Json(new { OperationStatus = true, Books = Books, Message = "Operation OK" }, JsonRequestBehavior.AllowGet);
+                List<Libro> libros = LibroServicio.ObtenerTodos();
+                return Json(new { EstadoOperacion = true, Libros = libros, Mensaje = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult GetById(Libro bookp)
+        public JsonResult ObtenerPorId(Libro librop)
         {
             try
             {
-                Libro book = LibroServicio.ObtenerPorId(bookp);
-                return Json(new { OperationStatus = true, Book = book, Message = "Operation OK" });
+                Libro libro = LibroServicio.ObtenerPorId(librop);
+                return Json(new { EstadoOperacion = true, Libro = libro, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" });
             }
         }
 
         [HttpPost]
-        public JsonResult Delete(Libro bookp)
+        public JsonResult Desabilitar(Libro librop)
         {
             try
             {
-                bool result = false;
-                result = LibroServicio.Desabilitar(bookp);
-                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
+                bool resultado = false;
+                resultado = LibroServicio.Desabilitar(librop);
+                return Json(new { EstadoOperacion = true, Resultado = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" });
             }
         }
 
         [HttpPost]
-        public JsonResult Update(Libro bookp)
+        public JsonResult Modificar(Libro librop)
         {
             try
             {
-                bool result = false;
-                result = LibroServicio.Modificar(bookp);
-                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
+                bool resultado = false;
+                resultado = LibroServicio.Modificar(librop);
+                return Json(new { EstadoOperacion = true, Resultado = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" });
             }
         }
 
         [HttpPost]
-        public JsonResult Add(Libro bookp)
+        public JsonResult Agregar(Libro librop)
         {
             try
             {
-                bool result = false;
-                result = LibroServicio.Agregar(bookp);
-                return Json(new { OperationStatus = true, Result = result, Message = "Operation OK" });
+                bool resultado = false;
+                resultado = LibroServicio.Agregar(librop);
+                return Json(new { EstadoOperacion = true, Resultado = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
 
                 //TODO handle ex
-                return Json(new { OperationStatus = false, Message = "Exception thrown, please verify backend services" });
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" });
             }
         }
     }

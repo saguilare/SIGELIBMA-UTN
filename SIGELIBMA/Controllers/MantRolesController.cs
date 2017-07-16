@@ -89,9 +89,9 @@ namespace SIGELIBMA.Controllers
         {
             try
             {
-                bool result = false;
-                result = rolServicio.Desabilitar(rolp);
-                return Json(new { EstadoOperacion = true, Result = result, Mensaje = "Operacion OK" });
+                bool resultado = false;
+                resultado = rolServicio.Desabilitar(rolp);
+                return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
@@ -107,9 +107,9 @@ namespace SIGELIBMA.Controllers
         {
             try
             {
-                bool result = false;
-                result = rolServicio.Modificar(rolp);
-                return Json(new { EstadoOperacion = true, Result = result, Mensaje = "Operacion OK" });
+                bool resultado = false;
+                resultado = rolServicio.Modificar(rolp);
+                return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
@@ -127,7 +127,7 @@ namespace SIGELIBMA.Controllers
             {
                 bool resultado = false;
                 resultado = rolServicio.Agregar(rolp);
-                return Json(new { EstadoOperacion = true, Result = resultado, Mensaje = "Operacion OK" });
+                return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
