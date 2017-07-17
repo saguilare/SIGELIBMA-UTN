@@ -47,11 +47,11 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
         {
             try
             {
-                
+                Usuario usuario = null;
 
-                var usuario = unitOfWork.Repository<Usuario>().GetAll().Where(x => x.Cedula.Equals(usuariop.Cedula, StringComparison.OrdinalIgnoreCase));
+                usuario = (Usuario)unitOfWork.Repository<Usuario>().GetById(usuariop.Cedula);
 
-                return usuario as Usuario;
+                return usuario;
             }
             catch (Exception e)
             {

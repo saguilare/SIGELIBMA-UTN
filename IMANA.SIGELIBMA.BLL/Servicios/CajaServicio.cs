@@ -46,11 +46,8 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
             try
             {
                 Caja caja = null;
-                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
-                // {
-                //    cajas = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
-                //}
-                caja = (Caja) unitOfWork.Repository<Caja>().GetById(cajap);
+
+                caja = (Caja) unitOfWork.Repository<Caja>().GetById(cajap.Codigo);
 
                 return caja;
             }

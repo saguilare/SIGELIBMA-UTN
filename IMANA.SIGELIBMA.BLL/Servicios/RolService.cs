@@ -51,7 +51,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
                 // {
                 //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
-                rol = (Rol) unitOfWork.Repository<Rol>().GetById(rolp);
+                rol = (Rol) unitOfWork.Repository<Rol>().GetById(rolp.Codigo);
 
                 return rol;
             }

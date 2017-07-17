@@ -16,6 +16,7 @@ namespace SIGELIBMA.Controllers
         private FacturaServicio servicioFactura = new FacturaServicio();
         private UsuarioServicio servicioUsuario = new UsuarioServicio();
         private CajaServicio servicioCaja = new CajaServicio();
+        private LibroServicio servicioLibro = new LibroServicio();
         private decimal IVA = Convert.ToDecimal(ConfigurationManager.AppSettings["IVA"]);
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
@@ -54,10 +55,10 @@ namespace SIGELIBMA.Controllers
             {
                 compra.Cliente.Nombre2 = (compra.Cliente.Nombre1 != "" && compra.Cliente.Nombre1.Contains(" ")) ? compra.Cliente.Nombre1.Split(' ')[1] : "";
                 compra.Cliente.Apellido2 = (compra.Cliente.Apellido1 != "" && compra.Cliente.Apellido1.Contains(" ")) ? compra.Cliente.Apellido1.Split(' ')[1] : "";
-                CrearFactura(compra);
-                
+                Factura factura = CrearFactura(compra);
 
-                return Json(new { EstadoOperacion = true, Confirmacion = "AZ-5456",  Mensaje = "Operation OK" });
+
+                return Json(new { EstadoOperacion = true, Confirmacion = factura.Numero, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
@@ -127,24 +128,30 @@ namespace SIGELIBMA.Controllers
         }
 
 
-        private bool CrearFactura(CompraModel compra) {
+        private Factura CrearFactura(CompraModel compra) {
             try
             {
                 
 
                 Factura factura = new Factura();
-                factura.Usuario = ObtenerUsuario(compra.Cliente);
-                factura.Cliente = factura.Usuario.Cedula;
-                factura.Caja = CajaVirtual;
-                factura.Caja1 = ObtenerCaja(CajaVirtual);
+                factura.Cliente = ObtenerUsuario(compra.Cliente).Cedula;
+                factura.Caja = ObtenerCaja(CajaVirtual).Codigo;
                 factura.FechaCreacion = DateTime.Now;
                 factura.FechaCancelacion = null;
+                List<Deposito> depositos = new List<Deposito>();
+                depositos.Add(new Deposito{ Referencia = compra.Deposito.Referencia,
+                    Fecha = compra.Deposito.Fecha,
+                    BancoEmisor = compra.Deposito.BancoEmisor,
+                    BancoReceptor = compra.Deposito.BancoReceptor
+                });
+                //factura.Deposito = depositos;
                 AgregarDetallesFactura(compra.Productos,ref factura);
                 CalcularMontosFactura(ref factura);
                 factura.Estado = 2;
-         
+          
       
-                return  servicioFactura.Agregar(factura);
+               
+                return factura;
 
             }
             catch (Exception)
@@ -161,7 +168,8 @@ namespace SIGELIBMA.Controllers
                 Usuario cliente = servicioUsuario.ObtenerPorId(new Usuario { Cedula = clientep.Cedula });
                 if (cliente == null)
 	            {
-                    Usuario usuario = new Usuario {
+                    cliente = new Usuario
+                    {
                         Usuario1 = clientep.Nombre1[0] + clientep.Apellido1 + clientep.Apellido2[0],
                         Clave = "",
                         Cedula = clientep.Cedula,
@@ -172,7 +180,7 @@ namespace SIGELIBMA.Controllers
                         Correo = clientep.Email
 
                     };
-
+                    servicioUsuario.Agregar(cliente);
 	            }
 
                 return cliente;
@@ -204,7 +212,9 @@ namespace SIGELIBMA.Controllers
                 List<DetalleFactura> detalles = new List<DetalleFactura>();
                 foreach (ProductoModel prod in productos)
                 {
-                    DetalleFactura detalle = new DetalleFactura { Articulo = prod.Codigo, Cantidad = prod.Cantidad };
+                   
+                    DetalleFactura detalle = new DetalleFactura { Articulo = prod.Codigo, Cantidad = prod.Cantidad};
+
                     detalles.Add(detalle);
                 }
 
@@ -224,8 +234,9 @@ namespace SIGELIBMA.Controllers
             {
                 foreach (DetalleFactura detalle in factura.DetalleFactura)
                 {
-                    factura.Impuestos += ((detalle.Cantidad * detalle.Libro.PrecioVentaSinImpuestos) * 13) /100;
-                    factura.Subtotal += detalle.Cantidad * detalle.Libro.PrecioVentaSinImpuestos;
+                    Libro libro = servicioLibro.ObtenerPorId(new Libro { Codigo = detalle.Articulo });
+                    factura.Impuestos += ((detalle.Cantidad * libro.PrecioVentaSinImpuestos) * 13) / 100;
+                    factura.Subtotal += detalle.Cantidad * libro.PrecioVentaSinImpuestos;
                     
                     factura.Pendiente = 0;
                 }

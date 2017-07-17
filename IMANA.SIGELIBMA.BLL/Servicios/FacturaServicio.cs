@@ -50,7 +50,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
                 // {
                 //    facturas = unitOfWork.Repository<Facturae>().ObtenerTodos().ToList();
                 //}
-                rol = (Factura) unitOfWork.Repository<Factura>().GetById(facturap);
+                rol = (Factura) unitOfWork.Repository<Factura>().GetById(facturap.Numero);
 
                 return rol;
             }

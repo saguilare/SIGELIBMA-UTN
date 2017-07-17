@@ -42,7 +42,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
             try
             {
                 Categoria category = null;
-                category = (Categoria)unitOfWork.Repository<Categoria>().GetById(categoryp);
+                category = (Categoria)unitOfWork.Repository<Categoria>().GetById(categoryp.Codigo);
 
                 return category;
             }

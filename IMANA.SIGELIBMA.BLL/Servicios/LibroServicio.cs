@@ -42,7 +42,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
             try
             {
                 Libro libro = null;
-                libro = (Libro)unitOfWork.Repository<Libro>().GetById(librop);
+                libro = (Libro)unitOfWork.Repository<Libro>().GetById(librop.Codigo);
 
                 return libro;
             }
