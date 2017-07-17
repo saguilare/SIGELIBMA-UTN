@@ -17,8 +17,8 @@ namespace SIGELIBMA.Controllers
         private UsuarioServicio servicioUsuario = new UsuarioServicio();
         private CajaServicio servicioCaja = new CajaServicio();
         private LibroServicio servicioLibro = new LibroServicio();
-        private SesionServicio servicioSesion = new SesionServicio();
-        private TransaccionServicio servicioTransaccion = new TransaccionServicio();
+        //private SesionServicio servicioSesion = new SesionServicio();
+        //private TransaccionServicio servicioTransaccion = new TransaccionServicio();
         private decimal IVA = Convert.ToDecimal(ConfigurationManager.AppSettings["IVA"]);
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
@@ -145,33 +145,36 @@ namespace SIGELIBMA.Controllers
                 depositos.Add(new Deposito{ Referencia = compra.Deposito.Referencia,
                     Fecha = compra.Deposito.Fecha,
                     BancoEmisor = compra.Deposito.BancoEmisor,
-                    BancoReceptor = compra.Deposito.BancoReceptor
+                    BancoReceptor = compra.Deposito.BancoReceptor,
+                    Descripcion = string.Empty
+                    
                 });
-                //factura.Deposito = depositos;
+                factura.Deposito = depositos;
                 AgregarDetallesFactura(compra.Productos,ref factura);
                 CalcularMontosFactura(ref factura);
                 factura.Estado = 2;
-                
-                sesion.Usuario = factura.Cliente;
-                sesion.Finalizacion = DateTime.Now;
-                servicioSesion.Agregar(sesion);
 
-                Transaccion tx = new Transaccion();
-                tx.Tipo = 1;
-                tx.Sesion = sesion.Id;
-                tx.Tabla = "Login";
-                tx.TuplaAnterior = "";
-                tx.TuplaNueva = "";
+                servicioFactura.Agregar(factura);
+                //sesion.Usuario = factura.Cliente;
+                //sesion.Finalizacion = DateTime.Now;
+                //servicioSesion.Agregar(sesion);
 
-                servicioTransaccion.Agregar(tx);
+                //Transaccion tx = new Transaccion();
+                //tx.Tipo = 1;
+                //tx.Sesion = sesion.Id;
+                //tx.Tabla = "Login";
+                //tx.TuplaAnterior = "";
+                //tx.TuplaNueva = "";
 
-                tx.Tipo = 2;
-                tx.Sesion = sesion.Id;
-                tx.Tabla = "Login";
-                tx.TuplaAnterior = "";
-                tx.TuplaNueva = "";
+                //servicioTransaccion.Agregar(tx);
 
-                servicioTransaccion.Agregar(tx);
+                //tx.Tipo = 2;
+                //tx.Sesion = sesion.Id;
+                //tx.Tabla = "Login";
+                //tx.TuplaAnterior = "";
+                //tx.TuplaNueva = "";
+
+                //servicioTransaccion.Agregar(tx);
     
       
                
@@ -194,7 +197,7 @@ namespace SIGELIBMA.Controllers
 	            {
                     cliente = new Usuario
                     {
-                        Usuario1 = clientep.Nombre1[0] + clientep.Apellido1 + clientep.Apellido2[0],
+                        Usuario1 = clientep.Nombre1[0] + clientep.Apellido1 + (clientep.Apellido2 != "" ? clientep.Apellido2[0].ToString() : ""),
                         Clave = "",
                         Cedula = clientep.Cedula,
                         Nombre = clientep.Nombre1,
