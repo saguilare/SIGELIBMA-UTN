@@ -87,11 +87,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
         {
             try
             {
-                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
-                // {
-                //    roles = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
-                //}
-                rolp.Estado = 0;
+      
                 unitOfWork.Repository<Rol>().Update(rolp);
                 unitOfWork.Save();
                 return true;

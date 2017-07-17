@@ -74,7 +74,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
         {
             try
             {
-                categoryp.Estado = 0;
+               
                 unitOfWork.Repository<Categoria>().Update(categoryp);
                 unitOfWork.Save();
                 return true;

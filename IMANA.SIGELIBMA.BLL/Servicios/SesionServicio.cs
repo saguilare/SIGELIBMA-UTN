@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace IMANA.SIGELIBMA.BLL.Servicios
 {
-    public class FacturaServicio
+    public class SesionServicio
     {
         UnitOfWork unitOfWork  = null;
         DbContext context = null;
 
 
-        public FacturaServicio()
+        public SesionServicio()
         {
             this.context = new SIGELIBMAEntities();
             this.unitOfWork = new UnitOfWork(this.context);
         }
 
-        public List<Factura> ObtenerTodos() {
+        public List<Sesion> ObtenerTodos() {
             try
             {
-                List<Factura> facturas = null;
+                List<Sesion> sesiones = null;
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    facturas = unitOfWork.Repository<Facturae>().ObtenerTodos().ToList();
+                //    sesiones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
-                facturas = unitOfWork.Repository<Factura>().GetAll().ToList();
+                sesiones = unitOfWork.Repository<Sesion>().GetAll().ToList();
                 
-                return facturas;
+                return sesiones;
             }
             catch (Exception e)
             {
@@ -41,18 +41,15 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public Factura ObtenerPorId(Factura facturap)
+        public Sesion ObtenerPorId(Sesion sesionp)
         {
             try
             {
-                Factura rol = null;
-                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
-                // {
-                //    facturas = unitOfWork.Repository<Facturae>().ObtenerTodos().ToList();
-                //}
-                rol = (Factura) unitOfWork.Repository<Factura>().GetById(facturap.Numero);
+                Sesion caja = null;
 
-                return rol;
+                caja = (Sesion) unitOfWork.Repository<Sesion>().GetById(sesionp.Id);
+
+                return caja;
             }
             catch (Exception e)
             {
@@ -62,15 +59,15 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public bool Agregar(Factura facturap)
+        public bool Agregar(Sesion sesionp)
         {
             try
             {
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    facturas = unitOfWork.Repository<Facturae>().ObtenerTodos().ToList();
+                //    sesiones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
-                unitOfWork.Repository<Factura>().Add(facturap);
+                unitOfWork.Repository<Sesion>().Add(sesionp);
                 unitOfWork.Save();
                 return true;
             }
@@ -82,12 +79,16 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public bool Desabilitar(Factura facturap)
+        public bool Desabilitar(Sesion sesionp)
         {
             try
             {
-    
-                unitOfWork.Repository<Factura>().Update(facturap);
+                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
+                // {
+                //    sesiones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
+                //}
+             
+                unitOfWork.Repository<Sesion>().Update(sesionp);
                 unitOfWork.Save();
                 return true;
             }
@@ -99,15 +100,15 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public bool Modificar(Factura facturap)
+        public bool Modificar(Sesion sesionp)
         {
             try
             {
                 // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
                 // {
-                //    facturas = unitOfWork.Repository<Facturae>().ObtenerTodos().ToList();
+                //    sesiones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
                 //}
-                unitOfWork.Repository<Factura>().Update(facturap);
+                unitOfWork.Repository<Sesion>().Update(sesionp);
                 unitOfWork.Save();
                 return true;
             }

@@ -9,25 +9,29 @@ using System.Threading.Tasks;
 
 namespace IMANA.SIGELIBMA.BLL.Servicios
 {
-    public class LibroServicio
+    public class TransaccionServicio
     {
         UnitOfWork unitOfWork  = null;
         DbContext context = null;
 
 
-        public LibroServicio()
+        public TransaccionServicio()
         {
             this.context = new SIGELIBMAEntities();
             this.unitOfWork = new UnitOfWork(this.context);
         }
 
-        public List<Libro> ObtenerTodos() {
+        public List<Transaccion> ObtenerTodos() {
             try
             {
-                List<Libro> libros = null;
-                libros = unitOfWork.Repository<Libro>().GetAll().ToList();
+                List<Transaccion> transacciones = null;
+                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
+                // {
+                //    transacciones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
+                //}
+                transacciones = unitOfWork.Repository<Transaccion>().GetAll().ToList();
                 
-                return libros;
+                return transacciones;
             }
             catch (Exception e)
             {
@@ -37,14 +41,15 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public Libro ObtenerPorId(Libro librop)
+        public Transaccion ObtenerPorId(Transaccion tx)
         {
             try
             {
-                Libro libro = null;
-                libro = (Libro)unitOfWork.Repository<Libro>().GetById(librop.Codigo);
+                Transaccion caja = null;
 
-                return libro;
+                caja = (Transaccion) unitOfWork.Repository<Transaccion>().GetById(tx.Codigo);
+
+                return caja;
             }
             catch (Exception e)
             {
@@ -54,28 +59,15 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public bool Agregar(Libro librop)
+        public bool Agregar(Transaccion tx)
         {
             try
             {
-                unitOfWork.Repository<Libro>().Add(librop);
-                unitOfWork.Save();
-                return true;
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-
-        }
-       
-        public bool Desabilitar(Libro librop)
-        {
-            try
-            {
-         
-                unitOfWork.Repository<Libro>().Update(librop);
+                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
+                // {
+                //    transacciones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
+                //}
+                unitOfWork.Repository<Transaccion>().Add(tx);
                 unitOfWork.Save();
                 return true;
             }
@@ -87,11 +79,32 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
-        public bool Modificar(Libro librop)
+        public bool Desabilitar(Transaccion tx)
         {
             try
             {
-                unitOfWork.Repository<Libro>().Update(librop);
+ 
+                unitOfWork.Repository<Transaccion>().Update(tx);
+                unitOfWork.Save();
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
+        public bool Modificar(Transaccion tx)
+        {
+            try
+            {
+                // using (var unitOfWork = (UnitOfWork)factory.CreateNew())
+                // {
+                //    transacciones = unitOfWork.Repository<Role>().ObtenerTodos().ToList();
+                //}
+                unitOfWork.Repository<Transaccion>().Update(tx);
                 unitOfWork.Save();
                 return true;
             }

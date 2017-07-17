@@ -17,6 +17,8 @@ namespace SIGELIBMA.Controllers
         private UsuarioServicio servicioUsuario = new UsuarioServicio();
         private CajaServicio servicioCaja = new CajaServicio();
         private LibroServicio servicioLibro = new LibroServicio();
+        private SesionServicio servicioSesion = new SesionServicio();
+        private TransaccionServicio servicioTransaccion = new TransaccionServicio();
         private decimal IVA = Convert.ToDecimal(ConfigurationManager.AppSettings["IVA"]);
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
@@ -131,7 +133,8 @@ namespace SIGELIBMA.Controllers
         private Factura CrearFactura(CompraModel compra) {
             try
             {
-                
+                Sesion sesion = new Sesion();
+                sesion.Inicio = DateTime.Now;
 
                 Factura factura = new Factura();
                 factura.Cliente = ObtenerUsuario(compra.Cliente).Cedula;
@@ -148,7 +151,28 @@ namespace SIGELIBMA.Controllers
                 AgregarDetallesFactura(compra.Productos,ref factura);
                 CalcularMontosFactura(ref factura);
                 factura.Estado = 2;
-          
+                
+                sesion.Usuario = factura.Cliente;
+                sesion.Finalizacion = DateTime.Now;
+                servicioSesion.Agregar(sesion);
+
+                Transaccion tx = new Transaccion();
+                tx.Tipo = 1;
+                tx.Sesion = sesion.Id;
+                tx.Tabla = "Login";
+                tx.TuplaAnterior = "";
+                tx.TuplaNueva = "";
+
+                servicioTransaccion.Agregar(tx);
+
+                tx.Tipo = 2;
+                tx.Sesion = sesion.Id;
+                tx.Tabla = "Login";
+                tx.TuplaAnterior = "";
+                tx.TuplaNueva = "";
+
+                servicioTransaccion.Agregar(tx);
+    
       
                
                 return factura;
