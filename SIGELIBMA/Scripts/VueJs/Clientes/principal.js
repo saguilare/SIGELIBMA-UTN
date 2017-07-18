@@ -160,7 +160,6 @@ activateAlertModalShoppingCart: function (type, message, status) {
     vm.alertModalShoppingCart.message = message;
     vm.alertModalShoppingCart.status = status;
 },
-
        
 lowerCase: function (stringValue) {
     return stringValue.toLowerCase();
@@ -239,6 +238,17 @@ openModal: function (object, type) {
         }
         
         
+    }
+    
+},
+
+validatePayment: function () {
+    if (vm.cliente.Nombre1 && vm.cliente.Apellido1 && vm.cliente.Cedula && vm.cliente.Telefono && vm.cliente.Email
+        && vm.deposito.Fecha && vm.deposito.Referencia && vm.deposito.BancoEmisor && vm.deposito.BancoReceptor) {
+        vm.processPayment();
+    } else {
+        vm.activateAlertModalShoppingCart('danger', 'Debe llenar los campos requeridos', true);
+
     }
     
 },

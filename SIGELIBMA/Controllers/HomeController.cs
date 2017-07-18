@@ -21,6 +21,13 @@ namespace SIGELIBMA.Controllers
         //private TransaccionServicio servicioTransaccion = new TransaccionServicio();
         private decimal IVA = Convert.ToDecimal(ConfigurationManager.AppSettings["IVA"]);
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
+        private List<string> Bancos = ConfigurationManager.AppSettings["Bancos"].Split(',').ToList();
+        private string RazonSocial = ConfigurationManager.AppSettings["RazonSocial"];
+        private string CedulaJuridica = ConfigurationManager.AppSettings["CedulaJuridica"];
+        private List<string> Cuentas = ConfigurationManager.AppSettings["accts"].Split(',').ToList();
+
+        
+        
 
         // GET: Home
         public ActionResult Index()
@@ -39,7 +46,14 @@ namespace SIGELIBMA.Controllers
             {
                 var libros = ObtenerLibros();
                 var categorias = ObtenerCategorias();
-                return Json(new { EstadoOperacion = true, Categorias =categorias, Libros = libros, Mensaje = "Operation OK" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true,
+                                  Categorias =categorias, 
+                                  Libros = libros, 
+                                  RazonSocial = RazonSocial,
+                                  CedulaJuridica = CedulaJuridica,
+                                  BancosEmisores = Bancos,
+                                  BancosReceptores = Cuentas,
+                                  Mensaje = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

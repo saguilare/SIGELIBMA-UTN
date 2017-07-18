@@ -155,6 +155,11 @@ div.search {
     color:#f08804;
 }
 
+.modal .alert {
+    margin-left:15px;
+    margin-right:15px;
+}
+
 .modal-body img {
     border: 5px ridge #f08804;
     border-radius: 10px;
