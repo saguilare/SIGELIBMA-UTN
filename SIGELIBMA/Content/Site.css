@@ -147,7 +147,7 @@ div.search {
 .modal-header {
     background-color:#232f3e;
     color:#f08804;
-    
+    border-bottom-color:#f08804;
 }
 
 .modal-header h4 {
@@ -207,6 +207,10 @@ div.search {
     border-radius:10pt;
 }
 
+/*helps span glyphicon not cover select dropdown sign*/
+span.selectspan {
+    right:5px;
+}
 
 /*.popimage {
     margin-left:50%;

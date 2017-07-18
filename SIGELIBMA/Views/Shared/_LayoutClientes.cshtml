@@ -139,19 +139,19 @@
                                     <div v-if="modalCart.currentPage === 2">
                                         <h3>Datos Personales</h3><hr />
                                         <div class="form-group">
-                                            <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-gr<up">
-                                            <vueinput v-bind:value.sync="cliente.Apellido1" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="cliente.Apellido1" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-group">
-                                            <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-group">
                                             <vueinput v-bind:value.sync="cliente.Telefono" label="Telefono" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Telefono" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                         <div class="form-group">
-                                            <vueinput v-bind:value.sync="cliente.Email" label="Email" help="" type="email" error="Este campo es requerido." placeholder="Email" pattern="[a-z0-9._%+-]+&#64;[a-z0-9.-]+\.[a-z]{2,3}$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="cliente.Email" label="Email" help="" type="email" error="Este campo es requerido." placeholder="Email" pattern="[a-zA-Z0-9._%+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
                                     </div>
                                     <!--page 3-->
@@ -163,35 +163,41 @@
                                             <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p>
                                         </div>
                                         <h3>Datos Bancarios</h3><hr />
-                                        <div class="form-group">
-                                            <label>Fecha Deposito: </label>
-                                            <datepicker v-bind:value.sync="deposito.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                                        <div v-bind:class="[{ 'has-error': shoppingCartValidations.date && deposito.Fecha === '' },{'has-success' : shoppingCartValidations.date && deposito.Fecha !== ''},'form-group has-feedback']">
+                                            <label class="control-label">Fecha Deposito: </label>
+                                            <datepicker  v-on:blur="shoppingCartValidations.date = true" v-bind:value.sync="deposito.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
                                             </datepicker>
+                                            <span v-if="shoppingCartValidations.date && deposito.Fecha === ''  " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                                            <span v-if="shoppingCartValidations.date && deposito.Fecha !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
                                         </div>
                                         <div class="form-group">
-                                            <vueinput v-bind:value.sync="deposito.Referencia" label="No Referencia:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-z0-9]$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <vueinput v-bind:value.sync="deposito.Referencia" label="No Referencia:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-zA-Z0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Banco Emisor: </label>
-                                            <select required class="form-control" v-model="deposito.BancoEmisor">
-                                                <option value="value" selected disabled>-- Seleccione un Banco --</option>
+                                        <div v-bind:class="[{ 'has-error':deposito.BancoEmisor === '0' && shoppingCartValidations.bancoEmisor},{'has-success' : deposito.BancoEmisor !== '0' && shoppingCartValidations.bancoEmisor},'form-group has-feedback']">
+                                            <label class="control-label">Banco Emisor: </label>
+                                            <select required class="form-control" v-model="deposito.BancoEmisor" v-on:change="shoppingCartValidations.bancoEmisor = true">
+                                                <option value="0" selected disabled>-- Seleccione un Banco --</option>
                                                 <option value="1">BCR</option>
                                                 <option value="2">BNCR</option>
                                                 <option value="3">BAC</option>
                                                 <option value="4">Scottia Bank</option>
                                                 <option value="4">LAFISE</option>
                                             </select>
+                                            <span v-if="deposito.BancoEmisor === '0' && shoppingCartValidations.bancoEmisor" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                                            <span v-if="deposito.BancoEmisor !== '0' && shoppingCartValidations.bancoEmisor" class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Banco Destino: </label>
-                                            <select required class="form-control" v-model="deposito.BancoReceptor">
-                                                <option value="value" selected disabled>-- Seleccione un Banco --</option>
+                                        <div v-bind:class="[{ 'has-error':deposito.BancoReceptor === '0' && shoppingCartValidations.bancoReceptor},{'has-success' : deposito.BancoReceptor !== '0' && shoppingCartValidations.bancoReceptor},'form-group has-feedback']">
+                                            <label class="control-label">Banco Emisor: </label>
+                                            <select required class="form-control" v-model="deposito.BancoReceptor" v-on:change="shoppingCartValidations.bancoReceptor = true">
+                                                <option value="0" selected disabled>-- Seleccione un Banco --</option>
                                                 <option value="1">BCR</option>
                                                 <option value="2">BNCR</option>
                                                 <option value="3">BAC</option>
                                                 <option value="4">Scottia Bank</option>
                                                 <option value="4">LAFISE</option>
                                             </select>
+                                            <span v-if="deposito.BancoReceptor === '0' && shoppingCartValidations.bancoReceptor" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                                            <span v-if="deposito.BancoReceptor !== '0' && shoppingCartValidations.bancoReceptor" class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
                                         </div>
 
                                     </div>

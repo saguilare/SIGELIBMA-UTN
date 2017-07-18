@@ -59,8 +59,8 @@ data.alertModalBookDetails = { type: 'success', message: 'alert', status: true }
 data.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
 data.deposito = {Fecha :"", Referencia :"", BancoEmisor:"", BancoReceptor:""};
 data.asideWiki = { show: false, title: '' };
-data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
-
+data.validations = {  showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
+data.shoppingCartValidations = { date : false, bancoEmisor : false, bancoReceptor: false };
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
