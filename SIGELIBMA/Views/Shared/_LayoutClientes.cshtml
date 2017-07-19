@@ -66,7 +66,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        
                         <h4 class="modal-title"><a href="#"><span class="glyphicon glyphicon-shopping-cart carticon" aria-hidden="true"></span></a> Carro de Compras</h4>
                     </div>
                     <div class="modal-body ">
@@ -239,8 +239,8 @@
                         <h4 v-else class="text-center">El carrito esta vacio</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
-
+                        <button v-if="shoppingCart.payment.status" type="button" v-on:click="cleanCart()" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                        <button v-else type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

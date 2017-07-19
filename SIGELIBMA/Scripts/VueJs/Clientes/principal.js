@@ -40,7 +40,7 @@ data.codigos = [];
 data.titulos = [];
 data.searchByData = data.titulos;
 data.searchSelected = "";
-data.emailSupport = "iglesiamana@gmail.com";
+data.emailSupport = "libreriaimana@gmail.com";
 data.datepickerOptions = { format: 'MM/dd/yyyy' ,placeholder:'mm/dd/yyyy', close:true};
 data.books = [];
 data.modalObject = { item: {}, quantity: 1, total: 0 };
@@ -121,6 +121,14 @@ var vm = new Vue({
     //Define methods
     methods: {
 
+
+        cleanCart: function () {
+            vm.shoppingCart = { items: [], total: 0, totalItems: 0, sections: [], payment: {} };
+            vm.shoppingCart.payment = { code: '', status: false };
+            vm.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
+            vm.deposito = { Fecha: "", Referencia: "", BancoEmisor: "", BancoReceptor: "", Descripcion: "" };
+            vm.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor: false };
+        },
 
 
 displaySpinner: function (status, message) {
@@ -274,6 +282,7 @@ processPayment: function () {
                 vm.shoppingCart.payment.code = result.Confirmacion;
                 vm.shoppingCart.payment.status = true;
                 vm.showModalShoppingCartNavBar = false;
+                
             } 
             vm.$refs.spinner1.hide();
         },

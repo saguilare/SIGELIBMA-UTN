@@ -193,7 +193,7 @@ namespace SIGELIBMA.Controllers
                 //servicioTransaccion.Agregar(tx);
 
 
-                //SendEmail(ref factura);
+                SendEmail(ref factura);
 
                 return factura;
 
@@ -297,9 +297,9 @@ namespace SIGELIBMA.Controllers
         {
 
 
-            var fromAddress = new MailAddress("imana@gmail.com", "Libreria Mana");
+            var fromAddress = new MailAddress("libreriaimana@gmail.com", "Libreria Mana");
             var toAddress = new MailAddress("aguilarsteven@gmail.com", "aguilarsteven@gmail.com");
-            const string fromPassword = "password";
+            const string fromPassword = "Imana2017";
             const string subject = "test";
             const string body = "Hey now!!";
 

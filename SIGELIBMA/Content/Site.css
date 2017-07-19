@@ -211,7 +211,7 @@ div.search {
    border-top:  1px solid #232f3e;
 }
 
-#modalShoppingCart .bg-success .bg-info,.bg-danger, .bg-warning {
+.bg-success, .bg-info, .bg-danger, .bg-warning {
     padding:20px;
     border-radius:10pt;
 }
