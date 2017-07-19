@@ -80,10 +80,10 @@
                                     {{alertModalShoppingCart.message}}
                                 </div>
                             </div>
-                            <form id="formCartPayment" v-on:submit="validatePayment()">
+                            <form id="formCartPayment" v-on:submit.prevent="validatePayment()">
                                 <!-- Navbar-->
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div v-show="showModalShoppingCartNavBar" class="col-sm-12">
                                         <ul class="nav nav-pills nav-justified">
                                             <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 1 }" v-on:click="modalCart.currentPage = 1">
                                                 <a href="#">Info Productos</a>
@@ -158,7 +158,7 @@
                                         <!--page 3-->
                                         <div v-if="modalCart.currentPage === 3">
                                             <div class="bg-info bg-accts">
-                                                <h4><b>Cuentas Bancarias:</b></h4>
+                                                <h4><b>Cuentas Bancarias:</b> Iglesia Mana S.A</h4>
                                                 <p><strong>Cedula Juridica:</strong> 3-00456-90</p>
                                                 <p><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</p>
                                                 <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p>
@@ -205,7 +205,7 @@
                                         <!--page 4-->
                                         <div v-if="modalCart.currentPage === 4">
                                             <h3>Resumen Transaccion</h3><hr />
-                                            <div class="bg-info" v-if="shoppingCart.payment.status">
+                                            <div class="bg-success" v-if="shoppingCart.payment.status">
                                                 <h5><b>Su compra ha sido procesada!</b></h5>
                                                 <p>Usted recibira un correo con el detalle de su compra. </p>
                                                 <p>Confirmacion # <strong>{{shoppingCart.payment.code}}</strong></p>
@@ -222,21 +222,16 @@
                                 </div>
                                 <!-- Pager Btns-->
                                 <div class="row">
-                                    <div class="col-sm-12 text-center">
-                                        <nav aria-label="...">
-                                            <ul class="pager">
-                                                <li v-if="modalCart.currentPage > 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage -= 1">
-                                                    <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
-                                                </li>
-                                                <li v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="modalCart.currentPage += 1 ">
-                                                    <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
-                                                </li>
-                                                <li v-if="modalCart.currentPage === 3" onclick="formCartPayment.submit();">
-                                                    <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
-                                                </li>
-                                             
-                                            </ul>
-                                        </nav>
+                                    <div class="col-sm-12 text-center">   
+                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage > 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage -= 1">
+                                            <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+                                        </button>
+                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="modalCart.currentPage += 1 ">
+                                            Siguiente <span class="glyphicon glyphicon-arrow-right"></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-default btn-pager" v-if="modalCart.currentPage === 3">
+                                            Procesar <span class="glyphicon glyphicon-arrow-right"></span>
+                                        </button>
                                     </div>
                                 </div>
                             </form>

@@ -49,7 +49,8 @@ data.categories = [];
 data.filteredCategories = [];
 data.categoryFilter = {};
 data.shoppingCart = { items: [], total: 0, totalItems: 0, sections: [], payment: {} };
-data.shoppingCart.payment = { code: '',status: false };
+data.shoppingCart.payment = { code: '', status: false };
+data.showModalShoppingCartNavBar = true;
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
@@ -57,7 +58,7 @@ data.modalCart = { currentPage : 0};
 data.alertModalShoppingCart = { type: 'success', message: 'alert', status: true };
 data.alertModalBookDetails = { type: 'success', message: 'alert', status: true };
 data.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
-data.deposito = {Fecha :"", Referencia :"", BancoEmisor:"", BancoReceptor:""};
+data.deposito = { Fecha: "", Referencia: "", BancoEmisor: "", BancoReceptor: "", Descripcion: "" };
 data.asideWiki = { show: false, title: '' };
 data.validations = {  showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
 data.shoppingCartValidations = { date : false, bancoEmisor : false, bancoReceptor: false };
@@ -216,6 +217,7 @@ getPageData: function () {
 },
 
 openModal: function (object, type) {
+
     if (type === 'bookDetails') {
         vm.activateAlertModalBookDetails('success', '', false);
         vm.modalObject = { item: {}, quantity: 1, total: 0 };
@@ -230,7 +232,7 @@ openModal: function (object, type) {
             //vm.enableProccedBtn = false;
             //$("#modalShoppingCart").modal({ show: true });
         } else {
-            
+            vm.showModalShoppingCartNavBar = true;
             vm.activateAlertModalShoppingCart('success', '', false);
             $("#modalShoppingCart").modal({ show: true });
             vm.enableProccedBtn = true;
@@ -271,6 +273,7 @@ processPayment: function () {
             if (result.EstadoOperacion) {
                 vm.shoppingCart.payment.code = result.Confirmacion;
                 vm.shoppingCart.payment.status = true;
+                vm.showModalShoppingCartNavBar = false;
             } 
             vm.$refs.spinner1.hide();
         },
@@ -300,7 +303,7 @@ search: function () {
             }
         });
         if (itemFound === false) {
-            vm.activateToastr('danger', 'Ninguno de nuestros productos coincide con los paramtetros de busqueda que ingreso', true);
+            vm.activateToastr('danger', 'Ninguno de nuestros productos coincide con los parametros de busqueda que ingreso', true);
         }
         
     }

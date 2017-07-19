@@ -6,6 +6,15 @@ body {
     background-color: #e3e6e8;
 }
 
+.btn-pager {
+    color:#337ab7;
+    border-radius:15pt;
+}
+
+.btn-pager:focus {
+    outline:none;
+}
+
 .testimonial-group .row {
   overflow-x: hidden;
   white-space:nowrap;
@@ -202,7 +211,7 @@ div.search {
    border-top:  1px solid #232f3e;
 }
 
-#modalShoppingCart .bg-info,.bg-danger, .bg-warning {
+#modalShoppingCart .bg-success .bg-info,.bg-danger, .bg-warning {
     padding:20px;
     border-radius:10pt;
 }

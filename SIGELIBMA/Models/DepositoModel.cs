@@ -16,5 +16,7 @@ namespace SIGELIBMA.Models
         public string BancoEmisor { get; set; }
         [Required]
         public string BancoReceptor { get; set; }
+        [Required]
+        public string Descripcion { get; set; }
     }
 }

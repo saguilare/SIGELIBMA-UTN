@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -160,7 +162,7 @@ namespace SIGELIBMA.Controllers
                     Fecha = compra.Deposito.Fecha,
                     BancoEmisor = compra.Deposito.BancoEmisor,
                     BancoReceptor = compra.Deposito.BancoReceptor,
-                    Descripcion = string.Empty
+                    Descripcion = compra.Deposito.Descripcion == null ? "": compra.Deposito.Descripcion
                     
                 });
                 factura.Deposito = depositos;
@@ -189,9 +191,10 @@ namespace SIGELIBMA.Controllers
                 //tx.TuplaNueva = "";
 
                 //servicioTransaccion.Agregar(tx);
-    
-      
-               
+
+
+                //SendEmail(ref factura);
+
                 return factura;
 
             }
@@ -288,6 +291,38 @@ namespace SIGELIBMA.Controllers
                 
                 throw;
             }
+        }
+
+        private bool SendEmail(ref Factura factura)
+        {
+
+
+            var fromAddress = new MailAddress("imana@gmail.com", "Libreria Mana");
+            var toAddress = new MailAddress("aguilarsteven@gmail.com", "aguilarsteven@gmail.com");
+            const string fromPassword = "password";
+            const string subject = "test";
+            const string body = "Hey now!!";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                Timeout = 20000
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+                
+            }
+
+            return true;
         }
     }
 }
