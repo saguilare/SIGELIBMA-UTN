@@ -217,6 +217,7 @@ var vm = new Vue({
                         vm.items = vm.roles;
                         vm.filteredItems = vm.roles;
                         vm.buildPagination();
+                        vm.selectPage(1);
                         vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
@@ -281,6 +282,7 @@ var vm = new Vue({
 
         deleteRol: function (rol) {
             vm.displaySpinner(true, 'Desabilitando Rol');
+            rol.Estado = 0;
             $.ajax({
                 url: urlRoot + 'MantRoles/Desabilitar',
                 type: 'post',
