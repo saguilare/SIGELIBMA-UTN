@@ -121,16 +121,6 @@
           <Property Name="Imagen" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Estado" Type="int" />
         </EntityType>
-        <EntityType Name="Moneda">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="PrecioCompra" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="PrecioVenta" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Estado" Type="int" />
-        </EntityType>
         <EntityType Name="MovimientoCaja">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -219,15 +209,6 @@
           <Property Name="TuplaAnterior" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Tipo" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="UsarioRoles">
-          <Key>
-            <PropertyRef Name="Usuario" />
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="Estado" Type="int" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Cedula" />
@@ -242,7 +223,16 @@
           <Property Name="Correo" Type="nvarchar" MaxLength="100" />
           <Property Name="Estado" Type="int" />
         </EntityType>
-        <Association Name="FK__Caja__Estado__4222D4EF">
+        <EntityType Name="UsuarioRoles">
+          <Key>
+            <PropertyRef Name="Usuario" />
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <Association Name="FK__Caja__Estado__3F466844">
           <End Role="EstadoCaja" Type="Self.EstadoCaja" Multiplicity="1" />
           <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -254,7 +244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Deposito__Factur__76969D2E">
+        <Association Name="FK__Deposito__Factur__52593CB8">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="Deposito" Type="Self.Deposito" Multiplicity="*" />
           <ReferentialConstraint>
@@ -266,7 +256,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetalleFa__Artic__52593CB8">
+        <Association Name="FK__DetalleFa__Artic__4F7CD00D">
           <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
           <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -278,7 +268,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetalleFa__Factu__5165187F">
+        <Association Name="FK__DetalleFa__Factu__4E88ABD4">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -290,7 +280,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Caja__4D94879B">
+        <Association Name="FK__Factura__Caja__4AB81AF0">
           <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -302,7 +292,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Cliente__4BAC3F29">
+        <Association Name="FK__Factura__Cliente__48CFD27E">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -314,7 +304,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Descuen__4E88ABD4">
+        <Association Name="FK__Factura__Descuen__4BAC3F29">
           <End Role="Descuento" Type="Self.Descuento" Multiplicity="0..1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -326,7 +316,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Estado__4CA06362">
+        <Association Name="FK__Factura__Estado__49C3F6B7">
           <End Role="EstadoFactura" Type="Self.EstadoFactura" Multiplicity="0..1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -386,7 +376,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimiento__Caja__47DBAE45">
+        <Association Name="FK__Movimiento__Caja__44FF419A">
           <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
           <End Role="MovimientoCaja" Type="Self.MovimientoCaja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -398,7 +388,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimiento__Tipo__48CFD27E">
+        <Association Name="FK__Movimiento__Tipo__45F365D3">
           <End Role="TipoMovimientoCaja" Type="Self.TipoMovimientoCaja" Multiplicity="1" />
           <End Role="MovimientoCaja" Type="Self.MovimientoCaja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -410,7 +400,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Recibo__Factura__5812160E">
+        <Association Name="FK__Recibo__Factura__5535A963">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -458,26 +448,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsarioRol__Usuar__173876EA">
+        <Association Name="FK__UsuarioRo__Usuar__173876EA">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="UsarioRoles" Type="Self.UsarioRoles" Multiplicity="*" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Cedula" />
             </Principal>
-            <Dependent Role="UsarioRoles">
+            <Dependent Role="UsuarioRoles">
               <PropertyRef Name="Usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsarioRoles__Rol__182C9B23">
+        <Association Name="FK__UsuarioRole__Rol__182C9B23">
           <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
-          <End Role="UsarioRoles" Type="Self.UsarioRoles" Multiplicity="*" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rol">
               <PropertyRef Name="Codigo" />
             </Principal>
-            <Dependent Role="UsarioRoles">
+            <Dependent Role="UsuarioRoles">
               <PropertyRef Name="Rol" />
             </Dependent>
           </ReferentialConstraint>
@@ -494,7 +484,6 @@
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovimientoCaja" EntityType="Self.MovimientoCaja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
@@ -504,37 +493,37 @@
           <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaccion" EntityType="Self.Transaccion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsarioRoles" EntityType="Self.UsarioRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Caja__Estado__4222D4EF" Association="Self.FK__Caja__Estado__4222D4EF">
+          <EntitySet Name="UsuarioRoles" EntityType="Self.UsuarioRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Caja__Estado__3F466844" Association="Self.FK__Caja__Estado__3F466844">
             <End Role="EstadoCaja" EntitySet="EstadoCaja" />
             <End Role="Caja" EntitySet="Caja" />
           </AssociationSet>
-          <AssociationSet Name="FK__Deposito__Factur__76969D2E" Association="Self.FK__Deposito__Factur__76969D2E">
+          <AssociationSet Name="FK__Deposito__Factur__52593CB8" Association="Self.FK__Deposito__Factur__52593CB8">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Deposito" EntitySet="Deposito" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetalleFa__Artic__52593CB8" Association="Self.FK__DetalleFa__Artic__52593CB8">
+          <AssociationSet Name="FK__DetalleFa__Artic__4F7CD00D" Association="Self.FK__DetalleFa__Artic__4F7CD00D">
             <End Role="Libro" EntitySet="Libro" />
             <End Role="DetalleFactura" EntitySet="DetalleFactura" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetalleFa__Factu__5165187F" Association="Self.FK__DetalleFa__Factu__5165187F">
+          <AssociationSet Name="FK__DetalleFa__Factu__4E88ABD4" Association="Self.FK__DetalleFa__Factu__4E88ABD4">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="DetalleFactura" EntitySet="DetalleFactura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Caja__4D94879B" Association="Self.FK__Factura__Caja__4D94879B">
+          <AssociationSet Name="FK__Factura__Caja__4AB81AF0" Association="Self.FK__Factura__Caja__4AB81AF0">
             <End Role="Caja" EntitySet="Caja" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Cliente__4BAC3F29" Association="Self.FK__Factura__Cliente__4BAC3F29">
+          <AssociationSet Name="FK__Factura__Cliente__48CFD27E" Association="Self.FK__Factura__Cliente__48CFD27E">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Descuen__4E88ABD4" Association="Self.FK__Factura__Descuen__4E88ABD4">
+          <AssociationSet Name="FK__Factura__Descuen__4BAC3F29" Association="Self.FK__Factura__Descuen__4BAC3F29">
             <End Role="Descuento" EntitySet="Descuento" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Estado__4CA06362" Association="Self.FK__Factura__Estado__4CA06362">
+          <AssociationSet Name="FK__Factura__Estado__49C3F6B7" Association="Self.FK__Factura__Estado__49C3F6B7">
             <End Role="EstadoFactura" EntitySet="EstadoFactura" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
@@ -554,15 +543,15 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Libro" EntitySet="Libro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimiento__Caja__47DBAE45" Association="Self.FK__Movimiento__Caja__47DBAE45">
+          <AssociationSet Name="FK__Movimiento__Caja__44FF419A" Association="Self.FK__Movimiento__Caja__44FF419A">
             <End Role="Caja" EntitySet="Caja" />
             <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimiento__Tipo__48CFD27E" Association="Self.FK__Movimiento__Tipo__48CFD27E">
+          <AssociationSet Name="FK__Movimiento__Tipo__45F365D3" Association="Self.FK__Movimiento__Tipo__45F365D3">
             <End Role="TipoMovimientoCaja" EntitySet="TipoMovimientoCaja" />
             <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
           </AssociationSet>
-          <AssociationSet Name="FK__Recibo__Factura__5812160E" Association="Self.FK__Recibo__Factura__5812160E">
+          <AssociationSet Name="FK__Recibo__Factura__5535A963" Association="Self.FK__Recibo__Factura__5535A963">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Recibo" EntitySet="Recibo" />
           </AssociationSet>
@@ -578,13 +567,13 @@
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Transaccion" EntitySet="Transaccion" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsarioRol__Usuar__173876EA" Association="Self.FK__UsarioRol__Usuar__173876EA">
+          <AssociationSet Name="FK__UsuarioRo__Usuar__173876EA" Association="Self.FK__UsuarioRo__Usuar__173876EA">
             <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="UsarioRoles" EntitySet="UsarioRoles" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsarioRoles__Rol__182C9B23" Association="Self.FK__UsarioRoles__Rol__182C9B23">
+          <AssociationSet Name="FK__UsuarioRole__Rol__182C9B23" Association="Self.FK__UsuarioRole__Rol__182C9B23">
             <End Role="Rol" EntitySet="Rol" />
-            <End Role="UsarioRoles" EntitySet="UsarioRoles" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -609,9 +598,9 @@
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="EstadoCaja" Relationship="Self.FK__Caja__Estado__4222D4EF" FromRole="Caja" ToRole="EstadoCaja" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Caja__4D94879B" FromRole="Caja" ToRole="Factura" />
-          <NavigationProperty Name="MovimientoCaja" Relationship="Self.FK__Movimiento__Caja__47DBAE45" FromRole="Caja" ToRole="MovimientoCaja" />
+          <NavigationProperty Name="EstadoCaja" Relationship="Self.FK__Caja__Estado__3F466844" FromRole="Caja" ToRole="EstadoCaja" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Caja__4AB81AF0" FromRole="Caja" ToRole="Factura" />
+          <NavigationProperty Name="MovimientoCaja" Relationship="Self.FK__Movimiento__Caja__44FF419A" FromRole="Caja" ToRole="MovimientoCaja" />
         </EntityType>
         <EntityType Name="Categoria">
           <Key>
@@ -633,7 +622,7 @@
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BancoEmisor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BancoReceptor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Factura1" Relationship="Self.FK__Deposito__Factur__76969D2E" FromRole="Deposito" ToRole="Factura" />
+          <NavigationProperty Name="Factura1" Relationship="Self.FK__Deposito__Factur__52593CB8" FromRole="Deposito" ToRole="Factura" />
         </EntityType>
         <EntityType Name="Descuento">
           <Key>
@@ -644,7 +633,7 @@
           <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FechaFinalizacion" Type="DateTime" Precision="3" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Descuen__4E88ABD4" FromRole="Descuento" ToRole="Factura" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Descuen__4BAC3F29" FromRole="Descuento" ToRole="Factura" />
         </EntityType>
         <EntityType Name="DetalleFactura">
           <Key>
@@ -654,8 +643,8 @@
           <Property Name="Factura" Type="Int32" Nullable="false" />
           <Property Name="Articulo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Libro" Relationship="Self.FK__DetalleFa__Artic__52593CB8" FromRole="DetalleFactura" ToRole="Libro" />
-          <NavigationProperty Name="Factura1" Relationship="Self.FK__DetalleFa__Factu__5165187F" FromRole="DetalleFactura" ToRole="Factura" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__DetalleFa__Artic__4F7CD00D" FromRole="DetalleFactura" ToRole="Libro" />
+          <NavigationProperty Name="Factura1" Relationship="Self.FK__DetalleFa__Factu__4E88ABD4" FromRole="DetalleFactura" ToRole="Factura" />
         </EntityType>
         <EntityType Name="EstadoCaja">
           <Key>
@@ -664,7 +653,7 @@
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Caja" Relationship="Self.FK__Caja__Estado__4222D4EF" FromRole="EstadoCaja" ToRole="Caja" />
+          <NavigationProperty Name="Caja" Relationship="Self.FK__Caja__Estado__3F466844" FromRole="EstadoCaja" ToRole="Caja" />
         </EntityType>
         <EntityType Name="EstadoFactura">
           <Key>
@@ -673,7 +662,7 @@
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Estado__4CA06362" FromRole="EstadoFactura" ToRole="Factura" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Estado__49C3F6B7" FromRole="EstadoFactura" ToRole="Factura" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -690,13 +679,13 @@
           <Property Name="Pendiente" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Descuento" Type="Int32" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Caja1" Relationship="Self.FK__Factura__Caja__4D94879B" FromRole="Factura" ToRole="Caja" />
-          <NavigationProperty Name="Deposito" Relationship="Self.FK__Deposito__Factur__76969D2E" FromRole="Factura" ToRole="Deposito" />
-          <NavigationProperty Name="Descuento1" Relationship="Self.FK__Factura__Descuen__4E88ABD4" FromRole="Factura" ToRole="Descuento" />
-          <NavigationProperty Name="DetalleFactura" Relationship="Self.FK__DetalleFa__Factu__5165187F" FromRole="Factura" ToRole="DetalleFactura" />
-          <NavigationProperty Name="EstadoFactura" Relationship="Self.FK__Factura__Estado__4CA06362" FromRole="Factura" ToRole="EstadoFactura" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Factura__Cliente__4BAC3F29" FromRole="Factura" ToRole="Usuario" />
-          <NavigationProperty Name="Recibo" Relationship="Self.FK__Recibo__Factura__5812160E" FromRole="Factura" ToRole="Recibo" />
+          <NavigationProperty Name="Caja1" Relationship="Self.FK__Factura__Caja__4AB81AF0" FromRole="Factura" ToRole="Caja" />
+          <NavigationProperty Name="Deposito" Relationship="Self.FK__Deposito__Factur__52593CB8" FromRole="Factura" ToRole="Deposito" />
+          <NavigationProperty Name="Descuento1" Relationship="Self.FK__Factura__Descuen__4BAC3F29" FromRole="Factura" ToRole="Descuento" />
+          <NavigationProperty Name="DetalleFactura" Relationship="Self.FK__DetalleFa__Factu__4E88ABD4" FromRole="Factura" ToRole="DetalleFactura" />
+          <NavigationProperty Name="EstadoFactura" Relationship="Self.FK__Factura__Estado__49C3F6B7" FromRole="Factura" ToRole="EstadoFactura" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Factura__Cliente__48CFD27E" FromRole="Factura" ToRole="Usuario" />
+          <NavigationProperty Name="Recibo" Relationship="Self.FK__Recibo__Factura__5535A963" FromRole="Factura" ToRole="Recibo" />
         </EntityType>
         <EntityType Name="Inventario">
           <Key>
@@ -728,19 +717,9 @@
           <Property Name="Estado" Type="Int32" />
           <NavigationProperty Name="Autor1" Relationship="Self.FK__Libro__Autor__2F10007B" FromRole="Libro" ToRole="Autor" />
           <NavigationProperty Name="Categoria1" Relationship="Self.FK__Libro__Categoria__2E1BDC42" FromRole="Libro" ToRole="Categoria" />
-          <NavigationProperty Name="DetalleFactura" Relationship="Self.FK__DetalleFa__Artic__52593CB8" FromRole="Libro" ToRole="DetalleFactura" />
+          <NavigationProperty Name="DetalleFactura" Relationship="Self.FK__DetalleFa__Artic__4F7CD00D" FromRole="Libro" ToRole="DetalleFactura" />
           <NavigationProperty Name="Inventario" Relationship="Self.FK__Inventari__Codig__33D4B598" FromRole="Libro" ToRole="Inventario" />
           <NavigationProperty Name="Proveedor1" Relationship="Self.FK__Libro__Proveedor__300424B4" FromRole="Libro" ToRole="Proveedor" />
-        </EntityType>
-        <EntityType Name="Moneda">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PrecioCompra" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="PrecioVenta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Estado" Type="Int32" />
         </EntityType>
         <EntityType Name="MovimientoCaja">
           <Key>
@@ -752,8 +731,8 @@
           <Property Name="Monto" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Tipo" Type="Int32" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Caja1" Relationship="Self.FK__Movimiento__Caja__47DBAE45" FromRole="MovimientoCaja" ToRole="Caja" />
-          <NavigationProperty Name="TipoMovimientoCaja" Relationship="Self.FK__Movimiento__Tipo__48CFD27E" FromRole="MovimientoCaja" ToRole="TipoMovimientoCaja" />
+          <NavigationProperty Name="Caja1" Relationship="Self.FK__Movimiento__Caja__44FF419A" FromRole="MovimientoCaja" ToRole="Caja" />
+          <NavigationProperty Name="TipoMovimientoCaja" Relationship="Self.FK__Movimiento__Tipo__45F365D3" FromRole="MovimientoCaja" ToRole="TipoMovimientoCaja" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -777,7 +756,7 @@
           <Property Name="Abono" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="SaldoAnterior" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="SaldoActual" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <NavigationProperty Name="Factura1" Relationship="Self.FK__Recibo__Factura__5812160E" FromRole="Recibo" ToRole="Factura" />
+          <NavigationProperty Name="Factura1" Relationship="Self.FK__Recibo__Factura__5535A963" FromRole="Recibo" ToRole="Factura" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -786,7 +765,7 @@
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="UsarioRoles" Relationship="Self.FK__UsarioRoles__Rol__182C9B23" FromRole="Rol" ToRole="UsarioRoles" />
+          <NavigationProperty Name="UsuarioRoles" Relationship="Self.FK__UsuarioRole__Rol__182C9B23" FromRole="Rol" ToRole="UsuarioRoles" />
         </EntityType>
         <EntityType Name="Sesion">
           <Key>
@@ -816,7 +795,7 @@
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="MovimientoCaja" Relationship="Self.FK__Movimiento__Tipo__48CFD27E" FromRole="TipoMovimientoCaja" ToRole="MovimientoCaja" />
+          <NavigationProperty Name="MovimientoCaja" Relationship="Self.FK__Movimiento__Tipo__45F365D3" FromRole="TipoMovimientoCaja" ToRole="MovimientoCaja" />
         </EntityType>
         <EntityType Name="TipoTransaccion">
           <Key>
@@ -841,17 +820,6 @@
           <NavigationProperty Name="Sesion1" Relationship="Self.FK__Transacci__Sesio__20C1E124" FromRole="Transaccion" ToRole="Sesion" />
           <NavigationProperty Name="TipoTransaccion" Relationship="Self.FK__Transaccio__Tipo__21B6055D" FromRole="Transaccion" ToRole="TipoTransaccion" />
         </EntityType>
-        <EntityType Name="UsarioRoles">
-          <Key>
-            <PropertyRef Name="Usuario" />
-            <PropertyRef Name="Rol" />
-          </Key>
-          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Rol1" Relationship="Self.FK__UsarioRoles__Rol__182C9B23" FromRole="UsarioRoles" ToRole="Rol" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK__UsarioRol__Usuar__173876EA" FromRole="UsarioRoles" ToRole="Usuario" />
-        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Cedula" />
@@ -865,9 +833,20 @@
           <Property Name="Apellido2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Int32" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Cliente__4BAC3F29" FromRole="Usuario" ToRole="Factura" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Cliente__48CFD27E" FromRole="Usuario" ToRole="Factura" />
           <NavigationProperty Name="Sesion" Relationship="Self.FK__Sesion__Usuario__1B0907CE" FromRole="Usuario" ToRole="Sesion" />
-          <NavigationProperty Name="UsarioRoles" Relationship="Self.FK__UsarioRol__Usuar__173876EA" FromRole="Usuario" ToRole="UsarioRoles" />
+          <NavigationProperty Name="UsuarioRoles" Relationship="Self.FK__UsuarioRo__Usuar__173876EA" FromRole="Usuario" ToRole="UsuarioRoles" />
+        </EntityType>
+        <EntityType Name="UsuarioRoles">
+          <Key>
+            <PropertyRef Name="Usuario" />
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Rol1" Relationship="Self.FK__UsuarioRole__Rol__182C9B23" FromRole="UsuarioRoles" ToRole="Rol" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__UsuarioRo__Usuar__173876EA" FromRole="UsuarioRoles" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK__Libro__Autor__2F10007B">
           <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
@@ -881,7 +860,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Caja__Estado__4222D4EF">
+        <Association Name="FK__Caja__Estado__3F466844">
           <End Role="EstadoCaja" Type="Self.EstadoCaja" Multiplicity="1" />
           <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -893,7 +872,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Caja__4D94879B">
+        <Association Name="FK__Factura__Caja__4AB81AF0">
           <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -905,7 +884,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimiento__Caja__47DBAE45">
+        <Association Name="FK__Movimiento__Caja__44FF419A">
           <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
           <End Role="MovimientoCaja" Type="Self.MovimientoCaja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -929,7 +908,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Deposito__Factur__76969D2E">
+        <Association Name="FK__Deposito__Factur__52593CB8">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="Deposito" Type="Self.Deposito" Multiplicity="*" />
           <ReferentialConstraint>
@@ -941,7 +920,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Descuen__4E88ABD4">
+        <Association Name="FK__Factura__Descuen__4BAC3F29">
           <End Role="Descuento" Type="Self.Descuento" Multiplicity="0..1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -953,7 +932,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetalleFa__Artic__52593CB8">
+        <Association Name="FK__DetalleFa__Artic__4F7CD00D">
           <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
           <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -965,7 +944,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetalleFa__Factu__5165187F">
+        <Association Name="FK__DetalleFa__Factu__4E88ABD4">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -977,7 +956,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Estado__4CA06362">
+        <Association Name="FK__Factura__Estado__49C3F6B7">
           <End Role="EstadoFactura" Type="Self.EstadoFactura" Multiplicity="0..1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -989,7 +968,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__Cliente__4BAC3F29">
+        <Association Name="FK__Factura__Cliente__48CFD27E">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1001,7 +980,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Recibo__Factura__5812160E">
+        <Association Name="FK__Recibo__Factura__5535A963">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1037,7 +1016,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimiento__Tipo__48CFD27E">
+        <Association Name="FK__Movimiento__Tipo__45F365D3">
           <End Role="TipoMovimientoCaja" Type="Self.TipoMovimientoCaja" Multiplicity="1" />
           <End Role="MovimientoCaja" Type="Self.MovimientoCaja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1049,14 +1028,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsarioRoles__Rol__182C9B23">
+        <Association Name="FK__UsuarioRole__Rol__182C9B23">
           <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
-          <End Role="UsarioRoles" Type="Self.UsarioRoles" Multiplicity="*" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rol">
               <PropertyRef Name="Codigo" />
             </Principal>
-            <Dependent Role="UsarioRoles">
+            <Dependent Role="UsuarioRoles">
               <PropertyRef Name="Rol" />
             </Dependent>
           </ReferentialConstraint>
@@ -1097,14 +1076,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsarioRol__Usuar__173876EA">
+        <Association Name="FK__UsuarioRo__Usuar__173876EA">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="UsarioRoles" Type="Self.UsarioRoles" Multiplicity="*" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Cedula" />
             </Principal>
-            <Dependent Role="UsarioRoles">
+            <Dependent Role="UsuarioRoles">
               <PropertyRef Name="Usuario" />
             </Dependent>
           </ReferentialConstraint>
@@ -1121,7 +1100,6 @@
           <EntitySet Name="Factura" EntityType="Self.Factura" />
           <EntitySet Name="Inventario" EntityType="Self.Inventario" />
           <EntitySet Name="Libro" EntityType="Self.Libro" />
-          <EntitySet Name="Moneda" EntityType="Self.Moneda" />
           <EntitySet Name="MovimientoCaja" EntityType="Self.MovimientoCaja" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
           <EntitySet Name="Recibo" EntityType="Self.Recibo" />
@@ -1131,21 +1109,21 @@
           <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" />
           <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" />
           <EntitySet Name="Transaccion" EntityType="Self.Transaccion" />
-          <EntitySet Name="UsarioRoles" EntityType="Self.UsarioRoles" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="UsuarioRoles" EntityType="Self.UsuarioRoles" />
           <AssociationSet Name="FK__Libro__Autor__2F10007B" Association="Self.FK__Libro__Autor__2F10007B">
             <End Role="Autor" EntitySet="Autor" />
             <End Role="Libro" EntitySet="Libro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Caja__Estado__4222D4EF" Association="Self.FK__Caja__Estado__4222D4EF">
+          <AssociationSet Name="FK__Caja__Estado__3F466844" Association="Self.FK__Caja__Estado__3F466844">
             <End Role="EstadoCaja" EntitySet="EstadoCaja" />
             <End Role="Caja" EntitySet="Caja" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Caja__4D94879B" Association="Self.FK__Factura__Caja__4D94879B">
+          <AssociationSet Name="FK__Factura__Caja__4AB81AF0" Association="Self.FK__Factura__Caja__4AB81AF0">
             <End Role="Caja" EntitySet="Caja" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimiento__Caja__47DBAE45" Association="Self.FK__Movimiento__Caja__47DBAE45">
+          <AssociationSet Name="FK__Movimiento__Caja__44FF419A" Association="Self.FK__Movimiento__Caja__44FF419A">
             <End Role="Caja" EntitySet="Caja" />
             <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
           </AssociationSet>
@@ -1153,31 +1131,31 @@
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Libro" EntitySet="Libro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Deposito__Factur__76969D2E" Association="Self.FK__Deposito__Factur__76969D2E">
+          <AssociationSet Name="FK__Deposito__Factur__52593CB8" Association="Self.FK__Deposito__Factur__52593CB8">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Deposito" EntitySet="Deposito" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Descuen__4E88ABD4" Association="Self.FK__Factura__Descuen__4E88ABD4">
+          <AssociationSet Name="FK__Factura__Descuen__4BAC3F29" Association="Self.FK__Factura__Descuen__4BAC3F29">
             <End Role="Descuento" EntitySet="Descuento" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetalleFa__Artic__52593CB8" Association="Self.FK__DetalleFa__Artic__52593CB8">
+          <AssociationSet Name="FK__DetalleFa__Artic__4F7CD00D" Association="Self.FK__DetalleFa__Artic__4F7CD00D">
             <End Role="Libro" EntitySet="Libro" />
             <End Role="DetalleFactura" EntitySet="DetalleFactura" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetalleFa__Factu__5165187F" Association="Self.FK__DetalleFa__Factu__5165187F">
+          <AssociationSet Name="FK__DetalleFa__Factu__4E88ABD4" Association="Self.FK__DetalleFa__Factu__4E88ABD4">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="DetalleFactura" EntitySet="DetalleFactura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Estado__4CA06362" Association="Self.FK__Factura__Estado__4CA06362">
+          <AssociationSet Name="FK__Factura__Estado__49C3F6B7" Association="Self.FK__Factura__Estado__49C3F6B7">
             <End Role="EstadoFactura" EntitySet="EstadoFactura" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__Cliente__4BAC3F29" Association="Self.FK__Factura__Cliente__4BAC3F29">
+          <AssociationSet Name="FK__Factura__Cliente__48CFD27E" Association="Self.FK__Factura__Cliente__48CFD27E">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Recibo__Factura__5812160E" Association="Self.FK__Recibo__Factura__5812160E">
+          <AssociationSet Name="FK__Recibo__Factura__5535A963" Association="Self.FK__Recibo__Factura__5535A963">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Recibo" EntitySet="Recibo" />
           </AssociationSet>
@@ -1189,13 +1167,13 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Libro" EntitySet="Libro" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimiento__Tipo__48CFD27E" Association="Self.FK__Movimiento__Tipo__48CFD27E">
+          <AssociationSet Name="FK__Movimiento__Tipo__45F365D3" Association="Self.FK__Movimiento__Tipo__45F365D3">
             <End Role="TipoMovimientoCaja" EntitySet="TipoMovimientoCaja" />
             <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsarioRoles__Rol__182C9B23" Association="Self.FK__UsarioRoles__Rol__182C9B23">
+          <AssociationSet Name="FK__UsuarioRole__Rol__182C9B23" Association="Self.FK__UsuarioRole__Rol__182C9B23">
             <End Role="Rol" EntitySet="Rol" />
-            <End Role="UsarioRoles" EntitySet="UsarioRoles" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
           </AssociationSet>
           <AssociationSet Name="FK__Sesion__Usuario__1B0907CE" Association="Self.FK__Sesion__Usuario__1B0907CE">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -1209,9 +1187,9 @@
             <End Role="TipoTransaccion" EntitySet="TipoTransaccion" />
             <End Role="Transaccion" EntitySet="Transaccion" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsarioRol__Usuar__173876EA" Association="Self.FK__UsarioRol__Usuar__173876EA">
+          <AssociationSet Name="FK__UsuarioRo__Usuar__173876EA" Association="Self.FK__UsuarioRo__Usuar__173876EA">
             <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="UsarioRoles" EntitySet="UsarioRoles" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1347,17 +1325,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Moneda">
-            <EntityTypeMapping TypeName="SIGELIBMAModel.Moneda">
-              <MappingFragment StoreEntitySet="Moneda">
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="PrecioCompra" ColumnName="PrecioCompra" />
-                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MovimientoCaja">
             <EntityTypeMapping TypeName="SIGELIBMAModel.MovimientoCaja">
               <MappingFragment StoreEntitySet="MovimientoCaja">
@@ -1455,15 +1422,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UsarioRoles">
-            <EntityTypeMapping TypeName="SIGELIBMAModel.UsarioRoles">
-              <MappingFragment StoreEntitySet="UsarioRoles">
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="SIGELIBMAModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
@@ -1475,6 +1433,15 @@
                 <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
                 <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioRoles">
+            <EntityTypeMapping TypeName="SIGELIBMAModel.UsuarioRoles">
+              <MappingFragment StoreEntitySet="UsuarioRoles">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
               </MappingFragment>
             </EntityTypeMapping>

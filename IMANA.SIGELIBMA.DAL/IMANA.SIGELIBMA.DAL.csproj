@@ -84,9 +84,6 @@
     <Compile Include="Libro.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Moneda.cs">
-      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MovimientoCaja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
@@ -137,10 +134,10 @@
     <Compile Include="Transaccion.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UsarioRoles.cs">
+    <Compile Include="Usuario.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Usuario.cs">
+    <Compile Include="UsuarioRoles.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

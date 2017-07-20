@@ -296,33 +296,42 @@ namespace SIGELIBMA.Controllers
         private bool SendEmail(ref Factura factura)
         {
 
+            try
+            {
+                var fromAddress = new MailAddress("libreriaimana@gmail.com", "Libreria Mana");
+                var toAddress = new MailAddress("aguilarsteven@gmail.com", "aguilarsteven@gmail.com");
+                const string fromPassword = "Imana2017";
+                const string subject = "test";
+                const string body = "Hey now!!";
 
-            var fromAddress = new MailAddress("libreriaimana@gmail.com", "Libreria Mana");
-            var toAddress = new MailAddress("aguilarsteven@gmail.com", "aguilarsteven@gmail.com");
-            const string fromPassword = "Imana2017";
-            const string subject = "test";
-            const string body = "Hey now!!";
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                Timeout = 20000
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-                smtp.Send(message);
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 20000
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
                 
-            }
+                }
 
-            return true;
+                return true;
+
+            }
+            catch (Exception)
+            {
+                
+                return false;
+            }
+            
         }
     }
 }

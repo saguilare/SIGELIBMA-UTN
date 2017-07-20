@@ -16,13 +16,13 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public Rol()
         {
-            this.UsarioRoles = new HashSet<UsarioRoles>();
+            this.UsuarioRoles = new HashSet<UsuarioRoles>();
         }
     
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        public virtual ICollection<UsarioRoles> UsarioRoles { get; set; }
+        public virtual ICollection<UsuarioRoles> UsuarioRoles { get; set; }
     }
 }

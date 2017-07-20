@@ -128,17 +128,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Moneda">
-      <EntityTypeMapping TypeName="SIGELIBMAModel.Moneda">
-        <MappingFragment StoreEntitySet="Moneda">
-          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="PrecioCompra" ColumnName="PrecioCompra" />
-          <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MovimientoCaja">
       <EntityTypeMapping TypeName="SIGELIBMAModel.MovimientoCaja">
         <MappingFragment StoreEntitySet="MovimientoCaja">
@@ -236,15 +225,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UsarioRoles">
-      <EntityTypeMapping TypeName="SIGELIBMAModel.UsarioRoles">
-        <MappingFragment StoreEntitySet="UsarioRoles">
-          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-          <ScalarProperty Name="Rol" ColumnName="Rol" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Usuario">
       <EntityTypeMapping TypeName="SIGELIBMAModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
@@ -256,6 +236,15 @@
           <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
           <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
           <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioRoles">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.UsuarioRoles">
+        <MappingFragment StoreEntitySet="UsuarioRoles">
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>

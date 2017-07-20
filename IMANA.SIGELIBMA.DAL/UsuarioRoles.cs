@@ -12,12 +12,13 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Moneda
+    public partial class UsuarioRoles
     {
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public decimal PrecioCompra { get; set; }
-        public decimal PrecioVenta { get; set; }
+        public string Usuario { get; set; }
+        public int Rol { get; set; }
         public Nullable<int> Estado { get; set; }
+    
+        public virtual Rol Rol1 { get; set; }
+        public virtual Usuario Usuario1 { get; set; }
     }
 }

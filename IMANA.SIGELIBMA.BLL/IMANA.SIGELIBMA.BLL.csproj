@@ -50,6 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\TipoTransaccionServicio.cs" />
+    <Compile Include="Servicios\UsuarioRolesServicio.cs" />
+    <Compile Include="Servicios\DepositoServicio.cs" />
+    <Compile Include="Servicios\EstadoCajaServicio.cs" />
+    <Compile Include="Servicios\MovimientoCajaServicio.cs" />
+    <Compile Include="Servicios\TipoMovCajaServicio.cs" />
+    <Compile Include="Servicios\InventarioServicio.cs" />
+    <Compile Include="Servicios\AutorServicio.cs" />
+    <Compile Include="Servicios\ProveedorServicio.cs" />
+    <Compile Include="Servicios\EstadoFacturaServicio.cs" />
+    <Compile Include="Servicios\ReciboServicio.cs" />
+    <Compile Include="Servicios\DescuentoServicio.cs" />
     <Compile Include="Servicios\TransaccionServicio.cs" />
     <Compile Include="Servicios\SesionServicio.cs" />
     <Compile Include="Servicios\CajaServicio.cs" />
