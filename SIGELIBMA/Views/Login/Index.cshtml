@@ -33,8 +33,10 @@
                     {{alert.message}}
                 </div>
                 <div class="form-group">
+                    <vueinput v-bind:value.sync="login.Username" label="" help="Ingrese su nombre de usuario." error="Verifique su nombre de usuario" placeholder="Nombre de Usuario" pattern="^[a-zA-Z0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                 </div>
                 <div class="form-group">
+                    <vueinput type="password" v-bind:value.sync="login.Password" label="" help="Ingrese su contraseña." error="Verifique su contraseña (Solo acepta numeros y letras)" placeholder="Contraseña" pattern="^[a-zA-Z0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                 </div>
                 <button type="submit" class="btn btn-lg btn-block btn-login">Ingresar</button>
             </fieldset>
