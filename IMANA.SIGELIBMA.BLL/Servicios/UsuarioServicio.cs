@@ -61,6 +61,24 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
+        public Usuario Validar(Usuario usuariop)
+        {
+            try
+            {
+                Usuario usuario = null;
+
+                usuario = (Usuario)unitOfWork.Repository<Usuario>().GetAll().Where(x => x.Usuario1.Equals(usuariop.Usuario1,StringComparison.OrdinalIgnoreCase) && x.Clave.Equals(usuariop.Clave, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                return usuario;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
         public bool Agregar(Usuario usuariop)
         {
             try

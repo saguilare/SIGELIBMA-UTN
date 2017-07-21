@@ -5,9 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using IMANA.SIGELIBMA.BLL.Servicios;
+using SIGELIBMA.Filters;
 
 namespace SIGELIBMA.Controllers
 {
+    [ValidateSessionFilter]
     public class MantRolesController : Controller
     {
         private RolServicio rolServicio = new RolServicio();

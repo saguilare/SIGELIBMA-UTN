@@ -1,6 +1,7 @@
 ﻿
 using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
+using SIGELIBMA.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace IMANA.SIGELIBMA.MVC.Controllers
 {
+    [ValidateSessionFilter]
     public class FacturacionController : Controller
     {
 

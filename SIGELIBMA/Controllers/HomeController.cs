@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Controllers
 {
+
     public class HomeController : Controller
     {
         private FacturaServicio servicioFactura = new FacturaServicio();
@@ -34,7 +35,7 @@ namespace SIGELIBMA.Controllers
         // GET: Home
         public ActionResult Index()
         {
-
+            
             ViewBag.Title = "Principal";
             return View();
         }

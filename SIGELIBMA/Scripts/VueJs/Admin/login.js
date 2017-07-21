@@ -45,7 +45,7 @@ var vm = new Vue({
             return stringValue.toLowerCase();
         },
 
-        login: function () {
+        executeLogin: function () {
             if (!vm.login.Password || !vm.login.Username) {
                 vm.activateAlert('Danger', 'Debe ingresar su usuario y contraseña.', true);
                 return;

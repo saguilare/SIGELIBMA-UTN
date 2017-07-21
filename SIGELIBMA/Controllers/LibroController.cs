@@ -1,5 +1,6 @@
 ﻿using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
+using SIGELIBMA.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Controllers
 {
+    [ValidateSessionFilter]
     public class LibroController : Controller
     {
         LibroServicio LibroServicio = new LibroServicio();
