@@ -2,8 +2,10 @@
 using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
 using SIGELIBMA.Filters;
+using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,19 +17,11 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
     {
 
         private FacturaServicio servicioFactura = new FacturaServicio();
+        private CajaServicio servicioCaja = new CajaServicio();
+        private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
         public ActionResult Index()
         {
-            //if (System.Web.HttpContext.Current.Session["session"] != null)
-            //{ 
-            //    Sesion session = System.Web.HttpContext.Current.Session["session"] as Sesion;
-            //    if (session != null)
-            //    {
-            //        ViewBag.Title = "Facturacion";
-            //        return View();
-            //    }
-            //}
-            //return RedirectToAction("Login", "Login");
 
             return View();
         }
@@ -37,9 +31,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             try
             {
                 var libros = ObtenerLibros();
-                //var categories = ObtenerCategorias();
+                var cajas = ObtenerCajas();
 
-                return Json(new { EstadoOperacion = true, Libros = libros, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Libros = libros, Cajas = cajas, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
    
             }
             catch (Exception)
@@ -50,11 +44,11 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult AbrirCaja(string param) {
+        public JsonResult AbrirCerrarCaja(CajaModel caja) {
             try
             {
-                string caja = "45";
-                if (AbrirCaja())
+
+                if (CambiarEstadoCaja(caja))
                 {
                     return Json(new { EstadoOperacion = true, Mensaje = string.Format("Caja {0} inicializada", caja) });
                 }
@@ -94,8 +88,23 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
-        private bool AbrirCaja() {
-            return true;
+        private bool CambiarEstadoCaja(CajaModel caja)
+        {
+            try
+            {
+                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo});
+                if (cajaDb != null)
+                {
+                    cajaDb.Estado = caja.Estado;
+                    return servicioCaja.Modificar(cajaDb);
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
 
         private object ObtenerLibros()
@@ -110,6 +119,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
+                    PrecioSinImp = item.PrecioVentaSinImpuestos,
                     Precio = item.PrecioVentaConImpuestos,
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
@@ -147,6 +157,30 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                         Image = libro.Imagen,
                         Titulo = libro.Titulo
                     })
+                });
+
+
+                return newList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private object ObtenerCajas()
+        {
+            try
+            {
+
+                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual && x.Estado != 1).ToList();
+                //remove child elements to avoid circular dependency errors
+                var newList = cajas.Select(item => new
+                {
+                    Codigo = item.Codigo,
+                    Descripcion = item.Descripcion,
+                    Estado = item.Estado
                 });
 
 

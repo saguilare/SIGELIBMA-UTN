@@ -19,21 +19,23 @@ data.codigos = [];
 data.titulos = [];
 data.searchByData = data.codigos;
 data.searchSelected = "";
-data.product = { item: {}, quantity: 1,total:0 };
+data.product = { item: {}, quantity: 1,subtotal:0,total:0 };
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null, Rol: 0 };
 data.modalFact = { currentPage: 1 };
-data.cashBox = {id:0,status:false};
+data.cashBox = null;
+data.cashBoxes = [];
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
 data.toastr = { show: false, placement: "top-right", duration: "3000", type: "danger", width: "400px", dismissable: true, message: '' };
 data.session = { id: 1, user: {name : 'steven aguilar', username : 'saguilar'}};
-data.factura = { master: { id: 0, client: { id: 0, name: '' }, taxes: 0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
+data.factura = { master: { id: 0, client: { id: 0, name: '' }, taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
 data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion de la base de datos, por favor espere.'};
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
 })
 
+$("#collapseFactMain").collapse('show');
 var vm = new Vue({
     el: '#pageMainContainer',
     data: data,
@@ -98,40 +100,63 @@ var vm = new Vue({
 
         initializeCashBox: function () {
             this.$refs.spinner1.show();
-            var param = 'test';
+            vm.cashBox.Estado = 1;
             $.ajax({
-                url: urlRoot + 'Facturacion/OpenCashBox',
+                url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
                 dataType: 'json',
-                data: param,
+                data: vm.cashBox,
                 success: function (result) {
                     vm.$refs.spinner1.hide();
                     if (result.EstadoOperacion) {
                         $('#modal-caja').modal('hide');
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
-                        
-                        vm.cashBox.id = 1;
-                        vm.cashBox.status = true;
                     } else {
+                        vm.cashBox.Estado = 2;
                         vm.activateAlertModal('danger','La caja no se inicializo, trate nuevamente.',true);
-                        vm.cashBox = null;
                     }
-
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
+                    vm.cashBox.Estado = 2;
                     vm.activateAlertModal('danger', 'La caja no se inicializo, trate nuevamente.', true);
-                    vm.cashBox = null;
+             
                 }
             });
 
         },
 
         closeCashBox: function () {
-            $('#collapseFactMain').collapse('hide');
-            vm.cashBox.status = false;
+            this.$refs.spinner1.show();
+            vm.cashBox.Estado = 2;
+            $.ajax({
+                url: urlRoot + 'Facturacion/AbrirCerrarCaja',
+                type: 'post',
+                dataType: 'json',
+                data: vm.cashBox,
+                success: function (result) {
+                    vm.$refs.spinner1.hide();
+                    if (result.EstadoOperacion) {
+                        $('#modal-caja').modal('hide');
+                        vm.activateToastr('success', 'La caja ha sido cerrada con exito.', true);
+                        $('#collapseFactMain').collapse('hide');
+                        vm.cashBox = null;
+                    } else {
+                        vm.cashBox.Estado = 1;
+                        vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
+                    }
+                },
+                error: function (error) {
+                    vm.$refs.spinner1.hide();
+                    vm.cashBox.Estado = 1;
+                    vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
+
+                }
+            });
+
         },
+
 
         getInitData: function () {
             $.ajax({
@@ -140,6 +165,7 @@ var vm = new Vue({
                 dataType: 'json',
                 success: function (result) {
                     if (result.EstadoOperacion) {
+                        vm.cashBoxes = result.Cajas;
                         vm.books = result.Libros;
                         if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
                             $.each(vm.books,function (key, book) {
@@ -163,6 +189,12 @@ var vm = new Vue({
         openModal: function (object, target) {
             vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
+                vm.cashBox = {};
+                if (vm.cashBoxes === null || vm.cashBoxes.length < 1) {
+                    vm.activateAlertModal("danger","Lo sentimos todas las cajas estan abiertas en este momento", true);
+                } else {
+                    vm.activateAlertModal("","", false);
+                }
                 $("#modal-caja").modal({ show: true });
             } else if (target.toLowerCase() === 'modal-product') {
                 if (vm.searchSelected === '') {
@@ -174,6 +206,7 @@ var vm = new Vue({
                             vm.product.item = book;
                             vm.product.quantity = 1;
                             vm.product.total = book.Precio;
+                            vm.product.subtotal = book.PrecioSinImp;
                             $('#modal-product').modal('show');
                             return;
                         }
@@ -188,7 +221,30 @@ var vm = new Vue({
         },
 
         updateModalDetailProdTotal: function () {
+            vm.product.subtotal = (vm.product.item.PrecioSinImp * vm.product.quantity);
             vm.product.total = (vm.product.item.Precio * vm.product.quantity);
+        },
+
+        updateFacturaDetail:function(index){
+  
+            var detail = vm.factura.details[index];
+            detail.total = (parseInt(detail.item.Precio) * parseInt(detail.quantity));
+            detail.subtotal = (parseInt(detail.item.PrecioSinImp) * parseInt(detail.quantity));
+            vm.factura.details[index] = detail;
+            vm.updateFactura();
+        },
+
+        updateFactura: function () {
+            vm.factura.master.total = 0;
+            vm.factura.master.subtotal = 0;
+            vm.factura.master.totalItems = 0;
+            $.each(vm.factura.details, function (key, item) {
+                vm.factura.master.total = (parseInt(vm.factura.master.total) + parseInt(item.total));
+                vm.factura.master.subtotal = (parseInt(vm.factura.master.subtotal) + parseInt(item.subtotal));
+                vm.factura.master.totalItems = parseInt(vm.factura.master.totalItems) + parseInt(item.quantity);
+            });
+            vm.factura.master.taxes = vm.factura.master.total - vm.factura.master.subtotal;
+            
         },
 
         addToFactura: function (obj) {
@@ -197,7 +253,8 @@ var vm = new Vue({
                 $.each(vm.factura.details, function (key, item) {
                     if (obj.item.Codigo === item.item.Codigo) {
                         item.quantity = (parseInt(item.quantity) + parseInt(obj.quantity));
-                        item.total = (parseInt(item.total) + parseInt(obj.total));
+                        item.total = (parseInt(item.item.Precio) * parseInt(item.quantity));
+                        item.subtotal = (parseInt(item.item.PrecioSinImp) * parseInt(item.quantity));
                         vm.factura.details[key] = item;
                         flag = true;
                     }
@@ -210,18 +267,26 @@ var vm = new Vue({
             }
             
             vm.factura.master.total = (parseInt(vm.factura.master.total) + parseInt(vm.product.total));
+            vm.factura.master.subtotal = (parseInt(vm.factura.master.subtotal) + parseInt(vm.product.subtotal));
+
             vm.factura.master.totalItems = parseInt(vm.factura.master.totalItems) + parseInt(vm.product.quantity);
-            vm.factura.master.taxes = vm.factura.master.taxes + (vm.product.total / 13 * 100);
-            
+            vm.factura.master.taxes = vm.factura.master.total - vm.factura.master.subtotal;
+       
+
             vm.searchSelected = "";
             $('#modal-product').modal('hide');
-            vm.product = { item: {}, quantity: 1, total: 0 };
+            vm.product = { item: {}, quantity: 1, total: 0 ,subtotal:0};
             
         },
         
         removeFromFactura: function (index) {
         
             vm.factura.details.splice(index, 1);
+            if (vm.factura.details === null || vm.factura.details.length < 1) {
+                vm.factura.master.subtotal = 0;
+                vm.factura.master.total = 0;
+                vm.factura.master.taxes = 0;
+            }
             
         },
 

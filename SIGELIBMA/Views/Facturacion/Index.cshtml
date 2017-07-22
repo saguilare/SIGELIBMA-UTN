@@ -70,29 +70,26 @@
                                     <h3>Resumen Pago</h3><hr />
                                     <div class="form-group">
                                         <label>Moneda: </label>
-                                        <select required class="form-control">
-                                            <option value="1" selected disabled>CR Colones</option>
+                                        <select required class="form-control" disabled>
+                                            <option value="1" selected>CR Colones</option>
                                             <option value="2">US Dolar</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Tipo Pago: </label>
-                                        <select required class="form-control">
-                                            <option value="1" selected disabled>Efectivo</option>
+                                        <select required class="form-control" disabled>
+                                            <option value="1" selected>Efectivo</option>
                                             <option value="2">Tarjeta</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Monto a Pagar: </label>
-                                        <input v-model="factura.master.total" type="text" disabled required name="name"  />
+                                        <vueinput v-bind:value.sync="factura.master.total" label="Monto a Pagar:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon readonly></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <label>Monto Recibido: </label>
-                                        <input v-model="factura.master.totalReceived" type="text" name="name"  v-on:blur="updateChange()" />
+                                        <vueinput v-bind:value.sync="factura.master.totalReceived" label="Monto Recibido:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon v-on:blur="updateChange()"></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <label>Cambio: </label>
-                                        <input v-model="factura.master.change" type="text" disabled required name="name" />
+                                        <vueinput v-bind:value.sync="factura.master.change" label="Cambio:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon readonly></vueinput>
                                     </div>
                                 </div>
                                 <!--page 3-->
@@ -139,42 +136,41 @@
 <div id="modal-caja" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form v-on:submit.prevent="updateRol(modalObject,event)">
+            <form >
                 <div class="modal-header modal-mant">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Iniciar Caja</h4>
                 </div>
                 <div class="modal-body">
                     <spinner v-ref:spinner1 size="md" fixed text="Inicializando caja, por favor espere."></spinner>
-
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
-                    <div class="form-group">
-                        <vueinput v-bind:value.sync="session.user.name" label="Usuario" v-bind:enter-submit="true" readonly required></vueinput>
+                    <div v-if="cashBoxes !== null && cashBoxes.length > 0">
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="session.user.name" label="Usuario" v-bind:enter-submit="true" readonly required></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="session.user.username" label="Nombre de Usuario" v-bind:enter-submit="true" readonly required></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Caja:</label>
+                            <select v-model="cashBox" class="form-control">
+                                <option value="null" selected disabled>-- Seleccione una Caja --</option>
+                                <option v-for="item in cashBoxes" v-bind:value="item">{{item.Descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="" label="Monto Inicio" type="number" v-bind:enter-submit="true" required></vueinput>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <vueinput v-bind:value.sync="session.user.username" label="Nombre de Usuario" v-bind:enter-submit="true" readonly required></vueinput>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Caja:</label>
-                        <select v-model="" class="form-control">
-                            <option value="value" selected disabled>-- Seleccione una Caja --</option>
-                            <option value="1">Caja 1</option>
-                            <option value="2">Caja 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <vueinput v-bind:value.sync="" label="Monto Inicio" type="number" v-bind:enter-submit="true" required></vueinput>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-save " v-on:click="initializeCashBox()">Iniciar</button>
+                    <button v-if="cashBoxes !== null && cashBoxes.length > 0" type="button" class="btn btn-save " v-on:click="initializeCashBox()">Iniciar</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -252,12 +248,13 @@
                         <span class="title-bar-title">Ventas</span>
                         <span class="title-bar-subtitle">Facturacion</span>
                     </div>
-                    <button v-if="cashBox.status === false" v-on:click="openModal(null, 'modal-caja')" class="btn btn-primary pull-right" type="button" @*data-toggle="collapse" data-target="#collapseFactMain"*@ aria-expanded="false" aria-controls="collapseFactMain">
-                        Abrir Caja
-                    </button>
-                    <button v-else v-on:click="closeCashBox()" class="btn btn-primary pull-right" type="button" @*data-toggle="collapse" data-target="#collapseFactMain"*@ aria-expanded="false" aria-controls="collapseFactMain">
+                    <button v-if="cashBox !== null || cashBox.Estado === 1" v-on:click="closeCashBox()" class="btn btn-primary pull-right" type="button" @*data-toggle="collapse" data-target="#collapseFactMain"*@ aria-expanded="false" aria-controls="collapseFactMain">
                         Cerrar Caja
                     </button>
+                    <button v-else v-on:click="openModal(null, 'modal-caja')" class="btn btn-primary pull-right" type="button" @*data-toggle="collapse" data-target="#collapseFactMain"*@ aria-expanded="false" aria-controls="collapseFactMain">
+                        Abrir Caja
+                    </button>
+                    
                 </div>
             </div>
         </section>
@@ -265,10 +262,10 @@
         <section class="collapse " id="collapseFactMain" style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">        
                 <div class="row" style="padding-top:20px;">
                     <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
-                        <form name="" class="" v-on:submit.prevent="addRol(rol)">
-                            <div class="input-group-btn">
+                        <form name="" class="" >
+                            <div class="input-group search">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtro <span class="caret"></span></button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtro <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         <li v-on:click="searchByData = codigos"><a href="#">Codigo</a></li>
                                         <li v-on:click="searchByData = titulos"><a href="#">Titulo</a></li>
@@ -277,7 +274,7 @@
                                 <typeahead v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Busqueda">
                                 </typeahead>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" v-on:click="openModal(null,'modal-product')" type="button">Agregar!</button>
+                                    <button class="btn btn-success" v-on:click="openModal(null,'modal-product')" type="button">Mostrar!</button>
                                 </span>
                             </div><!-- /input-group -->
 
@@ -288,16 +285,17 @@
 
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-10 ">
-                        <div class="table-responsive">
+                        <div @*v-if="factura !== null && factura.details !== null && factura.details.length >0"*@ class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th><a>Accion</a></th>
                                         <th><a>Codigo</a></th>
                                         <th><a>Titulo</a></th>
-                                        <th><a>Precio Unitario</a></th>
                                         <th><a>Cantidad</a></th>
+                                        <th><a>Precio Unitario</a></th>
                                         <th><a>Precio Total</a></th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -307,32 +305,55 @@
                                         </td>
                                         <td>{{detail.item.Codigo}}</td>
                                         <td>{{detail.item.Titulo}}</td>
-                                        <td>&#162;{{detail.item.Precio}}</td>
-                                        <td>{{detail.quantity}}</td>
-                                        <td>&#162;{{detail.total}}</td>
+                                        <td>
+                                            <input class="form-control" min="1" max="20" type="number" name="name" v-model="detail.quantity" v-on:keyup="updateFacturaDetail($index)" v-on:change="updateFacturaDetail($index)" v-on:blur="updateFacturaDetail($index)" />
+                                        </td>
+                                        <td>&#162;{{detail.item.PrecioSinImp}}</td>
+                                        <td>&#162;{{detail.subtotal}}</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <button class="btn btn-small btn-info" v-on:click="openModal(null, 'modal-factura')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Facturar</button>
-                                        </td>
+
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>{{factura.master.totalItems}}</td>
+                                        <td></td>
+                                        <td>Subtotal: </td>
+                                        <td>&#162;{{factura.master.subtotal}}</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Impuestos (I.V.A): </td>
+                                        <td>&#162;{{factura.master.taxes}}</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total (I.V.I): </td>
                                         <td>&#162;{{factura.master.total}}</td>
+                                    </tr>
+                                    <tr class="">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button class="btn btn-lg btn-block btn-info" v-on:click="openModal(null, 'modal-factura')">Facturar</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12 other-controller">
-                        <div class="text-center">
-                            @*<dir-pagination-controls boundary-links="true"></dir-pagination-controls>*@
-                        </div>
-                    </div>
-                </div>
+
         </section>
     </section>
 </div>
