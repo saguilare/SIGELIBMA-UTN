@@ -17,11 +17,20 @@ namespace SIGELIBMA.Controllers
 
         public ActionResult Index(int? code)
         {
-            int errorCode = Convert.ToInt32((code != null) ? code : 1);
-           
-            ViewBag.code = errorCode;
-            ViewBag.Title = "Login";
-            return View();
+            if (Session == null || Session["SesionSistema"] == null) {
+                int errorCode = Convert.ToInt32((code != null) ? code : 1);
+
+                ViewBag.code = errorCode;
+                ViewBag.Title = "Login";
+                return View();
+
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Facturacion");
+            }
+            
         }
 
         [HttpPost]

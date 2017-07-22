@@ -28,8 +28,9 @@ data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
 data.toastr = { show: false, placement: "top-right", duration: "3000", type: "danger", width: "400px", dismissable: true, message: '' };
 data.session = { id: 1, user: {name : 'steven aguilar', username : 'saguilar'}};
-data.factura = { master: { id: 0, client: { id: 0, name: '' }, taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
+data.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:"",email:"" }, taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
 data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion de la base de datos, por favor espere.'};
+data.showFacturaModelNavbar = false;
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
@@ -44,15 +45,6 @@ var vm = new Vue({
         vueinput: VueStrap.input,
         toastr: VueStrap.alert,
         spinner: VueStrap.spinner,
-        //typeahead: customAutocomplete,
-        //datepicker: VueStrap.datepicker,
-        //modal not working the second time
-        //bug in vue-strap
-        //using bootstrap modal instead
-        //modal: VueStrap.modal,
-        //vueStrapAside: VueStrap.aside,
-        //popover: VueStrap.popover,
-
     },
 
     //Define methods
@@ -100,7 +92,7 @@ var vm = new Vue({
 
         initializeCashBox: function () {
             this.$refs.spinner1.show();
-            vm.cashier.Estado = 2;
+            vm.cashier.Estado = 1;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
@@ -113,13 +105,13 @@ var vm = new Vue({
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
                     } else {
-                        vm.cashier.Estado = 1;
+                        vm.cashier.Estado = 2;
                         vm.activateAlertModal('danger','La caja no se inicializo, trate nuevamente.',true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
-                    vm.cashier.Estado = 1;
+                    vm.cashier.Estado = 2;
                     vm.activateAlertModal('danger', 'La caja no se inicializo, trate nuevamente.', true);
              
                 }
@@ -129,7 +121,7 @@ var vm = new Vue({
 
         closeCashBox: function () {
             this.$refs.spinner1.show();
-            vm.cashier.Estado = 1;
+            vm.cashier.Estado = 2;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
@@ -143,20 +135,19 @@ var vm = new Vue({
                         $('#collapseFactMain').collapse('hide');
                         vm.cashier = null;
                     } else {
-                        vm.cashier.Estado = 2;
+                        vm.cashier.Estado = 1;
                         vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
-                    vm.cashier.Estado = 2;
+                    vm.cashier.Estado = 1;
                     vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
 
                 }
             });
 
         },
-
 
         getInitData: function () {
             $.ajax({
@@ -214,6 +205,7 @@ var vm = new Vue({
                 }
                 
             } else if (target.toLowerCase() === 'modal-factura') {
+                vm.showFacturaModelNavbar = true;
                 $("#modal-factura").modal({ show: true });
             }
             
@@ -298,16 +290,32 @@ var vm = new Vue({
             vm.modalFact.currentPage = 4;
             this.$refs.spinner1.show();
 
-            var param = 'test';
+            //Set cliente
+            var cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
+            cliente.Nombre1 = vm.factura.master.client.name;
+            cliente.Apellido1 = vm.factura.master.client.lastname;
+            cliente.Cedula = vm.factura.master.client.id;
+            cliente.Telefono = vm.factura.master.client.phone;
+            cliente.Email = vm.factura.master.client.email;
+            //Set Productos
+            var productos = [];
+            $.each(vm.factura.details, function (index, detail) {
+                productos.push({ Codigo: detail.item.Codigo, Cantidad: detail.quantity });
+            });
+            var factura = { Caja: vm.cashier.Codigo, Cliente: cliente, Productos: productos };
+            
             $.ajax({
-                url: urlRoot + 'Facturacion/ProcessPayment',
+                url: urlRoot + 'Facturacion/ProcesarCompra',
                 type: 'post',
                 dataType: 'json',
-                data: param,
+                data: factura,
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.factura.master.id = result.Factura;
                         vm.modalFact.currentPage = 3;
+                        vm.showFacturaModelNavbar = false;
+                        
+
                     } else {
                         vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
                         vm.modalFact.currentPage = 2;
@@ -316,15 +324,21 @@ var vm = new Vue({
                     vm.$refs.spinner1.hide();
                 },
                 error: function (error) {
+                    vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
+                    vm.modalFact.currentPage = 2;
                     vm.$refs.spinner1.hide();
-                    $('#modal-factura').modal('hide');
-                    vm.activateToastr('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
+                    
                 }
             });
 
         },
        
-     
+        modalFacturaClose: function () {
+            if (vm.factura !== null && vm.factura.master.id > 0) {
+                vm.factura = { master: { id: "", client: { id: "", name: '', lastname: "", phone: "", email: "" }, taxes: 0, subtotal: 0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
+            }
+        },
+
         init: function () {
             vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
             vm.activateAlert('danger', '', false);

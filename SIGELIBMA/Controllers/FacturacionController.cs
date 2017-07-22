@@ -17,7 +17,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
     {
 
         private FacturaServicio servicioFactura = new FacturaServicio();
+        private UsuarioServicio servicioUsuario = new UsuarioServicio();
         private CajaServicio servicioCaja = new CajaServicio();
+        private LibroServicio servicioLibro = new LibroServicio();
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
         public ActionResult Index()
@@ -66,14 +68,18 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult ProcesarCompra(string param)
+        public JsonResult ProcesarCompra(FacturaModel fatura)
         {
             try
             {
-                bool resultado = true;
-                if (resultado)
+       
+
+                fatura.Cliente.Nombre2 = (fatura.Cliente.Nombre1 != "" && fatura.Cliente.Nombre1.Contains(" ")) ? fatura.Cliente.Nombre1.Split(' ')[1] : "";
+                fatura.Cliente.Apellido2 = (fatura.Cliente.Apellido1 != "" && fatura.Cliente.Apellido1.Contains(" ")) ? fatura.Cliente.Apellido1.Split(' ')[1] : "";
+                Factura factura = CrearFactura(fatura);
+                if (factura != null && factura.Numero > 0)
                 {
-                    return Json(new { EstadoOperacion = true,Factura = 456456, Mensaje = "Transaccion Exitosa"});
+                    return Json(new { EstadoOperacion = true, Factura = factura.Numero, Mensaje = "Transaccion Exitosa" });
                 }
                 else
                 {
@@ -174,7 +180,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             try
             {
 
-                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual && x.Estado == 1).ToList();
+                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual && x.Estado == 2).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = cajas.Select(item => new
                 {
@@ -195,6 +201,145 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
         public void Facturar(Factura factura) {
             bool result = servicioFactura.Agregar(factura);
+        }
+
+        private Factura CrearFactura(FacturaModel compra)
+        {
+            try
+            {
+                Sesion sesion = new Sesion();
+                sesion.Inicio = DateTime.Now;
+
+                Factura factura = new Factura();
+                factura.Cliente = ObtenerUsuario(compra.Cliente).Cedula;
+                factura.Caja = ObtenerCaja(compra.Caja).Codigo;
+                factura.FechaCreacion = DateTime.Now;
+                factura.FechaCancelacion = DateTime.Now;
+                AgregarDetallesFactura(compra.Productos, ref factura);
+                CalcularMontosFactura(ref factura);
+                factura.Estado = 2;
+                servicioFactura.Agregar(factura);
+                //sesion.Usuario = factura.Cliente;
+                //sesion.Finalizacion = DateTime.Now;
+                //servicioSesion.Agregar(sesion);
+
+                //Transaccion tx = new Transaccion();
+                //tx.Tipo = 1;
+                //tx.Sesion = sesion.Id;
+                //tx.Tabla = "Login";
+                //tx.TuplaAnterior = "";
+                //tx.TuplaNueva = "";
+
+                //servicioTransaccion.Agregar(tx);
+
+                //tx.Tipo = 2;
+                //tx.Sesion = sesion.Id;
+                //tx.Tabla = "Login";
+                //tx.TuplaAnterior = "";
+                //tx.TuplaNueva = "";
+
+                //servicioTransaccion.Agregar(tx);
+
+
+                return factura;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private Usuario ObtenerUsuario(ClienteModel clientep)
+        {
+
+            try
+            {
+                Usuario cliente = servicioUsuario.ObtenerPorId(new Usuario { Cedula = clientep.Cedula });
+                if (cliente == null)
+                {
+                    cliente = new Usuario
+                    {
+                        Usuario1 = clientep.Nombre1[0] + clientep.Apellido1 + (clientep.Apellido2 != "" ? clientep.Apellido2[0].ToString() : ""),
+                        Clave = "",
+                        Cedula = clientep.Cedula,
+                        Nombre = clientep.Nombre1,
+                        Segundo_Nombre = clientep.Nombre2,
+                        Apellido1 = clientep.Apellido1,
+                        Apellido2 = clientep.Apellido2,
+                        Correo = clientep.Email,
+                        Estado = 1
+
+                    };
+                    servicioUsuario.Agregar(cliente);
+                }
+
+                return cliente;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private Caja ObtenerCaja(int id)
+        {
+            try
+            {
+                return servicioCaja.ObtenerPorId(new Caja { Codigo = id });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void AgregarDetallesFactura(List<ProductoModel> productos, ref Factura factura)
+        {
+            try
+            {
+                List<DetalleFactura> detalles = new List<DetalleFactura>();
+                foreach (ProductoModel prod in productos)
+                {
+
+                    DetalleFactura detalle = new DetalleFactura { Articulo = prod.Codigo, Cantidad = prod.Cantidad };
+
+                    detalles.Add(detalle);
+                }
+
+                factura.DetalleFactura = detalles;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void CalcularMontosFactura(ref Factura factura)
+        {
+            try
+            {
+                foreach (DetalleFactura detalle in factura.DetalleFactura)
+                {
+                    Libro libro = servicioLibro.ObtenerPorId(new Libro { Codigo = detalle.Articulo });
+                    factura.Impuestos += ((detalle.Cantidad * libro.PrecioVentaSinImpuestos) * 13) / 100;
+                    factura.Subtotal += detalle.Cantidad * libro.PrecioVentaSinImpuestos;
+
+                    factura.Pendiente = 0;
+                }
+                factura.Total += factura.Subtotal + factura.Impuestos;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

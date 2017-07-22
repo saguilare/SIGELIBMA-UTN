@@ -169,7 +169,7 @@ namespace SIGELIBMA.Controllers
                 factura.Deposito = depositos;
                 AgregarDetallesFactura(compra.Productos,ref factura);
                 CalcularMontosFactura(ref factura);
-                factura.Estado = 2;
+                factura.Estado = 4;
 
                 servicioFactura.Agregar(factura);
                 //sesion.Usuario = factura.Cliente;
