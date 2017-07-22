@@ -174,7 +174,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             try
             {
 
-                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual && x.Estado != 1).ToList();
+                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual && x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = cajas.Select(item => new
                 {

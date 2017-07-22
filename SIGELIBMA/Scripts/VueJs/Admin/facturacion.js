@@ -22,7 +22,7 @@ data.searchSelected = "";
 data.product = { item: {}, quantity: 1,subtotal:0,total:0 };
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null, Rol: 0 };
 data.modalFact = { currentPage: 1 };
-data.cashBox = null;
+data.cashier = null;
 data.cashBoxes = [];
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
@@ -35,7 +35,7 @@ Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
 })
 
-$("#collapseFactMain").collapse('show');
+//$("#collapseFactMain").collapse('show');
 var vm = new Vue({
     el: '#pageMainContainer',
     data: data,
@@ -100,12 +100,12 @@ var vm = new Vue({
 
         initializeCashBox: function () {
             this.$refs.spinner1.show();
-            vm.cashBox.Estado = 1;
+            vm.cashier.Estado = 1;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
                 dataType: 'json',
-                data: vm.cashBox,
+                data: vm.cashier,
                 success: function (result) {
                     vm.$refs.spinner1.hide();
                     if (result.EstadoOperacion) {
@@ -113,13 +113,13 @@ var vm = new Vue({
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
                     } else {
-                        vm.cashBox.Estado = 2;
+                        vm.cashier.Estado = 2;
                         vm.activateAlertModal('danger','La caja no se inicializo, trate nuevamente.',true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
-                    vm.cashBox.Estado = 2;
+                    vm.cashier.Estado = 2;
                     vm.activateAlertModal('danger', 'La caja no se inicializo, trate nuevamente.', true);
              
                 }
@@ -129,27 +129,27 @@ var vm = new Vue({
 
         closeCashBox: function () {
             this.$refs.spinner1.show();
-            vm.cashBox.Estado = 2;
+            vm.cashier.Estado = 2;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
                 dataType: 'json',
-                data: vm.cashBox,
+                data: vm.cashier,
                 success: function (result) {
                     vm.$refs.spinner1.hide();
                     if (result.EstadoOperacion) {
                         $('#modal-caja').modal('hide');
                         vm.activateToastr('success', 'La caja ha sido cerrada con exito.', true);
                         $('#collapseFactMain').collapse('hide');
-                        vm.cashBox = null;
+                        vm.cashier = null;
                     } else {
-                        vm.cashBox.Estado = 1;
+                        vm.cashier.Estado = 1;
                         vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
-                    vm.cashBox.Estado = 1;
+                    vm.cashier.Estado = 1;
                     vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
 
                 }
@@ -189,7 +189,7 @@ var vm = new Vue({
         openModal: function (object, target) {
             vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
-                vm.cashBox = {};
+                vm.cashier = {};
                 if (vm.cashBoxes === null || vm.cashBoxes.length < 1) {
                     vm.activateAlertModal("danger","Lo sentimos todas las cajas estan abiertas en este momento", true);
                 } else {
