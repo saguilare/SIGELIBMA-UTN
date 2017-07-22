@@ -100,7 +100,7 @@ var vm = new Vue({
 
         initializeCashBox: function () {
             this.$refs.spinner1.show();
-            vm.cashier.Estado = 1;
+            vm.cashier.Estado = 2;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
@@ -113,13 +113,13 @@ var vm = new Vue({
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
                     } else {
-                        vm.cashier.Estado = 2;
+                        vm.cashier.Estado = 1;
                         vm.activateAlertModal('danger','La caja no se inicializo, trate nuevamente.',true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
-                    vm.cashier.Estado = 2;
+                    vm.cashier.Estado = 1;
                     vm.activateAlertModal('danger', 'La caja no se inicializo, trate nuevamente.', true);
              
                 }
@@ -129,7 +129,7 @@ var vm = new Vue({
 
         closeCashBox: function () {
             this.$refs.spinner1.show();
-            vm.cashier.Estado = 2;
+            vm.cashier.Estado = 1;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
@@ -143,13 +143,13 @@ var vm = new Vue({
                         $('#collapseFactMain').collapse('hide');
                         vm.cashier = null;
                     } else {
-                        vm.cashier.Estado = 1;
+                        vm.cashier.Estado = 2;
                         vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
-                    vm.cashier.Estado = 1;
+                    vm.cashier.Estado = 2;
                     vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
 
                 }
