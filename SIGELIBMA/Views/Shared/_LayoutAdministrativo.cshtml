@@ -38,7 +38,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/mantroles">Roles</a></li>
-                            <li><a href="#">Another action</a></li>
+                            <li><a href="/mantlibros">Libros</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Separated link</a></li>
@@ -77,6 +77,10 @@
     {
         <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
         
+    }
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantLibros.js"></script>
     }
    
 </body>
