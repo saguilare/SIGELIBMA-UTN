@@ -177,6 +177,83 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<!--MODAL RETIROABONO CAJA-->
+<div id="modal-retiroAbono" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form v-on:submit.prevent="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Movimiento Dinero</h4>
+                </div>
+                <div class="modal-body">
+              
+                        <!-- Alert-->
+                        <div v-if="alertModal.status" class="col-sm-12 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
+
+                        <!-- Content-->
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
+                                <!--page 1-->
+                                <div v-if="modalFact.currentPage === 1">
+                                    <h3>Movimiento de Dinero</h3><hr />
+                                    <div class="form-group" required>
+                                        <select class="form-control" v-model="movimiento.tipo">
+                                            <option value="0" selected disabled>-- Seleccion un Tipo --</option>
+                                            <option v-for="mov in tiposMovimiento" v-bind:value="mov.codigo">{{mov.descripcion}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="movimiento.monto" type="number" label="Monto" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-gr<up">
+                                        <vueinput v-bind:value.sync="movimiento.razon" label="Descripcion" help="" error="Este campo es requerido." placeholder="Justificacion" pattern="^[0-9a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    </div>
+                                </div>
+                             
+                                <!--page 2-->
+                                <div v-if="modalFact.currentPage === 2">
+                                    <h3>Resumen Movimiento</h3><hr />
+                                    <div class="bg-info">
+                                        <h5><b>El movimiento se efectuo con exito!</b></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pager Btns-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <nav aria-label="...">
+                                    <ul class="pager">
+                                        <li v-if="modalRetiroAbono.currentPage > 1 " v-on:click="modalFact.currentPage -= 1">
+                                            <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+                                        </li>
+                                        <li v-if="modalRetiroAbono.currentPage >= 1 && modalRetiroAbono.currentPage <2" v-on:click="modalRetiroAbono.currentPage += 1 ">
+                                            <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                        </li>
+                                        <li v-if="modalRetiroAbono.currentPage === 2" v-on:click=" ">
+                                            <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default " data-dismiss="modal" >Cerrar</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- MODAL BOOK DETAILS -->
 <div id="modal-product" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -301,19 +378,14 @@
                         <ul class="dropdown-menu" v-if="cashier && cashier.Estado === 1">
                             <li v-on:click="closeCashBox()"><a href="#">Cerrar</a></li>
                             <li role="separator" class="divider"></li>
-                            <li v-on:click=""><a href="#">Retiro</a></li>
-                            <li v-on:click=""><a href="#">Abono</a></li>
+                            <li v-on:click="openModal(null,'modal-retiroAbono')"><a href="#">Abonar/Retirar</a></li>
                             <li role="separator" class="divider"></li>
                             <li v-on:click="openModal(null,'modal-movimientos')"><a href="#">Movimientos del Dia</a></li>
                         </ul>
                         <ul class="dropdown-menu" v-else>
                             <li v-on:click="openModal(null, 'modal-caja')" ><a href="#">Abrir</a></li>
                         </ul>
-                    </div><!-- /btn-group -->
-
-            
- 
-                    
+                    </div><!-- /btn-group -->           
                 </div>
             </div>
         </section>

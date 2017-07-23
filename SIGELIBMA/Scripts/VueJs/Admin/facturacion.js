@@ -33,6 +33,9 @@ data.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:
 data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion de la base de datos, por favor espere.'};
 data.showFacturaModelNavbar = false;
 data.movimientosDelDia = [];
+data.modalRetiroAbono = { currentPage: 1 };
+data.movimiento = { caja: {}, tipo: 0, monto: 0, razon:"" };
+data.tiposMovimiento = [{ codigo: 1, descripcion: 'Abono' }, { codigo: 2, descripcion: 'Retiro' }];
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
@@ -235,6 +238,8 @@ var vm = new Vue({
             } else if (target.toLowerCase() === 'modal-movimientos') {
                 vm.obtenerMovimientos();
                 
+            } else if (target.toLowerCase() === 'modal-retiroabono') {
+                $("#modal-retiroAbono").modal({ show: true });
             }
 
             
