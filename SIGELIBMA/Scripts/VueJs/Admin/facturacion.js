@@ -34,7 +34,7 @@ data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion 
 data.showFacturaModelNavbar = false;
 data.movimientosDelDia = [];
 data.modalRetiroAbono = { currentPage: 1 };
-data.movimiento = { caja: {}, tipo: 0, monto: 0, razon:"" };
+data.movimiento = { caja: {}, tipo: 0, monto: 0, razon:"" ,procesado: false};
 data.tiposMovimiento = [{ codigo: 1, descripcion: 'Abono' }, { codigo: 2, descripcion: 'Retiro' }];
 
 Vue.filter('numeral', function (value) {
@@ -142,13 +142,13 @@ var vm = new Vue({
                         vm.cashier = null;
                     } else {
                         vm.cashier.Estado = 1;
-                        vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
+                        vm.activateToastr('danger', 'La caja no se cerro, trate nuevamente.', true);
                     }
                 },
                 error: function (error) {
                     vm.$refs.spinner1.hide();
                     vm.cashier.Estado = 1;
-                    vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
+                    vm.activateToastr('danger', 'La caja no se cerro, trate nuevamente.', true);
 
                 }
             });
@@ -205,6 +205,32 @@ var vm = new Vue({
             });
         },
 
+        aplicarMovimiento: function () {
+            this.$refs.spinner1.show();
+            vm.cashier.Monto = vm.movimiento.monto;
+            vm.cashier.Razon = vm.movimiento.razon;
+            vm.cashier.Movimiento = vm.movimiento.tipo;
+            $.ajax({
+                url: urlRoot + 'Facturacion/RetirarAbonarCaja',
+                type: 'post',
+                dataType: 'json',
+                data: vm.cashier,
+                success: function (result) {
+                    vm.$refs.spinner1.hide();
+                    if (result.EstadoOperacion) {
+                        vm.movimiento.procesado = true ;
+                    } else {
+                        vm.activateAlertModal('danger', 'La transaccion no se proceso, por favor intente de nuevo.', true);
+                    }
+                },
+                error: function (error) {
+                    vm.$refs.spinner1.hide();
+                    vm.activateAlertModal('danger', 'La transaccion no se proceso, por favor intente de nuevo.', true);
+
+                }
+            });
+        },
+
         openModal: function (object, target) {
             vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
@@ -239,6 +265,7 @@ var vm = new Vue({
                 vm.obtenerMovimientos();
                 
             } else if (target.toLowerCase() === 'modal-retiroabono') {
+                vm.movimiento = { caja: {}, tipo: 0, monto: 0, razon: "", procesado: false };
                 $("#modal-retiroAbono").modal({ show: true });
             }
 

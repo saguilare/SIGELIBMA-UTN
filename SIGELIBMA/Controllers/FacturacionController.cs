@@ -227,7 +227,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 if (cajaDb != null)
                 {
                     MovimientoCaja movimiento = new MovimientoCaja();
-                    movimiento.Descripcion = caja.Movimiento == 1 ? "Abono" : "Retiro";
+                    movimiento.Descripcion = caja.Razon;
                     movimiento.Caja = cajaDb.Codigo;
                     movimiento.Fecha = DateTime.Now;
                     movimiento.Monto = Convert.ToDecimal(caja.Monto);

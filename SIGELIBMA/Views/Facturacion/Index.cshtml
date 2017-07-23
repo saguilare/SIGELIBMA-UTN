@@ -201,7 +201,7 @@
                             <div class="col-sm-12 table-responsive">
                                 <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
                                 <!--page 1-->
-                                <div v-if="modalFact.currentPage === 1">
+                                <div v-if="movimiento.procesado === false">
                                     <h3>Movimiento de Dinero</h3><hr />
                                     <div class="form-group" required>
                                         <select class="form-control" v-model="movimiento.tipo">
@@ -218,7 +218,7 @@
                                 </div>
                              
                                 <!--page 2-->
-                                <div v-if="modalFact.currentPage === 2">
+                                <div v-if="movimiento.procesado === true">
                                     <h3>Resumen Movimiento</h3><hr />
                                     <div class="bg-info">
                                         <h5><b>El movimiento se efectuo con exito!</b></h5>
@@ -231,13 +231,7 @@
                             <div class="col-sm-12 text-center">
                                 <nav aria-label="...">
                                     <ul class="pager">
-                                        <li v-if="modalRetiroAbono.currentPage > 1 " v-on:click="modalFact.currentPage -= 1">
-                                            <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
-                                        </li>
-                                        <li v-if="modalRetiroAbono.currentPage >= 1 && modalRetiroAbono.currentPage <2" v-on:click="modalRetiroAbono.currentPage += 1 ">
-                                            <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
-                                        </li>
-                                        <li v-if="modalRetiroAbono.currentPage === 2" v-on:click=" ">
+                                        <li v-if="movimiento.procesado === false" v-on:click="aplicarMovimiento()">
                                             <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
                                         </li>
                                     </ul>

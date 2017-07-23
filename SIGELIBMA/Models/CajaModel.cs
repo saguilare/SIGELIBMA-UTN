@@ -16,5 +16,6 @@ namespace SIGELIBMA.Models
         public int Estado { get; set; }
         public int Movimiento { get; set; }
         public decimal Monto { get; set; }
+        public string Razon { get; set; }
     }
 }
