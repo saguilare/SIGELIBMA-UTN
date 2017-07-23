@@ -51,7 +51,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autor.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Caja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categoria.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Deposito.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Descuento.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleFactura.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EstadoCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EstadoFactura.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factura.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Libro.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovimientoCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Recibo.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\Extensions\QueryExtension.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
@@ -59,53 +101,74 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Repository\UnitOfWorkFactory.cs" />
-    <Compile Include="Role.cs">
-      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+    <Compile Include="Rol.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SigelibmaDbModel.Context.cs">
+    <Compile Include="Sesion.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SIGELIBMAModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SigelibmaDbModel.Context.tt</DependentUpon>
+      <DependentUpon>SIGELIBMAModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="SigelibmaDbModel.cs">
+    <Compile Include="SIGELIBMAModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SigelibmaDbModel.Designer.cs">
+    <Compile Include="SIGELIBMAModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="TipoMovimientoCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoPago.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoTransaccion.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaccion.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs">
-      <DependentUpon>SigelibmaDbModel.tt</DependentUpon>
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioRoles.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="SigelibmaDbModel.edmx">
+    <EntityDeploy Include="SIGELIBMAModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SigelibmaDbModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SIGELIBMAModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="SigelibmaDbModel.edmx.diagram">
-      <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
+    <None Include="SIGELIBMAModel.edmx.diagram">
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SigelibmaDbModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
-      <LastGenOutput>SigelibmaDbModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="SigelibmaDbModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SigelibmaDbModel.edmx</DependentUpon>
-      <LastGenOutput>SigelibmaDbModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SIGELIBMAModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+      <LastGenOutput>SIGELIBMAModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SIGELIBMAModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+      <LastGenOutput>SIGELIBMAModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

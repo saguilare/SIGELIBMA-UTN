@@ -3,13 +3,81 @@
 }
 
 body {
-    
+    background-color: #e3e6e8;
 }
+
+.btn-pager {
+    color:#337ab7;
+    border-radius:15pt;
+}
+
+.btn-pager:focus {
+    outline:none;
+}
+
+.testimonial-group .row {
+  overflow-x: hidden;
+  white-space:nowrap;
+  margin:70px;
+  
+}
+.testimonial-group  .row  .col-xs-4 {
+  display: inline-block;
+  float: none;
+  white-space:normal;
+}
+
+.scrollBtn {
+position:relative;
+top:270px;
+z-index:1;
+background-color:transparent;
+border:none;
+color:#232f3e;
+font-size: 50px;
+}
+
+.scrollBtn:focus { outline: none; }
+
+div.producto{ 
+    margin-right: 50px;
+    background-color:#fafafa;
+    border: 3px ridge #f08804;
+    border-radius: 10px;
+    width:180px;
+    padding:40px 0px;
+}
+
+.category-header h1{
+    color:#232f3e;
+}
+.category-header hr{
+
+    border-top: 4px solid #48a3c6;
+}
+
+div.producto img{
+    border: 5px ridge #232f3e;
+    border-radius: 10px;
+
+}
+
+.precio {
+    color:#f08804;
+}
+
+.btn-details {
+    background-color:#f08804;
+    color:#232f3e;
+
+}
+
+
+
 
 /*override color in tool nav bar*/
 nav.navbar-main{
-    background-color: #005C5C;
-    border-color:#003333;
+    background-color:#232f3e;
     border-radius: 0;
 }
 
@@ -27,6 +95,7 @@ nav.navbar-main .navbar-text{
 
 .navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
     color:white;
+
 }
 
 .navbar-main .navbar-nav>.active>p, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
@@ -42,7 +111,7 @@ nav.navbar-main .navbar-text{
 }
 
 .navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
-    background-color: #005C5C;
+    background-color: black;
 }
 
  .navbar-main .navbar-nav>.active>a:hover{
@@ -54,174 +123,155 @@ nav.navbar-main .navbar-text{
   background-color: #004d4d;
 }
 
-/*-------------------------
-* MODAL
-*--------------------------
-*/
-
-div.modal-header{
-  background-color: #0071C5;
-  color: white;
+.carticon {
+    color:#f08804;
 }
 
-div.modal-header h4, div.modal-header h3,div.modal-header h2{
-  color: white;
+.badgequantity {
+    background-color:#f08804;
+    font-size:15px;
 }
 
-div.modal-Warning, {
-  background-color: #ED1C24;
-  color: whte;
+.navprice {
+     color:#f08804;
 }
 
-div.modal-Warning h4, div.modal-Warning h3,div.modal-Warning h2{
-  color: white;
+div.search {
+   border: 2px #232f3e solid;
+}
+
+.navbar .search button{
+   background-color:#f08804;
+   color:#232f3e;
 }
 
 
-/*----------------------------
-* Loading window
-*-----------------------------
-*/
+    .search-input input{
+         /*max-width:160px;*/
+    }
 
-.loading{
-    top: 50px;;
-    text-align: center;
+
+
+
+.modal-header {
+    background-color:#232f3e;
+    color:#f08804;
+    border-bottom-color:#f08804;
 }
 
-div.loading img{
-    opacity: 0.5;
+.modal-header h4 {
+   
+    color:#f08804;
 }
 
-/* --------------------------
- * PAGE & SECTION TITLE BARS
- * --------------------------
-*/
-.title-bar {
-  border: 2px solid #b1babf;
-  border-left: 0px;
-  border-right: 0px;
-  border-top: 0px;
+.modal .alert {
+    margin-left:15px;
+    margin-right:15px;
+}
+
+.modal-body img {
+    border: 5px ridge #f08804;
+    border-radius: 10px;
+}
+
+ .btn-proceed{
+    background-color:#f08804;
+    color:#232f3e;
+}
+
+.modal-footer {
+    border-top: 1px solid #f08804;
+}
+
+ .btn-proceed{
+    background-color:#f08804;
+    color:#232f3e;
+}
+
+
+.book-quantity {
+    display:inline-block;
+    max-width:60px;
+    border:none;
+}
+
+/*MODAL SHOPPING CART*/
+
+#modalShoppingCart .modal-body {
+    padding:15px;
+}
+
+#modalShoppingCart .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a {
+    color:#337ab7;
+    background-color:transparent;
+    border-bottom: 2px solid #f4d078 ;
+}
+
+#modalShoppingCart hr.navbar-separator {
+   border-top:  1px solid #232f3e;
+}
+
+.bg-success, .bg-info, .bg-danger, .bg-warning {
+    padding:20px;
+    border-radius:10pt;
+}
+/*section 3 bank info*/
+#modalShoppingCart .bg-accts {
+    padding:20px;
+    border-radius:10pt;
+}
+
+/*helps span glyphicon not cover select dropdown sign*/
+span.selectspan {
+    right:5px;
+}
+
+/*.popimage {
+    margin-left:50%;
+    margin-top: 15%;
+
+    width: 200px;
+    height: 200px;
+    
+    -webkit-transform: translate(-50%,-50%); /* safari and chrome */
+    -moz-transform: translate(-50%,-50%); /* firefox */
+    -ms-transform: translate(-50%,-50%); /* ie 9 */
+    -o-transform: translate(-50%,-50%); /* opera */
+    transform: translate(-50%,-50%);
+}*/
+
+
+ .goTop {
+  border-radius: 5px;
+  background-color: rgb(1,14,27);
+  background-color: rgba(1, 14, 27, .7);
+  position: fixed;
+  width: 45px;
+  height: 45px;
   display: block;
-  margin-bottom: 10px;
-  /*** Left Border (optional) ***/
-  /*** Bottom Border ***/ }
-  .title-bar:before,
-  .title-bar:after {
-    content: " ";
-    display: table; }
-  .title-bar:after {
-    clear: both; }
-  .title-bar.intel-bg-light {
-    background-color: #fff; }
-  .title-bar.intel-left-border:before {
-    background: url("../images/circuit_549x549.png") -10px -338px;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 15px; }
-  .title-bar.intel-border-none {
-    border-radius: 0;
-    border-width: 0 0 2px 0; }
-  .title-bar.intel-border-blue,
-  .title-bar.intel-border-cyan,
-  .title-bar.intel-border-green,
-  .title-bar.intel-border-orange,
-  .title-bar.intel-border-yellow {
-    border-bottom-width: 2px; }
-  .title-bar.border-blue {
-    border-bottom-color: #0071c5; }
-  .title-bar.border-cyan {
-    border-bottom-color: #00aeef; }
-  .title-bar.border-green {
-    border-bottom-color: #005C5C; }
-  .title-bar.border-orange {
-    border-bottom-color: #FFA300; }
-  .title-bar.border-yellow {
-    border-bottom-color: #F3D54E; }
-
-.title-bar-order,
-.title-bar-subtitle,
-.title-bar-title {
-  float: left; }
-
-.title-bar-order {
-  background-color: #edeff0;
-  border-radius: 20px;
-  color: #53565a;
-  height: 40px;
-  line-height: 40px;
-  margin: 5px 15px;
-  width: 40px;
-  text-align: center; }
-
-.title-bar-order.intel-bg-dark {
-  background-color: #edeff0;
-  border-color: #edeff0; }
-
-.title-bar-title {
-  color: #003333;
-  font-size: 1.5em;
-  line-height: 30px;
-  margin: 10px 0;
-  padding: 0 15px; }
-
-.title-bar-subtitle {
-  border-left: 1px solid #b1babf;
-  color: #005C5C;
-  font-size: 1.25em;
-  line-height: 30px;
-  margin: 10px 0;
-  padding: 0 15px; }
-
-.title-bar-blur {
-    background-color: #e3e6e8;
-    background: -webkit-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Firefox 3.6 to 15 */
-    background: linear-gradient(right bottom, #e3e6e8 , #ffffff) !important; /* Standard syntax */
+  right: 15px;
+  bottom: 15px;
+  border: none;
+  opacity: 0;
+  z-index: -1;
+  
 }
 
-/*********************
- Back to top styles
-*********************/
-.back-to-top {
-	position: fixed;
-	bottom: 70px;
-	right:20px;
-	z-index: 1;
-	width: 50px;
-	height: 50px;
-	background: #0071C5;
-	opacity: 0.5;
 
 
-	&:hover {
-		opacity: 5;
-		cursor: pointer;
-	}
+ .goTop span {
+    color: black;
+    font-size: 22px;
+  }
 
-	i {
-		font-size: 25px;
-		padding: 12px;
-		color: #FFF;
-	}
+  .goTop span :hover {
+    opacity: 1;
+    background-color: rgb(1,14,27);
+    background-color: rgba(1, 14, 27, .9);
+  }
 
+.isVisible {
+  opacity: .6;
+  z-index: 4;
+  transition: all .4s ease-in;
 }
-
-/***********************
-TABLES
-***********************/
-//change cursor to pointer when selecting sort order in table th
-th a {
-   cursor: pointer;
-}
-
-//make columns adjusts to content
-.table td, 
-.table th {
-    white-space: nowrap;
-    width: 1%;
-}
-
