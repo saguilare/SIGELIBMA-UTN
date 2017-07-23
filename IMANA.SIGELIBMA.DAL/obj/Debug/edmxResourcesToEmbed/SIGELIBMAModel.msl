@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SIGELIBMAModelStoreContainer" CdmEntityContainer="SIGELIBMAEntities">
+    <EntitySetMapping Name="Autor">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Autor">
+        <MappingFragment StoreEntitySet="Autor">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Caja">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Caja">
+        <MappingFragment StoreEntitySet="Caja">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categoria">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Categoria">
+        <MappingFragment StoreEntitySet="Categoria">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deposito">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Deposito">
+        <MappingFragment StoreEntitySet="Deposito">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Factura" ColumnName="Factura" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="BancoEmisor" ColumnName="BancoEmisor" />
+          <ScalarProperty Name="BancoReceptor" ColumnName="BancoReceptor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Descuento">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Descuento">
+        <MappingFragment StoreEntitySet="Descuento">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleFactura">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.DetalleFactura">
+        <MappingFragment StoreEntitySet="DetalleFactura">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Factura" ColumnName="Factura" />
+          <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoCaja">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.EstadoCaja">
+        <MappingFragment StoreEntitySet="EstadoCaja">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoFactura">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.EstadoFactura">
+        <MappingFragment StoreEntitySet="EstadoFactura">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Factura">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Factura">
+        <MappingFragment StoreEntitySet="Factura">
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Caja" ColumnName="Caja" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="FechaCancelacion" ColumnName="FechaCancelacion" />
+          <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+          <ScalarProperty Name="Impuestos" ColumnName="Impuestos" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+          <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+          <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inventario">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Inventario">
+        <MappingFragment StoreEntitySet="Inventario">
+          <ScalarProperty Name="CodigoLibro" ColumnName="CodigoLibro" />
+          <ScalarProperty Name="CantidadStock" ColumnName="CantidadStock" />
+          <ScalarProperty Name="CantidadMinima" ColumnName="CantidadMinima" />
+          <ScalarProperty Name="CantidadMaxima" ColumnName="CantidadMaxima" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Libro">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Libro">
+        <MappingFragment StoreEntitySet="Libro">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Autor" ColumnName="Autor" />
+          <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
+          <ScalarProperty Name="PrecioBase" ColumnName="PrecioBase" />
+          <ScalarProperty Name="PorcentajeGanancia" ColumnName="PorcentajeGanancia" />
+          <ScalarProperty Name="PrecioVentaSinImpuestos" ColumnName="PrecioVentaSinImpuestos" />
+          <ScalarProperty Name="PrecioVentaConImpuestos" ColumnName="PrecioVentaConImpuestos" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MovimientoCaja">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.MovimientoCaja">
+        <MappingFragment StoreEntitySet="MovimientoCaja">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Caja" ColumnName="Caja" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedor">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recibo">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Recibo">
+        <MappingFragment StoreEntitySet="Recibo">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Factura" ColumnName="Factura" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Abono" ColumnName="Abono" />
+          <ScalarProperty Name="SaldoAnterior" ColumnName="SaldoAnterior" />
+          <ScalarProperty Name="SaldoActual" ColumnName="SaldoActual" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Rol">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sesion">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Sesion">
+        <MappingFragment StoreEntitySet="Sesion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+          <ScalarProperty Name="Finalizacion" ColumnName="Finalizacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoMovimientoCaja">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.TipoMovimientoCaja">
+        <MappingFragment StoreEntitySet="TipoMovimientoCaja">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoPago">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.TipoPago">
+        <MappingFragment StoreEntitySet="TipoPago">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoTransaccion">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.TipoTransaccion">
+        <MappingFragment StoreEntitySet="TipoTransaccion">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaccion">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Transaccion">
+        <MappingFragment StoreEntitySet="Transaccion">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+          <ScalarProperty Name="TuplaNueva" ColumnName="TuplaNueva" />
+          <ScalarProperty Name="TuplaAnterior" ColumnName="TuplaAnterior" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Segundo_Nombre" ColumnName="Segundo_Nombre" />
+          <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+          <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioRoles">
+      <EntityTypeMapping TypeName="SIGELIBMAModel.UsuarioRoles">
+        <MappingFragment StoreEntitySet="UsuarioRoles">
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

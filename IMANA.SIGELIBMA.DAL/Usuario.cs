@@ -14,16 +14,25 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Usuario
     {
+        public Usuario()
+        {
+            this.Factura = new HashSet<Factura>();
+            this.Sesion = new HashSet<Sesion>();
+            this.UsuarioRoles = new HashSet<UsuarioRoles>();
+        }
+    
         public string Usuario1 { get; set; }
         public string Clave { get; set; }
-        public Nullable<int> Role_Id { get; set; }
         public string Cedula { get; set; }
         public string Nombre { get; set; }
         public string Segundo_Nombre { get; set; }
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
         public string Correo { get; set; }
+        public Nullable<int> Estado { get; set; }
     
-        public virtual Role Role { get; set; }
+        public virtual ICollection<Factura> Factura { get; set; }
+        public virtual ICollection<Sesion> Sesion { get; set; }
+        public virtual ICollection<UsuarioRoles> UsuarioRoles { get; set; }
     }
 }

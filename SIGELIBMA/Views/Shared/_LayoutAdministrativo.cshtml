@@ -3,11 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Content/Admin/Layout/Layout.css" rel="stylesheet" />
-    <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
+    <link href="~/Content/SiteAdmin.css" rel="stylesheet" />
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
+    {
+        <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
+    {
+        <link href="~/Content/Admin/Facturacion/Fact.css" rel="stylesheet" />
+    }
+    
 </head>
 <body id="pageMainContainer">
     <nav class="navbar-main navbar navbar-default">
@@ -19,10 +27,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img class="navbar-brand" src="bower_components/it-mlaf-sass/images/intel-logo-white-100.png" alt="">
+                <img class="navbar-brand" src="" alt="">
                 <a class="navbar-brand">SIGELIBMA</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
+                <ul class="nav navbar-nav">
+                    <li class="Active"><a href="/facturacion">Facturacion <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Entregas</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/mantroles">Roles</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li id="nameandjobtitlebar" class="active"><a class=""><i class="intelicon-user-person-outlined" aria-hidden="true"></i>Stevenag | Admin</a></li>
                     <li ng-if="showlogout" class="active"><a href="" ng-click="logout()">Logout </a></li>
@@ -42,7 +66,18 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/Underscore.js"></script>
     <script src="~/Scripts/VueJsFramework/vue1.js"></script>
-    <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
+    <script src="~/Scripts/vue-strap/vue-strap.js"></script>
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
+    {
+        <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
+        
+    }
+   
 </body>
 </html>

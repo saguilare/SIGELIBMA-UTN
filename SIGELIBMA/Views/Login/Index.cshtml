@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+   
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Admin/Login/Login.css" rel="stylesheet" />
+    <title>Login</title>
+
+</head>
+<body>
+    <nav class="navbar-main navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img class="navbar-brand" src="" alt="">
+                <a class="navbar-brand">SIGELIBMA</a>
+            </div>
+           
+        </div>
+    </nav>
+    <div id="LoginContainer" class="logincontainer container-fluid">
+        <form name="" class="" v-on:submit.prevent="executeLogin()">
+            <fieldset>
+                <h2 class="form-signin-heading">Bienvenido</h2>
+                <hr />
+                <div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+                    <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong v-if="lowerCase(alert.type) ==='danger'">Atencion!</strong>
+                    <strong v-else>Info!</strong>
+                    {{alert.message}}
+                </div>
+                <div class="form-group">
+                    <vueinput v-bind:value.sync="login.Username" label="" help="Ingrese su nombre de usuario." error="Verifique su nombre de usuario" placeholder="Nombre de Usuario" pattern="^[a-zA-Z0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                </div>
+                <div class="form-group">
+                    <vueinput type="password" v-bind:value.sync="login.Password" label="" help="Ingrese su contraseña." error="Verifique su contraseña (Solo acepta numeros y letras)" placeholder="Contraseña" pattern="^[a-zA-Z0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                </div>
+                <button type="submit" class="btn btn-lg btn-block btn-login">Ingresar</button>
+            </fieldset>
+        </form>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/VueJsFramework/vue1.js"></script>
+    <script src="~/Scripts/vue-strap/vue-strap.js"></script>
+    <script src="~/Scripts/VueJs/Admin/login.js"></script>
+</body>
+</html>

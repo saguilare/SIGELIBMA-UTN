@@ -1,0 +1,252 @@
+﻿html{
+    height: 100%;
+}
+
+    
+body {
+    background-color:#f6f8f8;
+    
+}
+
+#section-body {
+    background-color:#e3e6e8;
+}
+
+#wrapper {
+    padding: 0px 100px;
+}
+
+
+
+
+/*override color in tool nav bar*/
+nav.navbar-main{
+    background-color: #232f3E;
+    border-color:#232f3e;
+    border-radius: 0;
+}
+
+nav.navbar-main .navbar-brand{
+    color: white;
+}
+
+nav.navbar-main .navbar-brand:hover{
+    color: white;
+}
+
+nav.navbar-main .navbar-text{
+    color: white;
+}
+
+.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color:white;
+}
+
+.navbar-main .navbar-nav>.active>p, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color:white;
+}
+
+.navbar-default .navbar-nav>.active>a:hover{
+    background-color: black;
+}
+
+.navbar-main .navbar-header img{
+    padding: 10px 15px;
+}
+
+.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
+    background-color: black;
+}
+
+ .navbar-main .navbar-nav>.active>a:hover{
+    background-color: black;
+}
+
+  .navbar-main .navbar-nav>.active>a{
+    background-color: #232f3e;
+}
+#nameandjobtitlebar>a:hover{
+  background-color: black;
+}
+
+#nameandjobtitlebar>a{
+  background-color: #232f3e;
+}
+
+
+
+/* --------------------------
+ * PAGE & SECTION TITLE BARS
+ * --------------------------
+*/
+.title-bar {
+  border: 2px solid #f08804;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  display: block;
+  margin-bottom: 10px;
+  /*** Left Border (optional) ***/
+  /*** Bottom Border ***/ }
+  .title-bar:before,
+  .title-bar:after {
+    content: " ";
+    display: table; }
+  .title-bar:after {
+    clear: both; }
+ 
+
+.title-bar-order,
+.title-bar-subtitle,
+.title-bar-title {
+  float: left; }
+
+.title-bar-order {
+  background-color: #edeff0;
+  border-radius: 20px;
+  color: #53565a;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px 15px;
+  width: 40px;
+  text-align: center; }
+
+.title-bar-title {
+  color: #232f3e;
+  font-size: 1.5em;
+  line-height: 30px;
+  margin: 10px 0;
+  padding: 0 15px; }
+
+.title-bar-subtitle {
+  border-left: 1px solid #b1babf;
+  color: #232f3e;
+  font-size: 1.25em;
+  line-height: 30px;
+  margin: 10px 0;
+  padding: 0 15px; }
+
+.title-bar-blur {
+    background-color: #e3e6e8;
+    background: -webkit-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right bottom, #e3e6e8 , #ffffff)!important; /* For Firefox 3.6 to 15 */
+    background: linear-gradient(right bottom, #e3e6e8 , #ffffff) !important; /* Standard syntax */
+}
+
+/*----------------------------
+* Loading window
+*-----------------------------
+*/
+
+.loading{
+    top: 50px;
+    text-align: center;
+}
+
+div.loading img{
+    opacity: 0.5;
+}
+
+
+/***********************
+TABLES
+***********************/
+/*change cursor to pointer when selecting sort order in table th*/
+th a {
+   cursor: pointer;
+}
+
+/*//make columns adjusts to content*/
+.table td, 
+.table th {
+    white-space: nowrap;
+    width: 1%;
+}
+
+
+/*-------------------------
+* MODAL MAINTAINANCE 
+*--------------------------
+*/
+.modal-header {
+    background-color:#232f3e;
+    color:#f08804;
+    border-bottom: 2px solid #f08804;
+    
+}
+
+div.modal-header h4, div.modal-header h3,div.modal-header h2{
+  color: #f08804;
+}
+
+.modal-footer .btn-save {
+    background-color: #232f3e;
+    color:#f08804;
+}
+
+/*END MODAL MAINT*/
+
+
+/*PAGINATION*/
+
+
+.nav-PaginationJustified {
+    margin-left:35%;
+    width: 5%;
+}
+
+.nav-PaginationJustified > li {
+    display: table-cell;
+    width: 1%;
+    border: 1px solid #ccc;
+}
+
+.nav-PaginationJustified li.active {
+    border-bottom: solid;
+    border-color: #337ab7;
+}
+
+.nav-PaginationJustified > li >a {
+    text-align: center;
+    color: #2a6496;
+}
+
+
+.nav-PaginationJustified li.first {
+    border-radius: 5pt 0pt 0pt 5pt;
+}
+
+.nav-PaginationJustified li.last {
+ border-radius: 0pt 5pt 5pt 0pt;
+}
+
+
+
+
+/*********************
+ Back to top styles
+*********************/
+/*.back-to-top {
+	position: fixed;
+	bottom: 70px;
+	right:20px;
+	z-index: 1;
+	width: 50px;
+	height: 50px;
+	background: #0071c5;
+	opacity: 0.5;
+
+
+	&:hover {
+		opacity: 5;
+		cursor: pointer;
+	}
+
+	i {
+		font-size: 25px;
+		padding: 12px;
+		color: #fff;
+	}
+
+}*/
