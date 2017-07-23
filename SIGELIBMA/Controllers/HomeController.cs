@@ -158,6 +158,7 @@ namespace SIGELIBMA.Controllers
                 factura.Caja = ObtenerCaja(CajaVirtual).Codigo;
                 factura.FechaCreacion = DateTime.Now;
                 factura.FechaCancelacion = null;
+                factura.TipoPago = 3;
                 List<Deposito> depositos = new List<Deposito>();
                 depositos.Add(new Deposito{ Referencia = compra.Deposito.Referencia,
                     Fecha = compra.Deposito.Fecha,
@@ -167,6 +168,7 @@ namespace SIGELIBMA.Controllers
                     
                 });
                 factura.Deposito = depositos;
+                factura.Referencia = depositos != null && depositos.Count > 0 ? depositos.FirstOrDefault().Referencia.ToString() : string.Empty;
                 AgregarDetallesFactura(compra.Productos,ref factura);
                 CalcularMontosFactura(ref factura);
                 factura.Estado = 4;

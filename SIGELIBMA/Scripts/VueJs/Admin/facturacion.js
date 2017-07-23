@@ -24,13 +24,15 @@ data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null, Rol: 0 };
 data.modalFact = { currentPage: 1 };
 data.cashier = null;
 data.cashBoxes = [];
+data.tiposPago = [];
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
 data.toastr = { show: false, placement: "top-right", duration: "3000", type: "danger", width: "400px", dismissable: true, message: '' };
 data.session = { id: 1, user: {name : 'steven aguilar', username : 'saguilar'}};
-data.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:"",email:"" }, taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
+data.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:"",email:"" },tipoPago:{Codigo:0,Descripcion:""},referencia:"", taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
 data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion de la base de datos, por favor espere.'};
 data.showFacturaModelNavbar = false;
+data.movimientosDelDia = [];
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
@@ -104,6 +106,7 @@ var vm = new Vue({
                         $('#modal-caja').modal('hide');
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
+         
                     } else {
                         vm.cashier.Estado = 2;
                         vm.activateAlertModal('danger','La caja no se inicializo, trate nuevamente.',true);
@@ -149,6 +152,27 @@ var vm = new Vue({
 
         },
 
+        obtenerMovimientos: function () {
+            $.ajax({
+                url: urlRoot + 'Facturacion/MovimientosCaja',
+                type: 'post',
+                dataType: 'json',
+                data: vm.cashier,
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.movimientosDelDia = result.Movimientos;
+                        $("#modal-movimientos").modal({ show: true });
+                    } else {
+                        vm.activateToastr("danger", "Hubo un problema obteniendo los movimientos de la caja", true);
+                    }
+                },
+                error: function (error) {
+                    vm.activateToastr("danger", "Hubo un problema obteniendo los movimientos de la caja", true);
+                }
+            });
+
+        },
+
         getInitData: function () {
             $.ajax({
                 url: urlRoot + 'facturacion/Init',
@@ -158,6 +182,7 @@ var vm = new Vue({
                     if (result.EstadoOperacion) {
                         vm.cashBoxes = result.Cajas;
                         vm.books = result.Libros;
+                        vm.tiposPago = result.TiposPago;
                         if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
                             $.each(vm.books,function (key, book) {
                                 vm.codigos.push(book.Codigo.toString());
@@ -207,7 +232,11 @@ var vm = new Vue({
             } else if (target.toLowerCase() === 'modal-factura') {
                 vm.showFacturaModelNavbar = true;
                 $("#modal-factura").modal({ show: true });
+            } else if (target.toLowerCase() === 'modal-movimientos') {
+                vm.obtenerMovimientos();
+                
             }
+
             
 
         },
@@ -302,7 +331,9 @@ var vm = new Vue({
             $.each(vm.factura.details, function (index, detail) {
                 productos.push({ Codigo: detail.item.Codigo, Cantidad: detail.quantity });
             });
-            var factura = { Caja: vm.cashier.Codigo, Cliente: cliente, Productos: productos };
+
+            
+            var factura = { Caja: vm.cashier.Codigo, Cliente: cliente, Productos: productos, TipoPago: vm.factura.master.tipoPago, referencia: vm.factura.master.referencia };
             
             $.ajax({
                 url: urlRoot + 'Facturacion/ProcesarCompra',
@@ -335,7 +366,7 @@ var vm = new Vue({
        
         modalFacturaClose: function () {
             if (vm.factura !== null && vm.factura.master.id > 0) {
-                vm.factura = { master: { id: "", client: { id: "", name: '', lastname: "", phone: "", email: "" }, taxes: 0, subtotal: 0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
+                vm.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:"",email:"" },tipoPago:{Codigo:0,Descripcion:""},referencia:"", taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
             }
         },
 

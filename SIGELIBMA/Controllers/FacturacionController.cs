@@ -19,7 +19,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         private FacturaServicio servicioFactura = new FacturaServicio();
         private UsuarioServicio servicioUsuario = new UsuarioServicio();
         private CajaServicio servicioCaja = new CajaServicio();
+        private MovimientoCajaServicio servicioMovimientos = new MovimientoCajaServicio();
         private LibroServicio servicioLibro = new LibroServicio();
+        private TipoPagoServicio servicioTipoPago = new TipoPagoServicio();
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
         public ActionResult Index()
@@ -34,8 +36,12 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             {
                 var libros = ObtenerLibros();
                 var cajas = ObtenerCajas();
-
-                return Json(new { EstadoOperacion = true, Libros = libros, Cajas = cajas, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
+                var tipospago = ObtenerTiposPago();
+                if (libros == null ||  cajas== null || tipospago== null)  
+                {
+                    throw new Exception("No se cuenta con la informacion necesaria para esta pagina, vuelva a recargar."); 
+                }
+                return Json(new { EstadoOperacion = true, Libros = libros, Cajas = cajas,TiposPago = tipospago, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
    
             }
             catch (Exception)
@@ -94,24 +100,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
-        private bool CambiarEstadoCaja(CajaModel caja)
-        {
-            try
-            {
-                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo});
-                if (cajaDb != null)
-                {
-                    cajaDb.Estado = caja.Estado;
-                    return servicioCaja.Modificar(cajaDb);
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
-        }
+        
 
         private object ObtenerLibros()
         {
@@ -175,6 +164,93 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
+        private object ObtenerTiposPago()
+        {
+            try
+            {
+
+                List<TipoPago> tipos = servicioTipoPago.ObtenerTodos();
+                //remove child elements to avoid circular dependency errors
+                var newList = tipos.Select(item => new
+                {
+                    Codigo = item.Codigo,
+                    Descripcion = item.Descripcion,
+                   
+                });
+
+
+                return newList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private bool CambiarEstadoCaja(CajaModel caja)
+        {
+            try
+            {
+                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo });
+                if (cajaDb != null)
+                {
+                    cajaDb.Estado = caja.Estado;
+                    if (servicioCaja.Modificar(cajaDb))
+                    {
+                        MovimientoCaja movimiento = new MovimientoCaja();
+                        movimiento.Descripcion = cajaDb.Estado == 1 ? "Apertura" : "Cierre";
+                        movimiento.Caja = cajaDb.Codigo;
+                        movimiento.Fecha = DateTime.Now;
+                        movimiento.Monto = Convert.ToDecimal(caja.Monto);
+                        movimiento.Tipo = cajaDb.Estado == 1 ? 1 : 2;
+                        servicioMovimientos.Agregar(movimiento);
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+       
+        [HttpPost]
+        public JsonResult RetirarAbonarCaja(CajaModel caja )
+        {
+            try
+            {
+                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo });
+                if (cajaDb != null)
+                {
+                    MovimientoCaja movimiento = new MovimientoCaja();
+                    movimiento.Descripcion = caja.Movimiento == 1 ? "Abono" : "Retiro";
+                    movimiento.Caja = cajaDb.Codigo;
+                    movimiento.Fecha = DateTime.Now;
+                    movimiento.Monto = Convert.ToDecimal(caja.Monto);
+                    movimiento.Tipo = caja.Movimiento == 1 ? 4 : 3;
+                    if (servicioMovimientos.Agregar(movimiento)) 
+                    {
+                        return Json(new { EstadoOperacion = true, Mensaje = "Operacion Exitosa" });
+                    }
+                    return Json(new { EstadoOperacion = false, Mensaje = "La operacion no se completo" });
+                }
+                else
+                {
+                    throw new Exception("Parametros invalidos/incompletos");
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private object ObtenerCajas()
         {
             try
@@ -199,6 +275,33 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult MovimientosCaja(CajaModel caja)
+        {
+            try
+            {
+                
+                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.Fecha.Date == DateTime.Today.Date).ToList();
+                //remove child elements to avoid circular dependency errors
+                var newList = movimientos.Select(item => new
+                {
+                    Fecha = item.Fecha.ToString(),
+                    Descripcion = item.Descripcion,
+                    Monto = item.Monto,
+                    Tipo = item.TipoMovimientoCaja.Descripcion
+                });
+                
+                return Json(new { EstadoOperacion = true, Movimientos = newList, Mensaje = "Operacion Exitosa" });
+              
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
         public void Facturar(Factura factura) {
             bool result = servicioFactura.Agregar(factura);
         }
@@ -218,7 +321,11 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 AgregarDetallesFactura(compra.Productos, ref factura);
                 CalcularMontosFactura(ref factura);
                 factura.Estado = 2;
+                factura.TipoPago = compra.TipoPago.Codigo;
+                factura.Referencia = compra.Referencia;
                 servicioFactura.Agregar(factura);
+                
+
                 //sesion.Usuario = factura.Cliente;
                 //sesion.Finalizacion = DateTime.Now;
                 //servicioSesion.Agregar(sesion);

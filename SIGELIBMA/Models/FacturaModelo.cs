@@ -10,10 +10,14 @@ namespace SIGELIBMA.Models
     {
         [Required]
         public int Caja { get; set; }
+
+        public string Referencia { get; set; }
         [Required]
         public ClienteModel Cliente { get; set; }
         [Required]
         public List<ProductoModel> Productos { get; set; }
+        [Required]
+        public TipoPagoModel TipoPago { get; set; }
         
     }
 }

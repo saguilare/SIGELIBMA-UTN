@@ -14,17 +14,10 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Descuento
     {
-        public Descuento()
-        {
-            this.Factura = new HashSet<Factura>();
-        }
-    
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public System.DateTime FechaInicio { get; set; }
         public Nullable<System.DateTime> FechaFinalizacion { get; set; }
         public Nullable<int> Estado { get; set; }
-    
-        public virtual ICollection<Factura> Factura { get; set; }
     }
 }

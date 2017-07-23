@@ -6,15 +6,11 @@ using System.Web;
 
 namespace SIGELIBMA.Models
 {
-    public class CajaModel
+    public class TipoPagoModel
     {
         [Required]
         public int Codigo { get; set; }
         [Required]
         public string Descripcion { get; set; }
-        [Required]
-        public int Estado { get; set; }
-        public int Movimiento { get; set; }
-        public decimal Monto { get; set; }
     }
 }
