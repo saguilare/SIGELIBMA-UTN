@@ -29,7 +29,7 @@ namespace SIGELIBMA.Controllers
             {
                 var entregas = Entregas();
                 var estados = Estados();
-                if (estados != null & entregas != null)
+                if (estados != null && entregas != null)
                 {
                     return Json(new { EstadoOperacion = true, Entregas = entregas,Estados=estados, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);    
                 }

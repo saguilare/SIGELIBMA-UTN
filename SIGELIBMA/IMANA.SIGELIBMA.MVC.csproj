@@ -157,6 +157,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EntregasController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\LibroController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -167,6 +168,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CajaModel.cs" />
+    <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\EntregaModel.cs" />
     <Compile Include="Models\FacturaModelo.cs" />
     <Compile Include="Models\CompraModel.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\Inventario\inventario.css" />
     <Content Include="Content\Admin\Entregas\entregas.css" />
     <Content Include="Content\Admin\Facturacion\Fact.css" />
     <Content Include="Content\Admin\Login\Login.css" />
@@ -222,6 +225,7 @@
     <Content Include="Scripts\vue-strap\vue-strap.js" />
     <Content Include="Scripts\VueJsFramework\vue1.js" />
     <Content Include="Scripts\VueJsFramework\vue2.js" />
+    <Content Include="Scripts\VueJs\Admin\inventario.js" />
     <Content Include="Scripts\VueJs\Admin\entregas.js" />
     <Content Include="Scripts\VueJs\Admin\facturacion.js" />
     <Content Include="Scripts\VueJs\Admin\login.js" />
@@ -244,6 +248,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Facturacion\Index.cshtml" />
     <Content Include="Views\Entregas\Index.cshtml" />
+    <Content Include="Views\Inventario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
