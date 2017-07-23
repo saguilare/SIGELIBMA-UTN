@@ -224,7 +224,8 @@ namespace SIGELIBMA.Controllers
                         Segundo_Nombre = clientep.Nombre2,
                         Apellido1 = clientep.Apellido1,
                         Apellido2 = clientep.Apellido2,
-                        Correo = clientep.Email
+                        Correo = clientep.Email,
+                        Telefono = clientep.Telefono
 
                     };
                     servicioUsuario.Agregar(cliente);

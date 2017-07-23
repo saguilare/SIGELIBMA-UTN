@@ -175,27 +175,24 @@
                                                 <vueinput v-bind:value.sync="deposito.Referencia" label="No Referencia:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-zA-Z0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
                                             <div v-bind:class="[{ 'has-error':deposito.BancoEmisor === '0' && shoppingCartValidations.bancoEmisor},{'has-success' : deposito.BancoEmisor !== '0' && shoppingCartValidations.bancoEmisor},'form-group has-feedback']">
-                                                <label class="control-label">Banco Emisor: </label>
+                                                <label class="control-label">Banco Origen: </label>
                                                 <select required class="form-control" v-model="deposito.BancoEmisor" v-on:change="shoppingCartValidations.bancoEmisor = true">
                                                     <option value="0" selected disabled>-- Seleccione un Banco --</option>
-                                                    <option value="1">BCR</option>
-                                                    <option value="2">BNCR</option>
-                                                    <option value="3">BAC</option>
-                                                    <option value="4">Scottia Bank</option>
-                                                    <option value="4">LAFISE</option>
+                                                    <option value="BCR">BCR</option>
+                                                    <option value="BNCR">BNCR</option>
+                                                    <option value="BAC">BAC</option>
+                                                    <option value="Scottia Bank">Scottia Bank</option>
+                                                    <option value="LAFISE">LAFISE</option>
                                                 </select>
                                                 <span v-if="deposito.BancoEmisor === '0' && shoppingCartValidations.bancoEmisor" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
                                                 <span v-if="deposito.BancoEmisor !== '0' && shoppingCartValidations.bancoEmisor" class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
                                             </div>
                                             <div v-bind:class="[{ 'has-error':deposito.BancoReceptor === '0' && shoppingCartValidations.bancoReceptor},{'has-success' : deposito.BancoReceptor !== '0' && shoppingCartValidations.bancoReceptor},'form-group has-feedback']">
-                                                <label class="control-label">Banco Emisor: </label>
+                                                <label class="control-label">Banco Destino: </label>
                                                 <select required class="form-control" v-model="deposito.BancoReceptor" v-on:change="shoppingCartValidations.bancoReceptor = true">
                                                     <option value="0" selected disabled>-- Seleccione un Banco --</option>
-                                                    <option value="1">BCR</option>
-                                                    <option value="2">BNCR</option>
-                                                    <option value="3">BAC</option>
-                                                    <option value="4">Scottia Bank</option>
-                                                    <option value="4">LAFISE</option>
+                                                    <option value="BCR">BCR</option>
+                                                    <option value="BNCR">BNCR</option>
                                                 </select>
                                                 <span v-if="deposito.BancoReceptor === '0' && shoppingCartValidations.bancoReceptor" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
                                                 <span v-if="deposito.BancoReceptor !== '0' && shoppingCartValidations.bancoReceptor" class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>

@@ -30,6 +30,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Apellido2 { get; set; }
         public string Correo { get; set; }
         public Nullable<int> Estado { get; set; }
+        public string Telefono { get; set; }
     
         public virtual ICollection<Factura> Factura { get; set; }
         public virtual ICollection<Sesion> Sesion { get; set; }

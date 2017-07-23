@@ -236,6 +236,7 @@
           <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
           <ScalarProperty Name="Correo" ColumnName="Correo" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

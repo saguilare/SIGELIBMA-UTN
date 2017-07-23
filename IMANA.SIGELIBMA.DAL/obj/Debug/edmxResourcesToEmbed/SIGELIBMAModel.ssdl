@@ -216,6 +216,7 @@
     <Property Name="Apellido2" Type="nvarchar" MaxLength="100" />
     <Property Name="Correo" Type="nvarchar" MaxLength="100" />
     <Property Name="Estado" Type="int" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="UsuarioRoles">
     <Key>

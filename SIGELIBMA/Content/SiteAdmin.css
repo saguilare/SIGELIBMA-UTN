@@ -185,7 +185,17 @@ div.modal-header h4, div.modal-header h3,div.modal-header h2{
     color:#f08804;
 }
 
+/*some modals use buttons and some UL */
+.btn-pager {
+    color:#337ab7;
+    border-radius:15pt;
+}
+
+.btn-pager:focus {
+    outline:none;
+}
 /*END MODAL MAINT*/
+
 
 
 /*PAGINATION*/

@@ -15,6 +15,10 @@
     {
         <link href="~/Content/Admin/Facturacion/Fact.css" rel="stylesheet" />
     }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "entregas")
+    {
+        <link href="~/Content/Admin/Entregas/entregas.css" rel="stylesheet" />
+    }
     
 </head>
 <body id="pageMainContainer">
@@ -33,7 +37,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
                 <ul class="nav navbar-nav">
                     <li class="Active"><a href="/facturacion">Facturacion <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Entregas</a></li>
+                    <li><a href="/entregas">Entregas</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -76,7 +80,10 @@
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
-        
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "entregas")
+    {
+        <script src="~/Scripts/VueJs/Admin/entregas.js"></script>
     }
    
 </body>

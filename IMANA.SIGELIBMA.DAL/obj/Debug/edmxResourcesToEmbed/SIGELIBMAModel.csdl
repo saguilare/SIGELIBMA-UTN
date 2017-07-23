@@ -251,6 +251,7 @@
     <Property Name="Apellido2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Estado" Type="Int32" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__Cliente__693CA210" FromRole="Usuario" ToRole="Factura" />
     <NavigationProperty Name="Sesion" Relationship="Self.FK__Sesion__Usuario__1B0907CE" FromRole="Usuario" ToRole="Sesion" />
     <NavigationProperty Name="UsuarioRoles" Relationship="Self.FK__UsuarioRo__Usuar__173876EA" FromRole="Usuario" ToRole="UsuarioRoles" />

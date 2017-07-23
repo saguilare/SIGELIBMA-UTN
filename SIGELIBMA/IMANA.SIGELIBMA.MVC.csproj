@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EntregasController.cs" />
     <Compile Include="Controllers\LibroController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -166,6 +167,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CajaModel.cs" />
+    <Compile Include="Models\EntregaModel.cs" />
     <Compile Include="Models\FacturaModelo.cs" />
     <Compile Include="Models\CompraModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
@@ -176,6 +178,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\Entregas\entregas.css" />
     <Content Include="Content\Admin\Facturacion\Fact.css" />
     <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
@@ -219,6 +222,7 @@
     <Content Include="Scripts\vue-strap\vue-strap.js" />
     <Content Include="Scripts\VueJsFramework\vue1.js" />
     <Content Include="Scripts\VueJsFramework\vue2.js" />
+    <Content Include="Scripts\VueJs\Admin\entregas.js" />
     <Content Include="Scripts\VueJs\Admin\facturacion.js" />
     <Content Include="Scripts\VueJs\Admin\login.js" />
     <Content Include="Scripts\VueJs\Admin\MantRoles.js" />
@@ -239,10 +243,10 @@
     <Content Include="Views\MantRoles\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Facturacion\Index.cshtml" />
+    <Content Include="Views\Entregas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Book\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

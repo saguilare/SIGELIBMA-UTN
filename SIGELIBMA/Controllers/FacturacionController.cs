@@ -376,7 +376,8 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                         Apellido1 = clientep.Apellido1,
                         Apellido2 = clientep.Apellido2,
                         Correo = clientep.Email,
-                        Estado = 1
+                        Estado = 1,
+                        Telefono = clientep.Telefono
 
                     };
                     servicioUsuario.Agregar(cliente);
