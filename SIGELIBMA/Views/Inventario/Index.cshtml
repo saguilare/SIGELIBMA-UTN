@@ -110,6 +110,38 @@
         </section>
         <!--content-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <!--add itme-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class="col-sm-offset-1 col-sm-10 " style=" ">
+                    <form name="" class="form-inline" v-on:submit.prevent="agregar()">
+                        <div class="form-group">
+                            <label>Libro</label>
+                            <select v-model="" required class="form-control">
+                                <option v-bind:value="libro" v-for="libro in libros">{{libro.codigo - libro.titulo}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="modalObject.stock" min="0" label="Cantidad Existencia" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="modalObject.minimo" min="0" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <vueinput v-bind:value.sync="modalObject.maximo" min="0" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select v-model="" required class="form-control">
+                                <option v-bind:value="estado" v-for="estado in estados">{{estado.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+            </div>
             <!--table search-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">
                 <div class=" col-sm-offset-1 col-sm-10 form-inline">

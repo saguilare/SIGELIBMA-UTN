@@ -242,34 +242,39 @@ var vm = new Vue({
             
         },
 
-        addInventario: function (inventario) {
-            vm.displaySpinner(true,'Agregando');
-            var inv = {Libro : "", Stock:0, Maximo:0, Minimo:0, Estado:0};
-            $.ajax({
-                url: urlRoot + 'inventario/Agregar',
-                type: 'post',
-                dataType: 'json',
-                data: inv,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.getRoles();                        
-                    } else {
-                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                        vm.displaySpinner(false);
-                    }          
-                },
-                error: function (error) {
-                    vm.displaySpinner(false);
-                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                }
-            });
-        },
-
         modificar: function () {
             this.$refs.spinner1.show();
             var inv = {Libro: vm.modalObject.libro.codigo ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado.codigo}; 
             $.ajax({
                 url: urlRoot + 'inventario/Modificar',
+                type: 'post',
+                dataType: 'json',
+                data: inv,
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.getInventarios();
+                        $("#edit-modal").modal('hide' );
+                        vm.activateToastr('success', 'La operacion se realizo con exito.', true);
+
+                    } else {
+                        vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
+                    }   
+                    vm.$refs.spinner1.hide();
+                },
+                error: function (error) {
+                    vm.$refs.spinner1.hide();
+                    vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
+                }
+                
+            });
+
+        },
+
+        agregar: function () {
+            this.$refs.spinner1.show();
+            var inv = {Libro: vm.modalObject.libro.codigo ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado.codigo}; 
+            $.ajax({
+                url: urlRoot + 'inventario/agregar',
                 type: 'post',
                 dataType: 'json',
                 data: inv,
