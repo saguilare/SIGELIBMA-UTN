@@ -3,7 +3,71 @@
     Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
 }
 
-
+<!-- AGREGAR  NUEVO MODAL --->
+<div id="agregar-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Inventario - Agregar</h4>
+            </div>
+            <div class="modal-body ">
+                <div v-if="inventarios.length > 0">
+                    <!-- Alert-->
+                    <div class="row text-center">
+                        <div v-if="alertModal.status" class=" alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
+                    </div>
+                    <form id="formCartPayment" v-on:submit.prevent="agregar()">
+                        <!-- Content-->
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <spinner v-ref:spinner2 size="md" fixed text="Procesando, por favor espere."></spinner>
+                                <div>
+                                    <div class="form-group">
+                                        <select class="form-control" required v-model="modalObject.libro">
+                                            <option v-bind:value="libro.codigo" v-for="libro in libros">{{libro.codigo}}-{{libro.titulo}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="modalObject.stock" min="0" label="Cantidad Existencia" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="modalObject.minimo" min="0" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="modalObject.maximo" min="0" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <select v-model="modalObject.estado" required class="form-control">
+                                            <option v-bind:value="estado" v-for="estado in estados">{{estado.descripcion}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pager Btns-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-default btn-pager">
+                                    Procesar <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h4 v-else class="text-center">No se obtuvo la informacion de este producto</h4>
+            </div>
+            <div class="modal-footer">
+                <button v-else type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- EDIT MODAL --->
 <div id="edit-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -110,36 +174,9 @@
         </section>
         <!--content-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
-            <!--add itme-->
-            <div class="row" style="padding-top:20px;margin-bottom:15px">
-                <div class="col-sm-offset-1 col-sm-10 " style=" ">
-                    <form name="" class="form-inline" v-on:submit.prevent="agregar()">
-                        <div class="form-group">
-                            <label>Libro</label>
-                            <select v-model="" required class="form-control">
-                                <option v-bind:value="libro" v-for="libro in libros">{{libro.codigo - libro.titulo}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <vueinput v-bind:value.sync="modalObject.stock" min="0" label="Cantidad Existencia" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
-                        </div>
-                        <div class="form-group">
-                            <vueinput v-bind:value.sync="modalObject.minimo" min="0" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
-                        </div>
-                        <div class="form-group">
-                            <vueinput v-bind:value.sync="modalObject.maximo" min="0" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
-                        </div>
-                        <div class="form-group">
-                            <label>Estado</label>
-                            <select v-model="" required class="form-control">
-                                <option v-bind:value="estado" v-for="estado in estados">{{estado.descripcion}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-                        </div>
-                    </form>
-                    <hr>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="button" class="btn btn-success pull-right" v-on:click="openEditModal(null,'agregar-modal')"><span class="glyphicon glyphicon-plus-sign"></span> Agregar</button>
                 </div>
             </div>
             <!--table search-->
@@ -211,7 +248,7 @@
                                     <td>{{inventario.minimo}}</td>
                                     <td>{{inventario.estado.descripcion}}</td>
                                     <td>
-                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(inventario)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Detalles</button>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(inventario, 'edit-modal')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Detalles</button>
                                     </td>
                                 </tr>
                             </tbody>

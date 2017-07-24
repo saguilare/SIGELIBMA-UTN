@@ -271,8 +271,8 @@ var vm = new Vue({
         },
 
         agregar: function () {
-            this.$refs.spinner1.show();
-            var inv = {Libro: vm.modalObject.libro.codigo ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado.codigo}; 
+            this.$refs.spinner2.show();
+            var inv = {Libro: vm.modalObject.libro ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado}; 
             $.ajax({
                 url: urlRoot + 'inventario/agregar',
                 type: 'post',
@@ -281,16 +281,16 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.getInventarios();
-                        $("#edit-modal").modal('hide' );
+                        $("#agregar-modal").modal('hide' );
                         vm.activateToastr('success', 'La operacion se realizo con exito.', true);
 
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
-                    vm.$refs.spinner1.hide();
+                    vm.$refs.spinner2.hide();
                 },
                 error: function (error) {
-                    vm.$refs.spinner1.hide();
+                    vm.$refs.spinner2.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 
@@ -298,11 +298,17 @@ var vm = new Vue({
 
         },
 
-        openEditModal: function (entrega) {
+        openEditModal: function (obj, modal) {
+            if (modal.toLowerCase() === 'edit-modal') {
+                vm.activateAlertModal('','',false);
+                vm.modalObject = obj;
+                $("#edit-modal").modal({show:true});
+            }else {
+                vm.activateAlertModal('','',false);
+                vm.modalObject = {Libro: vm.libros[0].codigo ,Stock: 1,Maximo: 1,Minimo: 1,Estado: vm.estados[1].codigo}; 
+                $("#agregar-modal").modal({show:true});
+            }
             
-            vm.activateAlertModal('','',false);
-            vm.modalObject = entrega;
-            $("#edit-modal").modal({show:true});
         },
      
         init: function () {
