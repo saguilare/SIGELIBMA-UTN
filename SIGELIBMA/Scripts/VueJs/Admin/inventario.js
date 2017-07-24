@@ -72,25 +72,23 @@ var vm = new Vue({
             }
             else {
                 this.filteredItems = _.filter(vm.items, function (v, k) {
-                   
-                    if ((v.libro.codigo!=null)&&(v.libro.titulo!=null)&&(v.estado.descripcion!=null)) {
+                    console.log(v,searchText);
+                    if ((v.libro.codigo!=null)&&(v.libro.titulo!=null)&&(v.estado.descripcion!=null)
+                        &&(v.stock!=null)&&(v.maximo!=null)&&(v.minimo!=null)
+                        ) {
                         return 
-                            ( !v.selected && v.libro.codigo.toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
-                            | (!v.selected && v.libro.titulo.toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
-                            | (!v.selected && v.estado.descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                        ( !v.selected && v.libro.codigo.toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
+                        | (!v.selected && v.libro.titulo.toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
+                        | (!v.selected && v.estado.descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                        | (!v.selected && v.stock.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                        | (!v.selected && v.minimo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                        | (!v.selected && v.maximo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1)
                     } 
-                    //else {
-                    //    if (v.master.numero != null) {
-                    //        return !v.selected && v.master.numero.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1
-                    //    } else {
-                    //        if (v.master.fechaCreacion != null) {
-                    //            return !v.selected && v.master.fechaCreacion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-                    //        }
-                    //    }
-                    //}
+ 
                     
-                })
+                });
             }
+            console.log(this.filteredItems);
             this.filteredItems.forEach(function (v, k) {
                 v.key = k + 1
             })
@@ -102,6 +100,7 @@ var vm = new Vue({
             else {
                 this.selectPage(currentPage)
             }
+         
         },
 
         buildPagination : function() {
@@ -305,7 +304,7 @@ var vm = new Vue({
                 $("#edit-modal").modal({show:true});
             }else {
                 vm.activateAlertModal('','',false);
-                vm.modalObject = {Libro: vm.libros[0].codigo ,Stock: 1,Maximo: 1,Minimo: 1,Estado: vm.estados[1].codigo}; 
+                vm.modalObject = {libro: vm.libros[1].codigo ,stock: 1,maximo: 1,minimo: 1,estado: vm.estados[1].codigo}; 
                 $("#agregar-modal").modal({show:true});
             }
             

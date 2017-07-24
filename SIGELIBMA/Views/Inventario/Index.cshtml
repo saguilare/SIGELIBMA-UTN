@@ -44,7 +44,7 @@
                                     <div class="form-group">
                                         <label>Estado</label>
                                         <select v-model="modalObject.estado" required class="form-control">
-                                            <option v-bind:value="estado" v-for="estado in estados">{{estado.descripcion}}</option>
+                                            <option v-bind:value="estado.codigo" v-for="estado in estados">{{estado.descripcion}}</option>
                                         </select>
                                     </div>
                                 </div>
