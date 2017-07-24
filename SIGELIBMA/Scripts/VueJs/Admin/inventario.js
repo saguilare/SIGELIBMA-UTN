@@ -282,10 +282,10 @@ var vm = new Vue({
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
-                    vm.spinner1.hide();
+                    vm.$refs.spinner1.hide();
                 },
                 error: function (error) {
-                    vm.spinner1.hide();
+                    vm.$refs.spinner1.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 
@@ -294,6 +294,7 @@ var vm = new Vue({
         },
 
         openEditModal: function (entrega) {
+            
             vm.activateAlertModal('','',false);
             vm.modalObject = entrega;
             $("#edit-modal").modal({show:true});
