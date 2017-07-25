@@ -65,7 +65,7 @@ namespace SIGELIBMA.Controllers
                     descripcion = x.Descripcion,
                     estado = x.Estado
                 });
-                return Json(new { EstadoOperacion = true, Autores = categorias, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Categorias = categorias, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
