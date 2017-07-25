@@ -162,12 +162,17 @@
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MantCategoriaController.cs" />
+    <Compile Include="Controllers\MantAutorController.cs" />
+    <Compile Include="Controllers\MantProveedorController.cs" />
     <Compile Include="Controllers\MantRolesController.cs" />
     <Compile Include="Filters\ValidateSessionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AutorModel.cs" />
     <Compile Include="Models\CajaModel.cs" />
+    <Compile Include="Models\CategoriaModel.cs" />
     <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\EntregaModel.cs" />
     <Compile Include="Models\FacturaModelo.cs" />
@@ -175,6 +180,7 @@
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\DepositoModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
+    <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Models\TipoPagoModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +191,9 @@
     <Content Include="Content\Admin\Facturacion\Fact.css" />
     <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
+    <Content Include="Content\Admin\Mantenimiento\Autor.css" />
+    <Content Include="Content\Admin\Mantenimiento\Categoria.css" />
+    <Content Include="Content\Admin\Mantenimiento\Proveedor.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\carousel.css" />
@@ -229,6 +238,9 @@
     <Content Include="Scripts\VueJs\Admin\entregas.js" />
     <Content Include="Scripts\VueJs\Admin\facturacion.js" />
     <Content Include="Scripts\VueJs\Admin\login.js" />
+    <Content Include="Scripts\VueJs\Admin\MantAutor.js" />
+    <Content Include="Scripts\VueJs\Admin\MantCategoria.js" />
+    <Content Include="Scripts\VueJs\Admin\MantProveedor.js" />
     <Content Include="Scripts\VueJs\Admin\MantRoles.js" />
     <Content Include="Scripts\VueJs\Clientes\principal.js" />
     <Content Include="Scripts\_references.js" />
@@ -249,6 +261,9 @@
     <Content Include="Views\Facturacion\Index.cshtml" />
     <Content Include="Views\Entregas\Index.cshtml" />
     <Content Include="Views\Inventario\Index.cshtml" />
+    <Content Include="Views\MantProveedor\Index.cshtml" />
+    <Content Include="Views\MantCategoria\Index.cshtml" />
+    <Content Include="Views\MantAutor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

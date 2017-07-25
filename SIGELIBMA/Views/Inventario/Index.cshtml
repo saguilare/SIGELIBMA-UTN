@@ -11,7 +11,7 @@
                 <h4 class="modal-title"> Inventario - Agregar</h4>
             </div>
             <div class="modal-body ">
-                <div v-if="inventarios.length > 0">
+                <div >
                     <!-- Alert-->
                     <div class="row text-center">
                         <div v-if="alertModal.status" class=" alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
@@ -60,7 +60,7 @@
                         </div>
                     </form>
                 </div>
-                <h4 v-else class="text-center">No se obtuvo la informacion de este producto</h4>
+               
             </div>
             <div class="modal-footer">
                 <button v-else type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
