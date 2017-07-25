@@ -12,5 +12,7 @@ namespace SIGELIBMA.Models
         public int Codigo { get; set; }
         [Required]
         public string Descripcion { get; set; }
+        
+        public int Estado { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace IMANA.SIGELIBMA.DAL
     
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
+        public Nullable<int> Estado { get; set; }
     
         public virtual ICollection<Factura> Factura { get; set; }
     }
