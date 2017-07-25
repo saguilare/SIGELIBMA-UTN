@@ -12,9 +12,9 @@ namespace IMANA.SIGELIBMA.DAL.DTOs
         public string Codigo { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public virtual AutorDTO Autor { get; set; }
-        public virtual CategoriaDTO Categoria { get; set; }
-        public virtual ProveedorDTO Proveedor { get; set; }
+        public virtual AutorDTO Autor1 { get; set; }
+        public virtual CategoriaDTO Categoria1 { get; set; }
+        public virtual ProveedorDTO Proveedor1 { get; set; }
         public string Fecha { get; set; }
         public decimal PrecioBase { get; set; }
         public decimal PorcentajeGanancia { get; set; }

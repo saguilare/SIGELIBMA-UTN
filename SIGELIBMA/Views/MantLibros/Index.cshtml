@@ -69,22 +69,22 @@
                                 <div v-if="modalCart.currentPage === 2">
                                     <div class="form-group">
                                         <label class="control-label">Categoria</label>
-                                        <select v-model="libro.categoria" required class="form-control">
-                                            <option value="0" selected disabled>-- Seleccione una Categoria --</option>
+                                        <select v-model="libro.Categoria1" required class="form-control">
+                                            <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione una Categoria --</option>
                                             <option v-bind:value="categoria" v-for="categoria in categorias">{{categoria.Descripcion}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Autor</label>
-                                        <select v-model="libro.autor" required class="form-control">
-                                            <option value="0" selected disabled>-- Seleccione un Autor --</option>
+                                        <select v-model="libro.Autor1" required class="form-control">
+                                            <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione un Autor --</option>
                                             <option v-bind:value="autor" v-for="autor in autores">{{autor.Nombre}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Proveedor</label>
-                                        <select v-model="libro.proveedor" required class="form-control">
-                                            <option value="0" selected disabled>-- Seleccione un Proveedor --</option>
+                                        <select v-model="libro.Proveedor1" required class="form-control">
+                                            <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione un Proveedor --</option>
                                             <option v-bind:value="proveedor" v-for="proveedor in proveedores">{{proveedor.Nombre}}</option>
                                         </select>
                                     </div>
@@ -177,7 +177,7 @@
                 <div class="col-sm-offset-1 col-sm-10 " style=" ">
                     <form name="" class="form-inline" v-on:submit.prevent="addRol(rol)">
                         <div class="form-group">
-                            <button type="button" class="btn btn-success form-control pull-right"  v-on:click="openEditModal(libro)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                            <button type="button" class="btn btn-success form-control pull-right"  v-on:click="openNewModal(libro)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
                         </div>
                     </form>
                     <hr>
@@ -281,9 +281,9 @@
                                     <td>{{libro.Titulo}}</td>
                                     <td>{{libro.Descripcion}}</td>
                                     <td>{{libro.Fecha}}</td>
-                                    <td>{{libro.Categoria.Descripcion}}</td>
-                                    <td>{{libro.Autor.Nombre}}</td>
-                                    <td>{{libro.Proveedor.Nombre}}</td>
+                                    <td>{{libro.Categoria1.Descripcion}}</td>
+                                    <td>{{libro.Autor1.Nombre}}</td>
+                                    <td>{{libro.Proveedor1.Nombre}}</td>
                                     <td>{{libro.PrecioBase}}</td>
                                     <td>{{libro.PorcentajeGanancia}}</td>
                                     <td>{{libro.PrecioVentaSinImpuestos}}</td>

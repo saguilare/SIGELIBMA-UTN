@@ -35,9 +35,9 @@ namespace SIGELIBMA.Controllers
                 foreach(Libro libroDB in librosdb)
                 {
                     LibroDTO libro = new LibroDTO { Codigo = libroDB.Codigo, Titulo= libroDB.Titulo, Descripcion = libroDB.Descripcion, Fecha = libroDB.Fecha.Value.ToString("MM/dd/yyyy"),
-                    Categoria = new CategoriaDTO { Codigo = libroDB.Categoria1.Codigo, Descripcion = libroDB.Categoria1.Descripcion, Estado = libroDB.Categoria1.Estado },
-                    Autor = new AutorDTO {Codigo = libroDB .Autor1.Codigo, Nombre = libroDB .Autor1.Nombre, Apellidos = libroDB.Autor1.Apellidos, Estado= libroDB.Autor1.Estado},
-                    Proveedor= new ProveedorDTO {Codigo = libroDB.Proveedor1.Codigo, Nombre= libroDB.Proveedor1.Nombre, Telefono = libroDB.Proveedor1.Telefono, Correo = libroDB.Proveedor1.Correo, Estado = libroDB.Proveedor1.Estado },
+                    Categoria1 = new CategoriaDTO { Codigo = libroDB.Categoria1.Codigo, Descripcion = libroDB.Categoria1.Descripcion, Estado = libroDB.Categoria1.Estado },
+                    Autor1 = new AutorDTO {Codigo = libroDB .Autor1.Codigo, Nombre = libroDB .Autor1.Nombre, Apellidos = libroDB.Autor1.Apellidos, Estado= libroDB.Autor1.Estado},
+                    Proveedor1= new ProveedorDTO {Codigo = libroDB.Proveedor1.Codigo, Nombre= libroDB.Proveedor1.Nombre, Telefono = libroDB.Proveedor1.Telefono, Correo = libroDB.Proveedor1.Correo, Estado = libroDB.Proveedor1.Estado },
                     PrecioBase = libroDB.PrecioBase, PorcentajeGanancia = libroDB.PorcentajeGanancia, PrecioVentaSinImpuestos = libroDB.PrecioVentaSinImpuestos, PrecioVentaConImpuestos = libroDB.PrecioVentaConImpuestos, Imagen = libroDB.Imagen, Estado = libroDB.Estado};
                     libros.Add(libro);
                 }
@@ -74,6 +74,11 @@ namespace SIGELIBMA.Controllers
             try
             {
                 bool resultado = false;
+                Libro libro = new Libro();
+                libro = librop;
+                libro.Autor = librop.Autor1.Codigo;
+                libro.Categoria = librop.Categoria1.Codigo;
+                libro.Proveedor = librop.Proveedor1.Codigo;
                 resultado = LibroServicio.Desabilitar(librop);
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
             }

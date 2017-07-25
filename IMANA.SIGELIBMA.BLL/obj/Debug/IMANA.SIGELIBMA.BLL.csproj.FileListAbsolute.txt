@@ -84,3 +84,15 @@ C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.BL
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\obj\Debug\IMANA.SIGELIBMA.BLL.csprojResolveAssemblyReference.cache
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\obj\Debug\IMANA.SIGELIBMA.BLL.dll
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\obj\Debug\IMANA.SIGELIBMA.BLL.pdb
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\IMANA.SIGELIBMA.BLL.dll.config
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\IMANA.SIGELIBMA.BLL.dll
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\IMANA.SIGELIBMA.BLL.pdb
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\EntityFramework.dll
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\EntityFramework.SqlServer.dll
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\IMANA.SIGELIBMA.DAL.dll
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\IMANA.SIGELIBMA.DAL.pdb
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\EntityFramework.xml
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\bin\Debug\EntityFramework.SqlServer.xml
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\obj\Debug\IMANA.SIGELIBMA.BLL.csprojResolveAssemblyReference.cache
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\obj\Debug\IMANA.SIGELIBMA.BLL.dll
+C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.BLL\obj\Debug\IMANA.SIGELIBMA.BLL.pdb

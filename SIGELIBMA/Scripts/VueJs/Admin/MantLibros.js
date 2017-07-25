@@ -17,7 +17,7 @@ data.datepickerOptions = { format: 'MM/dd/yyyy', placeholder: 'mm/dd/yyyy', clos
 data.categorias= [],
 data.autores = [];
 data.proveedores = [];
-data.libro = { Codigo: 1, Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: 0 }, PrecioBase: 0, ProcetajeGanancia: 0, PrecioVentaSinImpuestos: 0, PrecioVentaConImpuestos: 0, Imagen: '', Estado: 0 };
+data.libro = { Codigo: 1, Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria1: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor1: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor1: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: 0 }, PrecioBase: 0, ProcetajeGanancia: 0, PrecioVentaSinImpuestos: 0, PrecioVentaConImpuestos: 0, Imagen: '', Estado: 0 };
 data.libros = [];
 data.modalObject = { Codigo: 0, Titulo: '', Descripcion: ''};
 data.alert = { type: 'success', message: 'alert', status: false };
@@ -151,7 +151,19 @@ var vm = new Vue({
 
         //EndPafinationMothods
 
+        openNewModal: function (libro) {
+            vm.libro = libro;
+            vm.modalCart.currentPage = 1;
+            vm.activateAlertModal('', '', false);
+            vm.modalObject = libro;
+            $("#edit-modal").modal({ show: true });
+            vm.getCategorias();
+            vm.getAutores();
+            vm.getProveedores();
+        },
+
         openEditModal: function (libro) {
+            vm.modalAccion = 'Editar Libro';
             vm.libro = libro;
             vm.modalCart.currentPage = 1;
             vm.activateAlertModal('', '', false);
