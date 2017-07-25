@@ -1,353 +1,356 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="IMANA.SIGELIBMA.DAL.Repository.Extensions.QueryExtension" Collapsed="true">
-    <Position X="9.25" Y="4.5" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="IMANA.SIGELIBMA.DAL.Repository.Extensions.QueryExtension">
+    <Position X="11.5" Y="3" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repository\Extensions\QueryExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Repository.Repository&lt;TEntity&gt;" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Repository.Repository&lt;TEntity&gt;" BaseTypeListCollapsed="true">
+    <Position X="3" Y="17.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAYAAAQAAQAAAIABAQAQAAAAAIEAAAEACgAAABAAIIA=</HashCode>
       <FileName>Repository\Repository.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Repository.UnitOfWork" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.25" Y="6.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Repository.UnitOfWork" BaseTypeListCollapsed="true">
+    <Position X="3" Y="10" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAIAAIIAACAAAAAAAQAAAAEAAIAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repository\UnitOfWork.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Repository.UnitOfWorkFactory" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4" Y="6.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Repository.UnitOfWorkFactory" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="20.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repository\UnitOfWorkFactory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.SIGELIBMAEntities" Collapsed="true">
-    <Position X="5.75" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.SIGELIBMAEntities">
+    <Position X="8.5" Y="15.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>DMhEKAAIAAIJAACsAAIDAACBEIgQA0AEAQsEAQABAAg=</HashCode>
       <FileName>SIGELIBMAModel.Context.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Autor" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Autor">
+    <Position X="3" Y="22.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAEAAAAgAAAAAAAAEAAAAAAAAAAAAg=</HashCode>
       <FileName>Autor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraAutor" Collapsed="true">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraAutor">
+    <Position X="0.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAEAAAAgAAAAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraAutor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraCaja" Collapsed="true">
-    <Position X="4" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraCaja">
+    <Position X="3" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraCategoria" Collapsed="true">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraCategoria">
+    <Position X="5.75" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraCategoria.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraDeposito" Collapsed="true">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraDeposito">
+    <Position X="8.5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAEAAAQAAAABAAIAAAQAAIgAAAAAAAA=</HashCode>
       <FileName>BitacoraDeposito.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraDescuento" Collapsed="true">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraDescuento">
+    <Position X="11.5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAADAgIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraDescuento.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraDetalleFactura" Collapsed="true">
-    <Position X="11" Y="0.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraDetalleFactura">
+    <Position X="14.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAFAAAEAAQAAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>BitacoraDetalleFactura.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraEstadoCaja" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraEstadoCaja">
+    <Position X="0.5" Y="2.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraEstadoCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraEstadoFactura" Collapsed="true">
-    <Position X="2.25" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraEstadoFactura">
+    <Position X="3" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraEstadoFactura.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraFactura" Collapsed="true">
-    <Position X="4" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraFactura">
+    <Position X="14.5" Y="5.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABACAAAMAAEAgAAAACAAAAAAAIAQAQAAAECAAABAQg=</HashCode>
       <FileName>BitacoraFactura.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraInventario" Collapsed="true">
-    <Position X="5.75" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraInventario">
+    <Position X="5.75" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AIBAAAAAAAAAAAAAAAAAAAAAQAIACAAAAAAAAAAAAAk=</HashCode>
       <FileName>BitacoraInventario.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraLibro" Collapsed="true">
-    <Position X="7.5" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraLibro">
+    <Position X="14.5" Y="9.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAhAAAAAAQAAgBEgAAAAAAABAAIAABAAAAAAAABAABg=</HashCode>
       <FileName>BitacoraLibro.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraMovimientoCaja" Collapsed="true">
-    <Position X="9.25" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraMovimientoCaja">
+    <Position X="14.5" Y="19" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABACAAAAQAAAAEAAAAAAAAJAAIAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>BitacoraMovimientoCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraProveedor" Collapsed="true">
-    <Position X="11" Y="1.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraProveedor">
+    <Position X="14.5" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAgAAAAIIAAAAAAAAAAgAAAAg=</HashCode>
       <FileName>BitacoraProveedor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraRecibo" Collapsed="true">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraRecibo">
+    <Position X="0.5" Y="5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAEAAAACAAABAAIAAAAAAAgAAAAARAA=</HashCode>
       <FileName>BitacoraRecibo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraRol" Collapsed="true">
-    <Position X="2.25" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraRol">
+    <Position X="3" Y="5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraRol.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTipoMovimientoCaja" Collapsed="true">
-    <Position X="4" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTipoMovimientoCaja">
+    <Position X="8.5" Y="5.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraTipoMovimientoCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTipoPago" Collapsed="true">
-    <Position X="5.75" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTipoPago">
+    <Position X="11.5" Y="9.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BitacoraTipoPago.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTipoTransaccion" Collapsed="true">
-    <Position X="7.5" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTipoTransaccion">
+    <Position X="8.5" Y="3.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>BitacoraTipoTransaccion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTransaccion" Collapsed="true">
-    <Position X="9.25" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraTransaccion">
+    <Position X="14.5" Y="16.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>BitacoraTransaccion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraUsuario" Collapsed="true">
-    <Position X="11" Y="2.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraUsuario">
+    <Position X="14.5" Y="13.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AEBAAAAAAAAAAAIEAAAAgAAAAIIAAAAAAAAEAgAAEAg=</HashCode>
       <FileName>BitacoraUsuario.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraUsuarioRoles" Collapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.BitacoraUsuarioRoles">
+    <Position X="0.5" Y="8" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAIAAgAAAAAEAAAAAAg=</HashCode>
       <FileName>BitacoraUsuarioRoles.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Caja" Collapsed="true">
-    <Position X="2.25" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Caja">
+    <Position X="3" Y="7.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAAgAAQAAAAg=</HashCode>
       <FileName>Caja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Categoria" Collapsed="true">
-    <Position X="4" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Categoria">
+    <Position X="8.5" Y="10.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAg=</HashCode>
       <FileName>Categoria.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Deposito" Collapsed="true">
-    <Position X="5.75" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Deposito">
+    <Position X="5.75" Y="5.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAEAAAQAAAABAAAABAQAAIgAAAAAAAA=</HashCode>
       <FileName>Deposito.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.DetalleFactura" Collapsed="true">
-    <Position X="7.5" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.DetalleFactura">
+    <Position X="5.75" Y="8" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAEAAQAAAAAAAAAAAAAAAAAABEAAAAgAAAAAAAA=</HashCode>
       <FileName>DetalleFactura.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.EstadoCaja" Collapsed="true">
-    <Position X="9.25" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.EstadoCaja">
+    <Position X="11.5" Y="11.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>EstadoCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.EstadoFactura" Collapsed="true">
-    <Position X="11" Y="3.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.EstadoFactura">
+    <Position X="11.5" Y="7.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAg=</HashCode>
       <FileName>EstadoFactura.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Factura" Collapsed="true">
-    <Position X="0.5" Y="4.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Factura">
+    <Position X="0.5" Y="12.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAACAAAMAAEAgAAAACBAACAAAAAQQQEAAEEAAABAQg=</HashCode>
       <FileName>Factura.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Inventario" Collapsed="true">
-    <Position X="2.25" Y="4.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Inventario">
+    <Position X="5.75" Y="13.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAQAAACEAAAAAAAAAAAAk=</HashCode>
       <FileName>Inventario.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Libro" Collapsed="true">
-    <Position X="4" Y="4.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Libro">
+    <Position X="11.5" Y="13.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAQAAgBEgAEAAAgCBAAAAABAEAAAAAABAABg=</HashCode>
       <FileName>Libro.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.MovimientoCaja" Collapsed="true">
-    <Position X="5.75" Y="4.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.MovimientoCaja">
+    <Position X="5.75" Y="10.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAQAAAAEAAAAAAAAJAAAQAAAAAAAAAAAAAQQ=</HashCode>
       <FileName>MovimientoCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Proveedor" Collapsed="true">
-    <Position X="7.5" Y="4.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Proveedor">
+    <Position X="8.5" Y="12.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAgAAAAIAAAEAAAAAAAgAAAAg=</HashCode>
       <FileName>Proveedor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Recibo" Collapsed="true">
-    <Position X="11" Y="4.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Recibo">
+    <Position X="8.5" Y="7.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAEAAAACAAABAAAABAAAAAgAAAAARAA=</HashCode>
       <FileName>Recibo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Rol" Collapsed="true">
-    <Position X="2.25" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Rol">
+    <Position X="5.75" Y="15.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Rol.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Sesion" Collapsed="true">
-    <Position X="4" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Sesion">
+    <Position X="11.5" Y="18.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>CEoGIAAIAAAJAACMAAICAAAAAIoAAQAAAQIEAIABAAg=</HashCode>
       <FileName>Sesion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.TipoMovimientoCaja" Collapsed="true">
-    <Position X="7.5" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.TipoMovimientoCaja">
+    <Position X="5.75" Y="21.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAAAAAQAAAAg=</HashCode>
       <FileName>TipoMovimientoCaja.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.TipoPago" Collapsed="true">
-    <Position X="9.25" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.TipoPago">
+    <Position X="5.75" Y="23.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>TipoPago.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.TipoTransaccion" Collapsed="true">
-    <Position X="11" Y="5.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.TipoTransaccion">
+    <Position X="11.5" Y="4.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>TipoTransaccion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Transaccion" Collapsed="true">
-    <Position X="0.5" Y="6.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Transaccion">
+    <Position X="0.5" Y="10" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAQIAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Transaccion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.Usuario" Collapsed="true">
-    <Position X="5.75" Y="6.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.Usuario">
+    <Position X="3" Y="13.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AMBAAAAAAAAAAAIEAAAAgAAAAIIAAAAAAAgAAgAAEAg=</HashCode>
       <FileName>Usuario.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMANA.SIGELIBMA.DAL.UsuarioRoles" Collapsed="true">
-    <Position X="7.5" Y="6.5" Width="1.5" />
+  <Class Name="IMANA.SIGELIBMA.DAL.UsuarioRoles">
+    <Position X="5.75" Y="18.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAMAAgAAAAAEAAAAAAg=</HashCode>
       <FileName>UsuarioRoles.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="IMANA.SIGELIBMA.DAL.Repository.IRepository&lt;TEntity&gt;" Collapsed="true">
-    <Position X="0.5" Y="7.75" Width="1.5" />
+  <Interface Name="IMANA.SIGELIBMA.DAL.Repository.IRepository&lt;TEntity&gt;">
+    <Position X="0.5" Y="17.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAYAAAQAAQAAAIABAAAQAAAAAIEAAAEAAgAAABAAIIA=</HashCode>
       <FileName>Repository\IRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="IMANA.SIGELIBMA.DAL.Repository.IUnitOfWork" Collapsed="true">
-    <Position X="2.25" Y="7.75" Width="1.5" />
+  <Interface Name="IMANA.SIGELIBMA.DAL.Repository.IUnitOfWork">
+    <Position X="0.5" Y="21.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAIIAACAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repository\IUnitOfWork.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="IMANA.SIGELIBMA.DAL.Repository.IUnitOfWorkFactory" Collapsed="true">
-    <Position X="4" Y="7.75" Width="1.5" />
+  <Interface Name="IMANA.SIGELIBMA.DAL.Repository.IUnitOfWorkFactory">
+    <Position X="0.5" Y="24.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Repository\IUnitOfWorkFactory.cs</FileName>
