@@ -40,6 +40,10 @@
     {
         <link href="~/Content/Admin/Mantenimiento/EstadoCaja.css" rel="stylesheet" />
     }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipomovcaja")
+    {
+        <link href="~/Content/Admin/Mantenimiento/TipoMovCaja.css" rel="stylesheet" />
+    }
 </head>
 <body id="pageMainContainer">
     <nav class="navbar-main navbar navbar-default">
@@ -67,6 +71,7 @@
                             <li><a href="/mantcategoria">Categorias</a></li>
                             <li><a href="/mantproveedor">Proveedores</a></li>
                             <li><a href="/mantestadocaja">Estado Cajas</a></li>
+                            <li><a href="/manttipomovcaja">Tipo Mov Cajas</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -124,6 +129,10 @@
     {
         <script src="~/Scripts/VueJs/Admin/MantEstadoCaja.js"></script>
     }
-   
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipomovcaja")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantTipoMovCaja.js"></script>
+    }
+    
 </body>
 </html>
