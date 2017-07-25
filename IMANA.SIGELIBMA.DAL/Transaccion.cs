@@ -18,8 +18,6 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public int Sesion { get; set; }
         public string Tabla { get; set; }
-        public string TuplaNueva { get; set; }
-        public string TuplaAnterior { get; set; }
         public int Tipo { get; set; }
     
         public virtual Sesion Sesion1 { get; set; }
