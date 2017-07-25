@@ -1,18 +1,16 @@
 ﻿@{
 
-
-    //ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
 }
 
-<!-- EDIT MODAL --->
-<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+<!-- AGREGAR MODAL --->
+<div id="agregar-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form v-on:submit.prevent="updateRol(modalObject,event)">
+            <form v-on:submit.prevent="Agregar()">
                 <div class="modal-header modal-mant">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Editar Rol</h4>
+                    <h4 class="modal-title">Agregar Proveedor</h4>
                 </div>
                 <div class="modal-body">
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
@@ -21,22 +19,61 @@
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">Codigo:</label>
-                        <input type="text" class="form-control" id="" v-model="modalObject.Codigo" required disabled>
+                    <div class="form-group ">
+                        <vueinput v-bind:value.sync="proveedor.nombre" label="Nombre" help="" error="" placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                    </div>
+                    <div class="form-group ">
+                        <vueinput v-bind:value.sync="proveedor.telefono" label="Telefono" help="" error="" placeholder="Telefoo" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                    </div>
+                    <div class="form-group ">
+                        <vueinput v-bind:value.sync="proveedor.correo" label="Correo" help="" error="" placeholder="Correo" pattern="[a-zA-Z0-9._%+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="control-label">Descripcion:</label>
-                        <input class="form-control" id="" required v-model="modalObject.Descripcion">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Estado:</label>
-                        <select v-model="modalObject.Estado" class="form-control">
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
+                        <label for="rol">Estado</label>
+                        <select v-model="proveedor.estado" required class="form-control">
+                            <option v-bind:value="estado.codigo" v-bind:selected="" v-for="estado in estados">{{estado.descripcion}}</option>
                         </select>
                     </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-save ">Salvar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- EDIT MODAL --->
+<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form v-on:submit.prevent="modificar()">
+                <div class="modal-header modal-mant">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Editar Proveedor</h4>
+                </div>
+                <div class="modal-body">
+                    <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                        <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-else>Info!</strong>
+                        {{alertModal.message}}
+                    </div>
+                    <div class="form-group ">
+                        <vueinput v-bind:value.sync="modalObject.nombre" label="Nombre" help="" error="" placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                    </div>
+                    <div class="form-group ">
+                        <vueinput v-bind:value.sync="modalObject.telefono" label="Telefono" help="" error="" placeholder="Telefoo" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                    </div>
+                    <div class="form-group ">
+                        <vueinput v-bind:value.sync="modalObject.correo" label="Correo" help="" error="" placeholder="Correo" pattern="[a-zA-Z0-9._%+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                    </div>
+                    <div class="form-group">
+                        <label for="rol">Estado</label>
+                        <select v-model="modalObject.estado" required class="form-control">
+                            <option v-bind:value="estado.codigo" v-bind:selected="" v-for="estado in estados">{{estado.descripcion}}</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -72,19 +109,7 @@
 </alert>
 
 <div id="wrapper" v-show="!validations.showSpinner && alert.status === false">
-    <!--nav bar-->
-    <section class="row">
-        <div class="col-sm-12">
-            <ul class="nav nav-tabs ">
-                <li role="presentation" class="active"><a href="#/home">Home</a></li>
-                <li role="presentation"> <a href="#/configuration">Configuration</a></li>
-                <li role="presentation"><a href="#/devices">Devices</a></li>
-                <li role="presentation"><a href="#/bna">BNA Criteria</a></li>
-                <li role="presentation"><a href="#/users">Users</a></li>
-                <li role="presentation"><a href="#/fabs">Fabs</a></li>
-            </ul>
-        </div>
-    </section>
+
     <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
         <!--title bar-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
@@ -92,7 +117,7 @@
                 <div class="col-sm-12">
                     <div class="title-bar title-bar-blur">
                         <span class="title-bar-title">Administracion</span>
-                        <span class="title-bar-subtitle">Roles</span>
+                        <span class="title-bar-subtitle">Provedores</span>
                     </div>
                 </div>
             </div>
@@ -102,23 +127,9 @@
             <!--add itme-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">
                 <div class="col-sm-offset-1 col-sm-10 " style=" ">
-                    <form name="" class="form-inline" v-on:submit.prevent="addRol(rol)">
-                        <div class="form-group ">
-                            <vueinput v-bind:value.sync="rol.Descripcion" label="Rol" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
-                        </div>
-                        <div class="form-group">
-                            <label for="rol">Estado</label>
-                            <select v-model="rol.Estado" required class="form-control">
-                                <option disabled value="">-- Seleccione una opcion --</option>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-                        </div>
-                    </form>
-                    <hr>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success pull-right" v-on:click="openEditModal(null,'agregar-modal')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                    </div>
                 </div>
             </div>
             <!--table search-->
@@ -141,22 +152,32 @@
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <!--<th class="text-center" style="color:#337ab7">Action</th>-->
-
                                     <th>
-                                        <a v-on:click="setSort('Codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                        <a v-on:click="setSort('codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
                                             Codigo
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
                                     <th>
-                                        <a v-on:click="setSort('Descripcion',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Descripcion
+                                        <a v-on:click="setSort('nombre',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Nombre
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
                                     <th>
-                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                        <a v-on:click="setSort('telefono',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Telefono
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('correo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Correo
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('estado',reverse === 1 ? reverse = -1 : reverse = 1)">
                                             Estado
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
@@ -165,14 +186,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="rol in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
+                                <tr v-for="proveedor in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
 
-                                    <td>{{rol.Codigo}}</td>
-                                    <td>{{rol.Descripcion}}</td>
-                                    <td>{{rol.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
+                                    <td>{{proveedor.codigo}}</td>
+                                    <td>{{proveedor.nombre}}</td>
+                                    <td>{{proveedor.telefono}}</td>
+                                    <td>{{proveedor.correo}}</td>
+                                    <td>{{proveedor.estado === 1 ? 'Activo' : 'Inactivo'}}</td>
                                     <td>
-                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(rol)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
-                                        <button class="btn btn-small btn-danger" v-on:click="deleteRol(rol)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(proveedor, 'editar-modal')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
+                                        <button class="btn btn-small btn-danger" v-on:click="eliminar(proveedor)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
                                     </td>
                                 </tr>
                             </tbody>

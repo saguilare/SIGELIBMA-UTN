@@ -6,19 +6,20 @@ using System.Web;
 using System.Web.Mvc;
 using IMANA.SIGELIBMA.BLL.Servicios;
 using SIGELIBMA.Filters;
+using SIGELIBMA.Models;
 
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
     public class MantProveedorController : Controller
     {
-        private RolServicio rolServicio = new RolServicio();
+        private ProveedorServicio proveedorServicio = new ProveedorServicio();
 
 
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Title = "Roles";
+            ViewBag.Title = "Proveedores";
             return View();
         }
 
@@ -29,13 +30,20 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                var Roles =  rolServicio.ObtenerTodos().Select(x => new
-                { 
-                                    Codigo = x.Codigo, 
-                                    Descripcion = x.Descripcion, 
-                                    Estado = x.Estado
+                List<object> estados = new List<object>();
+                estados.Add(new { codigo = 1, descripcion = "Activo" });
+                estados.Add(new { codigo = 0, descripcion = "Inactivo" });
+
+                var proveedores = proveedorServicio.ObtenerTodos().Select(x => new
+                {
+                    codigo = x.Codigo,
+                    nombre = x.Nombre,
+                    telefono = x.Telefono,
+                    correo = x.Correo,
+                    estado = x.Estado
                 });
-                return Json(new { EstadoOperacion = true, Roles = Roles, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { EstadoOperacion = true, Proveedores = proveedores, Estados = estados, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -47,18 +55,21 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpGet]
-        public JsonResult ObtenerTodos() {
+        public JsonResult ObtenerTodos()
+        {
 
             try
             {
 
-                var Roles = rolServicio.ObtenerTodos().Select(x => new
+                var proveedores = proveedorServicio.ObtenerTodos().Select(x => new
                 {
-                    Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
-                    Estado = x.Estado
+                    codigo = x.Codigo,
+                    nombre = x.Nombre,
+                    telefono = x.Telefono,
+                    correo = x.Correo,
+                    estado = x.Estado
                 });
-                return Json(new { EstadoOperacion = true, Roles = Roles, Mensaje = "Operacion OK" },JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Proveedores = proveedores, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -70,12 +81,12 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult ObtenerPorId(Rol rolp)
+        public JsonResult ObtenerPorId(ProveedorModel proveedorp)
         {
             try
             {
-                Rol rol = rolServicio.ObtenerPorId(rolp);
-                return Json(new { EstadoOperacion = true, Rol = rol, Mensaje = "Operacion OK" });
+                Proveedor proveedor = proveedorServicio.ObtenerPorId(new Proveedor { Codigo = proveedorp.Codigo });
+                return Json(new { EstadoOperacion = true, Proveedor = proveedor, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
@@ -87,12 +98,19 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Desabilitar(Rol rolp)
+        public JsonResult Desabilitar(ProveedorModel proveedorp)
         {
             try
             {
                 bool resultado = false;
-                resultado = rolServicio.Desabilitar(rolp);
+                resultado = proveedorServicio.Desabilitar(new Proveedor
+                {
+                    Codigo = proveedorp.Codigo,
+                    Nombre = proveedorp.Nombre,
+                    Telefono = proveedorp.Telefono,
+                    Correo = proveedorp.Correo,
+                    Estado = proveedorp.Estado
+                });
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
@@ -105,12 +123,19 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Modificar(Rol rolp)
+        public JsonResult Modificar(ProveedorModel proveedorp)
         {
             try
             {
                 bool resultado = false;
-                resultado = rolServicio.Modificar(rolp);
+                resultado = proveedorServicio.Modificar(new Proveedor
+                {
+                    Codigo = proveedorp.Codigo,
+                    Nombre = proveedorp.Nombre,
+                    Telefono = proveedorp.Telefono,
+                    Correo = proveedorp.Correo,
+                    Estado = proveedorp.Estado
+                });
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
@@ -123,12 +148,19 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Agregar(Rol rolp)
+        public JsonResult Agregar(ProveedorModel proveedorp)
         {
             try
             {
                 bool resultado = false;
-                resultado = rolServicio.Agregar(rolp);
+                resultado = proveedorServicio.Agregar(new Proveedor
+                {
+                    Codigo = proveedorp.Codigo,
+                    Nombre = proveedorp.Nombre,
+                    Telefono = proveedorp.Telefono,
+                    Correo = proveedorp.Correo,
+                    Estado = proveedorp.Estado
+                });
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
@@ -139,6 +171,7 @@ namespace SIGELIBMA.Controllers
                 return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
+
 
     }
 }
