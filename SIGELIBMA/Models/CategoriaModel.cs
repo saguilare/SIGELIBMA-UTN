@@ -6,15 +6,13 @@ using System.Web;
 
 namespace SIGELIBMA.Models
 {
-    public class AutorModel
+    public class CategoriaModel
     {
         [Required]
         public int Codigo { get; set; }
         [Required]
         public int Estado { get; set; }
         [Required]
-        public string Nombre { get; set; }
-        [Required]
-        public string Apellidos { get; set; }
+        public string Descripcion { get; set; }
     }
 }

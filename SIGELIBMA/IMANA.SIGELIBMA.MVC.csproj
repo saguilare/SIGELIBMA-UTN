@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Models\AutorModel.cs" />
     <Compile Include="Models\CajaModel.cs" />
+    <Compile Include="Models\CategoriaModel.cs" />
     <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\EntregaModel.cs" />
     <Compile Include="Models\FacturaModelo.cs" />

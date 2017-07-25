@@ -6,19 +6,20 @@ using System.Web;
 using System.Web.Mvc;
 using IMANA.SIGELIBMA.BLL.Servicios;
 using SIGELIBMA.Filters;
+using SIGELIBMA.Models;
 
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
     public class MantCategoriaController : Controller
     {
-        private RolServicio rolServicio = new RolServicio();
+        private CategoriasLibroServicio catServicio = new CategoriasLibroServicio();
 
 
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Title = "Roles";
+            ViewBag.Title = "Categorias";
             return View();
         }
 
@@ -29,13 +30,18 @@ namespace SIGELIBMA.Controllers
 
             try
             {
-                var Roles =  rolServicio.ObtenerTodos().Select(x => new
-                { 
-                                    Codigo = x.Codigo, 
-                                    Descripcion = x.Descripcion, 
-                                    Estado = x.Estado
+                List<object> estados = new List<object>();
+                estados.Add(new { codigo = 1, descripcion = "Activo" });
+                estados.Add(new { codigo = 0, descripcion = "Inactivo" });
+
+                var categorias = catServicio.ObtenerTodos().Select(x => new
+                {
+                    codigo = x.Codigo,
+                    descripcion = x.Descripcion,
+                    estado = x.Estado
                 });
-                return Json(new { EstadoOperacion = true, Roles = Roles, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { EstadoOperacion = true, Categorias = categorias, Estados = estados, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -47,18 +53,19 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpGet]
-        public JsonResult ObtenerTodos() {
+        public JsonResult ObtenerTodos()
+        {
 
             try
             {
 
-                var Roles = rolServicio.ObtenerTodos().Select(x => new
+                var categorias = catServicio.ObtenerTodos().Select(x => new
                 {
-                    Codigo = x.Codigo,
-                    Descripcion = x.Descripcion,
-                    Estado = x.Estado
+                    codigo = x.Codigo,
+                    descripcion = x.Descripcion,
+                    estado = x.Estado
                 });
-                return Json(new { EstadoOperacion = true, Roles = Roles, Mensaje = "Operacion OK" },JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Autores = categorias, Mensaje = "Operacion OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -70,12 +77,12 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult ObtenerPorId(Rol rolp)
+        public JsonResult ObtenerPorId(CategoriaModel catp)
         {
             try
             {
-                Rol rol = rolServicio.ObtenerPorId(rolp);
-                return Json(new { EstadoOperacion = true, Rol = rol, Mensaje = "Operacion OK" });
+                Categoria autor = catServicio.ObtenerPorId(new Categoria { Codigo = catp.Codigo });
+                return Json(new { EstadoOperacion = true, Categoria = autor, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
             {
@@ -87,12 +94,17 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Desabilitar(Rol rolp)
+        public JsonResult Desabilitar(CategoriaModel catp)
         {
             try
             {
                 bool resultado = false;
-                resultado = rolServicio.Desabilitar(rolp);
+                resultado = catServicio.Desabilitar(new Categoria
+                {
+                    Codigo = catp.Codigo,
+                    Descripcion = catp.Descripcion,
+                    Estado = catp.Estado
+                });
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
@@ -105,12 +117,17 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Modificar(Rol rolp)
+        public JsonResult Modificar(CategoriaModel catp)
         {
             try
             {
                 bool resultado = false;
-                resultado = rolServicio.Modificar(rolp);
+                resultado = catServicio.Modificar(new Categoria
+                {
+                    Codigo = catp.Codigo,
+                    Descripcion = catp.Descripcion,
+                    Estado = catp.Estado
+                });
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
@@ -123,12 +140,17 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Agregar(Rol rolp)
+        public JsonResult Agregar(CategoriaModel catp)
         {
             try
             {
                 bool resultado = false;
-                resultado = rolServicio.Agregar(rolp);
+                resultado = catServicio.Agregar(new Categoria
+                {
+                    Codigo = catp.Codigo,
+                    Descripcion = catp.Descripcion,
+                    Estado = catp.Estado
+                });
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operacion OK" });
             }
             catch (Exception e)
@@ -139,6 +161,7 @@ namespace SIGELIBMA.Controllers
                 return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
             }
         }
+
 
     }
 }
