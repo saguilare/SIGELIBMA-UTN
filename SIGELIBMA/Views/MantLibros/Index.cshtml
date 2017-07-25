@@ -5,51 +5,130 @@
 }
 
 <!-- EDIT MODAL --->
-<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+<div id="edit-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form v-on:submit.prevent="guardarLibro(libro)">
-                <div class="modal-header modal-mant">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">{{modalAccion}}</h4>
-                </div>
-                <div class="modal-body">
-                    <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
-                        <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
-                        <strong v-else>Info!</strong>
-                        {{alertModal.message}}
-                    </div>
-                    <div class="form-group">
-                        <vueinput v-bind:value.sync="libro.Codigo" label="Codigo" help="" error="" placeholder="Codigo" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
-                    </div>
-                    <div class="form-group">
-                        <vueinput v-bind:value.sync="libro.Titulo"label="Titulo" help="" error="" placeholder="Titulo" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
-                    </div>
-                    <div class="form-group">
-                        <vueinput v-bind:value.sync="libro.Descripcion" label="Descripcion" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
-                     </div>
-                    <div class="form-group">
-                        <div v-bind:class="[{ 'has-error': validarFechaIngreso.date && deposito.Fecha === '' },{'has-success' : validarFechaIngreso.date && deposito.Fecha !== ''},'form-group has-feedback']">
-                            <label class="control-label">Fecha Ingreso: </label>
-                            <datepicker v-on:blur="validarFechaIngreso.date = true" v-bind:value.sync="libro.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
-                            </datepicker>
-                            <span v-if="validarFechaIngreso.date && libro.Fecha === ''  " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
-                            <span v-if="validarFechaIngreso.date && libro.Fecha !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+            <div class="modal-header modal-mant">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{modalAccion}}</h4>
+            </div>
+            <div class="modal-body ">
+                    <!-- Alert-->
+                    <div class="row text-center">
+                        <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Categoria2</label>
-                        <select v-model="libro.categoria" required class="form-control">
-                            <option v-bind:value="categoria" v-for="categoria in categorias">{{categoria.Descripcion}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-save ">Salvar</button>
-                </div>
-            </form>
+                    <form v-on:submit.prevent="guardarLibro(libro)">
+                        <!-- Navbar-->
+                        <div class="row">
+                            <div  class="col-sm-12">
+                                <ul class="nav nav-pills nav-justified">
+                                    <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 1 }" v-on:click="modalCart.currentPage = 1">
+                                        <a href="#">Info Libro</a>
+                                    </li>
+                                    <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 2 }" v-on:click="modalCart.currentPage = 2">
+                                        <a href="#">Propiedades Libro</a>
+                                    </li>
+                                    <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 3 }" v-on:click="modalCart.currentPage = 3">
+                                        <a href="#">Costos Libro</a>
+                                    </li>
+                                </ul>
+                                <hr class="navbar-separator" />
+                            </div>
+                        </div>
+                        <!-- Content-->
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
+                                <!--page 1-->
+                                <div v-if="modalCart.currentPage === 1">
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Codigo" label="Codigo" help="" error="" placeholder="Codigo" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Titulo" label="Titulo" help="" error="" placeholder="Titulo" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Descripcion" label="Descripcion" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <div v-bind:class="[{ 'has-error': validarFechaIngreso.date && deposito.Fecha === '' },{'has-success' : validarFechaIngreso.date && deposito.Fecha !== ''},'form-group has-feedback']">
+                                            <label class="control-label">Fecha Ingreso: </label>
+                                            <datepicker v-on:blur="validarFechaIngreso.date = true" v-bind:value.sync="libro.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                                            </datepicker>
+                                            <span v-if="validarFechaIngreso.date && libro.Fecha === ''  " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                                            <span v-if="validarFechaIngreso.date && libro.Fecha !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--page 2-->
+                                <div v-if="modalCart.currentPage === 2">
+                                    <div class="form-group">
+                                        <label class="control-label">Categoria</label>
+                                        <select v-model="libro.categoria" required class="form-control">
+                                            <option value="0" selected disabled>-- Seleccione una Categoria --</option>
+                                            <option v-bind:value="categoria" v-for="categoria in categorias">{{categoria.Descripcion}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Autor</label>
+                                        <select v-model="libro.autor" required class="form-control">
+                                            <option value="0" selected disabled>-- Seleccione un Autor --</option>
+                                            <option v-bind:value="autor" v-for="autor in autores">{{autor.Nombre}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Proveedor</label>
+                                        <select v-model="libro.proveedor" required class="form-control">
+                                            <option value="0" selected disabled>-- Seleccione un Proveedor --</option>
+                                            <option v-bind:value="proveedor" v-for="proveedor in proveedores">{{proveedor.Nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--page 3-->
+                                <div v-if="modalCart.currentPage === 3">
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PrecioBase" label="Precio Base" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.ProcetajeGanancia" label="Ganancia" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaSinImpuestos" label="P. sin Impuestos" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" label="P. con Impuestos" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Imagen" label="Imagen" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pager Btns-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <button type="button" class="btn btn-default btn-pager" v-if="modalCart.currentPage > 1 && modalCart.currentPage <=3" v-on:click="modalCart.currentPage -= 1">
+                                    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+                                </button>
+                                <button type="button" class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <=2" v-on:click="modalCart.currentPage += 1 ">
+                                    Siguiente <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                                <button type="submit" class="btn btn-default btn-pager" v-if="modalCart.currentPage === 3">
+                                    Procesar <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -134,13 +213,61 @@
                                     </th>
                                     <th>
                                         <a v-on:click="setSort('Descripcion',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Titulo
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
                                             Descripcion
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
                                     <th>
                                         <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Estado
+                                            Fecha
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Categoria
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Autor
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Proveedor
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            PrecioBase
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Ganancia
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            VentaSinImpuestos
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            VentaConImpuestos
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
@@ -148,14 +275,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="rol in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
+                                <tr v-for="libro in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
 
-                                    <td>{{rol.Codigo}}</td>
-                                    <td>{{rol.Descripcion}}</td>
-                                    <td>{{rol.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
+                                    <td>{{libro.Codigo}}</td>
+                                    <td>{{libro.Titulo}}</td>
+                                    <td>{{libro.Descripcion}}</td>
+                                    <td>{{libro.Fecha}}</td>
+                                    <td>{{libro.Categoria.Descripcion}}</td>
+                                    <td>{{libro.Autor.Nombre}}</td>
+                                    <td>{{libro.Proveedor.Nombre}}</td>
+                                    <td>{{libro.PrecioBase}}</td>
+                                    <td>{{libro.PorcentajeGanancia}}</td>
+                                    <td>{{libro.PrecioVentaSinImpuestos}}</td>
+                                    <td>{{libro.PrecioVentaConImpuestos}}</td>
                                     <td>
-                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(rol)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
-                                        <button class="btn btn-small btn-danger" v-on:click="deleteRol(rol)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(libro)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
+                                        <button class="btn btn-small btn-danger" v-on:click="deleteLibro(libro)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
                                     </td>
                                 </tr>
                             </tbody>

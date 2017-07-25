@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/SiteAdmin.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
     @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
     {
         <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
@@ -14,6 +15,10 @@
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <link href="~/Content/Admin/Facturacion/Fact.css" rel="stylesheet" />
+    }
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    {
+        <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
     }
     
 </head>
@@ -82,6 +87,7 @@
     {
         <script src="~/Scripts/VueJs/Admin/MantLibros.js"></script>
     }
+
    
 </body>
 </html>
