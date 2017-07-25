@@ -54,6 +54,69 @@
     <Compile Include="Autor.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BitacoraAutor.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraCategoria.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraDeposito.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraDescuento.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraDetalleFactura.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraEstadoCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraEstadoFactura.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraFactura.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraInventario.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraLibro.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraMovimientoCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraProveedor.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraRecibo.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraRol.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraTipoMovimientoCaja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraTipoPago.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraTipoTransaccion.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraTransaccion.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraUsuario.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraUsuarioRoles.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Caja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
@@ -61,9 +124,6 @@
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Deposito.cs">
-      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Descuento.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DetalleFactura.cs">
@@ -143,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <EntityDeploy Include="SIGELIBMAModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -154,9 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTOs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SIGELIBMAModel.Context.tt">

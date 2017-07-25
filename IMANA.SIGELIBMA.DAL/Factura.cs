@@ -30,7 +30,6 @@ namespace IMANA.SIGELIBMA.DAL
         public decimal Impuestos { get; set; }
         public decimal Total { get; set; }
         public Nullable<decimal> Pendiente { get; set; }
-        public Nullable<decimal> Descuento { get; set; }
         public int TipoPago { get; set; }
         public string Referencia { get; set; }
         public Nullable<int> Estado { get; set; }
