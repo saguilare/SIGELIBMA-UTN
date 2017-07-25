@@ -73,6 +73,7 @@
                             <li><a href="/mantestadocaja">Estado Cajas</a></li>
                             <li><a href="/manttipomovcaja">Tipo Mov Cajas</a></li>
                             <li><a href="/mantestadofactura">Estado Facturas</a></li>
+                            <li><a href="/manttipopago">Tipos Pago</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -137,6 +138,10 @@
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantestadofactura")
     {
         <script src="~/Scripts/VueJs/Admin/MantEstadoFactura.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipopago")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantTipoPago.js"></script>
     }
     
 </body>

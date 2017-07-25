@@ -199,6 +199,7 @@
     <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
     <Property Name="Sesion" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" />
   </EntityType>
   <EntityType Name="BitacoraTipoTransaccion">
     <Key>
@@ -393,6 +394,16 @@
     <Property Name="Inicio" Type="datetime" Nullable="false" />
     <Property Name="Finalizacion" Type="datetime" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TipoMovimientoCaja">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -407,6 +418,7 @@
     </Key>
     <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+    <Property Name="Estado" Type="int" />
   </EntityType>
   <EntityType Name="TipoTransaccion">
     <Key>
@@ -486,7 +498,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__BitacoraD__Sesio__17F790F9">
+  <Association Name="FK__BitacoraD__Sesio__18EBB532">
     <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
     <End Role="BitacoraDetalleFactura" Type="Self.BitacoraDetalleFactura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -498,7 +510,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__BitacoraD__Sesio__1AD3FDA4">
+  <Association Name="FK__BitacoraD__Sesio__1BC821DD">
     <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
     <End Role="BitacoraDeposito" Type="Self.BitacoraDeposito" Multiplicity="*" />
     <ReferentialConstraint>
@@ -546,7 +558,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__BitacoraF__Sesio__151B244E">
+  <Association Name="FK__BitacoraF__Sesio__160F4887">
     <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
     <End Role="BitacoraFactura" Type="Self.BitacoraFactura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -606,7 +618,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__BitacoraR__Sesio__1DB06A4F">
+  <Association Name="FK__BitacoraR__Sesio__1EA48E88">
     <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
     <End Role="BitacoraRecibo" Type="Self.BitacoraRecibo" Multiplicity="*" />
     <ReferentialConstraint>
@@ -642,7 +654,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__BitacoraT__Sesio__123EB7A3">
+  <Association Name="FK__BitacoraT__Sesio__1332DBDC">
     <End Role="Sesion" Type="Self.Sesion" Multiplicity="1" />
     <End Role="BitacoraTipoPago" Type="Self.BitacoraTipoPago" Multiplicity="*" />
     <ReferentialConstraint>
@@ -714,7 +726,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Deposito__Factur__5165187F">
+  <Association Name="FK__Deposito__Factur__52593CB8">
     <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
     <End Role="Deposito" Type="Self.Deposito" Multiplicity="*" />
     <ReferentialConstraint>
@@ -726,7 +738,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DetalleFa__Artic__4E88ABD4">
+  <Association Name="FK__DetalleFa__Artic__4F7CD00D">
     <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
     <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -738,7 +750,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DetalleFa__Factu__4D94879B">
+  <Association Name="FK__DetalleFa__Factu__4E88ABD4">
     <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
     <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -750,7 +762,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Factura__Caja__49C3F6B7">
+  <Association Name="FK__Factura__Caja__4AB81AF0">
     <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
     <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -762,7 +774,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Factura__Cliente__47DBAE45">
+  <Association Name="FK__Factura__Cliente__48CFD27E">
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
     <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -774,7 +786,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Factura__Estado__48CFD27E">
+  <Association Name="FK__Factura__Estado__49C3F6B7">
     <End Role="EstadoFactura" Type="Self.EstadoFactura" Multiplicity="0..1" />
     <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -786,7 +798,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Factura__TipoPag__4AB81AF0">
+  <Association Name="FK__Factura__TipoPag__4BAC3F29">
     <End Role="TipoPago" Type="Self.TipoPago" Multiplicity="1" />
     <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
     <ReferentialConstraint>
@@ -870,7 +882,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Recibo__Factura__5441852A">
+  <Association Name="FK__Recibo__Factura__5535A963">
     <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
     <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
     <ReferentialConstraint>
@@ -979,6 +991,7 @@
     <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoPago" EntityType="Self.TipoPago" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" Schema="dbo" store:Type="Tables" />
@@ -997,11 +1010,11 @@
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraCategoria" EntitySet="BitacoraCategoria" />
     </AssociationSet>
-    <AssociationSet Name="FK__BitacoraD__Sesio__17F790F9" Association="Self.FK__BitacoraD__Sesio__17F790F9">
+    <AssociationSet Name="FK__BitacoraD__Sesio__18EBB532" Association="Self.FK__BitacoraD__Sesio__18EBB532">
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraDetalleFactura" EntitySet="BitacoraDetalleFactura" />
     </AssociationSet>
-    <AssociationSet Name="FK__BitacoraD__Sesio__1AD3FDA4" Association="Self.FK__BitacoraD__Sesio__1AD3FDA4">
+    <AssociationSet Name="FK__BitacoraD__Sesio__1BC821DD" Association="Self.FK__BitacoraD__Sesio__1BC821DD">
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraDeposito" EntitySet="BitacoraDeposito" />
     </AssociationSet>
@@ -1017,7 +1030,7 @@
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraEstadoCaja" EntitySet="BitacoraEstadoCaja" />
     </AssociationSet>
-    <AssociationSet Name="FK__BitacoraF__Sesio__151B244E" Association="Self.FK__BitacoraF__Sesio__151B244E">
+    <AssociationSet Name="FK__BitacoraF__Sesio__160F4887" Association="Self.FK__BitacoraF__Sesio__160F4887">
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraFactura" EntitySet="BitacoraFactura" />
     </AssociationSet>
@@ -1037,7 +1050,7 @@
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraProveedor" EntitySet="BitacoraProveedor" />
     </AssociationSet>
-    <AssociationSet Name="FK__BitacoraR__Sesio__1DB06A4F" Association="Self.FK__BitacoraR__Sesio__1DB06A4F">
+    <AssociationSet Name="FK__BitacoraR__Sesio__1EA48E88" Association="Self.FK__BitacoraR__Sesio__1EA48E88">
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraRecibo" EntitySet="BitacoraRecibo" />
     </AssociationSet>
@@ -1049,7 +1062,7 @@
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraTipoMovimientoCaja" EntitySet="BitacoraTipoMovimientoCaja" />
     </AssociationSet>
-    <AssociationSet Name="FK__BitacoraT__Sesio__123EB7A3" Association="Self.FK__BitacoraT__Sesio__123EB7A3">
+    <AssociationSet Name="FK__BitacoraT__Sesio__1332DBDC" Association="Self.FK__BitacoraT__Sesio__1332DBDC">
       <End Role="Sesion" EntitySet="Sesion" />
       <End Role="BitacoraTipoPago" EntitySet="BitacoraTipoPago" />
     </AssociationSet>
@@ -1073,31 +1086,31 @@
       <End Role="EstadoCaja" EntitySet="EstadoCaja" />
       <End Role="Caja" EntitySet="Caja" />
     </AssociationSet>
-    <AssociationSet Name="FK__Deposito__Factur__5165187F" Association="Self.FK__Deposito__Factur__5165187F">
+    <AssociationSet Name="FK__Deposito__Factur__52593CB8" Association="Self.FK__Deposito__Factur__52593CB8">
       <End Role="Factura" EntitySet="Factura" />
       <End Role="Deposito" EntitySet="Deposito" />
     </AssociationSet>
-    <AssociationSet Name="FK__DetalleFa__Artic__4E88ABD4" Association="Self.FK__DetalleFa__Artic__4E88ABD4">
+    <AssociationSet Name="FK__DetalleFa__Artic__4F7CD00D" Association="Self.FK__DetalleFa__Artic__4F7CD00D">
       <End Role="Libro" EntitySet="Libro" />
       <End Role="DetalleFactura" EntitySet="DetalleFactura" />
     </AssociationSet>
-    <AssociationSet Name="FK__DetalleFa__Factu__4D94879B" Association="Self.FK__DetalleFa__Factu__4D94879B">
+    <AssociationSet Name="FK__DetalleFa__Factu__4E88ABD4" Association="Self.FK__DetalleFa__Factu__4E88ABD4">
       <End Role="Factura" EntitySet="Factura" />
       <End Role="DetalleFactura" EntitySet="DetalleFactura" />
     </AssociationSet>
-    <AssociationSet Name="FK__Factura__Caja__49C3F6B7" Association="Self.FK__Factura__Caja__49C3F6B7">
+    <AssociationSet Name="FK__Factura__Caja__4AB81AF0" Association="Self.FK__Factura__Caja__4AB81AF0">
       <End Role="Caja" EntitySet="Caja" />
       <End Role="Factura" EntitySet="Factura" />
     </AssociationSet>
-    <AssociationSet Name="FK__Factura__Cliente__47DBAE45" Association="Self.FK__Factura__Cliente__47DBAE45">
+    <AssociationSet Name="FK__Factura__Cliente__48CFD27E" Association="Self.FK__Factura__Cliente__48CFD27E">
       <End Role="Usuario" EntitySet="Usuario" />
       <End Role="Factura" EntitySet="Factura" />
     </AssociationSet>
-    <AssociationSet Name="FK__Factura__Estado__48CFD27E" Association="Self.FK__Factura__Estado__48CFD27E">
+    <AssociationSet Name="FK__Factura__Estado__49C3F6B7" Association="Self.FK__Factura__Estado__49C3F6B7">
       <End Role="EstadoFactura" EntitySet="EstadoFactura" />
       <End Role="Factura" EntitySet="Factura" />
     </AssociationSet>
-    <AssociationSet Name="FK__Factura__TipoPag__4AB81AF0" Association="Self.FK__Factura__TipoPag__4AB81AF0">
+    <AssociationSet Name="FK__Factura__TipoPag__4BAC3F29" Association="Self.FK__Factura__TipoPag__4BAC3F29">
       <End Role="TipoPago" EntitySet="TipoPago" />
       <End Role="Factura" EntitySet="Factura" />
     </AssociationSet>
@@ -1125,7 +1138,7 @@
       <End Role="TipoMovimientoCaja" EntitySet="TipoMovimientoCaja" />
       <End Role="MovimientoCaja" EntitySet="MovimientoCaja" />
     </AssociationSet>
-    <AssociationSet Name="FK__Recibo__Factura__5441852A" Association="Self.FK__Recibo__Factura__5441852A">
+    <AssociationSet Name="FK__Recibo__Factura__5535A963" Association="Self.FK__Recibo__Factura__5535A963">
       <End Role="Factura" EntitySet="Factura" />
       <End Role="Recibo" EntitySet="Recibo" />
     </AssociationSet>
