@@ -162,6 +162,8 @@
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MantEstadoFacturaController.cs" />
+    <Compile Include="Controllers\MantTipoMovCajaController.cs" />
     <Compile Include="Controllers\MantEstadoCajaController.cs" />
     <Compile Include="Controllers\MantCategoriaController.cs" />
     <Compile Include="Controllers\MantAutorController.cs" />
@@ -197,6 +199,7 @@
     <Content Include="Content\Admin\Mantenimiento\Autor.css" />
     <Content Include="Content\Admin\Mantenimiento\Categoria.css" />
     <Content Include="Content\Admin\Mantenimiento\Proveedor.css" />
+    <Content Include="Content\Admin\Mantenimiento\TipoMovCaja.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\carousel.css" />
@@ -242,6 +245,8 @@
     <Content Include="Scripts\VueJs\Admin\facturacion.js" />
     <Content Include="Scripts\VueJs\Admin\login.js" />
     <Content Include="Scripts\VueJs\Admin\MantAutor.js" />
+    <Content Include="Scripts\VueJs\Admin\MantEstadoFactura.js" />
+    <Content Include="Scripts\VueJs\Admin\MantTipoMovCaja.js" />
     <Content Include="Scripts\VueJs\Admin\MantEstadoCaja.js" />
     <Content Include="Scripts\VueJs\Admin\MantCategoria.js" />
     <Content Include="Scripts\VueJs\Admin\MantProveedor.js" />
@@ -269,6 +274,8 @@
     <Content Include="Views\MantCategoria\Index.cshtml" />
     <Content Include="Views\MantAutor\Index.cshtml" />
     <Content Include="Views\MantEstadoCaja\Index.cshtml" />
+    <Content Include="Views\MantTipoMovCaja\Index.cshtml" />
+    <Content Include="Views\MantEstadoFactura\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
