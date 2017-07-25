@@ -1,19 +1,17 @@
-﻿
-@{
-    ViewBag.Title = "Entregas";
+﻿@{
+    ViewBag.Title = "Inventario";
     Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
 }
 
-
-<!-- EDIT MODAL --->
-<div id="edit-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
+<!-- AGREGAR  NUEVO MODAL --->
+<div id="agregar-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"> Entregas - Detalle Factura</h4>
+                <h4 class="modal-title"> Inventario - Agregar</h4>
             </div>
             <div class="modal-body ">
-                <div v-if="entregas.length > 0">
+                <div v-if="inventarios.length > 0">
                     <!-- Alert-->
                     <div class="row text-center">
                         <div v-if="alertModal.status" class=" alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
@@ -23,93 +21,95 @@
                             {{alertModal.message}}
                         </div>
                     </div>
-                    <form id="formCartPayment" v-on:submit.prevent="cambiarEstadoEntrega()">
-                        <!-- Navbar-->
-                        <div class="row">
-                            <div v-show="showEditmodalNavbar" class="col-sm-12">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li role="presentation" v-bind:class="{ active: editmodal.currentPage === 1 }" v-on:click="editmodal.currentPage = 1">
-                                        <a href="#">Info Productos</a>
-                                    </li>
-                                    <li role="presentation" v-bind:class="{ active: editmodal.currentPage === 2 }" v-on:click="editmodal.currentPage = 2">
-                                        <a href="#">Info Personal</a>
-                                    </li>
-                                    <li role="presentation" v-bind:class="{ active: editmodal.currentPage === 3 }" v-on:click="editmodal.currentPage = 3">
-                                        <a href="#">Info Bancaria</a>
-                                    </li>
-                                </ul>
-                                <hr class="navbar-separator" />
-                            </div>
-                        </div>
+                    <form id="formCartPayment" v-on:submit.prevent="agregar()">
                         <!-- Content-->
                         <div class="row">
                             <div class="col-sm-12 table-responsive">
-                                <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
-                                <!--page 1-->
-                                <div v-if="editmodal.currentPage === 1">
-                                    <h3>Resumen Productos</h3><hr />
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Codigo</th>
-                                                <th>Titulo</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="detalle in modalObject.detalles" track-by="$index">
-                                                <td>{{detalle.libro.codigo}}</td>
-                                                <td>{{detalle.libro.titulo}}</td>
-                                                <td>&#162;{{detalle.libro.precioIva}}</td>
-                                                <td>{{detalle.cantidad}}</td>
-                                                <td >&#162;{{(detalle.cantidad * detalle.libro.precioIva)}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td> Total Pagar: </td>
-                                                <td>&#162;{{modalObject.master.total}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--page 2-->
-                                <div v-if="editmodal.currentPage === 2">
-                                    <h3>Datos Personales</h3><hr />
+                                <spinner v-ref:spinner2 size="md" fixed text="Procesando, por favor espere."></spinner>
+                                <div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.cliente.nombre" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <select class="form-control" required v-model="modalObject.libro">
+                                            <option v-bind:value="libro.codigo" v-for="libro in libros">{{libro.codigo}}-{{libro.titulo}}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.cliente.cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.stock" min="0" label="Cantidad Existencia" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.cliente.telefono" label="Telefono" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Telefono" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.minimo" min="0" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.cliente.correo" label="Email" help="" type="email" error="Este campo es requerido." placeholder="Email" pattern="[a-zA-Z0-9._%+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" mask="" minlength="" v-bind:enter-submit="true" required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.maximo" min="0" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <select v-model="modalObject.estado" required class="form-control">
+                                            <option v-bind:value="estado.codigo" v-for="estado in estados">{{estado.descripcion}}</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <!--page 3-->
-                                <div v-if="editmodal.currentPage === 3">
-                                    <h3>Datos Bancarios</h3><hr />
+                            </div>
+                        </div>
+                        <!-- Pager Btns-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-default btn-pager">
+                                    Procesar <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h4 v-else class="text-center">No se obtuvo la informacion de este producto</h4>
+            </div>
+            <div class="modal-footer">
+                <button v-else type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- EDIT MODAL --->
+<div id="edit-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Inventario - Modificar</h4>
+            </div>
+            <div class="modal-body ">
+                <div v-if="inventarios.length > 0">
+                    <!-- Alert-->
+                    <div class="row text-center">
+                        <div v-if="alertModal.status" class=" alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
+                    </div>
+                    <form id="formCartPayment" v-on:submit.prevent="modificar()">
+                        <!-- Content-->
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <spinner v-ref:spinner1 size="md" fixed text="Procesando, por favor espere."></spinner>
+                                <div >
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.deposito.numero" label="No Referencia:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-zA-Z0-9\s]+$" mask="" minlength="" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.libro.codigo" label="Codigo Libro" help="" error="Este campo es requerido." placeholder="" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" required icon readonly></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.deposito.fecha" label="Fecha Deposito:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-zA-Z0-9\s]+$" mask="" minlength="" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.libro.titulo" label="Titulo Libro" help="" error="Este campo es requerido." placeholder="" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" required icon readonly></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.deposito.bancoEmisor" label="Banco Origen:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-zA-Z0-9\s]+$" mask="" minlength="" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.stock" min="0" label="Cantidad Existencia" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.deposito.bancoReceptor" label="Banco Destino:" help="" type="text" error="Este campo es requerido." placeholder="Referencia" pattern="^[a-zA-Z0-9\s]+$" mask="" minlength="" v-bind:enter-submit="true"  required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.minimo" min="0" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <label>Estado: </label>
-                                        <select class="form-control" v-model="modalObject.estado">
+                                        <vueinput v-bind:value.sync="modalObject.maximo" min="0" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <select v-model="modalObject.estado" required class="form-control">
                                             <option v-bind:value="estado" v-for="estado in estados">{{estado.descripcion}}</option>
                                         </select>
                                     </div>
@@ -119,13 +119,7 @@
                         <!-- Pager Btns-->
                         <div class="row">
                             <div class="col-sm-12 text-center">
-                                <button type="button"  class="btn btn-default btn-pager" v-if="editmodal.currentPage > 1 && editmodal.currentPage <4" v-on:click="editmodal.currentPage -= 1">
-                                    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
-                                </button>
-                                <button type="button" class="btn btn-default btn-pager" v-if="editmodal.currentPage >= 1 && editmodal.currentPage <3" v-on:click="editmodal.currentPage += 1 ">
-                                    Siguiente <span class="glyphicon glyphicon-arrow-right"></span>
-                                </button>
-                                <button type="submit" class="btn btn-default btn-pager" v-if="editmodal.currentPage === 3">
+                                <button type="submit" class="btn btn-default btn-pager" >
                                     Procesar <span class="glyphicon glyphicon-arrow-right"></span>
                                 </button>
                             </div>
@@ -172,14 +166,19 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="title-bar title-bar-blur">
-                        <span class="title-bar-title">Facturacion</span>
-                        <span class="title-bar-subtitle">Entregas</span>
+                        <span class="title-bar-title">Administracion</span>
+                        <span class="title-bar-subtitle">Inventario</span>
                     </div>
                 </div>
             </div>
         </section>
         <!--content-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="button" class="btn btn-success pull-right" v-on:click="openEditModal(null,'agregar-modal')"><span class="glyphicon glyphicon-plus-sign"></span> Agregar</button>
+                </div>
+            </div>
             <!--table search-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">
                 <div class=" col-sm-offset-1 col-sm-10 form-inline">
@@ -201,20 +200,32 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <a v-on:click="setSort('master.numero',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Fatura No
+                                        <a v-on:click="setSort('libro.codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Codigo Libro
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
                                     <th>
-                                        <a v-on:click="setSort('master.fechaCreacion',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Fecha
+                                        <a v-on:click="setSort('libro.titulo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Titulo Libro
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
                                     <th>
-                                        <a v-on:click="setSort('cliente.cedula',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Cliente
+                                        <a v-on:click="setSort('stock',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Cantidad Existencia
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('minimo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Cantidad Minima
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('maximo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Cantidad Maxima
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
@@ -228,14 +239,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="entrega in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
+                                <tr v-for="inventario in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
 
-                                    <td>{{entrega.master.numero}}</td>
-                                    <td>{{entrega.master.fechaCreacion}}</td>
-                                    <td>{{entrega.cliente.cedula}}</td>
-                                    <td>{{entrega.estado.descripcion}}</td>
+                                    <td>{{inventario.libro.codigo}}</td>
+                                    <td>{{inventario.libro.titulo}}</td>
+                                    <td>{{inventario.stock}}</td>
+                                    <td>{{inventario.maximo}}</td>
+                                    <td>{{inventario.minimo}}</td>
+                                    <td>{{inventario.estado.descripcion}}</td>
                                     <td>
-                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(entrega)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Detalles</button>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(inventario, 'edit-modal')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Detalles</button>
                                     </td>
                                 </tr>
                             </tbody>
