@@ -18,7 +18,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -28,7 +28,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -52,7 +52,7 @@
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="BancoEmisor" ColumnName="BancoEmisor" />
           <ScalarProperty Name="BancoReceptor" ColumnName="BancoReceptor" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -64,7 +64,7 @@
           <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
           <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -75,7 +75,7 @@
           <ScalarProperty Name="Factura" ColumnName="Factura" />
           <ScalarProperty Name="Articulo" ColumnName="Articulo" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -85,7 +85,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -95,7 +95,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -115,7 +115,7 @@
           <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
           <ScalarProperty Name="Referencia" ColumnName="Referencia" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -127,7 +127,7 @@
           <ScalarProperty Name="CantidadMinima" ColumnName="CantidadMinima" />
           <ScalarProperty Name="CantidadMaxima" ColumnName="CantidadMaxima" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -147,7 +147,7 @@
           <ScalarProperty Name="PrecioVentaConImpuestos" ColumnName="PrecioVentaConImpuestos" />
           <ScalarProperty Name="Imagen" ColumnName="Imagen" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -160,7 +160,7 @@
           <ScalarProperty Name="Monto" ColumnName="Monto" />
           <ScalarProperty Name="Tipo" ColumnName="Tipo" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -172,7 +172,7 @@
           <ScalarProperty Name="Telefono" ColumnName="Telefono" />
           <ScalarProperty Name="Correo" ColumnName="Correo" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -186,7 +186,7 @@
           <ScalarProperty Name="Abono" ColumnName="Abono" />
           <ScalarProperty Name="SaldoAnterior" ColumnName="SaldoAnterior" />
           <ScalarProperty Name="SaldoActual" ColumnName="SaldoActual" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -196,7 +196,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -206,7 +206,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -216,7 +216,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Sesion" ColumnName="Sesion" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -226,7 +226,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -238,6 +238,7 @@
           <ScalarProperty Name="Sesion" ColumnName="Sesion" />
           <ScalarProperty Name="Tabla" ColumnName="Tabla" />
           <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -254,7 +255,7 @@
           <ScalarProperty Name="Correo" ColumnName="Correo" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -264,7 +265,7 @@
           <ScalarProperty Name="Usuario" ColumnName="Usuario" />
           <ScalarProperty Name="Rol" ColumnName="Rol" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Sesion" ColumnName="Sesion" />
+          <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -427,17 +428,6 @@
           <ScalarProperty Name="Usuario" ColumnName="Usuario" />
           <ScalarProperty Name="Inicio" ColumnName="Inicio" />
           <ScalarProperty Name="Finalizacion" ColumnName="Finalizacion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="SIGELIBMAModel.sysdiagrams">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

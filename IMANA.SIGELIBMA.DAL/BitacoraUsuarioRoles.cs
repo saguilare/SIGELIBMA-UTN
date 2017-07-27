@@ -17,8 +17,8 @@ namespace IMANA.SIGELIBMA.DAL
         public string Usuario { get; set; }
         public int Rol { get; set; }
         public Nullable<int> Estado { get; set; }
-        public int Sesion { get; set; }
+        public int TransaccionId { get; set; }
     
-        public virtual Sesion Sesion1 { get; set; }
+        public virtual Transaccion Transaccion { get; set; }
     }
 }

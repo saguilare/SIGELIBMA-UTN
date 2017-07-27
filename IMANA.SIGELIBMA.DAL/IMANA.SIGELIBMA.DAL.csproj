@@ -182,9 +182,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="TipoMovimientoCaja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
@@ -212,24 +209,22 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SIGELIBMAModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="SIGELIBMAModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+      <LastGenOutput>SIGELIBMAModel.Context.cs</LastGenOutput>
+    </None>
     <None Include="SIGELIBMAModel.edmx.diagram">
       <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+    </None>
+    <None Include="SIGELIBMAModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+      <LastGenOutput>SIGELIBMAModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SIGELIBMAModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
-      <LastGenOutput>SIGELIBMAModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="SIGELIBMAModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
-      <LastGenOutput>SIGELIBMAModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
