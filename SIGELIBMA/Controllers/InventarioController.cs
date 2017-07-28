@@ -1,5 +1,6 @@
 ﻿using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
+using SIGELIBMA.Filters;
 using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Controllers
 {
+    [ValidateSessionFilter]
     public class InventarioController : Controller
     {
         private InventarioServicio servicioInventario = new InventarioServicio();
