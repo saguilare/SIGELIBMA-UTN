@@ -128,6 +128,7 @@ var vm = new Vue({
             vm.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
             vm.deposito = { Fecha: "", Referencia: "", BancoEmisor: "", BancoReceptor: "", Descripcion: "" };
             vm.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor: false };
+            $('#modalShoppingCart').modal('hide');
         },
 
 
