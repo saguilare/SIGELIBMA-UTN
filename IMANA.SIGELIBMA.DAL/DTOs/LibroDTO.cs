@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using IMANA.SIGELIBMA.DAL;
 using IMANA.SIGELIBMA.DAL.Repository;
+using System.Drawing;
 
 namespace IMANA.SIGELIBMA.DAL.DTOs
 {
@@ -20,7 +21,9 @@ namespace IMANA.SIGELIBMA.DAL.DTOs
         public decimal PorcentajeGanancia { get; set; }
         public decimal PrecioVentaSinImpuestos { get; set; }
         public decimal PrecioVentaConImpuestos { get; set; }
+        public string NombreImagen { get; set; }
         public string Imagen { get; set; }
+
         public Nullable<int> Estado { get; set; }
 
     }

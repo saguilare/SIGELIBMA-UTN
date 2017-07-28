@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
 using IMANA.SIGELIBMA.DAL.DTOs;
+using System.IO;
+using System.Drawing;
+using System.Configuration;
 
 namespace SIGELIBMA.Controllers
 {
@@ -38,7 +41,7 @@ namespace SIGELIBMA.Controllers
                     Categoria1 = new CategoriaDTO { Codigo = libroDB.Categoria1.Codigo, Descripcion = libroDB.Categoria1.Descripcion, Estado = libroDB.Categoria1.Estado },
                     Autor1 = new AutorDTO {Codigo = libroDB .Autor1.Codigo, Nombre = libroDB .Autor1.Nombre, Apellidos = libroDB.Autor1.Apellidos, Estado= libroDB.Autor1.Estado},
                     Proveedor1= new ProveedorDTO {Codigo = libroDB.Proveedor1.Codigo, Nombre= libroDB.Proveedor1.Nombre, Telefono = libroDB.Proveedor1.Telefono, Correo = libroDB.Proveedor1.Correo, Estado = libroDB.Proveedor1.Estado },
-                    PrecioBase = libroDB.PrecioBase, PorcentajeGanancia = libroDB.PorcentajeGanancia, PrecioVentaSinImpuestos = libroDB.PrecioVentaSinImpuestos, PrecioVentaConImpuestos = libroDB.PrecioVentaConImpuestos, Imagen = libroDB.Imagen, Estado = libroDB.Estado};
+                    PrecioBase = libroDB.PrecioBase, PorcentajeGanancia = libroDB.PorcentajeGanancia, PrecioVentaSinImpuestos = libroDB.PrecioVentaSinImpuestos, PrecioVentaConImpuestos = libroDB.PrecioVentaConImpuestos, NombreImagen = libroDB.Imagen, Estado = libroDB.Estado};
                     libros.Add(libro);
                 }
 
@@ -108,12 +111,23 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Agregar(Libro librop)
+        public JsonResult Agregar(LibroDTO librop)
         {
             try
             {
+                
                 bool resultado = false;
-                resultado = LibroServicio.Agregar(librop);
+                String path = HttpContext.Server.MapPath(ConfigurationManager.AppSettings["rutaImagenes"]);
+                int fileExtPos = librop.NombreImagen.LastIndexOf(".");
+                string imagensinextensiones = librop.NombreImagen.Substring(0, fileExtPos);
+                List <string> names = new List<string>(librop.Imagen.Split(','));
+                byte[] imageBytes = Convert.FromBase64String(names[1].ToString());
+                using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+                {
+                    Image image = Image.FromStream(ms, true);
+                    image.Save(path+librop.NombreImagen);
+                }
+                //resultado = LibroServicio.Agregar(librop);
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)

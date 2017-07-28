@@ -22,7 +22,7 @@
                             {{alertModal.message}}
                         </div>
                     </div>
-                    <form v-on:submit.prevent="guardarLibro(libro)">
+                    <form v-on:submit.prevent="addLibro(libro)">
                         <!-- Navbar-->
                         <div class="row">
                             <div  class="col-sm-12">
@@ -104,8 +104,18 @@
                                         <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" label="P. con Impuestos" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.Imagen" label="Imagen" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
-                                    </div>
+                                        <div id="app">
+                                            <div v-if="!imagen">
+                                                <h2>Select an image</h2>
+                                                <input type="file" v-on:change="onFileChange">
+                                            </div>
+                                            <div v-else>
+                                                <img src="imagen" />
+                                                <button v-on:click="removeImage">Remove image</button>
+                                            </div>
+                                        </div>
+                                        <vueinput v-bind:value.sync="libro.NombreImagen" label="Imagen" help="" error="" placeholder="Imagen" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                     </div>
 
                                 </div>
                             </div>
@@ -204,7 +214,6 @@
                             <thead>
                                 <tr>
                                     <!--<th class="text-center" style="color:#337ab7">Action</th>-->
-
                                     <th>
                                         <a v-on:click="setSort('Codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
                                             Codigo
