@@ -308,6 +308,9 @@ namespace SIGELIBMA.Controllers
                 string subject = "Confirmacion Compra - #"+factura.Numero;
                 StringBuilder str = new StringBuilder();
                 str.AppendLine("Estimado(a): "+ factura.Usuario.Nombre);
+                str.AppendLine("<br/>");
+                str.AppendLine("Adjuntamos el detalle de su compra, le recordamos que puede pasar a retirar su producos de Lunes a Viernes de 8am a 7pm");
+                str.AppendLine("<br/><br/>");
                 str.AppendLine("<style>td{border-bottom: 1px solid black;}</style>");
                 str.AppendLine("<div style='min-width: 300px'>");
                 str.AppendLine(" <table >");
