@@ -21,6 +21,20 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
             this.unitOfWork = new UnitOfWork(this.context);
         }
 
+        public bool RegistrarTransaccion<T>(T bitacora) where T : class 
+        {
+            try
+            {
+                unitOfWork.Repository<T>().Add(bitacora);
+                return true;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
         public List<Transaccion> ObtenerTodos() {
             try
             {
