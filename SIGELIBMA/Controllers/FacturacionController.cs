@@ -46,7 +46,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
             catch (Exception)
             {
-                
+                Response.StatusCode = 400;
                 throw;
             }
         }
@@ -69,6 +69,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             catch (Exception ex)
             {
                 //TODO
+                Response.StatusCode = 400;
                 throw ex;
             }
         }
@@ -96,6 +97,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             catch (Exception ex)
             {
                 //TODO
+                Response.StatusCode = 400;
                 throw ex;
             }
         }
@@ -246,7 +248,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
             catch (Exception)
             {
-
+                Response.StatusCode = 400;
                 throw;
             }
         }
@@ -296,7 +298,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
             catch (Exception)
             {
-
+                Response.StatusCode = 400;
                 throw;
             }
         }

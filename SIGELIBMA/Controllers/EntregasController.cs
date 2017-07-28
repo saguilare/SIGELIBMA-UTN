@@ -80,7 +80,7 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception)
             {
-                
+                Response.StatusCode = 400;
                 throw;
             }
 
