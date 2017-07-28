@@ -201,6 +201,7 @@ getPageData: function () {
         success: function (result) {
             if (result.EstadoOperacion) {
                 vm.books = result.Libros;
+             
                 if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
                     $.each(vm.books, function (key, book) {
                         vm.codigos.push(book.Codigo.toString());
@@ -283,10 +284,21 @@ processPayment: function () {
                 vm.shoppingCart.payment.status = true;
                 vm.showModalShoppingCartNavBar = false;
                 
-            } 
+            } else {
+                if (result.Agotados !== null || result.Agotados.length > 0) {
+                    var lista = "";
+                    $.each(result.Agotados, function (index, object) {
+                        lista += object.Titulo + ", ";
+                    });
+                    vm.activateAlertModalShoppingCart("danger", "Los siguientes libros no estan disponibles: "+lista+".", true);
+                    vm.modalCart.currentPage = 1;
+                }
+            }
             vm.$refs.spinner1.hide();
         },
         error: function (error) {
+            vm.shoppingCart.payment.status = false;
+           
             vm.$refs.spinner1.hide();
         }
     });

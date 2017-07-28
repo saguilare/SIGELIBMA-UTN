@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -72,10 +73,17 @@ namespace SIGELIBMA.Controllers
         {
             try
             {
+                var agotados = VerificarInvetario(compra.Productos);
+                if (agotados != null )
+                {
+                    return Json(new { EstadoOperacion = false, Agotados = agotados, Confirmacion = "", Mensaje = "La factura no se proceso, no hay articulos en existencia" });
+                }
+
                 compra.Cliente.Nombre2 = (compra.Cliente.Nombre1 != "" && compra.Cliente.Nombre1.Contains(" ")) ? compra.Cliente.Nombre1.Split(' ')[1] : "";
                 compra.Cliente.Apellido2 = (compra.Cliente.Apellido1 != "" && compra.Cliente.Apellido1.Contains(" ")) ? compra.Cliente.Apellido1.Split(' ')[1] : "";
                 Factura factura = CrearFactura(compra);
 
+                bool resultado = RetirarInvetario(compra.Productos);
 
                 return Json(new { EstadoOperacion = true, Confirmacion = factura.Numero, Mensaje = "Operation OK" });
             }
@@ -95,7 +103,7 @@ namespace SIGELIBMA.Controllers
 		        LibroServicio servicio = new LibroServicio();
                 List<Libro> libros = servicio.ObtenerTodos();
                 //transform and simplify list to avoid circular dependency issues 
-                var newList = libros.Select(item => new
+                var newList = libros.Where(x => x.Inventario != null && x.Inventario.CantidadStock > 0).Select(item => new
                 {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
@@ -103,7 +111,8 @@ namespace SIGELIBMA.Controllers
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
                     Titulo =item.Titulo
-                    
+
+
                 });
 
 
@@ -126,7 +135,7 @@ namespace SIGELIBMA.Controllers
                 var newList = cats.Select(item =>new {
                     Codigo = item.Codigo,
                     Descripcion = item.Descripcion,
-                    Libros = item.Libro.Select(libro => new {
+                    Libros = item.Libro.Where(x => x.Inventario != null && x.Inventario.CantidadStock > 0).Select(libro => new {
                         Codigo = libro.Codigo,
                         Autor = libro.Autor1.Apellidos + ", " + libro.Autor1.Nombre,
                         Precio = libro.PrecioVentaConImpuestos,
@@ -146,10 +155,10 @@ namespace SIGELIBMA.Controllers
             }
         }
 
-
         private Factura CrearFactura(CompraModel compra) {
             try
             {
+                
                 Sesion sesion = new Sesion();
                 sesion.Inicio = DateTime.Now;
 
@@ -174,29 +183,13 @@ namespace SIGELIBMA.Controllers
                 factura.Estado = 4;
 
                 servicioFactura.Agregar(factura);
-                //sesion.Usuario = factura.Cliente;
-                //sesion.Finalizacion = DateTime.Now;
-                //servicioSesion.Agregar(sesion);
 
-                //Transaccion tx = new Transaccion();
-                //tx.Tipo = 1;
-                //tx.Sesion = sesion.Id;
-                //tx.Tabla = "Login";
-                //tx.TuplaAnterior = "";
-                //tx.TuplaNueva = "";
-
-                //servicioTransaccion.Agregar(tx);
-
-                //tx.Tipo = 2;
-                //tx.Sesion = sesion.Id;
-                //tx.Tabla = "Login";
-                //tx.TuplaAnterior = "";
-                //tx.TuplaNueva = "";
-
-                //servicioTransaccion.Agregar(tx);
-
-
-                SendEmail(ref factura);
+                bool send = Convert.ToBoolean(ConfigurationManager.AppSettings["sendEmail"]);
+                if (send)
+                {
+                    SendEmail(factura.Numero);
+                }
+               
 
                 return factura;
 
@@ -297,32 +290,81 @@ namespace SIGELIBMA.Controllers
             }
         }
 
-        private bool SendEmail(ref Factura factura)
+        private bool SendEmail(int facturaNum)
         {
 
             try
             {
-                var fromAddress = new MailAddress("libreriaimana@gmail.com", "Libreria Mana");
-                var toAddress = new MailAddress("aguilarsteven@gmail.com", "aguilarsteven@gmail.com");
-                const string fromPassword = "Imana2017";
-                const string subject = "test";
-                const string body = "Hey now!!";
+                Factura factura = servicioFactura.ObtenerPorId(new Factura { Numero = facturaNum });
+                factura.Usuario = servicioUsuario.ObtenerPorId(new Usuario { Cedula = factura.Cliente});
+                foreach (DetalleFactura item in factura.DetalleFactura)
+                {
+                    item.Libro = servicioLibro.ObtenerPorId(new Libro {Codigo = item.Articulo });
+                }
+                string from = ConfigurationManager.AppSettings["from"];
+                var fromAddress = new MailAddress(from, "Libreria Iglesia Mana");
+                var toAddress = new MailAddress(factura.Usuario.Correo, factura.Usuario.Correo);
+                string fromPassword = ConfigurationManager.AppSettings["password"];
+                string subject = "Confirmacion Compra - #"+factura.Numero;
+                StringBuilder str = new StringBuilder();
+                str.AppendLine("Estimado(a): "+ factura.Usuario.Nombre);
+                str.AppendLine("<style>td{border-bottom: 1px solid black;}</style>");
+                str.AppendLine("<div style='min-width: 300px'>");
+                str.AppendLine(" <table >");
+                str.AppendLine("<thead>");
+                str.AppendLine("<tr>");
+                str.AppendLine("<th><a>Codigo</a></th><th><a>Titulo</a></th><th><a>Cantidad</a></th><th><a>Precio Unitario</a></th><th><a>Precio Total</a></th>");
+                str.AppendLine("</tr>");
+                str.AppendLine("</thead>");
+                str.AppendLine("<tbody>");
+                foreach (DetalleFactura detail in factura.DetalleFactura)
+	            {
+		            str.Append("<tr>\n"+
+                                "<td>"+detail.Libro.Codigo+"</td>\n"+
+                                "<td>"+detail.Libro.Titulo+"</td>\n"+
+                                "<td>"+detail.Cantidad+"</td>\n"+
+                                "<td>&#162;"+detail.Libro.PrecioVentaSinImpuestos+"</td>\n"+
+                                "<td>&#162;"+(detail.Cantidad * detail.Libro.PrecioVentaSinImpuestos)+"</td>\n"+
+                                "</tr>"
+                        );
+	            }
+                str.AppendLine("<tr>");
+                str.AppendLine("<td></td><td></td><td></td>");
+                str.AppendLine("<td>Subtotal: </td>");
+                str.AppendLine("<td>&#162;"+factura.Subtotal+"</td>");
+                str.AppendLine("</tr>");
+                str.AppendLine("<tr>");
+                str.AppendLine("<td></td><td></td><td></td>");
+                str.AppendLine("<td>Impuestos (I.V.A): </td>");
+                str.AppendLine("<td>&#162;"+factura.Impuestos+"</td>");
+                str.AppendLine("</tr>");
+                str.AppendLine("<tr>");
+                str.AppendLine("<td></td><td></td><td></td>");
+                str.AppendLine("<td>Total (I.V.I): </td>");
+                str.AppendLine("<td>&#162;"+factura.Total+"</td>");
+                str.AppendLine("</tr>");
+                str.AppendLine("</tbody>");
+                str.AppendLine("</table> ");
+                str.AppendLine("</div>");
 
                 var smtp = new SmtpClient
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
+                    Host = ConfigurationManager.AppSettings["server"],
+                    Port = Convert.ToInt32(ConfigurationManager.AppSettings["port"]),
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
                     Timeout = 20000
                 };
+                System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(str.ToString(), null, "text/html");
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = subject,
-                    Body = body
-                })
+                    IsBodyHtml = true,
+                    Body = str.ToString()
+                }) 
                 {
+                    message.AlternateViews.Add(htmlView);
                     smtp.Send(message);
                 
                 }
@@ -332,10 +374,47 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception)
             {
-                
+                //LOG ERROR
                 return false;
             }
             
+        }
+
+        private object VerificarInvetario(List<ProductoModel> productos)
+        {
+            List<Libro> agotados = new List<Libro>();
+            foreach (ProductoModel item in productos)
+            {
+                Libro l = servicioLibro.ObtenerPorId(new Libro { Codigo = item.Codigo});
+                if (l.Inventario == null || l.Inventario.CantidadStock <= 0 || l.Inventario.CantidadStock < item.Cantidad)
+                {
+                    agotados.Add(l);
+                }
+            }
+            if (agotados == null || agotados.Count <= 0 ) {
+                return null;
+            }
+
+            var transformados = agotados.Select(x => new { 
+                Codigo = x.Codigo,
+                Titulo = x.Titulo,
+                Existencia = x.Inventario != null ? x.Inventario.CantidadStock : 0
+            });
+            return transformados;
+        }
+
+        private bool RetirarInvetario(List<ProductoModel> productos)
+        {
+            List<Libro> agotados = new List<Libro>();
+            foreach (ProductoModel item in productos)
+            {
+                Libro l = servicioLibro.ObtenerPorId(new Libro { Codigo = item.Codigo });
+                l.Inventario.CantidadStock -= item.Cantidad;
+                servicioLibro.Modificar(l);
+            }
+
+            return true;
+           
         }
     }
 }
