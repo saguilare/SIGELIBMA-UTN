@@ -1,17 +1,12 @@
 ﻿
 
+//function move_right(index) {
+//    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
+//}
 
-
-
-
-
-function move_right(index) {
-    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
-}
-
-function move_left(index) {
-    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
-}
+//function move_left(index) {
+//    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
+//}
 
 
 function updateArrows() {
@@ -122,7 +117,7 @@ var vm = new Vue({
     methods: {
 
 
-        cleanCart: function () {
+   cleanCart: function () {
             vm.shoppingCart = { items: [], total: 0, totalItems: 0, sections: [], payment: {} };
             vm.shoppingCart.payment = { code: '', status: false };
             vm.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
@@ -265,6 +260,21 @@ validatePayment: function () {
     
 },
 
+updateDetail: function (index) {
+
+    var detail = vm.shoppingCart.items[index];
+    console.log(detail);
+    detail.total = parseInt(detail.quantity) * detail.item.Precio;
+    vm.shoppingCart.items[index] = detail;
+    vm.shoppingCart.total = 0;
+    vm.shoppingCart.totalItems =0;
+    $.each(vm.shoppingCart.items, function (index, detalle) {
+        vm.shoppingCart.total = vm.shoppingCart.total + detalle.total;
+        vm.shoppingCart.totalItems = vm.shoppingCart.totalItems + parseInt(detail.quantity);
+    });
+    
+},
+
 processPayment: function () {
     vm.modalCart.currentPage = 4;
     this.$refs.spinner1.show();
@@ -362,7 +372,19 @@ removeFromCart: function (index, object) {
 
 addToCart: function (item) {
     if (item !== null && item != undefined && item.Precio !== '') {
-        vm.shoppingCart.items.push(item);
+        var agregado = false;
+        $.each(vm.shoppingCart.items, function (index, value) {
+            if (item.item.Codigo === value.item.Codigo) {
+                value.quantity += item.quantity;
+                value.total += item.total;
+                vm.shoppingCart.items[index] = value;
+                agregado = true;
+            }
+        });
+        if (agregado === false) {
+            vm.shoppingCart.items.push(item);
+        }
+
         vm.shoppingCart.total += item.total;
         vm.shoppingCart.totalItems += item.quantity;
         vm.activateAlertModalBookDetails('success', 'El producto fue agregado con exito al carrito', true);

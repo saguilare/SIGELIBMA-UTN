@@ -50,13 +50,14 @@
                         <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.item.Precio}}</p>
                         <div class="form-group text-center">
                             <label>Cantidad:</label>
-                            <input class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />
+                            <input v-if="modalObject.item.Stock === true" class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />
+                            <p v-else class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
                         </div>
                         <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.total}}</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
+                        <button v-if="modalObject.item.Stock === true" type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -121,9 +122,11 @@
                                                         <td>{{object.item.Codigo}}</td>
                                                         <td>{{object.item.Titulo}}</td>
                                                         <td>&#162;{{object.item.Precio}}</td>
-                                                        <td>{{object.quantity}}</td>
+                                                        <td>
+                                                            <input class="form-control" min="1" max="20" type="number" name="name" v-model="object.quantity" v-on:keyup="updateDetail($index)" v-on:change="updateDetail($index)" v-on:blur="updateDetail($index)" />
+                                                        </td>
                                                         <td>&#162;{{object.total}}</td>
-                                                        <td><button class="btn btn-danger" v-on:click="removeFromCart($index,object)">Remover</button></td>
+                                                        <td><button class="btn btn-danger" type="button" v-on:click="removeFromCart($index,object)">Remover</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
@@ -263,7 +266,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li v-on:click="filteredCategories = categories"><a href="#">Todas</a></li>
-                                        <li v-if="item.Libros && item.Libros.length > 0" v-for="item in categories" v-on:click="filterCategory(item)"><a href="#">{{item.Descripcion}}</a></li>
+                                        <li  v-for="item in categories" v-on:click="filterCategory(item)"><a href="#">{{item.Descripcion}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#contact">Contactenos</a></li>
@@ -318,7 +321,7 @@
 
         @RenderBody()
 
-        <backtotop></backtotop>
+        @*<backtotop></backtotop>*@
     </div><!--Main container-->
 
 

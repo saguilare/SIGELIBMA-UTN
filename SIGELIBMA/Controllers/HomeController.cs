@@ -105,14 +105,15 @@ namespace SIGELIBMA.Controllers
 		        LibroServicio servicio = new LibroServicio();
                 List<Libro> libros = servicio.ObtenerTodos();
                 //transform and simplify list to avoid circular dependency issues 
-                var newList = libros.Where(x => x.Inventario != null && x.Inventario.CantidadStock > 0).Select(item => new
+                var newList = libros.Where(x => x.Inventario != null &&  x.Estado == 1).Select(item => new
                 {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
                     Precio = item.PrecioVentaConImpuestos,
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
-                    Titulo =item.Titulo
+                    Titulo =item.Titulo,
+                    Stock = item.Inventario.CantidadStock <= 0 ? false : true
 
 
                 });
@@ -134,16 +135,17 @@ namespace SIGELIBMA.Controllers
                 CategoriasLibroServicio servicio = new CategoriasLibroServicio();
                 List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors
-                var newList = cats.Select(item =>new {
+                var newList = cats.Where(x => x.Estado == 1 && x.Libro != null && x.Libro.Count > 0).Select(item =>new {
                     Codigo = item.Codigo,
                     Descripcion = item.Descripcion,
-                    Libros = item.Libro.Where(x => x.Inventario != null && x.Inventario.CantidadStock > 0).Select(libro => new {
+                    Libros = item.Libro.Where(x => x.Inventario != null && x.Estado == 1).Select(libro => new {
                         Codigo = libro.Codigo,
                         Autor = libro.Autor1.Apellidos + ", " + libro.Autor1.Nombre,
                         Precio = libro.PrecioVentaConImpuestos,
                         Descripcion = libro.Descripcion,
                         Image = libro.Imagen,
-                        Titulo =libro.Titulo
+                        Titulo =libro.Titulo,
+                        Stock =  libro.Inventario.CantidadStock <= 0 ? false : true
                     })
                 });
 
