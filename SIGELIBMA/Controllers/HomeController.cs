@@ -50,6 +50,7 @@ namespace SIGELIBMA.Controllers
             {
                 var libros = ObtenerLibros();
                 var categorias = ObtenerCategorias();
+                string date = DateTime.Today.ToString("MM/dd/yyyy"); 
                 return Json(new { EstadoOperacion = true,
                                   Categorias =categorias, 
                                   Libros = libros, 
@@ -57,6 +58,7 @@ namespace SIGELIBMA.Controllers
                                   CedulaJuridica = CedulaJuridica,
                                   BancosEmisores = Bancos,
                                   BancosReceptores = Cuentas,
+                                  Date = date,
                                   Mensaje = "Operation OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -94,6 +96,36 @@ namespace SIGELIBMA.Controllers
                 //TODO handle ex
                 Response.StatusCode = 400;
                 return Json(new { EstadoOperacion = false,  Mensaje = "Operation FAILED" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult BuscarCedula(ClienteModel cliente)
+        {
+            try
+            {
+                Usuario user = servicioUsuario.ObtenerPorId(new Usuario { Cedula = cliente.Cedula });
+                if (user != null)
+                {
+                    var usuarioLimpio = new {
+                     Cedula = user.Cedula,
+                     Nombre = user.Segundo_Nombre != ""? user.Nombre + " " + user.Segundo_Nombre : user.Nombre,
+                     Apellidos = user.Apellido2 != ""? user.Apellido1 + " " + user.Apellido2 : user.Apellido1,
+                     Correo = user.Correo,
+                     Telefono = user.Telefono
+                    };
+                    return Json(new { EstadoOperacion = true, Usuario = usuarioLimpio, Mensaje = "Operacion OK" });
+                }
+
+
+                return Json(new { EstadoOperacion = false, Usuario = "", Mensaje = "Operacion OK" });
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "Operation FAILED" });
             }
         }
 
@@ -209,6 +241,7 @@ namespace SIGELIBMA.Controllers
 
             try
             {
+                UsuarioRolesServicio serv = new UsuarioRolesServicio();
                 Usuario cliente = servicioUsuario.ObtenerPorId(new Usuario { Cedula = clientep.Cedula });
                 if (cliente == null)
 	            {
@@ -226,6 +259,23 @@ namespace SIGELIBMA.Controllers
 
                     };
                     servicioUsuario.Agregar(cliente);
+                   
+                    serv.Agregar(new UsuarioRoles { Usuario = cliente.Cedula, Rol = 3,Estado =1 });
+	            }else
+	            {
+                    bool agregar = true;
+                    foreach (UsuarioRoles item in cliente.UsuarioRoles)
+                    {
+                        if (item.Rol == 3)
+                        {
+                            agregar = false;
+                            break;
+                        }
+                    }
+                    if (agregar)
+                    {
+                        serv.Agregar(new UsuarioRoles { Usuario = cliente.Cedula, Rol = 3, Estado = 1 }); 
+                    }
 	            }
 
                 return cliente;

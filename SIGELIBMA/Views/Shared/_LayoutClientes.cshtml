@@ -102,7 +102,7 @@
                                 <!-- Content-->
                                 <div class="row">
                                     <div class="col-sm-12 table-responsive">
-                                        <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
+                                        <spinner v-ref:spinner1 size="md" fixed text="Procesando datos, por favor espere!"></spinner>
                                         <!--page 1-->
                                         <div v-if="modalCart.currentPage === 1">
                                             <h3>Resumen Productos</h3><hr />
@@ -143,13 +143,18 @@
                                         <div v-if="modalCart.currentPage === 2">
                                             <h3>Datos Personales</h3><hr />
                                             <div class="form-group">
+                                                <div class="input-group">
+                                                    <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                                    <span class="input-group-btn">
+                                                        <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
                                             <div class="form-gr<up">
                                                 <vueinput v-bind:value.sync="cliente.Apellido1" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
-                                            </div>
-                                            <div class="form-group">
-                                                <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
                                             <div class="form-group">
                                                 <vueinput v-bind:value.sync="cliente.Telefono" label="Telefono" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Telefono" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
