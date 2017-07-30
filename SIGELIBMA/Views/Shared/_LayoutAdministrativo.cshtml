@@ -45,8 +45,8 @@
         <link href="~/Content/Admin/Mantenimiento/TipoMovCaja.css" rel="stylesheet" />
     }
 </head>
-<body id="pageMainContainer">
-    <nav class="navbar-main navbar navbar-default">
+<body id="">
+    <nav id="navbar" class="navbar-main navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5">
@@ -78,19 +78,19 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li id="nameandjobtitlebar" class="active"><a class=""><i class="intelicon-user-person-outlined" aria-hidden="true"></i>Stevenag | Admin</a></li>
-                    <li ng-if="showlogout" class="active"><a href="" ng-click="logout()">Logout </a></li>
+                    <li id="nameandjobtitlebar" class="active"><a class=""><i class="intelicon-user-person-outlined" aria-hidden="true"></i>{{sesion.username}} | {{sesion.usuario}}</a></li>
+                    <li  class="active"><a href="" v-on:click="logOut()">Logout </a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div id="page-main" class="">
+    <div id="pageMainContainer" class="">
 
         @RenderBody()
-        
+
         @*<footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -99,9 +99,11 @@
     <script src="~/Scripts/Underscore.js"></script>
     <script src="~/Scripts/VueJsFramework/vue1.js"></script>
     <script src="~/Scripts/vue-strap/vue-strap.js"></script>
+    <script src="~/Scripts/VueJs/Admin/navbar.js"></script>
     @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
+        
     }
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "entregas")
     {
@@ -143,6 +145,7 @@
     {
         <script src="~/Scripts/VueJs/Admin/MantTipoPago.js"></script>
     }
+
     
 </body>
 </html>

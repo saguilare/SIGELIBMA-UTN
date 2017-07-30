@@ -14,7 +14,10 @@ namespace SIGELIBMA.Filters
         {
             if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToString().ToLower() != "home" 
                 || (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToString().ToLower() != "login" &&
-                filterContext.ActionDescriptor.ActionName.ToString() != "ValidarLogin"))
+                filterContext.ActionDescriptor.ActionName.ToString() != "ValidarLogin")
+                || (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToString().ToLower() != "login" &&
+                filterContext.ActionDescriptor.ActionName.ToString() != "Logout")
+                )
             {
                 var session = filterContext.HttpContext.Session;
                 if (session == null || session["SesionSistema"] == null)

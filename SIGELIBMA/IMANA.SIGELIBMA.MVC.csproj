@@ -253,6 +253,7 @@
     <Content Include="Scripts\VueJs\Admin\MantCategoria.js" />
     <Content Include="Scripts\VueJs\Admin\MantProveedor.js" />
     <Content Include="Scripts\VueJs\Admin\MantRoles.js" />
+    <Content Include="Scripts\VueJs\Admin\navbar.js" />
     <Content Include="Scripts\VueJs\Clientes\principal.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />

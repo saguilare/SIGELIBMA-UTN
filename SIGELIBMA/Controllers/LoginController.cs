@@ -37,6 +37,51 @@ namespace SIGELIBMA.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetSesion() {
+            try
+            {
+                if (Session != null && Session["SesionSistema"] != null)
+                {
+                    Sesion sesion = Session["SesionSistema"] as Sesion;
+                    var s = new { id = sesion.Id, usuario = sesion.Usuario1.Apellido1+", "+sesion.Usuario1.Nombre, username = sesion.Usuario1.Usuario1};
+                    return Json(new { EstadoOperacion = true, Sesion = s , Mensaje = "Operacion OK"},JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { EstadoOperacion = false, redirectUrl = Url.Action("Index", "Login") , Mensaje = "Operacion OK"},JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "System error,unable to get session" });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            try
+            {
+                if (Session != null && Session["SesionSistema"] != null)
+                {
+                    Session.Clear();
+                    Session.Abandon();
+                }
+
+                return RedirectToAction("Index", new {code = 2 });
+                
+            }
+            catch (Exception)
+            {
+
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "System error,unable to get session" });
+            }
+        }
+
         [HttpPost]
         public ActionResult ValidarLogin(UserLoginModel login)
         {
