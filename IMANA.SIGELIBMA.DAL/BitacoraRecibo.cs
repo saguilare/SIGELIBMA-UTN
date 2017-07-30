@@ -21,8 +21,8 @@ namespace IMANA.SIGELIBMA.DAL
         public decimal Abono { get; set; }
         public decimal SaldoAnterior { get; set; }
         public decimal SaldoActual { get; set; }
-        public int TransaccionId { get; set; }
+        public int Sesion { get; set; }
     
-        public virtual Transaccion Transaccion { get; set; }
+        public virtual Sesion Sesion1 { get; set; }
     }
 }

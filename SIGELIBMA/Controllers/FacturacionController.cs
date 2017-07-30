@@ -34,9 +34,18 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         public JsonResult Init() {
             try
             {
+                
                 var libros = ObtenerLibros();
                 var cajas = ObtenerCajas();
                 var tipospago = ObtenerTiposPago();
+
+                if (Session != null && Session["SesionSistema"] != null)
+                {
+                    Sesion sesion = Session["SesionSistema"] as Sesion;
+                    Usuario user = sesion.Usuario1;
+                   
+                }
+                
                 if (libros == null ||  cajas== null || tipospago== null)  
                 {
                     throw new Exception("No se cuenta con la informacion necesaria para esta pagina, vuelva a recargar."); 
@@ -227,7 +236,16 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         {
             try
             {
-                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo });
+                if (caja.Estado == 1)
+                {//abrir
+                    servicioCaja.Abrir()
+                }
+                else
+                {
+
+                }
+
+
                 if (cajaDb != null)
                 {
                     cajaDb.Estado = caja.Estado;
@@ -324,7 +342,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                     Fecha = item.Fecha.ToString(),
                     Descripcion = item.Descripcion,
                     Monto = item.Monto,
-                    Tipo = item.TipoMovimientoCaja.Descripcion
+                    Tipo = new { Codigo = item.TipoMovimientoCaja.Codigo ,Descripcion =item.TipoMovimientoCaja.Descripcion }
                 });
                 
                 return Json(new { EstadoOperacion = true, Movimientos = newList, Mensaje = "Operacion Exitosa" });

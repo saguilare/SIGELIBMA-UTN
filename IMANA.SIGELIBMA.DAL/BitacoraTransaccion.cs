@@ -19,8 +19,7 @@ namespace IMANA.SIGELIBMA.DAL
         public int Sesion { get; set; }
         public string Tabla { get; set; }
         public int Tipo { get; set; }
-        public int TransaccionId { get; set; }
     
-        public virtual Transaccion Transaccion { get; set; }
+        public virtual Sesion Sesion1 { get; set; }
     }
 }

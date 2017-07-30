@@ -21,8 +21,8 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public string BancoEmisor { get; set; }
         public string BancoReceptor { get; set; }
-        public int TransaccionId { get; set; }
+        public int Sesion { get; set; }
     
-        public virtual Transaccion Transaccion { get; set; }
+        public virtual Sesion Sesion1 { get; set; }
     }
 }

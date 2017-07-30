@@ -59,6 +59,64 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
+        public int Abrir(Caja cajap, Usuario usuariop, decimal monto)
+        {
+            try
+            {
+                Caja cajaDb = ObtenerPorId(cajap);
+                if (cajaDb != null)
+                {
+                    cajaDb.Estado = 1;
+                    unitOfWork.Repository<Caja>().Update(cajap);
+                    unitOfWork.Save(); 
+                    CajaUsuario cu = new CajaUsuario();
+                    cu.Caja = cajap.Codigo;
+                    cu.Usuario = usuariop.Cedula;
+                    cu.Apertura = DateTime.Now;
+                    cu.MontoApertura = monto;
+                    unitOfWork.Repository<CajaUsuario>().Update(cu);
+                    unitOfWork.Save();
+                    return cu.Sesion;
+                }
+                else
+                {
+                    return 0;
+                }
+                
+
+                
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
+        public bool Cerra(Caja cajap,int sesion, decimal monto)
+        {
+            try
+            {
+                CajaUsuario cu = unitOfWork.Repository<CajaUsuario>().GetById(new CajaUsuario {Sesion = sesion });
+                cu.Cierre = DateTime.Now;
+                cu.MontoCierre = monto;
+                unitOfWork.Save();
+
+                cajap.Estado = 2;
+                unitOfWork.Repository<Caja>().Update(cajap);
+                unitOfWork.Save();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
         public bool Agregar(Caja cajap)
         {
             try

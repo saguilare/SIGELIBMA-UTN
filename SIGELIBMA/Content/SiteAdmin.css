@@ -16,7 +16,10 @@ body {
     padding: 0px 100px;
 }
 
-
+.btn-pager {
+    color:#337ab7;
+    border-radius:15pt;
+}
 
 
 /*override color in tool nav bar*/

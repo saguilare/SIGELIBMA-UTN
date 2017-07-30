@@ -188,7 +188,7 @@
 <div id="modal-retiroAbono" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form name="abonar" v-on:submit.prevent="aplicarMovimiento()">
+            <form id="abonar" name="abform" v-on:submit.prevent="aplicarMovimiento()">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Movimiento Dinero</h4>
@@ -211,13 +211,13 @@
                             <div v-if="movimiento.procesado === false">
                                 <h3>Movimiento de Dinero</h3><hr />
                                 <div class="form-group" required>
-                                    <select class="form-control" v-model="movimiento.tipo">
+                                    <select class="form-control" v-model="movimiento.tipo" required>
                                         <option value="0" disabled>-- Seleccione un Tipo --</option>
                                         <option v-for="mov in tiposMovimiento" v-bind:value="mov.codigo">{{mov.descripcion}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <vueinput v-bind:value.sync="movimiento.monto" type="number" label="Monto" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    <vueinput v-bind:value.sync="movimiento.monto" min="1" type="number" label="Monto" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                 </div>
                                 <div class="form-gr<up">
                                     <vueinput v-bind:value.sync="movimiento.razon" label="Descripcion" help="" error="Este campo es requerido." placeholder="Justificacion" pattern="^[0-9a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
@@ -236,13 +236,7 @@
                     <!-- Pager Btns-->
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <nav aria-label="...">
-                                <ul class="pager">
-                                    <li v-if="movimiento.procesado === false" v-on:click="abonar.submit()">
-                                        <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <button class="btn btn-default btn-pager" v-if="movimiento.procesado === false" type="submit">Procesar <span class="glyphicon glyphicon-arrow-right"></span></button>
                         </div>
                     </div>
 
@@ -307,7 +301,7 @@
                                     <td>{{movimiento.Fecha}}</td>
                                     <td>{{movimiento.Descripcion}}</td>
                                     <td>&#162;{{movimiento.Monto}}</td>
-                                    <td>{{movimiento.Tipo}}</td>
+                                    <td>{{movimiento.Tipo.Descripcion}}</td>
                                 </tr>
 
                             </tbody>
@@ -315,6 +309,49 @@
                     </div>
                     <div v-else class="alert alert-dismissible alert-danger" role="alert">
                         <button type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        No se registran movimientos para esta caja
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--MODAL CIERRE-->
+<div id="modal-cierre" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header modal-mant">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cierre Caja</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" v-if="movimientosDelDia !== null && movimientosDelDia.length > 0">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Abono</th>
+                                    <th>Retiro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="movimiento in movimientosDelDia">
+                                    <td>{{movimiento.Fecha}}</td>
+                                    <td>{{movimiento.Descripcion}}</td>
+                                    <td>&#162;{{movimiento.Monto}}</td>
+                                    <td>{{movimiento.Tipo.Descripcion}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div v-else class="alert alert-dismissible alert-danger" role="alert">
+                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
                         No se registran movimientos para esta caja
                     </div>

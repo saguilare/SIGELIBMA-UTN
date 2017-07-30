@@ -18,8 +18,8 @@ namespace IMANA.SIGELIBMA.DAL
         public int Factura { get; set; }
         public string Articulo { get; set; }
         public int Cantidad { get; set; }
-        public int TransaccionId { get; set; }
+        public int Sesion { get; set; }
     
-        public virtual Transaccion Transaccion { get; set; }
+        public virtual Sesion Sesion1 { get; set; }
     }
 }

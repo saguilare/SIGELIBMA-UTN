@@ -4,74 +4,78 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1a50b9deb4b84b6d93648afb99dc0116" Name="Diagram1">
-        <EntityTypeShape EntityType="SIGELIBMAModel.Autor" Width="1.5" PointX="3.75" PointY="30" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraAutor" Width="1.5" PointX="10.5" PointY="18.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraCaja" Width="1.5" PointX="10.5" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraCategoria" Width="1.5" PointX="5.25" PointY="49.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraDeposito" Width="1.5" PointX="10.5" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraDescuento" Width="1.5" PointX="10.5" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraDetalleFactura" Width="1.5" PointX="10.5" PointY="31.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraEstadoCaja" Width="1.5" PointX="10.5" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraEstadoFactura" Width="1.5" PointX="10.5" PointY="36.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraFactura" Width="1.5" PointX="10.5" PointY="39.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraInventario" Width="1.5" PointX="10.5" PointY="44.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraLibro" Width="1.5" PointX="10.5" PointY="47.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraMovimientoCaja" Width="1.5" PointX="10.5" PointY="51.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraProveedor" Width="1.5" PointX="10.5" PointY="55.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraRecibo" Width="1.5" PointX="10.5" PointY="58.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraRol" Width="1.5" PointX="10.5" PointY="61.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTipoMovimientoCaja" Width="1.5" PointX="10.5" PointY="64.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTipoPago" Width="1.5" PointX="10.5" PointY="67.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTipoTransaccion" Width="1.5" PointX="10.5" PointY="70" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTransaccion" Width="1.5" PointX="10.5" PointY="72.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraUsuario" Width="1.5" PointX="10.5" PointY="75.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraUsuarioRoles" Width="1.5" PointX="10.5" PointY="80" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Caja" Width="1.5" PointX="0.75" PointY="38.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Categoria" Width="1.5" PointX="3.75" PointY="32.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Deposito" Width="1.5" PointX="5.25" PointY="38.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.DetalleFactura" Width="1.5" PointX="8.25" PointY="42.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.EstadoCaja" Width="1.5" PointX="1.5" PointY="35.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.EstadoFactura" Width="1.5" PointX="0.75" PointY="47.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Factura" Width="1.5" PointX="3" PointY="41.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Inventario" Width="1.5" PointX="8.25" PointY="32.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Libro" Width="1.5" PointX="6" PointY="31.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.MovimientoCaja" Width="1.5" PointX="8" PointY="38" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Proveedor" Width="1.5" PointX="3.75" PointY="35.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Recibo" Width="1.5" PointX="5.25" PointY="46.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Rol" Width="1.5" PointX="3.75" PointY="52.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Sesion" Width="1.5" PointX="3" PointY="49.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.TipoMovimientoCaja" Width="1.5" PointX="5.75" PointY="27.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.TipoPago" Width="1.5" PointX="0.75" PointY="49.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.TipoTransaccion" Width="1.5" PointX="6" PointY="52.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Transaccion" Width="1.5" PointX="8.25" PointY="47.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.Usuario" Width="1.5" PointX="0.75" PointY="42" IsExpanded="true" />
-        <EntityTypeShape EntityType="SIGELIBMAModel.UsuarioRoles" Width="1.5" PointX="6" PointY="42.75" IsExpanded="true" />
+      <Diagram DiagramId="e077204358ed4235ae4993f80b4660bf" Name="Diagram1">
+        <EntityTypeShape EntityType="SIGELIBMAModel.Autor" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraAutor" Width="1.5" PointX="5.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraCaja" Width="1.5" PointX="5.25" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraCategoria" Width="1.5" PointX="5.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraDeposito" Width="1.5" PointX="5.25" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraDescuento" Width="1.5" PointX="5.25" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraDetalleFactura" Width="1.5" PointX="5.25" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraEstadoCaja" Width="1.5" PointX="5.25" PointY="42.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraEstadoFactura" Width="1.5" PointX="5.25" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraFactura" Width="1.5" PointX="5.25" PointY="48" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraInventario" Width="1.5" PointX="5.25" PointY="52.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraLibro" Width="1.5" PointX="5.25" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraMovimientoCaja" Width="1.5" PointX="5.25" PointY="60.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraProveedor" Width="1.5" PointX="5.25" PointY="63.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraRecibo" Width="1.5" PointX="5.25" PointY="66.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraRol" Width="1.5" PointX="5.25" PointY="70.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTipoMovimientoCaja" Width="1.5" PointX="5.25" PointY="73" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTipoPago" Width="1.5" PointX="5.25" PointY="75.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTipoTransaccion" Width="1.5" PointX="5.25" PointY="78.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraTransaccion" Width="1.5" PointX="5.25" PointY="81.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraUsuario" Width="1.5" PointX="5.25" PointY="84.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.BitacoraUsuarioRoles" Width="1.5" PointX="5.25" PointY="88.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Caja" Width="1.5" PointX="0.75" PointY="38.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.CajaUsuario" Width="1.5" PointX="3" PointY="45.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Categoria" Width="1.5" PointX="3.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Deposito" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.DetalleFactura" Width="1.5" PointX="8.25" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.EstadoCaja" Width="1.5" PointX="1.5" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.EstadoFactura" Width="1.5" PointX="0.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Factura" Width="1.5" PointX="3" PointY="40" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Inventario" Width="1.5" PointX="8.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Libro" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.MovimientoCaja" Width="1.5" PointX="8" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Proveedor" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Recibo" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Rol" Width="1.5" PointX="0.75" PointY="53.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Sesion" Width="1.5" PointX="3" PointY="54.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.TipoMovimientoCaja" Width="1.5" PointX="5.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.TipoPago" Width="1.5" PointX="0.75" PointY="50.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.TipoTransaccion" Width="1.5" PointX="6" PointY="91.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Transaccion" Width="1.5" PointX="8.25" PointY="56.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.Usuario" Width="1.5" PointX="0.75" PointY="45.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SIGELIBMAModel.UsuarioRoles" Width="1.5" PointX="3" PointY="50.375" IsExpanded="true" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Autor__2F10007B" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraA__Trans__6B24EA82" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraC__Trans__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraA__Sesio__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraC__Sesio__08B54D69" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraC__Sesio__6EF57B66" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraD__Trans__1AD3FDA4" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraD__Trans__7E37BEF6" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraD__Trans__17F790F9" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraE__Trans__05D8E0BE" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraE__Trans__02084FDA" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraF__Trans__151B244E" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraI__Trans__7A672E12" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraL__Trans__76969D2E" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraM__Trans__0F624AF8" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraP__Trans__72C60C4A" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraR__Trans__1DB06A4F" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraR__Trans__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Trans__0C85DE4D" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Trans__123EB7A3" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Trans__6477ECF3" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Trans__6754599E" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraU__Trans__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraU__Trans__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraD__Sesio__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraD__Sesio__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraD__Sesio__18EBB532" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraE__Sesio__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraE__Sesio__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraF__Sesio__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraI__Sesio__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraL__Sesio__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraM__Sesio__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraP__Sesio__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraR__Sesio__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraR__Sesio__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Sesio__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Sesio__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Sesio__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraT__Sesio__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraU__Sesio__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__BitacoraU__Sesio__60A75C0F" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Caja__Estado__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__CajaUsuari__Caja__40F9A68C" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Factura__Caja__4AB81AF0" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Movimiento__Caja__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGELIBMAModel.FK__CajaUsuar__Usuar__40058253" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Libro__Categoria__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__Deposito__Factur__52593CB8" ManuallyRouted="false" />
         <AssociationConnector Association="SIGELIBMAModel.FK__DetalleFa__Artic__4F7CD00D" ManuallyRouted="false" />

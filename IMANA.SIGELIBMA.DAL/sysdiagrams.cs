@@ -12,15 +12,12 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class BitacoraInventario
+    public partial class sysdiagrams
     {
-        public string CodigoLibro { get; set; }
-        public int CantidadStock { get; set; }
-        public int CantidadMinima { get; set; }
-        public Nullable<int> CantidadMaxima { get; set; }
-        public Nullable<int> Estado { get; set; }
-        public int Sesion { get; set; }
-    
-        public virtual Sesion Sesion1 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

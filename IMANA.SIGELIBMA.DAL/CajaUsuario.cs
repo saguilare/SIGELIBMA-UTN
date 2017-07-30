@@ -12,15 +12,17 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class BitacoraInventario
+    public partial class CajaUsuario
     {
-        public string CodigoLibro { get; set; }
-        public int CantidadStock { get; set; }
-        public int CantidadMinima { get; set; }
-        public Nullable<int> CantidadMaxima { get; set; }
-        public Nullable<int> Estado { get; set; }
         public int Sesion { get; set; }
+        public int Caja { get; set; }
+        public string Usuario { get; set; }
+        public System.DateTime Apertura { get; set; }
+        public Nullable<System.DateTime> Cierre { get; set; }
+        public decimal MontoApertura { get; set; }
+        public Nullable<decimal> MontoCierre { get; set; }
     
-        public virtual Sesion Sesion1 { get; set; }
+        public virtual Caja Caja1 { get; set; }
+        public virtual Usuario Usuario1 { get; set; }
     }
 }

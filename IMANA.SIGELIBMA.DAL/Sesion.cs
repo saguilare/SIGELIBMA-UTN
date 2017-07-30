@@ -16,7 +16,27 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public Sesion()
         {
+            this.BitacoraAutor = new HashSet<BitacoraAutor>();
+            this.BitacoraCaja = new HashSet<BitacoraCaja>();
             this.BitacoraCategoria = new HashSet<BitacoraCategoria>();
+            this.BitacoraDeposito = new HashSet<BitacoraDeposito>();
+            this.BitacoraDescuento = new HashSet<BitacoraDescuento>();
+            this.BitacoraDetalleFactura = new HashSet<BitacoraDetalleFactura>();
+            this.BitacoraEstadoCaja = new HashSet<BitacoraEstadoCaja>();
+            this.BitacoraEstadoFactura = new HashSet<BitacoraEstadoFactura>();
+            this.BitacoraFactura = new HashSet<BitacoraFactura>();
+            this.BitacoraInventario = new HashSet<BitacoraInventario>();
+            this.BitacoraLibro = new HashSet<BitacoraLibro>();
+            this.BitacoraMovimientoCaja = new HashSet<BitacoraMovimientoCaja>();
+            this.BitacoraProveedor = new HashSet<BitacoraProveedor>();
+            this.BitacoraRecibo = new HashSet<BitacoraRecibo>();
+            this.BitacoraRol = new HashSet<BitacoraRol>();
+            this.BitacoraTipoMovimientoCaja = new HashSet<BitacoraTipoMovimientoCaja>();
+            this.BitacoraTipoPago = new HashSet<BitacoraTipoPago>();
+            this.BitacoraTipoTransaccion = new HashSet<BitacoraTipoTransaccion>();
+            this.BitacoraTransaccion = new HashSet<BitacoraTransaccion>();
+            this.BitacoraUsuario = new HashSet<BitacoraUsuario>();
+            this.BitacoraUsuarioRoles = new HashSet<BitacoraUsuarioRoles>();
             this.Transaccion = new HashSet<Transaccion>();
         }
     
@@ -25,7 +45,27 @@ namespace IMANA.SIGELIBMA.DAL
         public System.DateTime Inicio { get; set; }
         public Nullable<System.DateTime> Finalizacion { get; set; }
     
+        public virtual ICollection<BitacoraAutor> BitacoraAutor { get; set; }
+        public virtual ICollection<BitacoraCaja> BitacoraCaja { get; set; }
         public virtual ICollection<BitacoraCategoria> BitacoraCategoria { get; set; }
+        public virtual ICollection<BitacoraDeposito> BitacoraDeposito { get; set; }
+        public virtual ICollection<BitacoraDescuento> BitacoraDescuento { get; set; }
+        public virtual ICollection<BitacoraDetalleFactura> BitacoraDetalleFactura { get; set; }
+        public virtual ICollection<BitacoraEstadoCaja> BitacoraEstadoCaja { get; set; }
+        public virtual ICollection<BitacoraEstadoFactura> BitacoraEstadoFactura { get; set; }
+        public virtual ICollection<BitacoraFactura> BitacoraFactura { get; set; }
+        public virtual ICollection<BitacoraInventario> BitacoraInventario { get; set; }
+        public virtual ICollection<BitacoraLibro> BitacoraLibro { get; set; }
+        public virtual ICollection<BitacoraMovimientoCaja> BitacoraMovimientoCaja { get; set; }
+        public virtual ICollection<BitacoraProveedor> BitacoraProveedor { get; set; }
+        public virtual ICollection<BitacoraRecibo> BitacoraRecibo { get; set; }
+        public virtual ICollection<BitacoraRol> BitacoraRol { get; set; }
+        public virtual ICollection<BitacoraTipoMovimientoCaja> BitacoraTipoMovimientoCaja { get; set; }
+        public virtual ICollection<BitacoraTipoPago> BitacoraTipoPago { get; set; }
+        public virtual ICollection<BitacoraTipoTransaccion> BitacoraTipoTransaccion { get; set; }
+        public virtual ICollection<BitacoraTransaccion> BitacoraTransaccion { get; set; }
+        public virtual ICollection<BitacoraUsuario> BitacoraUsuario { get; set; }
+        public virtual ICollection<BitacoraUsuarioRoles> BitacoraUsuarioRoles { get; set; }
         public virtual Usuario Usuario1 { get; set; }
         public virtual ICollection<Transaccion> Transaccion { get; set; }
     }
