@@ -13,6 +13,7 @@ var urlRoot = 'http://localhost:2814/';
 
 
 var data = {};
+data.enableFacturar = false;
 data.emailSupport = "iglesiamana@gmail.com";
 data.books = [];
 data.codigos = [];
@@ -22,7 +23,7 @@ data.searchSelected = "";
 data.product = { item: {}, quantity: 1,subtotal:0,total:0 };
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null, Rol: 0 };
 data.modalFact = { currentPage: 1 };
-data.cashier = null;
+data.cashier = { Codigo: 0, Descripcion: "", Estado:0, Monto:0 };
 data.cashBoxes = [];
 data.tiposPago = [];
 data.alert = { type: 'success', message: 'alert', status: false };
@@ -96,6 +97,7 @@ var vm = new Vue({
         },
 
         initializeCashBox: function () {
+            vm.enableFacturar = false;
             this.$refs.spinner1.show();
             vm.cashier.Estado = 1;
             $.ajax({
@@ -126,7 +128,7 @@ var vm = new Vue({
         },
 
         closeCashBox: function () {
-            this.$refs.spinner1.show();
+            
             vm.cashier.Estado = 2;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
@@ -134,9 +136,9 @@ var vm = new Vue({
                 dataType: 'json',
                 data: vm.cashier,
                 success: function (result) {
-                    vm.$refs.spinner1.hide();
+                    
                     if (result.EstadoOperacion) {
-                        $('#modal-caja').modal('hide');
+                   
                         vm.activateToastr('success', 'La caja ha sido cerrada con exito.', true);
                         $('#collapseFactMain').collapse('hide');
                         vm.cashier = null;
@@ -146,7 +148,7 @@ var vm = new Vue({
                     }
                 },
                 error: function (error) {
-                    vm.$refs.spinner1.hide();
+            
                     vm.cashier.Estado = 1;
                     vm.activateToastr('danger', 'La caja no se cerro, trate nuevamente.', true);
 
@@ -234,7 +236,7 @@ var vm = new Vue({
         openModal: function (object, target) {
             vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
-                vm.cashier = {};
+                vm.cashier = { Codigo: 0, Descripcion: "", Estado: 0, Monto: 0 };
                 if (vm.cashBoxes === null || vm.cashBoxes.length < 1) {
                     vm.activateAlertModal("danger","Lo sentimos todas las cajas estan abiertas en este momento", true);
                 } else {
@@ -328,7 +330,8 @@ var vm = new Vue({
 
             vm.searchSelected = "";
             $('#modal-product').modal('hide');
-            vm.product = { item: {}, quantity: 1, total: 0 ,subtotal:0};
+            vm.product = { item: {}, quantity: 1, total: 0, subtotal: 0 };
+
             
         },
         
@@ -339,6 +342,8 @@ var vm = new Vue({
                 vm.factura.master.subtotal = 0;
                 vm.factura.master.total = 0;
                 vm.factura.master.taxes = 0;
+            } else {
+                vm.updateFactura();
             }
             
         },
@@ -400,6 +405,41 @@ var vm = new Vue({
             if (vm.factura !== null && vm.factura.master.id > 0) {
                 vm.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:"",email:"" },tipoPago:{Codigo:0,Descripcion:""},referencia:"", taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
             }
+        },
+
+        getClient: function () {
+
+            if (vm.factura.master.client.id === "") {
+                vm.activateAlertModal("danger", "Debe digitar la cedula", true);
+                return false;
+            }
+            var cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: vm.factura.master.client.id };
+            this.$refs.spinner1.show();
+
+
+            $.ajax({
+                url: urlRoot + 'Home/BuscarCedula',
+                type: 'post',
+                dataType: 'json',
+                data: cliente,
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.factura.master.client.name = result.Usuario.Nombre;
+                        vm.factura.master.client.lastname = result.Usuario.Apellidos;
+                        vm.factura.master.client.id = result.Usuario.Cedula;
+                        vm.factura.master.client.phone = result.Usuario.Telefono;
+                        vm.factura.master.client.email = result.Usuario.Correo;
+                    } else {
+                        vm.activateAlertModal('info', 'No se encontro ningun usuario registrado, por favor digite sus datos', true);
+                    }
+                    vm.$refs.spinner1.hide();
+                },
+                error: function (error) {
+                    vm.activateAlertModal('info', 'No se pudo encontrar el cliente, por favor digite sus datos', true);
+                    vm.$refs.spinner1.hide();
+                }
+            });
+
         },
 
         init: function () {

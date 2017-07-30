@@ -102,7 +102,36 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
         }
 
-        
+        [HttpPost]
+        public JsonResult BuscarCedula(ClienteModel cliente)
+        {
+            try
+            {
+                Usuario user = servicioUsuario.ObtenerPorId(new Usuario { Cedula = cliente.Cedula });
+                if (user != null)
+                {
+                    var usuarioLimpio = new
+                    {
+                        Cedula = user.Cedula,
+                        Nombre = user.Segundo_Nombre != "" ? user.Nombre + " " + user.Segundo_Nombre : user.Nombre,
+                        Apellidos = user.Apellido2 != "" ? user.Apellido1 + " " + user.Apellido2 : user.Apellido1,
+                        Correo = user.Correo,
+                        Telefono = user.Telefono
+                    };
+                    return Json(new { EstadoOperacion = true, Usuario = usuarioLimpio, Mensaje = "Operacion OK" });
+                }
+
+
+                return Json(new { EstadoOperacion = false, Usuario = "", Mensaje = "Operacion OK" });
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "Operation FAILED" });
+            }
+        }
 
         private object ObtenerLibros()
         {
@@ -112,15 +141,17 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 LibroServicio servicio = new LibroServicio();
                 List<Libro> libros = servicio.ObtenerTodos();
                 //transform and simplify list to avoid circular dependency issues 
-                var newList = libros.Select(item => new
+                var newList = libros.Where(x => x.Inventario != null && x.Estado == 1).Select(item => new
                 {
                     Codigo = item.Codigo,
                     Autor = item.Autor1.Apellidos + ", " + item.Autor1.Nombre,
-                    PrecioSinImp = item.PrecioVentaSinImpuestos,
                     Precio = item.PrecioVentaConImpuestos,
+                    PrecioSinImp = item.PrecioVentaSinImpuestos,
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
-                    Titulo = item.Titulo
+                    Titulo = item.Titulo,
+                    Stock = item.Inventario.CantidadStock <= 0 ? false : true
+
 
                 });
 
@@ -141,18 +172,20 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 CategoriasLibroServicio servicio = new CategoriasLibroServicio();
                 List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors
-                var newList = cats.Select(item => new
+                var newList = cats.Where(x => x.Estado == 1 && x.Libro != null && x.Libro.Count > 0).Select(item => new
                 {
                     Codigo = item.Codigo,
                     Descripcion = item.Descripcion,
-                    Libros = item.Libro.Select(libro => new
+                    Libros = item.Libro.Where(x => x.Inventario != null && x.Estado == 1).Select(libro => new
                     {
                         Codigo = libro.Codigo,
                         Autor = libro.Autor1.Apellidos + ", " + libro.Autor1.Nombre,
                         Precio = libro.PrecioVentaConImpuestos,
+                        PrecioSinImp = libro.PrecioVentaSinImpuestos,
                         Descripcion = libro.Descripcion,
                         Image = libro.Imagen,
-                        Titulo = libro.Titulo
+                        Titulo = libro.Titulo,
+                        Stock = libro.Inventario.CantidadStock <= 0 ? false : true
                     })
                 });
 
@@ -264,7 +297,8 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 {
                     Codigo = item.Codigo,
                     Descripcion = item.Descripcion,
-                    Estado = item.Estado
+                    Estado = item.Estado,
+                    Monto = 0
                 });
 
 
@@ -365,6 +399,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
             try
             {
+                UsuarioRolesServicio serv = new UsuarioRolesServicio();
                 Usuario cliente = servicioUsuario.ObtenerPorId(new Usuario { Cedula = clientep.Cedula });
                 if (cliente == null)
                 {
@@ -378,11 +413,28 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                         Apellido1 = clientep.Apellido1,
                         Apellido2 = clientep.Apellido2,
                         Correo = clientep.Email,
-                        Estado = 1,
                         Telefono = clientep.Telefono
 
                     };
                     servicioUsuario.Agregar(cliente);
+
+                    serv.Agregar(new UsuarioRoles { Usuario = cliente.Cedula, Rol = 3, Estado = 1 });
+                }
+                else
+                {
+                    bool agregar = true;
+                    foreach (UsuarioRoles item in cliente.UsuarioRoles)
+                    {
+                        if (item.Rol == 3)
+                        {
+                            agregar = false;
+                            break;
+                        }
+                    }
+                    if (agregar)
+                    {
+                        serv.Agregar(new UsuarioRoles { Usuario = cliente.Cedula, Rol = 3, Estado = 1 });
+                    }
                 }
 
                 return cliente;

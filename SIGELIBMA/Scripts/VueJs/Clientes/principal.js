@@ -240,9 +240,6 @@ getClient: function () {
         data: cliente,
         success: function (result) {
             if (result.EstadoOperacion) {
-                vm.shoppingCart.payment.code = result.Confirmacion;
-                vm.shoppingCart.payment.status = true;
-                vm.showModalShoppingCartNavBar = false;
                 vm.cliente.Nombre1 = result.Usuario.Nombre;
                 vm.cliente.Apellido1 = result.Usuario.Apellidos;
                 vm.cliente.Cedula = result.Usuario.Cedula;
