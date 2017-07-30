@@ -112,7 +112,7 @@
           <Property Name="Codigo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Titulo" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="300" />
-          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Fecha" Type="datetime"/>
           <Property Name="Categoria" Type="int" Nullable="false" />
           <Property Name="Autor" Type="int" Nullable="false" />
           <Property Name="Proveedor" Type="int" Nullable="false" />

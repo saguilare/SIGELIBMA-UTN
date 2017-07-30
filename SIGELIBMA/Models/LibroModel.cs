@@ -6,16 +6,16 @@ using IMANA.SIGELIBMA.DAL;
 using IMANA.SIGELIBMA.DAL.Repository;
 using System.Drawing;
 
-namespace IMANA.SIGELIBMA.DAL.DTOs
+namespace SIGELIBMA.Models
 {
-    public class LibroDTO
+    public class LibroModel
     {
         public string Codigo { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public virtual AutorDTO Autor1 { get; set; }
-        public virtual CategoriaDTO Categoria1 { get; set; }
-        public virtual ProveedorDTO Proveedor1 { get; set; }
+        public virtual AutorModel Autor1 { get; set; }
+        public virtual CategoriaModel Categoria1 { get; set; }
+        public virtual ProveedorModel Proveedor1 { get; set; }
         public string Fecha { get; set; }
         public decimal PrecioBase { get; set; }
         public decimal PorcentajeGanancia { get; set; }

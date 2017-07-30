@@ -22,7 +22,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Codigo { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
+        public System.DateTime Fecha { get; set; }
         public int Categoria { get; set; }
         public int Autor { get; set; }
         public int Proveedor { get; set; }

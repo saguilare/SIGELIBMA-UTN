@@ -70,10 +70,6 @@
     <Compile Include="DetalleFactura.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DTOs\AutorDTO.cs" />
-    <Compile Include="DTOs\CategoriaDTO.cs" />
-    <Compile Include="DTOs\LibroDTO.cs" />
-    <Compile Include="DTOs\ProveedorDTO.cs" />
     <Compile Include="EstadoCaja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
@@ -160,7 +156,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="SIGELIBMAModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

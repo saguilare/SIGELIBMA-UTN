@@ -22,7 +22,7 @@
                             {{alertModal.message}}
                         </div>
                     </div>
-                    <form v-on:submit.prevent="addLibro(libro)">
+                    <form  v-on:submit.prevent="validarCodigoLibro(libro)">
                         <!-- Navbar-->
                         <div class="row">
                             <div  class="col-sm-12">
@@ -47,13 +47,13 @@
                                 <!--page 1-->
                                 <div v-if="modalCart.currentPage === 1">
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.Codigo" label="Codigo" help="" error="" placeholder="Codigo" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.Codigo" label="Codigo" help="" error="" placeholder="Codigo"  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.Titulo" label="Titulo" help="" error="" placeholder="Titulo" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.Titulo" label="Titulo" help="" error="" placeholder="Titulo"  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.Descripcion" label="Descripcion" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.Descripcion" label="Descripcion" help="" error="" placeholder="Descripcion"  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
                                         <div v-bind:class="[{ 'has-error': validarFechaIngreso.date && deposito.Fecha === '' },{'has-success' : validarFechaIngreso.date && deposito.Fecha !== ''},'form-group has-feedback']">
@@ -92,29 +92,33 @@
                                 <!--page 3-->
                                 <div v-if="modalCart.currentPage === 3">
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.PrecioBase" label="Precio Base" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PrecioBase" label="Precio Base" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion"  pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.ProcetajeGanancia" label="Ganancia" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PorcentajeGanancia" label="Ganancia" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.PrecioVentaSinImpuestos" label="P. sin Impuestos" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaSinImpuestos" label="P. sin Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion" pattern="^[0-9]+$" mask=""  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" label="P. con Impuestos" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" label="P. con Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
                                         <div id="app">
-                                            <div v-if="!imagen">
-                                                <h2>Select an image</h2>
-                                                <input type="file" v-on:change="onFileChange">
+                                            <div>
+                                               <h4>Seleccione una Imagen</h4>
+                                              <label class="btn btn-primary">Explorer<input type="file" v-on:change="onFileChange" style="display: none;"></label>
                                             </div>
-                                            <div v-else>
-                                                <img src="imagen" />
-                                                <button v-on:click="removeImage">Remove image</button>
+                                            <div v-if="imagen && modalAccion==='Agregar Libro'">
+                                                <img :src="imagen" style="width:20%"/>
+                                                <button type="button" class="btn btn-primary" v-on:click="removeImage">Remove image</button>
+                                            </div>
+                                            <div v-if="modalAccion==='Editar Libro'">
+                                                <img v-if="!imagen && libro.NombreImagen!=''" src="~/Images/libros/{{libro.NombreImagen}}.jpg" style="width:20%" />
+                                                <img v-if="imagen" :src="imagen" style="width:20%" />
+                                                <button v-if="imagen" type="button" class="btn btn-primary" v-on:click="removeImage">Remove image</button>
                                             </div>
                                         </div>
-                                        <vueinput v-bind:value.sync="libro.NombreImagen" label="Imagen" help="" error="" placeholder="Imagen" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                      </div>
 
                                 </div>
@@ -280,6 +284,12 @@
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Imagen
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -297,6 +307,7 @@
                                     <td>{{libro.PorcentajeGanancia}}</td>
                                     <td>{{libro.PrecioVentaSinImpuestos}}</td>
                                     <td>{{libro.PrecioVentaConImpuestos}}</td>
+                                    <td>{{libro.NombreImagen}}</td>
                                     <td>
                                         <button class="btn btn-small btn-success" v-on:click="openEditModal(libro)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
                                         <button class="btn btn-small btn-danger" v-on:click="deleteLibro(libro)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>

@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
-using IMANA.SIGELIBMA.DAL.DTOs;
 using System.IO;
 using System.Drawing;
 using System.Configuration;
+using System.Globalization;
+using SIGELIBMA.Models;
 
 namespace SIGELIBMA.Controllers
 {
@@ -34,13 +35,14 @@ namespace SIGELIBMA.Controllers
             try
             {
                 List<Libro> librosdb = LibroServicio.ObtenerTodos();
-                List<LibroDTO> libros = new List<LibroDTO>();
+                List<LibroModel> libros = new List<LibroModel>();
                 foreach(Libro libroDB in librosdb)
                 {
-                    LibroDTO libro = new LibroDTO { Codigo = libroDB.Codigo, Titulo= libroDB.Titulo, Descripcion = libroDB.Descripcion, Fecha = libroDB.Fecha.Value.ToString("MM/dd/yyyy"),
-                    Categoria1 = new CategoriaDTO { Codigo = libroDB.Categoria1.Codigo, Descripcion = libroDB.Categoria1.Descripcion, Estado = libroDB.Categoria1.Estado },
-                    Autor1 = new AutorDTO {Codigo = libroDB .Autor1.Codigo, Nombre = libroDB .Autor1.Nombre, Apellidos = libroDB.Autor1.Apellidos, Estado= libroDB.Autor1.Estado},
-                    Proveedor1= new ProveedorDTO {Codigo = libroDB.Proveedor1.Codigo, Nombre= libroDB.Proveedor1.Nombre, Telefono = libroDB.Proveedor1.Telefono, Correo = libroDB.Proveedor1.Correo, Estado = libroDB.Proveedor1.Estado },
+                    LibroModel libro = new LibroModel
+                    { Codigo = libroDB.Codigo, Titulo= libroDB.Titulo, Descripcion = libroDB.Descripcion, Fecha = libroDB.Fecha.ToString("MM/dd/yyyy"),
+                    Categoria1 = new CategoriaModel { Codigo = libroDB.Categoria1.Codigo, Descripcion = libroDB.Categoria1.Descripcion, Estado = libroDB.Categoria1.Estado },
+                    Autor1 = new AutorModel {Codigo = libroDB .Autor1.Codigo, Nombre = libroDB .Autor1.Nombre, Apellidos = libroDB.Autor1.Apellidos, Estado= libroDB.Autor1.Estado},
+                    Proveedor1= new ProveedorModel {Codigo = libroDB.Proveedor1.Codigo, Nombre= libroDB.Proveedor1.Nombre, Telefono = libroDB.Proveedor1.Telefono, Correo = libroDB.Proveedor1.Correo, Estado = libroDB.Proveedor1.Estado },
                     PrecioBase = libroDB.PrecioBase, PorcentajeGanancia = libroDB.PorcentajeGanancia, PrecioVentaSinImpuestos = libroDB.PrecioVentaSinImpuestos, PrecioVentaConImpuestos = libroDB.PrecioVentaConImpuestos, NombreImagen = libroDB.Imagen, Estado = libroDB.Estado};
                     libros.Add(libro);
                 }
@@ -62,6 +64,27 @@ namespace SIGELIBMA.Controllers
             {
                 Libro libro = LibroServicio.ObtenerPorId(librop);
                 return Json(new { EstadoOperacion = true, Libro = libro, Mensaje = "Operation OK" });
+            }
+            catch (Exception e)
+            {
+
+                //TODO handle ex
+                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult validarLibro(Libro librop)
+        {
+            try
+            {
+                bool existeLibro = false;
+                Libro libro = LibroServicio.ObtenerPorId(librop);
+                if (libro != null)
+                {
+                    existeLibro = true;
+                }
+                return Json(new { EstadoOperacion = true, ExisteLibro = existeLibro, Mensaje = "Operation OK" });
             }
             catch (Exception e)
             {
@@ -94,12 +117,42 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Modificar(Libro librop)
+        public JsonResult Modificar(LibroModel librop)
         {
             try
             {
                 bool resultado = false;
-                resultado = LibroServicio.Modificar(librop);
+                String path = HttpContext.Server.MapPath(ConfigurationManager.AppSettings["rutaImagenes"]);
+                int fileExtPos = librop.NombreImagen.LastIndexOf(".");
+                string imagensinextensiones = librop.NombreImagen.Substring(0, fileExtPos);
+                List<string> names = new List<string>(librop.Imagen.Split(','));
+                byte[] imageBytes = Convert.FromBase64String(names[1].ToString());
+                using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+                {
+                    Image image = Image.FromStream(ms, true);
+                    image.Save(path + librop.NombreImagen);
+                }
+
+                DateTime dt = DateTime.ParseExact(librop.Fecha, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+
+                Libro libro = new Libro
+                {
+                    Codigo = librop.Codigo,
+                    Titulo = librop.Titulo,
+                    Descripcion = librop.Descripcion,
+                    Fecha = dt,
+                    Categoria = librop.Categoria1.Codigo,
+                    Autor = librop.Autor1.Codigo,
+                    Proveedor = librop.Proveedor1.Codigo,
+                    PrecioBase = librop.PrecioBase,
+                    PorcentajeGanancia = librop.PorcentajeGanancia,
+                    PrecioVentaSinImpuestos = librop.PrecioVentaSinImpuestos,
+                    PrecioVentaConImpuestos = librop.PrecioVentaConImpuestos,
+                    Imagen = imagensinextensiones,
+                    Estado = librop.Estado
+                };
+                resultado = LibroServicio.Modificar(libro);
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)
@@ -111,7 +164,7 @@ namespace SIGELIBMA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Agregar(LibroDTO librop)
+        public JsonResult Agregar(LibroModel librop)
         {
             try
             {
@@ -127,7 +180,16 @@ namespace SIGELIBMA.Controllers
                     Image image = Image.FromStream(ms, true);
                     image.Save(path+librop.NombreImagen);
                 }
-                //resultado = LibroServicio.Agregar(librop);
+
+                DateTime dt = DateTime.ParseExact(librop.Fecha, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+
+                Libro libro = new Libro { Codigo = librop.Codigo, Titulo = librop.Titulo, Descripcion = librop.Descripcion, Fecha= dt, Categoria = librop.Categoria1.Codigo, Autor = librop.Autor1.Codigo, Proveedor = librop.Proveedor1.Codigo,
+                    Proveedor1 = new Proveedor { Codigo = librop.Proveedor1.Codigo, Nombre = librop.Proveedor1.Nombre, Telefono = librop.Proveedor1.Telefono, Correo = librop.Proveedor1.Correo, Estado = librop.Proveedor1.Estado },
+                    PrecioBase = librop.PrecioBase, PorcentajeGanancia = librop.PorcentajeGanancia, PrecioVentaSinImpuestos = librop.PrecioVentaSinImpuestos, PrecioVentaConImpuestos = librop.PrecioVentaConImpuestos, Imagen = imagensinextensiones, Estado = librop.Estado
+                };
+
+                resultado = LibroServicio.Agregar(libro);
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
             }
             catch (Exception e)

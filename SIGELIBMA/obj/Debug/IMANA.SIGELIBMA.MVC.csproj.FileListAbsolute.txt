@@ -429,9 +429,6 @@ C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\SIGELIBMA\bin\Newt
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\SIGELIBMA.dll
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\SIGELIBMA.pdb
-C:\projects\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
-C:\projects\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\SIGELIBMA.dll
-C:\projects\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\SIGELIBMA.pdb
 C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\ApplicationInsights.config
 C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\roslyn\csc.exe
 C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -490,3 +487,6 @@ C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\System.Web.WebPages.Deployment.xml
 C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\System.Web.WebPages.Razor.xml
 C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\Antlr3.Runtime.pdb
 C:\projects\SIGELIBMA-UTN\SIGELIBMA\bin\Newtonsoft.Json.xml
+C:\projects\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\IMANA.SIGELIBMA.MVC.csprojResolveAssemblyReference.cache
+C:\projects\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\SIGELIBMA.dll
+C:\projects\SIGELIBMA-UTN\SIGELIBMA\obj\Debug\SIGELIBMA.pdb

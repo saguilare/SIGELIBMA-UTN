@@ -16,8 +16,9 @@ var data = {};
 data.datepickerOptions = { format: 'MM/dd/yyyy', placeholder: 'mm/dd/yyyy', close: true };
 data.categorias = [],
 data.autores = [];
+data.imagen='';
 data.proveedores = [];
-data.libro = { Codigo: 1, Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria1: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor1: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor1: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: 0 }, PrecioBase: 0, ProcetajeGanancia: 0, PrecioVentaSinImpuestos: 0, PrecioVentaConImpuestos: 0, NombreImagen: '',Imagen:[], Estado: 0 };
+data.libro = { Codigo: 1, Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria1: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor1: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor1: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: '' }, PrecioBase: '', PorcentajeGanancia: '', PrecioVentaSinImpuestos: '', PrecioVentaConImpuestos: '', NombreImagen: '', Imagen: [], Estado: 0 };
 data.libros = [];
 data.modalObject = { Codigo: 0, Titulo: '', Descripcion: ''};
 data.alert = { type: 'success', message: 'alert', status: false };
@@ -58,8 +59,12 @@ var vm = new Vue({
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length)
                 return;
-            vm.libro.NombreImagen = files[0].name;
-            this.createImage(files[0]);
+            if (files[0].type === 'image/jpeg') {
+                vm.libro.NombreImagen = files[0].name;
+                this.createImage(files[0]);
+            } else {
+                vm.activateAlertModal('danger', 'Solo imagenes jpg', true);
+            }
         },
 
         createImage(file) {
@@ -71,6 +76,11 @@ var vm = new Vue({
                 vm.imagen = e.target.result;
             };
             reader.readAsDataURL(file);
+        },
+
+        removeImage: function (e) {
+            this.imagen = '';
+            vm.libro.NombreImagen = '';
         },
 
         //PaginationMethods
@@ -167,11 +177,17 @@ var vm = new Vue({
             vm.selectPage(1);
         },
 
+        activateAlertModal: function (type, message, status) {
+            vm.alertModal.type = type;
+            vm.alertModal.message = message;
+            vm.alertModal.status = status;
+        },
 
         //EndPafinationMothods
 
         openNewModal: function (libro) {
             vm.libro = libro;
+            vm.modalAccion = 'Agregar Libro';
             vm.modalCart.currentPage = 1;
             vm.activateAlertModal('', '', false);
             vm.modalObject = libro;
@@ -193,8 +209,56 @@ var vm = new Vue({
             vm.getProveedores();
         },
 
+        validarCamposLibro: function (libro,existeLibro) {
+            if (existeLibro) {
+                vm.activateAlertModal('danger', 'El Codigo del libro ingresado ya existe', true);
+            } else {
+                if (vm.libro.Codigo && vm.libro.Titulo && vm.libro.Descripcion && vm.libro.Fecha && vm.libro.Categoria1.Codigo && vm.libro.Autor1.Codigo && vm.libro.Proveedor1.Codigo && vm.libro.PrecioBase && vm.libro.PorcentajeGanancia && vm.libro.PrecioVentaSinImpuestos && vm.libro.PrecioVentaConImpuestos && vm.libro.NombreImagen) {
+                    if (vm.modalAccion == 'Agregar Libro') {
+                        vm.addLibro(libro);
+                    } else {
+                        vm.modificarLibro(libro);
+                    }
+                  
+                } else {
+                    vm.activateAlertModal('danger', 'Debe llenar los campos requeridos', true);
+                }
+            }
+
+        },
+
+
+        validarCodigoLibro: function (libro) {
+            if (vm.modalAccion == 'Agregar Libro') {
+                $.ajax({
+                    url: urlRoot + 'mantlibros/validarLibro',
+                    type: 'post',
+                    dataType: 'json',
+                    data: libro,
+                    success: function (result) {
+                        if (result.ExisteLibro) {
+                            vm.validarCamposLibro(libro, true);
+                        } else {
+                            vm.validarCamposLibro(libro, false);
+                        }
+                    },
+                    error: function (error) {
+                        vm.displaySpinner(false);
+                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                    }
+                });
+            } else {
+                 vm.validarCamposLibro(libro, false);
+
+            }
+
+
+        },
+
         addLibro: function (libro) {
             libro.Imagen = vm.imagen;
+            vm.imagen = '';
+            libro.Estado = 1;
             $("#edit-modal").modal('hide');
             vm.displaySpinner(true, 'Guarando Libro');
             $.ajax({
@@ -204,6 +268,9 @@ var vm = new Vue({
                 data: libro,
                 success: function (result) {
                     if (result.EstadoOperacion) {
+                        vm.activateAlertModal('success', 'El libro fue agregado correctamente', true);
+                        vm.displaySpinner(false);
+                        vm.getLibros();
 
                     } else {
                         vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
@@ -216,6 +283,34 @@ var vm = new Vue({
                 }
             });
        },
+
+        modificarLibro: function (libro) {
+            libro.Imagen = vm.imagen;
+            vm.imagen = '';
+            $("#edit-modal").modal('hide');
+            vm.displaySpinner(true, 'Modificando Libro');
+            $.ajax({
+                url: urlRoot + 'mantlibros/Modificar',
+                type: 'post',
+                dataType: 'json',
+                data: libro,
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.activateAlertModal('success', 'El libro fue modificado correctamente', true);
+                        vm.displaySpinner(false);
+                        vm.getLibros();
+
+                    } else {
+                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                        vm.displaySpinner(false);
+                    }
+                },
+                error: function (error) {
+                    vm.displaySpinner(false);
+                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
+                }
+            });
+        },
 
        deleteLibro: function (libro) {
            vm.displaySpinner(true, 'Desabilitando Libro');
