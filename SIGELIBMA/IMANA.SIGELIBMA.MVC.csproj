@@ -186,6 +186,7 @@
     <Compile Include="Models\DepositoModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
+    <Compile Include="Models\SesionModel.cs" />
     <Compile Include="Models\TipoPagoModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

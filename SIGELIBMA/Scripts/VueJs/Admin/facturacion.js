@@ -37,7 +37,7 @@ data.movimientosDelDia = [];
 data.modalRetiroAbono = { currentPage: 1 };
 data.movimiento = { caja: {}, tipo: 0, monto: 0, razon:"" ,procesado: false};
 data.tiposMovimiento = [{ codigo: 1, descripcion: 'Abono' }, { codigo: 2, descripcion: 'Retiro' }];
-
+data.cierre = { saldo: 0 , totalCreditos:0, totalRetiros:0, total:0,montoCaja:0, faltante:0, exedente:0};
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
 })
@@ -111,7 +111,7 @@ var vm = new Vue({
                         $('#modal-caja').modal('hide');
                         vm.activateToastr('success', 'La caja ha sido inicializada.', true);
                         $('#collapseFactMain').collapse('show');
-         
+                        vm.actualizarMovimientos();
                     } else {
                         vm.cashier.Estado = 2;
                         vm.activateAlertModal('danger','La caja no se inicializo, trate nuevamente.',true);
@@ -127,29 +127,45 @@ var vm = new Vue({
 
         },
 
+        updateClosing: function () {
+            if (vm.cierre.total > vm.cierre.montoCaja) {
+                vm.cierre.exedente = 0;
+                vm.cierre.faltante = vm.cierre.total - vm.cierre.montoCaja;
+            } else if (vm.cierre.total < vm.cierre.montoCaja) {
+                vm.cierre.faltante = 0;
+                vm.cierre.exedente = vm.cierre.montoCaja - vm.cierre.total;
+            } else {
+                vm.cierre.faltante = 0;
+                vm.cierre.exedente = 0;
+            }
+        },
+
         closeCashBox: function () {
-            
+            this.$refs.spinner3.show();
             vm.cashier.Estado = 2;
+            vm.cashier.Monto = vm.cierre.total;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
                 dataType: 'json',
                 data: vm.cashier,
                 success: function (result) {
-                    
-                    if (result.EstadoOperacion) {
-                   
+                    if (result.EstadoOperacion) {                   
                         vm.activateToastr('success', 'La caja ha sido cerrada con exito.', true);
-                        $('#collapseFactMain').collapse('hide');
-                        vm.cashier = null;
+                        $('#modal-cierre').modal('hide');
+                        vm.cashier = {};
+                        vm.cierre = { saldo: 0, totalCreditos: 0, totalRetiros: 0, total: 0, montoCaja: 0, faltante: 0, exedente: 0 };
                     } else {
                         vm.cashier.Estado = 1;
-                        vm.activateToastr('danger', 'La caja no se cerro, trate nuevamente.', true);
+                        vm.activateAlertModal('danger', 'La caja no se cerro, trate nuevamente.', true);
                     }
+                    vm.$refs.spinner3.hide();
+
                 },
                 error: function (error) {
-            
+                    vm.$refs.spinner3.hide();
                     vm.cashier.Estado = 1;
+                    $('#modal-cierre').modal('hide');
                     vm.activateToastr('danger', 'La caja no se cerro, trate nuevamente.', true);
 
                 }
@@ -178,6 +194,25 @@ var vm = new Vue({
 
         },
 
+        actualizarMovimientos: function () {
+            $.ajax({
+                url: urlRoot + 'Facturacion/MovimientosCaja',
+                type: 'post',
+                dataType: 'json',
+                data: vm.cashier,
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.movimientosDelDia = result.Movimientos;
+                        
+                    } 
+                },
+                error: function (error) {
+                    console.log("Error al actualizar movimientos");
+                }
+            });
+
+        },
+
         getInitData: function () {
             $.ajax({
                 url: urlRoot + 'facturacion/Init',
@@ -186,6 +221,10 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.cashBoxes = result.Cajas;
+                        vm.cashier = result.Caja;
+                        if (vm.cashier !== null && vm.cashier.Codigo > 0) {
+                            $('#collapseFactMain').collapse('show');
+                        }
                         vm.books = result.Libros;
                         vm.tiposPago = result.TiposPago;
                         if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
@@ -194,11 +233,12 @@ var vm = new Vue({
                                 vm.titulos.push(book.Titulo);
                             });
                         }
-
+                        vm.actualizarMovimientos();
                     } else {
                         vm.activateAlert('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
                     }
                     vm.displaySpinner(false);
+                    
                 },
                 error: function (error) {
                     vm.displaySpinner(false);
@@ -220,7 +260,8 @@ var vm = new Vue({
                 success: function (result) {
                     vm.$refs.spinner1.hide();
                     if (result.EstadoOperacion) {
-                        vm.movimiento.procesado = true ;
+                        vm.movimiento.procesado = true;
+                        vm.actualizarMovimientos();
                     } else {
                         vm.activateAlertModal('danger', 'La transaccion no se proceso, por favor intente de nuevo.', true);
                     }
@@ -269,6 +310,19 @@ var vm = new Vue({
             } else if (target.toLowerCase() === 'modal-retiroabono') {
                 vm.movimiento = { caja: {}, tipo: 0, monto: 0, razon: "", procesado: false };
                 $("#modal-retiroAbono").modal({ show: true });
+            } else if (target.toLowerCase() === 'modal-cierre') {
+                vm.activateAlertModal("danger", "", false);
+                $.each(vm.movimientosDelDia, function (index, mov) {
+                    if (mov.Tipo.Codigo === 1 || mov.Tipo.Codigo === 4 || mov.Tipo.Codigo === 5) {
+                        vm.cierre.totalCreditos += mov.Monto;
+                    }
+                    if (mov.Tipo.Codigo === 3) {
+                        vm.cierre.totalRetiros += mov.Monto;
+                    }
+                })
+
+                vm.cierre.total = vm.cierre.totalCreditos - vm.cierre.totalRetiros;
+                $("#modal-cierre").modal({ show: true });
             }
 
             
@@ -382,7 +436,7 @@ var vm = new Vue({
                         vm.factura.master.id = result.Factura;
                         vm.modalFact.currentPage = 3;
                         vm.showFacturaModelNavbar = false;
-                        
+                        vm.actualizarMovimientos();
 
                     } else {
                         vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);

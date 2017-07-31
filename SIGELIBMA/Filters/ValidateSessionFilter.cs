@@ -1,4 +1,5 @@
 ﻿using IMANA.SIGELIBMA.DAL;
+using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,14 +33,14 @@ namespace SIGELIBMA.Filters
                 }
                 else
                 {
-                    Sesion ses = session["SesionSistema"] as Sesion;
+                    SesionModel ses = session["SesionSistema"] as SesionModel;
                     string controler = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToString();
                     if (controler.Equals("facturacion", StringComparison.OrdinalIgnoreCase)
                         || controler.Equals("inventario", StringComparison.OrdinalIgnoreCase)
                         || controler.Equals("entregas", StringComparison.OrdinalIgnoreCase)
                         )
                     {  bool flag = false;
-                        foreach (UsuarioRoles item in ses.Usuario1.UsuarioRoles)
+                        foreach (UsuarioRoles item in ses.Usuario.UsuarioRoles)
                         {
                             flag = item.Rol1.Codigo == 1 || item.Rol1.Codigo == 2 ? true : false;
                             break;
@@ -65,7 +66,7 @@ namespace SIGELIBMA.Filters
                         )
                     {
                         bool flag = false;
-                        foreach (UsuarioRoles item in ses.Usuario1.UsuarioRoles)
+                        foreach (UsuarioRoles item in ses.Usuario.UsuarioRoles)
                         {
                             flag = item.Rol1.Codigo == 1  ? true : false;
                             break;

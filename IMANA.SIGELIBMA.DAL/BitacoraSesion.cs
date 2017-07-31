@@ -12,12 +12,14 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class BitacoraSesion
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Id { get; set; }
+        public string Usuario { get; set; }
+        public System.DateTime Inicio { get; set; }
+        public Nullable<System.DateTime> Finalizacion { get; set; }
+        public int TransaccionId { get; set; }
+    
+        public virtual Transaccion Transaccion { get; set; }
     }
 }

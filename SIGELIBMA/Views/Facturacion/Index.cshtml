@@ -324,40 +324,79 @@
 <div id="modal-cierre" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form>
+            <form class="" v-on:submit.prevent="closeCashBox()">
                 <div class="modal-header modal-mant">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Cierre Caja</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="table-responsive" v-if="movimientosDelDia !== null && movimientosDelDia.length > 0">
+                    <spinner v-ref:spinner3 size="md" fixed text="Procesando Cierre, por favor espere."></spinner>
+                    <!--alert-->
+                    <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                        <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-else>Info!</strong>
+                        {{alertModal.message}}
+                    </div>
+                    <!--Content-->
+
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
-                                    <th>Abono</th>
+                                    <th>Descripcion</th>
+                                    <th>Tipo</th>
+                                    <th>Credito</th>
                                     <th>Retiro</th>
+
+
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="movimiento in movimientosDelDia">
+                                <tr v-if="movimiento.Tipo.Codigo !== 6" v-for="movimiento in movimientosDelDia">
                                     <td>{{movimiento.Fecha}}</td>
                                     <td>{{movimiento.Descripcion}}</td>
-                                    <td>&#162;{{movimiento.Monto}}</td>
                                     <td>{{movimiento.Tipo.Descripcion}}</td>
+                                    <td v-if="movimiento.Tipo.Codigo === 1 || movimiento.Tipo.Codigo === 4 || movimiento.Tipo.Codigo === 5">&#162;{{movimiento.Monto}}</td>
+                                    <td v-if="movimiento.Tipo.Codigo === 1 || movimiento.Tipo.Codigo === 4 || movimiento.Tipo.Codigo === 5"></td>
+
+                                    <td v-if="movimiento.Tipo.Codigo === 3"></td>
+                                    <td v-if="movimiento.Tipo.Codigo === 3">&#162;{{movimiento.Monto}}</td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Totales: </td>
+                                    <td>&#162;{{cierre.totalCreditos}}</td>
+                                    <td>&#162;{{cierre.totalRetiros}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total Caja:</td>
+                                    <td>&#162;{{cierre.total}}</td>
+                                    <td></td>
                                 </tr>
 
                             </tbody>
                         </table>
+
+                        <div class="form-group">
+                            <vueinput type="number" v-on:blur="updateClosing()" v-on:keyup="updateClosing()" v-bind:value.sync="cierre.montoCaja" label="Monto en caja" help="Ingrese el monto de caja." error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                            <vueinput type="number" v-bind:value.sync="cierre.faltante" label="Faltante" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
+                            <vueinput type="number" v-bind:value.sync="cierre.exedente" label="Exedente" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
+                        </div>
+                        <button type="submit">Cerrar Caja</button>
+
                     </div>
-                    <div v-else class="alert alert-dismissible alert-danger" role="alert">
-                        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
-                        No se registran movimientos para esta caja
-                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success" >Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -397,7 +436,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" v-if="cashier && cashier.Estado === 1">
-                            <li v-on:click="closeCashBox()"><a href="#">Cerrar</a></li>
+                            <li v-on:click="openModal(null,'modal-cierre')"><a href="#">Cerrar</a></li>
                             <li role="separator" class="divider"></li>
                             <li v-on:click="openModal(null,'modal-retiroAbono')"><a href="#">Abonar/Retirar</a></li>
                             <li role="separator" class="divider"></li>

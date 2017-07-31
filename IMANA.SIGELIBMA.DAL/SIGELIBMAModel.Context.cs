@@ -28,9 +28,9 @@ namespace IMANA.SIGELIBMA.DAL
         public virtual DbSet<Autor> Autor { get; set; }
         public virtual DbSet<BitacoraAutor> BitacoraAutor { get; set; }
         public virtual DbSet<BitacoraCaja> BitacoraCaja { get; set; }
+        public virtual DbSet<BitacoraCajaUsuario> BitacoraCajaUsuario { get; set; }
         public virtual DbSet<BitacoraCategoria> BitacoraCategoria { get; set; }
         public virtual DbSet<BitacoraDeposito> BitacoraDeposito { get; set; }
-        public virtual DbSet<BitacoraDescuento> BitacoraDescuento { get; set; }
         public virtual DbSet<BitacoraDetalleFactura> BitacoraDetalleFactura { get; set; }
         public virtual DbSet<BitacoraEstadoCaja> BitacoraEstadoCaja { get; set; }
         public virtual DbSet<BitacoraEstadoFactura> BitacoraEstadoFactura { get; set; }
@@ -41,6 +41,7 @@ namespace IMANA.SIGELIBMA.DAL
         public virtual DbSet<BitacoraProveedor> BitacoraProveedor { get; set; }
         public virtual DbSet<BitacoraRecibo> BitacoraRecibo { get; set; }
         public virtual DbSet<BitacoraRol> BitacoraRol { get; set; }
+        public virtual DbSet<BitacoraSesion> BitacoraSesion { get; set; }
         public virtual DbSet<BitacoraTipoMovimientoCaja> BitacoraTipoMovimientoCaja { get; set; }
         public virtual DbSet<BitacoraTipoPago> BitacoraTipoPago { get; set; }
         public virtual DbSet<BitacoraTipoTransaccion> BitacoraTipoTransaccion { get; set; }
@@ -62,7 +63,6 @@ namespace IMANA.SIGELIBMA.DAL
         public virtual DbSet<Recibo> Recibo { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Sesion> Sesion { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoMovimientoCaja> TipoMovimientoCaja { get; set; }
         public virtual DbSet<TipoPago> TipoPago { get; set; }
         public virtual DbSet<TipoTransaccion> TipoTransaccion { get; set; }

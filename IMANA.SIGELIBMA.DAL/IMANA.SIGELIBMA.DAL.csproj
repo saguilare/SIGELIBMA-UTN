@@ -60,13 +60,13 @@
     <Compile Include="BitacoraCaja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BitacoraCajaUsuario.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BitacoraCategoria.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BitacoraDeposito.cs">
-      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BitacoraDescuento.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BitacoraDetalleFactura.cs">
@@ -99,6 +99,9 @@
     <Compile Include="BitacoraRol.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BitacoraSesion.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BitacoraTipoMovimientoCaja.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
@@ -118,6 +121,9 @@
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Caja.cs">
+      <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CajaUsuario.cs">
       <DependentUpon>SIGELIBMAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Categoria.cs">
@@ -209,22 +215,24 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SIGELIBMAModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="SIGELIBMAModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
-      <LastGenOutput>SIGELIBMAModel.Context.cs</LastGenOutput>
-    </None>
     <None Include="SIGELIBMAModel.edmx.diagram">
       <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
-    </None>
-    <None Include="SIGELIBMAModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
-      <LastGenOutput>SIGELIBMAModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SIGELIBMAModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+      <LastGenOutput>SIGELIBMAModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SIGELIBMAModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SIGELIBMAModel.edmx</DependentUpon>
+      <LastGenOutput>SIGELIBMAModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

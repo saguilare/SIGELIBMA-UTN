@@ -14,15 +14,19 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class CajaUsuario
     {
+        public CajaUsuario()
+        {
+            this.MovimientoCaja = new HashSet<MovimientoCaja>();
+        }
+    
         public int Sesion { get; set; }
         public int Caja { get; set; }
         public string Usuario { get; set; }
         public System.DateTime Apertura { get; set; }
         public Nullable<System.DateTime> Cierre { get; set; }
-        public decimal MontoApertura { get; set; }
-        public Nullable<decimal> MontoCierre { get; set; }
     
         public virtual Caja Caja1 { get; set; }
         public virtual Usuario Usuario1 { get; set; }
+        public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
     }
 }

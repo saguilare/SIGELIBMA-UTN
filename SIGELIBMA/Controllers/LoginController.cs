@@ -43,8 +43,8 @@ namespace SIGELIBMA.Controllers
             {
                 if (Session != null && Session["SesionSistema"] != null)
                 {
-                    Sesion sesion = Session["SesionSistema"] as Sesion;
-                    var s = new { id = sesion.Id, usuario = sesion.Usuario1.Apellido1+", "+sesion.Usuario1.Nombre, username = sesion.Usuario1.Usuario1};
+                    SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                    var s = new { id = sesion.Id, usuario = sesion.Usuario.Apellido1+", "+sesion.Usuario.Nombre, username = sesion.Usuario.Usuario1};
                     return Json(new { EstadoOperacion = true, Sesion = s , Mensaje = "Operacion OK"},JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -126,8 +126,11 @@ namespace SIGELIBMA.Controllers
                     SesionServicio servicioSesion = new SesionServicio();
                     Sesion sesion = new Sesion { Usuario = usuario.Cedula, Inicio = DateTime.Now , Finalizacion = null};
                     servicioSesion.Agregar(sesion);
-                    sesion.Usuario1 = usuario;
-                    Session.Add("SesionSistema", sesion);
+                    SesionModel s = new SesionModel();
+                    s.Id = sesion.Id;
+                    s.Usuario = usuario;
+                    s.Inicio = sesion.Inicio;
+                    Session.Add("SesionSistema", s);
                     return true;
                 }
         

@@ -22,6 +22,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         private MovimientoCajaServicio servicioMovimientos = new MovimientoCajaServicio();
         private LibroServicio servicioLibro = new LibroServicio();
         private TipoPagoServicio servicioTipoPago = new TipoPagoServicio();
+        private CajaUsuarioServicio servicioCajaUsuario = new CajaUsuarioServicio();
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
 
         public ActionResult Index()
@@ -34,23 +35,35 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         public JsonResult Init() {
             try
             {
-                
                 var libros = ObtenerLibros();
                 var cajas = ObtenerCajas();
                 var tipospago = ObtenerTiposPago();
+                Usuario user = null;
+                CajaModel caja = null;
+                int sesionCaja = 0;
 
                 if (Session != null && Session["SesionSistema"] != null)
                 {
-                    Sesion sesion = Session["SesionSistema"] as Sesion;
-                    Usuario user = sesion.Usuario1;
-                   
+                    SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                    user = sesion.Usuario;
+                    sesionCaja = sesion.SesionCaja;
                 }
                 
-                if (libros == null ||  cajas== null || tipospago== null)  
+                if (sesionCaja > 0)
+                {
+                    CajaUsuario cu = servicioCajaUsuario.ObtenerPorId(new CajaUsuario { Sesion = sesionCaja });
+                    caja = new CajaModel();
+                    caja.Sesion = cu.Sesion;
+                    caja.Codigo = cu.Caja1.Codigo;
+                    caja.Estado = cu.Caja1.Estado;
+                }
+                
+                
+                if (libros == null ||  cajas== null || tipospago== null || user == null)  
                 {
                     throw new Exception("No se cuenta con la informacion necesaria para esta pagina, vuelva a recargar."); 
                 }
-                return Json(new { EstadoOperacion = true, Libros = libros, Cajas = cajas,TiposPago = tipospago, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
+                return Json(new { EstadoOperacion = true, Libros = libros, Cajas = cajas,Caja = caja,TiposPago = tipospago, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
    
             }
             catch (Exception)
@@ -237,31 +250,23 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             try
             {
                 if (caja.Estado == 1)
-                {//abrir
-                    servicioCaja.Abrir()
+                {
+                    SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                    int sesioncaja = servicioCaja.Abrir(new Caja { Codigo = caja.Codigo }, sesion.Usuario, caja.Monto);
+                    sesion.SesionCaja = sesioncaja;
+                    Session["SesionSistema"] = sesion;
+                    return true;
                 }
                 else
                 {
-
+                    SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                    servicioCaja.Cerrar(new Caja { Codigo = caja.Codigo }, sesion.SesionCaja, caja.Monto);
+                    sesion.SesionCaja = 0;
+                    Session["SesionSistema"] = sesion;
+                    return true;
                 }
-
-
-                if (cajaDb != null)
-                {
-                    cajaDb.Estado = caja.Estado;
-                    if (servicioCaja.Modificar(cajaDb))
-                    {
-                        MovimientoCaja movimiento = new MovimientoCaja();
-                        movimiento.Descripcion = cajaDb.Estado == 1 ? "Apertura" : "Cierre";
-                        movimiento.Caja = cajaDb.Codigo;
-                        movimiento.Fecha = DateTime.Now;
-                        movimiento.Monto = Convert.ToDecimal(caja.Monto);
-                        movimiento.Tipo = cajaDb.Estado == 1 ? 1 : 2;
-                        servicioMovimientos.Agregar(movimiento);
-                        return true;
-                    }
-                    return false;
-                }
+                
+              
                 return false;
             }
             catch (Exception)
@@ -276,6 +281,8 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         {
             try
             {
+                SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                int sesionCaja = sesion.SesionCaja;
                 Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo });
                 if (cajaDb != null)
                 {
@@ -285,6 +292,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                     movimiento.Fecha = DateTime.Now;
                     movimiento.Monto = Convert.ToDecimal(caja.Monto);
                     movimiento.Tipo = caja.Movimiento == 1 ? 4 : 3;
+                    movimiento.SesionId = sesionCaja;
                     if (servicioMovimientos.Agregar(movimiento)) 
                     {
                         return Json(new { EstadoOperacion = true, Mensaje = "Operacion Exitosa" });
@@ -334,8 +342,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         {
             try
             {
-                
-                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.Fecha.Date == DateTime.Today.Date).ToList();
+                SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                int sesionCaja = sesion.SesionCaja;
+                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.SesionId == sesionCaja).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = movimientos.Select(item => new
                 {
@@ -378,6 +387,21 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 factura.TipoPago = compra.TipoPago.Codigo;
                 factura.Referencia = compra.Referencia;
                 servicioFactura.Agregar(factura);
+
+                SesionModel sesionSistema = Session["SesionSistema"] as SesionModel;
+                int sesionCaja = sesionSistema.SesionCaja;
+                MovimientoCaja mov = new MovimientoCaja();
+                mov.Caja = compra.Caja;
+                mov.Fecha = factura.FechaCreacion;
+                mov.Monto = factura.Total;
+                mov.Tipo = factura.TipoPago == 1 ? 5 : 6;
+                mov.Descripcion = "Factura: "+ factura.Numero;
+                mov.SesionId = sesionCaja;
+
+                if (!servicioMovimientos.Agregar(mov))
+                {
+                    //todo log if error
+                }
                 
 
                 //sesion.Usuario = factura.Cliente;
