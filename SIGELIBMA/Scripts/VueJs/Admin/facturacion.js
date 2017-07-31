@@ -153,6 +153,7 @@ var vm = new Vue({
                     if (result.EstadoOperacion) {                   
                         vm.activateToastr('success', 'La caja ha sido cerrada con exito.', true);
                         $('#modal-cierre').modal('hide');
+                        $('#collapseFactMain').collapse('hide');
                         vm.cashier = {};
                         vm.cierre = { saldo: 0, totalCreditos: 0, totalRetiros: 0, total: 0, montoCaja: 0, faltante: 0, exedente: 0 };
                     } else {
