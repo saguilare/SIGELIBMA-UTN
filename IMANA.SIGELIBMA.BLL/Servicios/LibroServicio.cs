@@ -14,7 +14,6 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
         UnitOfWork unitOfWork  = null;
         DbContext context = null;
 
-
         public LibroServicio()
         {
             this.context = new SIGELIBMAEntities();
@@ -25,7 +24,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
             try
             {
                 List<Libro> libros = null;
-                libros = unitOfWork.Repository<Libro>().GetAll().ToList();
+                libros = unitOfWork.Repository<Libro>().GetAll().Where(x=> x.Estado==1).ToList();
                 
                 return libros;
             }
