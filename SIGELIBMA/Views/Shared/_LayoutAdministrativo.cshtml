@@ -16,6 +16,10 @@
     {
         <link href="~/Content/Admin/Entregas/entregas.css" rel="stylesheet" />
     }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    {
+        
+    }
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "inventario")
     {
         <link href="~/Content/Admin/Inventario/inventario.css" rel="stylesheet" />
@@ -68,6 +72,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/mantroles">Roles</a></li>
                             <li><a href="/mantautor">Autores</a></li>
+                            <li><a href="/mantlibros">Libros</a></li>
                             <li><a href="/mantcategoria">Categorias</a></li>
                             <li><a href="/mantproveedor">Proveedores</a></li>
                             <li><a href="/mantestadocaja">Estado Cajas</a></li>
@@ -144,6 +149,10 @@
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipopago")
     {
         <script src="~/Scripts/VueJs/Admin/MantTipoPago.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantLibros.js"></script>
     }
 
     

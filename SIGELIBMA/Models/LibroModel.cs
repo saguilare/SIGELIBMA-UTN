@@ -24,7 +24,7 @@ namespace SIGELIBMA.Models
         public string NombreImagen { get; set; }
         public string Imagen { get; set; }
 
-        public Nullable<int> Estado { get; set; }
+        public int Estado { get; set; }
 
     }
 }

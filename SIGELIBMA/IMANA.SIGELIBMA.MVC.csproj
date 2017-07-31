@@ -162,6 +162,7 @@
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MantLibrosController.cs" />
     <Compile Include="Controllers\MantTipoPagoController.cs" />
     <Compile Include="Controllers\MantEstadoFacturaController.cs" />
     <Compile Include="Controllers\MantTipoMovCajaController.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Models\CompraModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\DepositoModel.cs" />
+    <Compile Include="Models\LibroModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Models\SesionModel.cs" />
@@ -248,6 +250,7 @@
     <Content Include="Scripts\VueJs\Admin\login.js" />
     <Content Include="Scripts\VueJs\Admin\MantAutor.js" />
     <Content Include="Scripts\VueJs\Admin\MantEstadoFactura - Copy.js" />
+    <Content Include="Scripts\VueJs\Admin\MantLibros.js" />
     <Content Include="Scripts\VueJs\Admin\MantTipoPago.js" />
     <Content Include="Scripts\VueJs\Admin\MantTipoMovCaja.js" />
     <Content Include="Scripts\VueJs\Admin\MantEstadoCaja.js" />
@@ -282,6 +285,7 @@
     <Content Include="Views\MantEstadoFactura\Index.cshtml" />
     <Content Include="Views\MantTipoPago\Index.cshtml" />
     <Content Include="Views\Login\AccesoRestringido.cshtml" />
+    <Content Include="Views\MantLibros\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
