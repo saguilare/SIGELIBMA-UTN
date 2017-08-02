@@ -182,7 +182,7 @@ var vm = new Vue({
 
         getInitData: function () {
             $.ajax({
-                url: urlRoot + 'MantTipoMovCaja/ObtenerInitData',
+                url: urlRoot + 'MantTipoTransaccion/ObtenerInitData',
                 type: 'get',
                 dataType: 'json',
                 success: function (result) {
@@ -209,7 +209,7 @@ var vm = new Vue({
 
         getTipos: function () {
             $.ajax({
-                url: urlRoot + 'MantTipoMovCaja/ObtenerTodos',
+                url: urlRoot + 'MantTipoTransaccion/ObtenerTodos',
                 type: 'get',
                 dataType: 'json',
                 success: function (result) {
@@ -237,7 +237,7 @@ var vm = new Vue({
         agregar: function () {
             vm.displaySpinner(true,'Agregando Tipo');
             $.ajax({
-                url: urlRoot + 'MantTipoMovCaja/Agregar',
+                url: urlRoot + 'MantTipoTransaccion/Agregar',
                 type: 'post',
                 dataType: 'json',
                 data: vm.tipo,
@@ -261,7 +261,7 @@ var vm = new Vue({
             $("#edit-modal").modal('hide' );
             vm.displaySpinner(true, 'Editando Tipo');
             $.ajax({
-                url: urlRoot + 'MantTipoMovCaja/Modificar',
+                url: urlRoot + 'MantTipoTransaccion/Modificar',
                 type: 'post',
                 dataType: 'json',
                 data: vm.modalObject,
@@ -286,7 +286,7 @@ var vm = new Vue({
             vm.displaySpinner(true, 'Desabilitando Tipo');
             tipo.estado = 0;
             $.ajax({
-                url: urlRoot + 'MantTipoMovCaja/Desabilitar',
+                url: urlRoot + 'MantTipoTransaccion/Desabilitar',
                 type: 'post',
                 dataType: 'json',
                 data: tipo,

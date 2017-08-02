@@ -68,9 +68,10 @@ namespace SIGELIBMA.Controllers
                 if (Session != null && Session["SesionSistema"] != null)
                 {
                     SesionServicio serv = new SesionServicio();
-                    Sesion s = Session["SesionSistema"] as Sesion;
-                    s.Finalizacion = DateTime.Now;
-                    serv.Modificar(s);
+                    SesionModel s = Session["SesionSistema"] as SesionModel;
+                    Sesion sesDB = serv.ObtenerPorId(new Sesion { Id = s.Id });
+                    sesDB.Finalizacion = DateTime.Now;
+                    serv.Modificar(sesDB);
                     Session.Clear();
                     Session.Abandon();
                 }

@@ -32,6 +32,18 @@
                     <strong v-else>Info!</strong>
                     {{alert.message}}
                 </div>
+                @if (ViewBag.code == 1)
+                {
+                    <div class="alert alert-dismissible alert-danger" role="alert">
+                        <strong>Atencion!</strong>No existen sesiones activas, debe iniciar una.
+                    </div>
+                }
+                else if (ViewBag.code == 2)
+                {
+                    <div class="alert alert-dismissible alert-danger" role="alert">
+                        <strong>Atencion!</strong>La sesion ha sido terminada.
+                    </div>
+                }
                 <div class="form-group">
                     <vueinput v-bind:value.sync="login.Username" label="" help="Ingrese su nombre de usuario." error="Verifique su nombre de usuario" placeholder="Nombre de Usuario" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                 </div>
