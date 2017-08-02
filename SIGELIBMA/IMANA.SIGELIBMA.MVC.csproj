@@ -220,6 +220,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\biblioteca.jpg" />
+    <Content Include="Images\imanaicon.png" />
     <Content Include="Images\libreriaBanner.jpg" />
     <Content Include="Images\libros\dracula.jpg" />
     <Content Include="Images\libros\eso.jpg" />
