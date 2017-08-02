@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Reportes";
+    Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
+}
+
+<!--Loading page container-->
+<div class="row" v-show="validations.showSpinner">
+    <div class="loading col-sm-12 ">
+        <img src="~/Images/spinner.gif" width="100px" height="100px" />
+        <p>{{validations.loadingMessage}}</p>
+    </div>
+</div>
+<!-- Alert for critical error -->
+<div class="row" v-if="alert.status">
+    <div class="col-sm-offset-2 col-sm-8 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+        <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
+        <strong v-else>Info!</strong>
+        {{alert.message}}
+    </div>
+</div>
+<!--VUESTRAP ALERT == TOASTR-->
+<alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+    <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
+    <span v-else class="glyphicon glyphicon-info-sign"></span>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+    <strong v-else>Info!</strong>
+    <p>{{toastr.message}}</p>
+</alert>
+
+<div id="wrapper" v-show="!validations.showSpinner && alert.status === false">
+
+    <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
+        <!--title bar-->
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-bar title-bar-blur">
+                        <span class="title-bar-title">Reportes</span>
+                        <span class="title-bar-subtitle">Ventas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--content-->
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <!--add itme-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class="col-sm-offset-1 col-sm-10 " style=" ">
+                    <form name="" class="form-inline" v-on:submit.prevent="filtrar()">
+                        
+                        <div class="form-group">
+                            <label for="rol">Filtro</label>
+                            <select v-model="model.Filtro" required class="form-control">
+                                <option selected disabled>-- Seleccione una opcion --</option>
+                                <option v-bind:value="filtro.codigo"  v-for="filtro in filtros">{{filtro.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div v-if="model.Filtro === 2" v-bind:class="[{ 'has-error': validations.fechaInicio && model.FechaInicio === '' },{'has-success' : validations.fechaInicio && model.FechaInicio !== ''},'form-group has-feedback']">
+                            <label class="control-label">Fecha Inicio: </label>
+                            <datepicker v-on:blur="validations.fechaInicio = true" v-bind:value.sync="model.FechaInicio" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                            </datepicker>
+                            <span v-if="validations.fechaInicio && model.FechaInicio === '' " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                            <span v-if="validations.fechaInicio && model.FechaInicio !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                        </div>
+                        <div v-if="model.Filtro === 2" v-bind:class="[{ 'has-error': validations.fechaFinal && model.FechaFinal === '' },{'has-success' : validations.fechaFinal && model.FechaFinal !== ''},'form-group has-feedback']">
+                            <label class="control-label">Fecha Final: </label>
+                            <datepicker v-on:blur="validations.fechaFinal = true" v-bind:value.sync="model.FechaFinal" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                            </datepicker>
+                            <span v-if="validations.fechaFinal && model.FechaFinal === '' " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                            <span v-if="validations.fechaFinal && model.FechaFinal !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                        </div>
+                        <div v-if="model.Filtro === 1" v-bind:class="[{ 'has-error': validations.anno && model.FechaInicio === '' },{'has-success' : validations.anno && model.FechaFinal !== ''},'form-group has-feedback']">
+                            <label class="control-label">Fecha: </label>
+                            <select v-model="model.FechaInicio" class="form-control" v-on:blur="validations.anno = true" required>
+                                <option v-bind:value="fecha.fecha" v-for="fecha in anos">{{fecha.ano}}</option>
+                            </select>
+                            <span v-if="validations.anno && model.FechaInicio === '' " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                            <span v-if="validations.anno && model.FechaInicio !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success form-control">Filtrar</button>
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+            </div>
+            <!--table search-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class=" col-sm-offset-1 col-sm-10 form-inline">
+                    <div class="pull-left">
+                        <span class="glyphicon glyphicon-search"> </span> <input v-model="searchItem" v-on:keyup="searchInTheList(searchItem)" class="form-control" type="text" placeholder="Buscar en la tabla ...">
+                    </div>
+                    <div class="form-group pull-right">
+                        <label for="search">Items per page: </label>
+                        <input type="number" min="1" max="15" class="form-control" size="10" v-model="pagination.itemPerPage" v-on:click="changePagination()" v-on:keyup="changePagination()">
+                        <label>Page: {{pagination.currentPage}}</label>
+                    </div>
+                </div>
+            </div>
+            <!--table content-->
+            
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10 ">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a v-on:click="setSort('numero',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Numero
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('fecha',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Fecha
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('caja',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Caja
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('tipo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Tipo
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('subtotal',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Subtotal
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th><th>
+                                        <a v-on:click="setSort('impuesto',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Impuestos
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('total',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Total
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                
+
+
+                            </thead>
+                            <tbody>
+                                <tr v-for="venta in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
+                                    <td>{{venta.numero}}</td>
+                                    <td>{{venta.fecha}}</td>
+                                    <td>{{venta.caja}}</td>
+                                    <td>{{venta.tipo}}</td>
+                                    <td>{{venta.subtotal}}</td>
+                                    <td>{{venta.impuestos}}</td>
+                                    <td>{{venta.total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!--pagination navbar-->
+            <div class="row">
+                <div class="col-sm-12 other-controller">
+                    <div class="text-center">
+                        <nav>
+                            <ul class="nav nav-PaginationJustified">
+                                <li class="first">
+                                    <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
+                                        First
+                                    </a>
+                                </li>
+                                <li v-if="pagination.filteredItems.length > 0 && pagination.currentPage > 1" v-on:click="selectPage(pagination.currentPage - 1)">
+                                    <a>
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                </li>
+                                <li v-for="item in pagination.filteredItems">
+                                    <a class="button" v-on:click="selectPage(item)" v-bind:class="{'is-info': item == pagination.currentPage}">{{item}}</a>
+                                </li>
+                                <li v-if="pagination.currentPage < pagination.filteredItems.length " v-on:click="selectPage(pagination.currentPage + 1)">
+                                    <a>
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </li>
+                                <li class="last">
+                                    <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
+                                        Last
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <form class="">
+
+                <div class="row ">
+                    <div class="col-sm-offset-1 col-sm-10 ">
+                        <div class="form-group">
+                            <label>Subtotal:</label>
+                            <input type="text" name="name" v-model="totales.subtotal" disabled class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Impuestos:</label>
+                            <input type="text" name="name" v-model="totales.impuestos" disabled class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total:</label>
+                            <input type="text" name="name" v-model="totales.total" disabled class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </section>
+    </section>
+</div>
+<!--custom directive-->
+
