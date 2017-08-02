@@ -83,8 +83,10 @@
                             <li><a href="/mantlibros">Libros</a></li>
                             <li><a href="/mantcategoria">Categorias</a></li>
                             <li><a href="/mantproveedor">Proveedores</a></li>
+                            <li><a href="/mantcaja">Cajas</a></li>
                             <li><a href="/mantestadocaja">Estado Cajas</a></li>
                             <li><a href="/manttipomovcaja">Tipo Mov Cajas</a></li>
+                            <li><a href="/manttipotransaccion">Tipo Transaccion</a></li>
                             <li><a href="/mantestadofactura">Estado Facturas</a></li>
                             <li><a href="/manttipopago">Tipos Pago</a></li>
                         </ul>
@@ -168,6 +170,14 @@
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
     {
         <script src="~/Scripts/VueJs/Admin/MantLibros.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantcaja")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantCaja.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipotransaccion")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantTipoTransaccion.js"></script>
     }
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "reporteventa")
     {

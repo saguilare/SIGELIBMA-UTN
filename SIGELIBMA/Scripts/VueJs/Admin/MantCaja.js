@@ -182,12 +182,12 @@ var vm = new Vue({
 
         getInitData: function () {
             $.ajax({
-                url: urlRoot + 'MantEstadoFactura/ObtenerInitData',
+                url: urlRoot + 'mantcaja/ObtenerInitData',
                 type: 'get',
                 dataType: 'json',
                 success: function (result) {
                     if (result.EstadoOperacion) {
-                        vm.tipos = result.Tipos;
+                        vm.tipos = result.Cajas;
                         vm.estados = result.Estados;
                         vm.items = vm.tipos;
                         vm.filteredItems = vm.tipos;
@@ -209,12 +209,12 @@ var vm = new Vue({
 
         getTipos: function () {
             $.ajax({
-                url: urlRoot + 'MantEstadoFactura/ObtenerTodos',
+                url: urlRoot + 'mantcaja/ObtenerTodos',
                 type: 'get',
                 dataType: 'json',
                 success: function (result) {
                     if (result.EstadoOperacion) {
-                        vm.tipos = result.Tipos;
+                        vm.tipos = result.Cajas;
                         vm.items = vm.tipos;
                         vm.filteredItems = vm.tipos;
                         vm.buildPagination();
@@ -235,9 +235,9 @@ var vm = new Vue({
         },
 
         agregar: function () {
-            vm.displaySpinner(true,'Agregando Estado Factura');
+            vm.displaySpinner(true,'Agregando Tipo');
             $.ajax({
-                url: urlRoot + 'MantEstadoFactura/Agregar',
+                url: urlRoot + 'mantcaja/Agregar',
                 type: 'post',
                 dataType: 'json',
                 data: vm.tipo,
@@ -259,9 +259,9 @@ var vm = new Vue({
 
         modificar: function () {
             $("#edit-modal").modal('hide' );
-            vm.displaySpinner(true, 'Editando Estado Factura');
+            vm.displaySpinner(true, 'Editando Tipo');
             $.ajax({
-                url: urlRoot + 'MantEstadoFactura/Modificar',
+                url: urlRoot + 'mantcaja/Modificar',
                 type: 'post',
                 dataType: 'json',
                 data: vm.modalObject,
@@ -283,10 +283,10 @@ var vm = new Vue({
         },
 
         eliminar: function (tipo) {
-            vm.displaySpinner(true, 'Desabilitando Estado Factura');
-            tipo.estado = 0;
+            vm.displaySpinner(true, 'Desabilitando Tipo');
+            tipo.estado = 2;
             $.ajax({
-                url: urlRoot + 'MantEstadoFactura/Desabilitar',
+                url: urlRoot + 'mantcaja/Desabilitar',
                 type: 'post',
                 dataType: 'json',
                 data: tipo,
