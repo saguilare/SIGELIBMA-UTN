@@ -52,6 +52,10 @@
     {
         <link href="~/Content/Admin/Reportes/Ventas.css" rel="stylesheet" />
     }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "reporteinventario")
+    {
+        <link href="~/Content/Admin/Reportes/Inventario.css" rel="stylesheet" />
+    }
 </head>
 <body id="">
     <nav id="navbar" class="navbar-main navbar navbar-default">
@@ -89,6 +93,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/reporteventa">Ventas</a></li>
+                            <li><a href="/reporteinventario">Inventario</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -167,6 +172,10 @@
     else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "reporteventa")
     {
         <script src="~/Scripts/VueJs/Admin/ReporteVenta.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "reporteinventario")
+    {
+        <script src="~/Scripts/VueJs/Admin/ReporteInventario.js"></script>
     }
 
     

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\MantAutorController.cs" />
     <Compile Include="Controllers\MantProveedorController.cs" />
     <Compile Include="Controllers\MantRolesController.cs" />
+    <Compile Include="Controllers\ReporteInventarioController.cs" />
     <Compile Include="Controllers\ReporteVentaController.cs" />
     <Compile Include="Filters\ValidateSessionFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +190,7 @@
     <Compile Include="Models\LibroModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
+    <Compile Include="Models\InventarioModelo.cs" />
     <Compile Include="Models\ReporteVentasModelo.cs" />
     <Compile Include="Models\SesionModel.cs" />
     <Compile Include="Models\TipoPagoModel.cs" />
@@ -206,6 +208,7 @@
     <Content Include="Content\Admin\Mantenimiento\Categoria.css" />
     <Content Include="Content\Admin\Mantenimiento\Proveedor.css" />
     <Content Include="Content\Admin\Mantenimiento\TipoMovCaja.css" />
+    <Content Include="Content\Admin\Reportes\Inventario.css" />
     <Content Include="Content\Admin\Reportes\Ventas.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -254,6 +257,7 @@
     <Content Include="Scripts\VueJs\Admin\MantAutor.js" />
     <Content Include="Scripts\VueJs\Admin\MantEstadoFactura - Copy.js" />
     <Content Include="Scripts\VueJs\Admin\MantLibros.js" />
+    <Content Include="Scripts\VueJs\Admin\ReporteInventario.js" />
     <Content Include="Scripts\VueJs\Admin\ReporteVenta.js" />
     <Content Include="Scripts\VueJs\Admin\MantTipoPago.js" />
     <Content Include="Scripts\VueJs\Admin\MantTipoMovCaja.js" />
@@ -291,6 +295,7 @@
     <Content Include="Views\Login\AccesoRestringido.cshtml" />
     <Content Include="Views\MantLibros\Index.cshtml" />
     <Content Include="Views\ReporteVenta\Index.cshtml" />
+    <Content Include="Views\ReporteInventario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
