@@ -110,12 +110,12 @@
                                               <label class="btn btn-primary">Explorer<input type="file" v-on:change="onFileChange" style="display: none;"></label>
                                             </div>
                                             <div v-if="imagen && modalAccion==='Agregar Libro'">
-                                                <img :src="imagen" style="width:20%"/>
+                                                <img class="img-edit-model" :src="imagen" style="width:20%"/>
                                                 <button type="button" class="btn btn-primary" v-on:click="removeImage">Remove image</button>
                                             </div>
                                             <div v-if="modalAccion==='Editar Libro'">
-                                                <img v-if="!imagen && libro.NombreImagen!=''" src="~/Images/libros/{{libro.NombreImagen}}.jpg" style="width:20%" />
-                                                <img v-if="imagen" :src="imagen" style="width:20%" />
+                                                <img class="img-edit-model" v-if="!imagen && libro.NombreImagen!=''" src="~/Images/libros/{{libro.NombreImagen}}.jpg" style="width:20%" />
+                                                <img class="img-edit-model" v-if="imagen" :src="imagen" style="width:20%" />
                                                 <button v-if="imagen" type="button" class="btn btn-primary" v-on:click="removeImage">Remove image</button>
                                             </div>
                                         </div>
@@ -188,10 +188,10 @@
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
             <!--add itme-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">
-                <div class="col-sm-offset-1 col-sm-10 " style=" ">
+                <div class="col-sm-offset-1 col-sm-10 " style="">
                     <form name="" class="form-inline" v-on:submit.prevent="addRol(rol)">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-success form-control pull-right"  v-on:click="openNewModal(libro)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                        <div  class="form-group ">
+                            <button type="button" class="btn btn-success   pull-right"  v-on:click="openNewModal(libro)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
                         </div>
                     </form>
                     <hr>

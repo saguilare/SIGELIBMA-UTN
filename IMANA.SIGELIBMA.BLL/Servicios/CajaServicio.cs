@@ -59,6 +59,85 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
 
         }
 
+        public int Abrir(Caja cajap, Usuario usuariop, decimal monto)
+        {
+            try
+            {
+                Caja cajaDb = ObtenerPorId(cajap);
+                if (cajaDb != null)
+                {
+                    //poner caja abierta
+                    cajaDb.Estado = 1;
+                    unitOfWork.Repository<Caja>().Update(cajaDb);
+                    //crear sesion para ligar movimientos
+                    CajaUsuario cu = new CajaUsuario();
+                    cu.Caja = cajaDb.Codigo;
+                    cu.Usuario = usuariop.Cedula;
+                    cu.Apertura = DateTime.Now;
+                    unitOfWork.Repository<CajaUsuario>().Add(cu);
+                    unitOfWork.Save();
+                    //registrar movimiento
+                    MovimientoCaja mov = new MovimientoCaja();
+                    mov.Caja = cajaDb.Codigo;
+                    mov.Fecha = DateTime.Now;
+                    mov.Monto = monto;
+                    mov.Tipo = 1;
+                    mov.Descripcion = "Apetura";
+                    mov.SesionId = cu.Sesion;
+                    unitOfWork.Repository<MovimientoCaja>().Add(mov);
+                    unitOfWork.Save();
+                    return cu.Sesion;
+                }
+                else
+                {
+                    return 0;
+                }
+                
+
+                
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
+        public bool Cerrar(Caja cajap,int sesion, decimal monto)
+        {
+            try
+            {
+                Caja cajaDb = ObtenerPorId(cajap);
+                CajaUsuario cu = unitOfWork.Repository<CajaUsuario>().GetById( sesion );
+                cu.Cierre = DateTime.Now;
+                unitOfWork.Repository<CajaUsuario>().Update(cu);
+                unitOfWork.Save();
+
+                cajaDb.Estado = 2;
+                unitOfWork.Repository<Caja>().Update(cajaDb);
+                unitOfWork.Save();
+
+                MovimientoCaja mov = new MovimientoCaja();
+                mov.Caja = cajap.Codigo;
+                mov.Fecha = DateTime.Now;
+                mov.Monto = monto;
+                mov.Tipo = 2;
+                mov.Descripcion = "Cierre";
+                mov.SesionId = sesion;
+                unitOfWork.Repository<MovimientoCaja>().Add(mov);
+                unitOfWork.Save();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
+
         public bool Agregar(Caja cajap)
         {
             try

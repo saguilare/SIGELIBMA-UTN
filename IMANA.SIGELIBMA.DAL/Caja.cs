@@ -16,6 +16,7 @@ namespace IMANA.SIGELIBMA.DAL
     {
         public Caja()
         {
+            this.CajaUsuario = new HashSet<CajaUsuario>();
             this.Factura = new HashSet<Factura>();
             this.MovimientoCaja = new HashSet<MovimientoCaja>();
         }
@@ -25,6 +26,7 @@ namespace IMANA.SIGELIBMA.DAL
         public int Estado { get; set; }
     
         public virtual EstadoCaja EstadoCaja { get; set; }
+        public virtual ICollection<CajaUsuario> CajaUsuario { get; set; }
         public virtual ICollection<Factura> Factura { get; set; }
         public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
     }

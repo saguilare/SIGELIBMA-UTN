@@ -33,6 +33,59 @@ namespace SIGELIBMA.Controllers
             
         }
 
+        public ActionResult AccesoRestringido() {
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetSesion() {
+            try
+            {
+                if (Session != null && Session["SesionSistema"] != null)
+                {
+                    SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                    var s = new { id = sesion.Id, usuario = sesion.Usuario.Apellido1+", "+sesion.Usuario.Nombre, username = sesion.Usuario.Usuario1};
+                    return Json(new { EstadoOperacion = true, Sesion = s , Mensaje = "Operacion OK"},JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { EstadoOperacion = false, redirectUrl = Url.Action("Index", "Login") , Mensaje = "Operacion OK"},JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "System error,unable to get session" });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            try
+            {
+                if (Session != null && Session["SesionSistema"] != null)
+                {
+                    SesionServicio serv = new SesionServicio();
+                    Sesion s = Session["SesionSistema"] as Sesion;
+                    s.Finalizacion = DateTime.Now;
+                    serv.Modificar(s);
+                    Session.Clear();
+                    Session.Abandon();
+                }
+
+                return RedirectToAction("Index", new {code = 2 });
+                
+            }
+            catch (Exception)
+            {
+
+                Response.StatusCode = 400;
+                return Json(new { EstadoOperacion = false, Mensaje = "System error,unable to get session" });
+            }
+        }
+
         [HttpPost]
         public ActionResult ValidarLogin(UserLoginModel login)
         {
@@ -42,10 +95,7 @@ namespace SIGELIBMA.Controllers
 
                 if (ValidarUsuario(login))
                 {
-                    SesionServicio servicio = new SesionServicio();
-                    Sesion sesion = new Sesion { Usuario = "206370927", Inicio = DateTime.Now };
-                    servicio.Agregar(sesion);
-                    Session.Add("SesionSistema", sesion);
+                    
                     var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Facturacion");
                     return Json(new { EstadoOperacion = true, Url = redirectUrl });
                 }
@@ -73,14 +123,15 @@ namespace SIGELIBMA.Controllers
                 Usuario usuario = servicio.Validar(new Usuario { Usuario1 = login.Username, Clave = login.Password });
                 if (usuario != null && usuario.Estado != 0 && usuario.UsuarioRoles != null && usuario.UsuarioRoles.Count > 0)
                 {
-                    foreach (UsuarioRoles rol in usuario.UsuarioRoles)
-                    {
-                        if (rol.Rol == rolAdmin || rol.Rol == rolVentas)
-                        {
-                            return true;
-                        } 
-                    }
-                   
+                    SesionServicio servicioSesion = new SesionServicio();
+                    Sesion sesion = new Sesion { Usuario = usuario.Cedula, Inicio = DateTime.Now , Finalizacion = null};
+                    servicioSesion.Agregar(sesion);
+                    SesionModel s = new SesionModel();
+                    s.Id = sesion.Id;
+                    s.Usuario = usuario;
+                    s.Inicio = sesion.Inicio;
+                    Session.Add("SesionSistema", s);
+                    return true;
                 }
         
                 return false;

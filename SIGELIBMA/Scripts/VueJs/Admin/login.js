@@ -13,7 +13,9 @@ var urlRoot = '';
 
 
 
-var data = {};
+var data = {
+    disableWindow : false
+};
 data.login = { Username: '', Password: '' };
 data.alert = { type: 'success', message: 'alert', status: false };
 
@@ -50,7 +52,7 @@ var vm = new Vue({
                 vm.activateAlert('Danger', 'Debe ingresar su usuario y contraseña.', true);
                 return;
             }
-            
+            vm.disableWindow = true;
             $.ajax({
                 url: urlRoot + 'Login/ValidarLogin',
                 type: 'post',
@@ -62,10 +64,12 @@ var vm = new Vue({
                         window.location.href = result.Url;
                     } else {
                         vm.activateAlert('Danger', result.Mensaje, true);
+                        vm.disableWindow = false;
                     }
                 },
                 error: function (error) {
-                    vm.activateAlert('Danger',"Error inesperado, por favor intente de nuevo o notifique a soporte tecnico." , true);
+                    vm.activateAlert('Danger', "Error inesperado, por favor intente de nuevo o notifique a soporte tecnico.", true);
+                    vm.disableWindow = false;
                 }
             });
         },

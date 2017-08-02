@@ -20,8 +20,10 @@ namespace IMANA.SIGELIBMA.DAL
         public decimal Monto { get; set; }
         public int Tipo { get; set; }
         public System.DateTime Fecha { get; set; }
+        public int SesionId { get; set; }
     
         public virtual Caja Caja1 { get; set; }
+        public virtual CajaUsuario CajaUsuario { get; set; }
         public virtual TipoMovimientoCaja TipoMovimientoCaja { get; set; }
     }
 }

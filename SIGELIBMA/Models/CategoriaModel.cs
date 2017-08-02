@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace SIGELIBMA.Models
 {
     public class CategoriaModel
     {
+        [Required]
         public int Codigo { get; set; }
+        [Required]
+        public int Estado { get; set; }
+        [Required]
         public string Descripcion { get; set; }
-        public Nullable<int> Estado { get; set; }
-
     }
 }

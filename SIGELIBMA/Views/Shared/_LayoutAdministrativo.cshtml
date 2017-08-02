@@ -7,23 +7,50 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/SiteAdmin.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
-    {
-        <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
-    }
-    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
+    
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <link href="~/Content/Admin/Facturacion/Fact.css" rel="stylesheet" />
     }
-    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "entregas")
+    {
+        <link href="~/Content/Admin/Entregas/entregas.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    {
+        
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "inventario")
+    {
+        <link href="~/Content/Admin/Inventario/inventario.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
     {
         <link href="~/Content/Admin/Mantenimiento/Roles.css" rel="stylesheet" />
     }
-    
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantautor")
+    {
+        <link href="~/Content/Admin/Mantenimiento/Autor.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantcategoria")
+    {
+        <link href="~/Content/Admin/Mantenimiento/Categoria.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantproveedor")
+    {
+        <link href="~/Content/Admin/Mantenimiento/Proveedor.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantestadocaja")
+    {
+        <link href="~/Content/Admin/Mantenimiento/EstadoCaja.css" rel="stylesheet" />
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipomovcaja")
+    {
+        <link href="~/Content/Admin/Mantenimiento/TipoMovCaja.css" rel="stylesheet" />
+    }
 </head>
-<body id="pageMainContainer">
-    <nav class="navbar-main navbar navbar-default">
+<body id="">
+    <nav id="navbar" class="navbar-main navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5">
@@ -38,34 +65,37 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
                 <ul class="nav navbar-nav">
                     <li class="Active"><a href="/facturacion">Facturacion <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Entregas</a></li>
+                    <li><a href="/entregas">Entregas</a></li>
+                    <li><a href="/inventario">Inventario</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/mantroles">Roles</a></li>
+                            <li><a href="/mantautor">Autores</a></li>
                             <li><a href="/mantlibros">Libros</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li><a href="/mantcategoria">Categorias</a></li>
+                            <li><a href="/mantproveedor">Proveedores</a></li>
+                            <li><a href="/mantestadocaja">Estado Cajas</a></li>
+                            <li><a href="/manttipomovcaja">Tipo Mov Cajas</a></li>
+                            <li><a href="/mantestadofactura">Estado Facturas</a></li>
+                            <li><a href="/manttipopago">Tipos Pago</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li id="nameandjobtitlebar" class="active"><a class=""><i class="intelicon-user-person-outlined" aria-hidden="true"></i>Stevenag | Admin</a></li>
-                    <li ng-if="showlogout" class="active"><a href="" ng-click="logout()">Logout </a></li>
+                    <li id="nameandjobtitlebar" class="active"><a class=""><i class="intelicon-user-person-outlined" aria-hidden="true"></i>{{sesion.username}} | {{sesion.usuario}}</a></li>
+                    <li  class="active"><a href="" v-on:click="logOut()">Logout </a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div id="page-main" class="">
+    <div id="pageMainContainer" class="">
 
         @RenderBody()
-        
+
         @*<footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -74,20 +104,57 @@
     <script src="~/Scripts/Underscore.js"></script>
     <script src="~/Scripts/VueJsFramework/vue1.js"></script>
     <script src="~/Scripts/vue-strap/vue-strap.js"></script>
-    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
-    {
-        <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
-    }
-    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
+    <script src="~/Scripts/VueJs/Admin/navbar.js"></script>
+    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "facturacion")
     {
         <script src="~/Scripts/VueJs/Admin/facturacion.js"></script>
         
     }
-    @if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "entregas")
+    {
+        <script src="~/Scripts/VueJs/Admin/entregas.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "inventario")
+    {
+        <script src="~/Scripts/VueJs/Admin/inventario.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantroles")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantRoles.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantautor")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantAutor.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantcategoria")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantCategoria.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantproveedor")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantProveedor.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantestadocaja")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantEstadoCaja.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipomovcaja")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantTipoMovCaja.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantestadofactura")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantEstadoFactura.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "manttipopago")
+    {
+        <script src="~/Scripts/VueJs/Admin/MantTipoPago.js"></script>
+    }
+    else if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower() == "mantlibros")
     {
         <script src="~/Scripts/VueJs/Admin/MantLibros.js"></script>
     }
 
-   
+    
 </body>
 </html>

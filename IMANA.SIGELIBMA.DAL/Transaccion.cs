@@ -14,14 +14,60 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Transaccion
     {
+        public Transaccion()
+        {
+            this.BitacoraAutor = new HashSet<BitacoraAutor>();
+            this.BitacoraCaja = new HashSet<BitacoraCaja>();
+            this.BitacoraCajaUsuario = new HashSet<BitacoraCajaUsuario>();
+            this.BitacoraCategoria = new HashSet<BitacoraCategoria>();
+            this.BitacoraDeposito = new HashSet<BitacoraDeposito>();
+            this.BitacoraDetalleFactura = new HashSet<BitacoraDetalleFactura>();
+            this.BitacoraEstadoCaja = new HashSet<BitacoraEstadoCaja>();
+            this.BitacoraEstadoFactura = new HashSet<BitacoraEstadoFactura>();
+            this.BitacoraFactura = new HashSet<BitacoraFactura>();
+            this.BitacoraInventario = new HashSet<BitacoraInventario>();
+            this.BitacoraLibro = new HashSet<BitacoraLibro>();
+            this.BitacoraMovimientoCaja = new HashSet<BitacoraMovimientoCaja>();
+            this.BitacoraProveedor = new HashSet<BitacoraProveedor>();
+            this.BitacoraRecibo = new HashSet<BitacoraRecibo>();
+            this.BitacoraRol = new HashSet<BitacoraRol>();
+            this.BitacoraSesion = new HashSet<BitacoraSesion>();
+            this.BitacoraTipoMovimientoCaja = new HashSet<BitacoraTipoMovimientoCaja>();
+            this.BitacoraTipoPago = new HashSet<BitacoraTipoPago>();
+            this.BitacoraTipoTransaccion = new HashSet<BitacoraTipoTransaccion>();
+            this.BitacoraTransaccion = new HashSet<BitacoraTransaccion>();
+            this.BitacoraUsuario = new HashSet<BitacoraUsuario>();
+            this.BitacoraUsuarioRoles = new HashSet<BitacoraUsuarioRoles>();
+        }
+    
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
         public int Sesion { get; set; }
         public string Tabla { get; set; }
-        public string TuplaNueva { get; set; }
-        public string TuplaAnterior { get; set; }
         public int Tipo { get; set; }
     
+        public virtual ICollection<BitacoraAutor> BitacoraAutor { get; set; }
+        public virtual ICollection<BitacoraCaja> BitacoraCaja { get; set; }
+        public virtual ICollection<BitacoraCajaUsuario> BitacoraCajaUsuario { get; set; }
+        public virtual ICollection<BitacoraCategoria> BitacoraCategoria { get; set; }
+        public virtual ICollection<BitacoraDeposito> BitacoraDeposito { get; set; }
+        public virtual ICollection<BitacoraDetalleFactura> BitacoraDetalleFactura { get; set; }
+        public virtual ICollection<BitacoraEstadoCaja> BitacoraEstadoCaja { get; set; }
+        public virtual ICollection<BitacoraEstadoFactura> BitacoraEstadoFactura { get; set; }
+        public virtual ICollection<BitacoraFactura> BitacoraFactura { get; set; }
+        public virtual ICollection<BitacoraInventario> BitacoraInventario { get; set; }
+        public virtual ICollection<BitacoraLibro> BitacoraLibro { get; set; }
+        public virtual ICollection<BitacoraMovimientoCaja> BitacoraMovimientoCaja { get; set; }
+        public virtual ICollection<BitacoraProveedor> BitacoraProveedor { get; set; }
+        public virtual ICollection<BitacoraRecibo> BitacoraRecibo { get; set; }
+        public virtual ICollection<BitacoraRol> BitacoraRol { get; set; }
+        public virtual ICollection<BitacoraSesion> BitacoraSesion { get; set; }
+        public virtual ICollection<BitacoraTipoMovimientoCaja> BitacoraTipoMovimientoCaja { get; set; }
+        public virtual ICollection<BitacoraTipoPago> BitacoraTipoPago { get; set; }
+        public virtual ICollection<BitacoraTipoTransaccion> BitacoraTipoTransaccion { get; set; }
+        public virtual ICollection<BitacoraTransaccion> BitacoraTransaccion { get; set; }
+        public virtual ICollection<BitacoraUsuario> BitacoraUsuario { get; set; }
+        public virtual ICollection<BitacoraUsuarioRoles> BitacoraUsuarioRoles { get; set; }
         public virtual Sesion Sesion1 { get; set; }
         public virtual TipoTransaccion TipoTransaccion { get; set; }
     }

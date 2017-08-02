@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\CajaUsuarioServicio.cs" />
     <Compile Include="Servicios\TipoPagoServicio.cs" />
     <Compile Include="Servicios\TipoTransaccionServicio.cs" />
     <Compile Include="Servicios\UsuarioRolesServicio.cs" />
@@ -62,7 +63,6 @@
     <Compile Include="Servicios\ProveedorServicio.cs" />
     <Compile Include="Servicios\EstadoFacturaServicio.cs" />
     <Compile Include="Servicios\ReciboServicio.cs" />
-    <Compile Include="Servicios\DescuentoServicio.cs" />
     <Compile Include="Servicios\TransaccionServicio.cs" />
     <Compile Include="Servicios\SesionServicio.cs" />
     <Compile Include="Servicios\CajaServicio.cs" />
@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

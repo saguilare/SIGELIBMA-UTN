@@ -68,12 +68,3 @@ C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DA
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.dll
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.pdb
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.dll.config
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.dll
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\IMANA.SIGELIBMA.DAL.pdb
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.dll
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.dll
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.xml
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Debug\EntityFramework.SqlServer.xml
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.dll
-C:\projects\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Debug\IMANA.SIGELIBMA.DAL.pdb

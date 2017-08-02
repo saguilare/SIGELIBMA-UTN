@@ -1,17 +1,12 @@
 ﻿
 
+//function move_right(index) {
+//    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
+//}
 
-
-
-
-
-function move_right(index) {
-    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
-}
-
-function move_left(index) {
-    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
-}
+//function move_left(index) {
+//    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
+//}
 
 
 function updateArrows() {
@@ -61,7 +56,9 @@ data.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula:
 data.deposito = { Fecha: "", Referencia: "", BancoEmisor: "", BancoReceptor: "", Descripcion: "" };
 data.asideWiki = { show: false, title: '' };
 data.validations = {  showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
-data.shoppingCartValidations = { date : false, bancoEmisor : false, bancoReceptor: false };
+data.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor: false };
+data.date = "";
+data.modalSpinnerText = "Cargando Datos";
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
@@ -122,12 +119,13 @@ var vm = new Vue({
     methods: {
 
 
-        cleanCart: function () {
+   cleanCart: function () {
             vm.shoppingCart = { items: [], total: 0, totalItems: 0, sections: [], payment: {} };
             vm.shoppingCart.payment = { code: '', status: false };
             vm.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
             vm.deposito = { Fecha: "", Referencia: "", BancoEmisor: "", BancoReceptor: "", Descripcion: "" };
             vm.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor: false };
+            $('#modalShoppingCart').modal('hide');
         },
 
 
@@ -201,6 +199,7 @@ getPageData: function () {
         success: function (result) {
             if (result.EstadoOperacion) {
                 vm.books = result.Libros;
+                vm.date = result.Date;
                 if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
                     $.each(vm.books, function (key, book) {
                         vm.codigos.push(book.Codigo.toString());
@@ -224,6 +223,41 @@ getPageData: function () {
             
 },
 
+getClient: function () {
+    
+    if (vm.cliente.Cedula === "") {
+        vm.activateAlertModalShoppingCart("danger","Debe digitar la cedula", true);
+        return false;
+    }
+    var cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: vm.cliente.Cedula };
+    this.$refs.spinner1.show();
+    
+    
+    $.ajax({
+        url: urlRoot + 'Home/BuscarCedula',
+        type: 'post',
+        dataType: 'json',
+        data: cliente,
+        success: function (result) {
+            if (result.EstadoOperacion) {
+                vm.cliente.Nombre1 = result.Usuario.Nombre;
+                vm.cliente.Apellido1 = result.Usuario.Apellidos;
+                vm.cliente.Cedula = result.Usuario.Cedula;
+                vm.cliente.Telefono = result.Usuario.Telefono;
+                vm.cliente.Email = result.Usuario.Correo;
+            } else {
+                vm.activateAlertModalShoppingCart('info', 'No se encontro ningun usuario registrado, por favor digite sus datos', true);
+            }
+            vm.$refs.spinner1.hide();
+        },
+        error: function (error) {
+            vm.activateAlertModalShoppingCart('info','No se pudo encontrar el cliente, por favor digite sus datos',true);
+            vm.$refs.spinner1.hide();
+        }
+    });
+
+},
+
 openModal: function (object, type) {
 
     if (type === 'bookDetails') {
@@ -240,6 +274,7 @@ openModal: function (object, type) {
             //vm.enableProccedBtn = false;
             //$("#modalShoppingCart").modal({ show: true });
         } else {
+            vm.deposito.Fecha = vm.date;
             vm.showModalShoppingCartNavBar = true;
             vm.activateAlertModalShoppingCart('success', '', false);
             $("#modalShoppingCart").modal({ show: true });
@@ -263,9 +298,25 @@ validatePayment: function () {
     
 },
 
+updateDetail: function (index) {
+
+    var detail = vm.shoppingCart.items[index];
+    console.log(detail);
+    detail.total = parseInt(detail.quantity) * detail.item.Precio;
+    vm.shoppingCart.items[index] = detail;
+    vm.shoppingCart.total = 0;
+    vm.shoppingCart.totalItems =0;
+    $.each(vm.shoppingCart.items, function (index, detalle) {
+        vm.shoppingCart.total = vm.shoppingCart.total + detalle.total;
+        vm.shoppingCart.totalItems = vm.shoppingCart.totalItems + parseInt(detail.quantity);
+    });
+    
+},
+
 processPayment: function () {
     vm.modalCart.currentPage = 4;
     this.$refs.spinner1.show();
+    
     var productos = [];
     $.each(vm.shoppingCart.items, function (index, object) {
         productos.push({ Codigo: object.item.Codigo, Cantidad: object.quantity });
@@ -283,10 +334,21 @@ processPayment: function () {
                 vm.shoppingCart.payment.status = true;
                 vm.showModalShoppingCartNavBar = false;
                 
-            } 
+            } else {
+                if (result.Agotados !== null || result.Agotados.length > 0) {
+                    var lista = "";
+                    $.each(result.Agotados, function (index, object) {
+                        lista += object.Titulo + ", ";
+                    });
+                    vm.activateAlertModalShoppingCart("danger", "Los siguientes libros no estan disponibles: "+lista+".", true);
+                    vm.modalCart.currentPage = 1;
+                }
+            }
             vm.$refs.spinner1.hide();
         },
         error: function (error) {
+            vm.shoppingCart.payment.status = false;
+           
             vm.$refs.spinner1.hide();
         }
     });
@@ -349,7 +411,19 @@ removeFromCart: function (index, object) {
 
 addToCart: function (item) {
     if (item !== null && item != undefined && item.Precio !== '') {
-        vm.shoppingCart.items.push(item);
+        var agregado = false;
+        $.each(vm.shoppingCart.items, function (index, value) {
+            if (item.item.Codigo === value.item.Codigo) {
+                value.quantity += item.quantity;
+                value.total += item.total;
+                vm.shoppingCart.items[index] = value;
+                agregado = true;
+            }
+        });
+        if (agregado === false) {
+            vm.shoppingCart.items.push(item);
+        }
+
         vm.shoppingCart.total += item.total;
         vm.shoppingCart.totalItems += item.quantity;
         vm.activateAlertModalBookDetails('success', 'El producto fue agregado con exito al carrito', true);
