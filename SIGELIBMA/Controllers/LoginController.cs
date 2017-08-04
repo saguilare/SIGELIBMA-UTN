@@ -18,7 +18,7 @@ namespace SIGELIBMA.Controllers
         public ActionResult Index(int? code)
         {
             if (Session == null || Session["SesionSistema"] == null) {
-                int errorCode = Convert.ToInt32((code != null) ? code : 1);
+                int errorCode = Convert.ToInt32((code != null) ? code : 3);
 
                 ViewBag.code = errorCode;
                 ViewBag.Title = "Login";
