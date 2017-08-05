@@ -260,7 +260,7 @@
             <div class="row">
                 <div class="col-sm-12 other-controller">
                     <div class="text-center">
-                        <nav>
+                        <nav v-if="pagination.items.length > 1">
                             <ul class="nav nav-PaginationJustified">
                                 <li class="first">
                                     <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
