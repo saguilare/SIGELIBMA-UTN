@@ -51,9 +51,9 @@
                         
                         <div class="form-group">
                             <label for="rol">Filtro</label>
-                            <select v-model="model.Filtro" required class="form-control">
+                            <select v-model="model.Filtro" required class="form-control" v-on:change="model.FechaInicio = '', model.FechaFinal = ''">
                                 <option selected disabled>-- Seleccione una opcion --</option>
-                                <option v-bind:value="filtro.codigo"  v-for="filtro in filtros">{{filtro.descripcion}}</option>
+                                <option v-bind:value="filtro.codigo" v-for="filtro in filtros">{{filtro.descripcion}}</option>
                             </select>
                         </div>
                         <div v-if="model.Filtro === 2" v-bind:class="[{ 'has-error': validations.fechaInicio && model.FechaInicio === '' },{'has-success' : validations.fechaInicio && model.FechaInicio !== ''},'form-group has-feedback']">
@@ -73,14 +73,14 @@
                         <div v-if="model.Filtro === 1" v-bind:class="[{ 'has-error': validations.anno && model.FechaInicio === '' },{'has-success' : validations.anno && model.FechaFinal !== ''},'form-group has-feedback']">
                             <label class="control-label">Fecha: </label>
                             <select v-model="model.FechaInicio" class="form-control" v-on:blur="validations.anno = true" required>
+                                <option value="2017" selected disabled>-- seleccione --</option>
                                 <option v-bind:value="fecha.fecha" v-for="fecha in anos">{{fecha.ano}}</option>
                             </select>
-                            <span v-if="validations.anno && model.FechaInicio === '' " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
-                            <span v-if="validations.anno && model.FechaInicio !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                           
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success form-control">Filtrar</button>
+                            <button v-if="model.Filtro && (model.Filtro > 0)" type="submit" class="btn btn-success form-control">Filtrar</button>
                         </div>
                     </form>
                     <hr>
@@ -93,9 +93,9 @@
                         <span class="glyphicon glyphicon-search"> </span> <input v-model="searchItem" v-on:keyup="searchInTheList(searchItem)" class="form-control" type="text" placeholder="Buscar en la tabla ...">
                     </div>
                     <div class="form-group pull-right">
-                        <label for="search">Items per page: </label>
+                        <label for="search">Lineas por pagina: </label>
                         <input type="number" min="1" max="15" class="form-control" size="10" v-model="pagination.itemPerPage" v-on:click="changePagination()" v-on:keyup="changePagination()">
-                        <label>Page: {{pagination.currentPage}}</label>
+                        <label>Pagina: {{pagination.currentPage}}</label>
                     </div>
                 </div>
             </div>
@@ -160,9 +160,16 @@
                                     <td>{{venta.fecha}}</td>
                                     <td>{{venta.caja}}</td>
                                     <td>{{venta.tipo}}</td>
-                                    <td>{{venta.subtotal}}</td>
-                                    <td>{{venta.impuestos}}</td>
-                                    <td>{{venta.total}}</td>
+                                    <td>&#162;{{venta.subtotal}}</td>
+                                    <td>&#162;{{venta.impuestos}}</td>
+                                    <td>&#162;{{venta.total}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td><td></td><td></td>
+                                    <td><b style="color:#f08804">Totales:</b></td>
+                                    <td><b style="color:#f08804">&#162;{{totales.subtotal}}</b></td>
+                                    <td><b style="color:#f08804">&#162;{{totales.impuestos}}</b></td>
+                                    <td><b style="color:#f08804">&#162;{{totales.total}}</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -178,7 +185,7 @@
                             <ul class="nav nav-PaginationJustified">
                                 <li class="first">
                                     <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
-                                        First
+                                        Inicio
                                     </a>
                                 </li>
                                 <li v-if="pagination.filteredItems.length > 0 && pagination.currentPage > 1" v-on:click="selectPage(pagination.currentPage - 1)">
@@ -196,7 +203,7 @@
                                 </li>
                                 <li class="last">
                                     <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
-                                        Last
+                                        Ultima
                                     </a>
                                 </li>
                             </ul>
@@ -205,7 +212,7 @@
                 </div>
             </div>
 
-            <form class="">
+            @*<form class="">
 
                 <div class="row ">
                     <div class="col-sm-offset-1 col-sm-10 ">
@@ -226,7 +233,7 @@
                     </div>
 
                 </div>
-            </form>
+            </form>*@
         </section>
     </section>
 </div>

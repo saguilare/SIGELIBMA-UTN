@@ -13,6 +13,7 @@ using System.Web.Mvc;
 namespace IMANA.SIGELIBMA.MVC.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class FacturacionController : Controller
     {
 
@@ -24,13 +25,13 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         private TipoPagoServicio servicioTipoPago = new TipoPagoServicio();
         private CajaUsuarioServicio servicioCajaUsuario = new CajaUsuarioServicio();
         private int CajaVirtual = Convert.ToInt32(ConfigurationManager.AppSettings["CajaVirtual"]);
-
+      
         public ActionResult Index()
         {
 
             return View();
         }
-
+        
         [HttpGet]
         public JsonResult Init() {
             try
@@ -66,13 +67,12 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 return Json(new { EstadoOperacion = true, Libros = libros, Cajas = cajas,Caja = caja,TiposPago = tipospago, Mensaje = "Operacion exitosa" }, JsonRequestBehavior.AllowGet);
    
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Response.StatusCode = 400;
-                throw;
+                throw e;
             }
         }
-
+       
         [HttpPost]
         public JsonResult AbrirCerrarCaja(CajaModel caja) {
             try
@@ -88,14 +88,12 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 }
                 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                //TODO
-                Response.StatusCode = 400;
-                throw ex;
+                throw e;
             }
         }
-
+       
         [HttpPost]
         public JsonResult ProcesarCompra(FacturaModel fatura)
         {
@@ -116,14 +114,12 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                //TODO
-                Response.StatusCode = 400;
-                throw ex;
+                throw e;
             }
         }
-
+     
         [HttpPost]
         public JsonResult BuscarCedula(ClienteModel cliente)
         {
@@ -148,10 +144,68 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             }
             catch (Exception e)
             {
+                throw e;
+            }
+        }
+     
+        [HttpPost]
+        public JsonResult MovimientosCaja(CajaModel caja)
+        {
+            try
+            {
+                SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                int sesionCaja = sesion.SesionCaja;
+                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.SesionId == sesionCaja).ToList();
+                //remove child elements to avoid circular dependency errors
+                var newList = movimientos.Select(item => new
+                {
+                    Fecha = item.Fecha.ToString(),
+                    Descripcion = item.Descripcion,
+                    Monto = item.Monto,
+                    Tipo = new { Codigo = item.TipoMovimientoCaja.Codigo, Descripcion = item.TipoMovimientoCaja.Descripcion }
+                });
 
-                //TODO handle ex
-                Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Operation FAILED" });
+                return Json(new { EstadoOperacion = true, Movimientos = newList, Mensaje = "Operacion Exitosa" });
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RetirarAbonarCaja(CajaModel caja)
+        {
+            try
+            {
+                SesionModel sesion = Session["SesionSistema"] as SesionModel;
+                int sesionCaja = sesion.SesionCaja;
+                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo });
+                if (cajaDb != null)
+                {
+                    MovimientoCaja movimiento = new MovimientoCaja();
+                    movimiento.Descripcion = caja.Razon;
+                    movimiento.Caja = cajaDb.Codigo;
+                    movimiento.Fecha = DateTime.Now;
+                    movimiento.Monto = Convert.ToDecimal(caja.Monto);
+                    movimiento.Tipo = caja.Movimiento == 1 ? 4 : 3;
+                    movimiento.SesionId = sesionCaja;
+                    if (servicioMovimientos.Agregar(movimiento))
+                    {
+                        return Json(new { EstadoOperacion = true, Mensaje = "Operacion Exitosa" });
+                    }
+                    return Json(new { EstadoOperacion = false, Mensaje = "La operacion no se completo" });
+                }
+                else
+                {
+                    throw new Exception("Parametros invalidos/incompletos");
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
@@ -180,10 +234,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
                 return newList;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
 
@@ -214,10 +267,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
                 return newList;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
 
@@ -238,10 +290,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
                 return newList;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
 
@@ -269,55 +320,34 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
               
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
-       
-        [HttpPost]
-        public JsonResult RetirarAbonarCaja(CajaModel caja )
-        {
-            try
-            {
-                SesionModel sesion = Session["SesionSistema"] as SesionModel;
-                int sesionCaja = sesion.SesionCaja;
-                Caja cajaDb = servicioCaja.ObtenerPorId(new Caja { Codigo = caja.Codigo });
-                if (cajaDb != null)
-                {
-                    MovimientoCaja movimiento = new MovimientoCaja();
-                    movimiento.Descripcion = caja.Razon;
-                    movimiento.Caja = cajaDb.Codigo;
-                    movimiento.Fecha = DateTime.Now;
-                    movimiento.Monto = Convert.ToDecimal(caja.Monto);
-                    movimiento.Tipo = caja.Movimiento == 1 ? 4 : 3;
-                    movimiento.SesionId = sesionCaja;
-                    if (servicioMovimientos.Agregar(movimiento)) 
-                    {
-                        return Json(new { EstadoOperacion = true, Mensaje = "Operacion Exitosa" });
-                    }
-                    return Json(new { EstadoOperacion = false, Mensaje = "La operacion no se completo" });
-                }
-                else
-                {
-                    throw new Exception("Parametros invalidos/incompletos");
-                }
-                
-            }
-            catch (Exception)
-            {
-                Response.StatusCode = 400;
-                throw;
-            }
-        }
-
+               
         private object ObtenerCajas()
         {
             try
             {
 
-                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual && x.Estado == 2).ToList();
+                List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual).ToList();
+                foreach (Caja caja in cajas)
+                {
+                    //remover cajas donde hay algun otro ususario conectado
+                    if (caja.CajaUsuario != null && caja.CajaUsuario.Count > 0)
+                    {
+                        foreach (CajaUsuario cu in caja.CajaUsuario)
+                        {
+
+                            if (cu.Apertura.Date == DateTime.Today && cu.Cierre == null)
+                            {
+                                cajas.Remove(caja);
+                                break;
+                            }
+                        }
+                    }
+                }
                 //remove child elements to avoid circular dependency errors
                 var newList = cajas.Select(item => new
                 {
@@ -330,40 +360,11 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
                 return newList;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
-
-        [HttpPost]
-        public JsonResult MovimientosCaja(CajaModel caja)
-        {
-            try
-            {
-                SesionModel sesion = Session["SesionSistema"] as SesionModel;
-                int sesionCaja = sesion.SesionCaja;
-                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.SesionId == sesionCaja).ToList();
-                //remove child elements to avoid circular dependency errors
-                var newList = movimientos.Select(item => new
-                {
-                    Fecha = item.Fecha.ToString(),
-                    Descripcion = item.Descripcion,
-                    Monto = item.Monto,
-                    Tipo = new { Codigo = item.TipoMovimientoCaja.Codigo ,Descripcion =item.TipoMovimientoCaja.Descripcion }
-                });
-                
-                return Json(new { EstadoOperacion = true, Movimientos = newList, Mensaje = "Operacion Exitosa" });
-              
-            }
-            catch (Exception)
-            {
-                Response.StatusCode = 400;
-                throw;
-            }
-        }
-
 
         public void Facturar(Factura factura) {
             bool result = servicioFactura.Agregar(factura);
@@ -429,10 +430,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 return factura;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
 
@@ -482,10 +482,9 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 return cliente;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
 

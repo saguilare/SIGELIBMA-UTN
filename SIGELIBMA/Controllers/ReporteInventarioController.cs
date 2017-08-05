@@ -11,6 +11,7 @@ namespace SIGELIBMA.Controllers
 {   
     
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class ReporteInventarioController : Controller
     {
         InventarioServicio servicioInventario = new InventarioServicio();

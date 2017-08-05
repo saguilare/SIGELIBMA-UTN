@@ -211,6 +211,13 @@ var vm = new Vue({
       
 
         filtrar: function () {
+            if (vm.model.Filtro === 1 && !vm.model.fechaInicio  ) {
+                vm.activateToastr("danger","Debe ingresar la fecha",true);
+                return false;
+            }else if (vm.model.Filtro === 2 && (!vm.model.fechaInicio  || !vm.model.fechaFinal ) ) {
+                vm.activateToastr("danger","Debe ingresar la fecha",true);
+                return false;
+            }
             vm.displaySpinner(true,'Generando Reporte');
             $.ajax({
                 url: urlRoot + 'reporteventa/Ventas',

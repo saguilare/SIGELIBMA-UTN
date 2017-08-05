@@ -139,9 +139,9 @@
                         <span class="glyphicon glyphicon-search"> </span> <input v-model="searchItem" v-on:keyup="searchInTheList(searchItem)" class="form-control" type="text" placeholder="Buscar en la tabla ...">
                     </div>
                     <div class="form-group pull-right">
-                        <label for="search">Items per page: </label>
+                        <label for="search">Lineas por pagina: </label>
                         <input type="number" min="1" max="15" class="form-control" size="10" v-model="pagination.itemPerPage" v-on:click="changePagination()" v-on:keyup="changePagination()">
-                        <label>Page: {{pagination.currentPage}}</label>
+                        <label>Pagina: {{pagination.currentPage}}</label>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
                             <ul class="nav nav-PaginationJustified">
                                 <li class="first">
                                     <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
-                                        First
+                                        Inicio
                                     </a>
                                 </li>
                                 <li v-if="pagination.filteredItems.length > 0 && pagination.currentPage > 1" v-on:click="selectPage(pagination.currentPage - 1)">

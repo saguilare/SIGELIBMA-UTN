@@ -17,8 +17,8 @@ data.inventario = [];
 data.alert = { type: 'success', message: 'alert', status: false };
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando Reporte, por favor espere! ...', fechaInicio : false, fechaFinal : false ,anno:false};
-
-
+data.filtros =[{codigo:1,desc:"Todo"},{codigo:2,desc:"Agotado"},{codigo:3,desc:"Existencia"}];
+data.filtro ={codigo:1,desc:"Todo"};
 data.sortKey = 'codigoLibro';
 data.reverse = 1;
 data.search = '';
@@ -198,30 +198,30 @@ var vm = new Vue({
       
 
         filtrar: function () {
-            vm.displaySpinner(true,'Generando Reporte');
-            $.ajax({
-                url: urlRoot + 'reporteInventario/Inventario',
-                type: 'post',
-                dataType: 'json',
-                data: vm.model,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.inventario = result.Inventario;
-                        vm.items = vm.inventario;
-                        vm.filteredItems = vm.inventario;
-                        vm.buildPagination();
-                        vm.selectPage(1);
-                    } else {
-                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                       
-                    } 
-                    vm.displaySpinner(false);
-                },
-                error: function (error) {
-                    vm.displaySpinner(false);
-                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                }
-            });
+            var array = [];
+            if (vm.filtro.codigo === 1) {
+                array = vm.inventario;
+
+            }else if(vm.filtro.codigo === 2){
+                $.each(vm.inventario, function(index,value){
+                    if (value.stock <= 0) {
+                        array.push(value);
+                    }
+                
+                });
+            }
+            else if(vm.filtro.codigo === 3){
+                $.each(vm.inventario, function(index,value){
+                    if (value.stock > 0) {
+                        array.push(value);
+                    }
+                
+                });
+            }
+ 
+            
+
+            vm.paginatedItems = array;
         },
      
         init: function () {

@@ -29,6 +29,62 @@
             <strong v-else>Info!</strong>
             <p>{{toastr.message}}</p>
         </alert>
+        <!-- MODAL Acerca de -->
+        <div id="modal-contacto" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">
+                            Informacion de Contacto
+                        </h4>
+                    </div>
+                    <div class="modal-body ">
+                        Telefono:
+                        <ul>
+                            <li>+506 2433 8569</li>                           
+                        </ul>
+                        Correo:
+                        <ul>
+                            <li>info@manaalajuela.com</li>
+                        </ul>
+                        Visitenos:
+                        <ul>
+                            <li>25 sur del Complejo Deportivo Wilmer López, Plywood Alajuela, Costa Rica
+                            Alajuela</li>
+                        </ul>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- MODAL Acerca de -->
+        <div id="modal-about" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">
+                            Acerca de esta aplicacion
+                        </h4>
+                    </div>
+                    <div class="modal-body ">
+                        Esta aplicacion ha sido desarrollada por:
+                        <ul>
+                            <li>Aguilar Espinoza, Steven</li>    
+                            <li>Viquez Arana, Johnathan</li>
+                        </ul>
+                        <p>Estudiantes de ultimo nivel de la carrera de Ingenieria del Software de la UTN.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <!-- MODAL BOOK DETAILS -->
         <div id="modalDetails" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -142,14 +198,25 @@
                                         <!--page 2-->
                                         <div v-if="modalCart.currentPage === 2">
                                             <h3>Datos Personales</h3><hr />
-                                            <div class="form-group">
+                                            <div class="form-group validate has-feedback " >
+                                                <label class="control-label" >Cedula</label>
+                                                <div class="input-group">
+                                                    <input v-model="cliente.Cedula" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cedula">
+                                                    @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
+                                                    <span class="input-group-btn">
+                                                        <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
+                                                    </span>
+                                                </div>
+                                                @*<div class="help-block with-errors" _v-461124e2="">Este campo es requerido. (required)</div>*@
+                                            </div>
+                                            @*<div class="form-group">
                                                 <div class="input-group">
                                                     <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                                     <span class="input-group-btn">
                                                         <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
                                                     </span>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="form-group">
                                                 <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
@@ -275,8 +342,8 @@
                                         <li  v-for="item in categories" v-on:click="filterCategory(item)"><a href="#">{{item.Descripcion}}</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#contact">Contactenos</a></li>
-                                <li><a href="#about">Acerca</a></li>
+                                <li><a href="#" v-on:click="openModal(null,'modal-contacto')">Contactenos</a></li>
+                                <li><a href="#" v-on:click="openModal(null,'modal-about')">Acerca</a></li>
                                 <li>
                                     <form class="navbar-form navbar-left">
                                         <div class="input-group search">

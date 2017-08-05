@@ -11,11 +11,12 @@ using System.Web.Mvc;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    
     public class EntregasController : Controller
     {
         private FacturaServicio servicioFactura = new FacturaServicio();
         private EstadoFacturaServicio servicioEstado = new EstadoFacturaServicio();
-        [HttpGet]
+        [HttpGet]    
         public ActionResult Index()
         {
             return View();
@@ -38,9 +39,7 @@ namespace SIGELIBMA.Controllers
             catch (Exception e)
             {
 
-                //TODO handle ex
-                Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -56,9 +55,7 @@ namespace SIGELIBMA.Controllers
             catch (Exception e)
             {
 
-                //TODO handle ex
-                Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -78,10 +75,9 @@ namespace SIGELIBMA.Controllers
                 }
                 return Json(new { EstadoOperacion = false, Mensaje = "No se encontro el pedido" });
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Response.StatusCode = 400;
-                throw;
+                throw e;
             }
 
         }

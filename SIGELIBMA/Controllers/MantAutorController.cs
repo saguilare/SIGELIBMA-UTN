@@ -11,6 +11,7 @@ using SIGELIBMA.Models;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class MantAutorController : Controller
     {
         private AutorServicio autorServicio = new AutorServicio();

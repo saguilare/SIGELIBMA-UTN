@@ -9,6 +9,7 @@ using SIGELIBMA.Filters;
 
 namespace SIGELIBMA.Controllers
 {
+    [ExceptionFilter]
     [ValidateSessionFilter]
     public class MantRolesController : Controller
     {

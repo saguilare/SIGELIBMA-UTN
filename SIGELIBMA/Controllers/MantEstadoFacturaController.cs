@@ -11,6 +11,7 @@ using SIGELIBMA.Models;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class MantEstadoFacturaController : Controller
     {
         private EstadoFacturaServicio servicio = new EstadoFacturaServicio();

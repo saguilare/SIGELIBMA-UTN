@@ -11,6 +11,7 @@ namespace SIGELIBMA.Controllers
 {   
     
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class ReporteVentaController : Controller
     {
         FacturaServicio servicioFactura = new FacturaServicio();
@@ -31,7 +32,7 @@ namespace SIGELIBMA.Controllers
             
                 facturas = servicioFactura.ObtenerTodos().Where(x => x.FechaCreacion.Year == DateTime.Today.Year).ToList();
                 List<object> Filtros = new List<object>();
-                Filtros.Add(new{codigo =1, descripcion ="Anno" });
+                Filtros.Add(new { codigo = 1, descripcion = "Año" });
                 Filtros.Add(new { codigo = 2, descripcion = "Rango" });
                
                 if (facturas != null)

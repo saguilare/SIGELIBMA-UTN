@@ -11,6 +11,7 @@ using SIGELIBMA.Models;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class MantCajaController : Controller
     {
         private CajaServicio servicio = new CajaServicio();

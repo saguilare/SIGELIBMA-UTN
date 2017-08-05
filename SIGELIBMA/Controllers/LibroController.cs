@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class LibroController : Controller
     {
         LibroServicio LibroServicio = new LibroServicio();

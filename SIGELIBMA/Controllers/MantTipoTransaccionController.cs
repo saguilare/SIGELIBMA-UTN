@@ -11,6 +11,7 @@ using SIGELIBMA.Models;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class MantTipoTransaccionController : Controller
     {
         private TipoTransaccionServicio servicio = new TipoTransaccionServicio();

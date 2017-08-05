@@ -60,6 +60,7 @@ data.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor:
 data.date = "";
 data.modalSpinnerText = "Cargando Datos";
 
+
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
 });
@@ -281,15 +282,17 @@ openModal: function (object, type) {
             vm.enableProccedBtn = true;
             
         }
-        
-        
+    } else if (type === 'modal-about') {
+        $("#modal-about").modal({ show: true });
+    } else if (type === 'modal-contacto') {
+        $("#modal-contacto").modal({ show: true });
     }
     
 },
 
 validatePayment: function () {
     if (vm.cliente.Nombre1 && vm.cliente.Apellido1 && vm.cliente.Cedula && vm.cliente.Telefono && vm.cliente.Email
-        && vm.deposito.Fecha && vm.deposito.Referencia && vm.deposito.BancoEmisor && vm.deposito.BancoReceptor) {
+        && vm.deposito.Fecha && vm.deposito.Referencia > 0 && vm.deposito.BancoEmisor && vm.deposito.BancoReceptor > 0) {
         vm.processPayment();
     } else {
         vm.activateAlertModalShoppingCart('danger', 'Debe llenar los campos requeridos', true);
@@ -447,7 +450,9 @@ init: function () {
     vm.activateAlert('danger', '', false);
     vm.getPageData();
     
-}
+},
+
+
 
 },
     

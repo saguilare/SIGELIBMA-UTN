@@ -11,6 +11,7 @@ using System.Web.Mvc;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class InventarioController : Controller
     {
         private InventarioServicio servicioInventario = new InventarioServicio();

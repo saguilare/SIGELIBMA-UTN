@@ -1,6 +1,7 @@
 ﻿using IMANA.SIGELIBMA.BLL.Servicios;
 using IMANA.SIGELIBMA.DAL;
 using IMANA.SIGELIBMA.MVC.Controllers;
+using SIGELIBMA.Filters;
 using SIGELIBMA.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Controllers
 {
-
+    [ExceptionFilter]
     public class HomeController : Controller
     {
         private FacturaServicio servicioFactura = new FacturaServicio();
@@ -34,6 +35,7 @@ namespace SIGELIBMA.Controllers
         
 
         // GET: Home
+        
         public ActionResult Index()
         {
             
@@ -48,6 +50,7 @@ namespace SIGELIBMA.Controllers
 
             try
             {
+                
                 var libros = ObtenerLibros();
                 var categorias = ObtenerCategorias();
                 string date = DateTime.Today.ToString("MM/dd/yyyy"); 
@@ -63,10 +66,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -92,10 +93,7 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
-                Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false,  Mensaje = "Operation FAILED" });
+                throw e;
             }
         }
 
@@ -122,10 +120,7 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
-                Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Operation FAILED" });
+                throw e;
             }
         }
 
@@ -164,6 +159,7 @@ namespace SIGELIBMA.Controllers
         {
             try
             {
+                
                 CategoriasLibroServicio servicio = new CategoriasLibroServicio();
                 List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1).ToList();
                 //remove child elements to avoid circular dependency errors

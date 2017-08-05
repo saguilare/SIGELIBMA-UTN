@@ -11,6 +11,7 @@ using SIGELIBMA.Models;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
+    [ExceptionFilter]
     public class MantCategoriaController : Controller
     {
         private CategoriasLibroServicio catServicio = new CategoriasLibroServicio();

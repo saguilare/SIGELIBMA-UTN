@@ -10,9 +10,12 @@ using System.Drawing;
 using System.Configuration;
 using System.Globalization;
 using SIGELIBMA.Models;
+using SIGELIBMA.Filters;
 
 namespace SIGELIBMA.Controllers
 {
+    [ExceptionFilter]
+    [ValidateSessionFilter]
     public class MantLibrosController : Controller
     {
 

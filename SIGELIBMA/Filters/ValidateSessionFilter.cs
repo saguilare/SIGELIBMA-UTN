@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Filters
 {
-    [AttributeUsage(AttributeTargets.Class)]
+    
     public class ValidateSessionFilter : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)

@@ -11,7 +11,8 @@ using System.Web.Mvc;
 
 namespace SIGELIBMA.Controllers
 {
-    //[ValidateSessionFilter]
+    
+    [ExceptionFilter]
     public class LoginController : Controller
     {
 
@@ -37,6 +38,7 @@ namespace SIGELIBMA.Controllers
             return View();
         }
 
+        [ValidateSessionFilter]
         [HttpGet]
         public JsonResult GetSesion() {
             try
@@ -60,6 +62,7 @@ namespace SIGELIBMA.Controllers
             }
         }
 
+        [ValidateSessionFilter]
         [HttpGet]
         public ActionResult Logout()
         {
