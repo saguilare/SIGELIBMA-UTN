@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -106,6 +109,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 Factura factura = CrearFactura(fatura);
                 if (factura != null && factura.Numero > 0)
                 {
+                    SendEmail(factura);
                     return Json(new { EstadoOperacion = true, Factura = factura.Numero, Mensaje = "Transaccion Exitosa" });
                 }
                 else
@@ -207,6 +211,100 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             {
                 throw e;
             }
+        }
+
+
+        private bool SendEmail(Factura factura)
+        {
+
+            try
+            {
+               
+                factura.Usuario = servicioUsuario.ObtenerPorId(new Usuario { Cedula = factura.Cliente });
+                foreach (DetalleFactura item in factura.DetalleFactura)
+                {
+                    item.Libro = servicioLibro.ObtenerPorId(new Libro { Codigo = item.Articulo });
+                }
+                string from = ConfigurationManager.AppSettings["from"];
+                var fromAddress = new MailAddress(from, "Libreria Iglesia Mana");
+                var toAddress = new MailAddress(factura.Usuario.Correo, factura.Usuario.Correo);
+                string fromPassword = ConfigurationManager.AppSettings["password"];
+                string subject = "Confirmacion Compra - #" + factura.Numero;
+                StringBuilder str = new StringBuilder();
+                str.AppendLine("Estimado(a): " + factura.Usuario.Nombre);
+                str.AppendLine("<br/>");
+                str.AppendLine("Adjuntamos el detalle de su compra, le recordamos que puede pasar a retirar su producos de Lunes a Viernes de 8am a 7pm");
+                str.AppendLine("<br/><br/>");
+                str.AppendLine("<style>td{border-bottom: 1px solid black;}</style>");
+                str.AppendLine("<div style='min-width: 300px'>");
+                str.AppendLine(" <table >");
+                str.AppendLine("<thead>");
+                str.AppendLine("<tr>");
+                str.AppendLine("<th><a>Codigo</a></th><th><a>Titulo</a></th><th><a>Cantidad</a></th><th><a>Precio Unitario</a></th><th><a>Precio Total</a></th>");
+                str.AppendLine("</tr>");
+                str.AppendLine("</thead>");
+                str.AppendLine("<tbody>");
+                foreach (DetalleFactura detail in factura.DetalleFactura)
+                {
+                    str.Append("<tr>\n" +
+                                "<td>" + detail.Libro.Codigo + "</td>\n" +
+                                "<td>" + detail.Libro.Titulo + "</td>\n" +
+                                "<td>" + detail.Cantidad + "</td>\n" +
+                                "<td>&#162;" + detail.Libro.PrecioVentaSinImpuestos + "</td>\n" +
+                                "<td>&#162;" + (detail.Cantidad * detail.Libro.PrecioVentaSinImpuestos) + "</td>\n" +
+                                "</tr>"
+                        );
+                }
+                str.AppendLine("<tr>");
+                str.AppendLine("<td></td><td></td><td></td>");
+                str.AppendLine("<td>Subtotal: </td>");
+                str.AppendLine("<td>&#162;" + factura.Subtotal + "</td>");
+                str.AppendLine("</tr>");
+                str.AppendLine("<tr>");
+                str.AppendLine("<td></td><td></td><td></td>");
+                str.AppendLine("<td>Impuestos (I.V.A): </td>");
+                str.AppendLine("<td>&#162;" + factura.Impuestos + "</td>");
+                str.AppendLine("</tr>");
+                str.AppendLine("<tr>");
+                str.AppendLine("<td></td><td></td><td></td>");
+                str.AppendLine("<td>Total (I.V.I): </td>");
+                str.AppendLine("<td>&#162;" + factura.Total + "</td>");
+                str.AppendLine("</tr>");
+                str.AppendLine("</tbody>");
+                str.AppendLine("</table> ");
+                str.AppendLine("</div>");
+
+                var smtp = new SmtpClient
+                {
+                    Host = ConfigurationManager.AppSettings["server"],
+                    Port = Convert.ToInt32(ConfigurationManager.AppSettings["port"]),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 20000
+                };
+                System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(str.ToString(), null, "text/html");
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    IsBodyHtml = true,
+                    Body = str.ToString()
+                })
+                {
+                    message.AlternateViews.Add(htmlView);
+                    smtp.Send(message);
+
+                }
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+                //LOG ERROR
+                return false;
+            }
+
         }
 
         private object ObtenerLibros()
