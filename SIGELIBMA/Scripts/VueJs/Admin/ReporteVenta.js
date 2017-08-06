@@ -211,10 +211,10 @@ var vm = new Vue({
       
 
         filtrar: function () {
-            if (vm.model.Filtro === 1 && !vm.model.fechaInicio  ) {
+            if (vm.model.Filtro === 1 && !vm.model.FechaInicio  ) {
                 vm.activateToastr("danger","Debe ingresar la fecha",true);
                 return false;
-            }else if (vm.model.Filtro === 2 && (!vm.model.fechaInicio  || !vm.model.fechaFinal ) ) {
+            }else if (vm.model.Filtro === 2 && (!vm.model.FechaInicio  || !vm.model.FechaFinal ) ) {
                 vm.activateToastr("danger","Debe ingresar la fecha",true);
                 return false;
             }

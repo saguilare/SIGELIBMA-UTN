@@ -73,7 +73,7 @@
                         <div v-if="model.Filtro === 1" v-bind:class="[{ 'has-error': validations.anno && model.FechaInicio === '' },{'has-success' : validations.anno && model.FechaFinal !== ''},'form-group has-feedback']">
                             <label class="control-label">Fecha: </label>
                             <select v-model="model.FechaInicio" class="form-control" v-on:blur="validations.anno = true" required>
-                                <option value="2017" selected disabled>-- seleccione --</option>
+                                <option value="" selected disabled>-- seleccione --</option>
                                 <option v-bind:value="fecha.fecha" v-for="fecha in anos">{{fecha.ano}}</option>
                             </select>
                            

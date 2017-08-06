@@ -248,7 +248,8 @@
                                     <td>{{inventario.minimo}}</td>
                                     <td>{{inventario.estado.descripcion}}</td>
                                     <td>
-                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(inventario, 'edit-modal')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Detalles</button>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(inventario, 'edit-modal')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
+                                        <button class="btn btn-small btn-danger" v-on:click="eliminar(inventario)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
                                     </td>
                                 </tr>
                             </tbody>

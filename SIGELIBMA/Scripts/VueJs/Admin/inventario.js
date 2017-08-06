@@ -258,10 +258,10 @@ var vm = new Vue({
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
-                    this.$refs.spinner1.hide();
+                    vm.$refs.spinner1.hide();
                 },
                 error: function (error) {
-                    this.$refs.spinner1.hide();
+                    vm.$refs.spinner1.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 
@@ -291,6 +291,34 @@ var vm = new Vue({
                 error: function (error) {
                     this.$refs.spinner2.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
+                }
+                
+            });
+
+        },
+
+        eliminar: function (inventario) {
+            
+            var inv = {Libro: inventario.libro.codigo ,Stock: inventario.stock,Maximo: inventario.maximo,Minimo: inventario.minimo,Estado: 0    }; 
+            $.ajax({
+                url: urlRoot + 'inventario/Modificar',
+                type: 'post',
+                dataType: 'json',
+                data: inv,
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.getInventarios();
+                        $("#edit-modal").modal('hide' );
+                        vm.activateToastr('success', 'La operacion se realizo con exito.', true);
+
+                    } else {
+                        vm.activateToastr("danger","Ha ocurrido un error, intente nuevamente", true);  
+                    }   
+                   
+                },
+                error: function (error) {
+                    
+                    vm.activateToastr("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 
             });

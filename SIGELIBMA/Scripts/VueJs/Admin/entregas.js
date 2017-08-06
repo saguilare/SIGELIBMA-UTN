@@ -261,10 +261,10 @@ var vm = new Vue({
                         vm.activateAlertModal('danger','Ha ocurrido un problema, por favor intente nuevamente.',true);
                     }
                     
-                    this.$refs.spinner1.hide();
+                    vm.$refs.spinner1.hide();
                 },
                 error: function (error) {
-                    this.$refs.spinner1.hide();
+                    vm.$refs.spinner1.hide();
                     vm.activateAlertModal('danger','Ha ocurrido un problema, por favor intente nuevamente.',true);
     
                 }
@@ -272,52 +272,7 @@ var vm = new Vue({
 
         },
 
-        addRol: function (rol) {
-            vm.displaySpinner(true,'Agregando Rol');
-            $.ajax({
-                url: urlRoot + 'MantRoles/Agregar',
-                type: 'post',
-                dataType: 'json',
-                data: rol,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.getRoles();                        
-                    } else {
-                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                        vm.displaySpinner(false);
-                    }          
-                },
-                error: function (error) {
-                    vm.displaySpinner(false);
-                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                }
-            });
-        },
-
-        updateRol: function (rol) {
-            $("#edit-modal").modal('hide' );
-            vm.displaySpinner(true, 'Editando Rol');
-            $.ajax({
-                url: urlRoot + 'MantRoles/Modificar',
-                type: 'post',
-                dataType: 'json',
-                data: rol,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.getRoles();
-                    } else {
-                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                        vm.displaySpinner(false);
-                    }   
-                },
-                error: function (error) {
-                    vm.displaySpinner(false);
-                    vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                }
-                
-            });
-
-        },
+      
 
         openEditModal: function (entrega) {
             vm.activateAlertModal('','',false);
