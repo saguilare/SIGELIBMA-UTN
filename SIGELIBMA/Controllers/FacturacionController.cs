@@ -332,22 +332,22 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             {
 
                 List<Caja> cajas = servicioCaja.ObtenerTodos().Where(x => x.Codigo != CajaVirtual).ToList();
-                foreach (Caja caja in cajas)
-                {
-                    //remover cajas donde hay algun otro ususario conectado
-                    if (caja.CajaUsuario != null && caja.CajaUsuario.Count > 0)
-                    {
-                        foreach (CajaUsuario cu in caja.CajaUsuario)
-                        {
+                //foreach (Caja caja in cajas)
+                //{
+                //    //remover cajas donde hay algun otro ususario conectado
+                //    if (caja.CajaUsuario != null && caja.CajaUsuario.Count > 0)
+                //    {
+                //        foreach (CajaUsuario cu in caja.CajaUsuario)
+                //        {
 
-                            if (cu.Apertura.Date == DateTime.Today && cu.Cierre == null)
-                            {
-                                cajas.Remove(caja);
-                                break;
-                            }
-                        }
-                    }
-                }
+                //            if (cu.Apertura.Date == DateTime.Today && cu.Cierre == null)
+                //            {
+                //                cajas.Remove(caja);
+                //                break;
+                //            }
+                //        }
+                //    }
+                //}
                 //remove child elements to avoid circular dependency errors
                 var newList = cajas.Select(item => new
                 {

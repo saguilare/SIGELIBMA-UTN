@@ -29,7 +29,7 @@
             <strong v-else>Info!</strong>
             <p>{{toastr.message}}</p>
         </alert>
-        <!-- MODAL Acerca de -->
+        <!-- MODAL contacto -->
         <div id="modal-contacto" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -106,7 +106,10 @@
                         <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.item.Precio}}</p>
                         <div class="form-group text-center">
                             <label>Cantidad:</label>
-                            <input v-if="modalObject.item.Stock === true" class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />
+                            <select v-if="modalObject.item.Stock === true" required v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()">
+                                <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
+                            </select>
+                            @*<input v-if="modalObject.item.Stock === true" class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />*@
                             <p v-else class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
                         </div>
                         <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.total}}</span>
@@ -158,7 +161,7 @@
                                 <!-- Content-->
                                 <div class="row">
                                     <div class="col-sm-12 table-responsive">
-                                        <spinner v-ref:spinner1 size="md" fixed text="Procesando datos, por favor espere!"></spinner>
+                                        <spinner v-ref:spinner size="md" fixed text="Procesando datos, por favor espere!"></spinner>
                                         <!--page 1-->
                                         <div v-if="modalCart.currentPage === 1">
                                             <h3>Resumen Productos</h3><hr />
@@ -179,7 +182,10 @@
                                                         <td>{{object.item.Titulo}}</td>
                                                         <td>&#162;{{object.item.Precio}}</td>
                                                         <td>
-                                                            <input class="form-control" min="1" max="20" type="number" name="name" v-model="object.quantity" v-on:keyup="updateDetail($index)" v-on:change="updateDetail($index)" v-on:blur="updateDetail($index)" />
+                                                            <select required v-model="object.quantity" number v-on:mouseup.keyup.change="updateDetail($index)">
+                                                                <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
+                                                            </select>
+                                                            @*<input class="form-control" min="1" max="20" type="number" name="name" v-model="object.quantity" v-on:keyup="updateDetail($index)" v-on:change="updateDetail($index)" v-on:blur="updateDetail($index)" />*@
                                                         </td>
                                                         <td>&#162;{{object.total}}</td>
                                                         <td><button class="btn btn-danger" type="button" v-on:click="removeFromCart($index,object)">Remover</button></td>
@@ -252,7 +258,7 @@
                                             <div v-bind:class="[{ 'has-error':deposito.BancoEmisor === '0' && shoppingCartValidations.bancoEmisor},{'has-success' : deposito.BancoEmisor !== '0' && shoppingCartValidations.bancoEmisor},'form-group has-feedback']">
                                                 <label class="control-label">Banco Origen: </label>
                                                 <select required class="form-control" v-model="deposito.BancoEmisor" v-on:change="shoppingCartValidations.bancoEmisor = true">
-                                                    <option value="0" selected disabled>-- Seleccione un Banco --</option>
+                                                    <option value="" selected disabled>-- Seleccione un Banco --</option>
                                                     <option value="BCR">BCR</option>
                                                     <option value="BNCR">BNCR</option>
                                                     <option value="BAC">BAC</option>
@@ -265,7 +271,7 @@
                                             <div v-bind:class="[{ 'has-error':deposito.BancoReceptor === '0' && shoppingCartValidations.bancoReceptor},{'has-success' : deposito.BancoReceptor !== '0' && shoppingCartValidations.bancoReceptor},'form-group has-feedback']">
                                                 <label class="control-label">Banco Destino: </label>
                                                 <select required class="form-control" v-model="deposito.BancoReceptor" v-on:change="shoppingCartValidations.bancoReceptor = true">
-                                                    <option value="0" selected disabled>-- Seleccione un Banco --</option>
+                                                    <option value="" selected disabled>-- Seleccione un Banco --</option>
                                                     <option value="BCR">BCR</option>
                                                     <option value="BNCR">BNCR</option>
                                                 </select>

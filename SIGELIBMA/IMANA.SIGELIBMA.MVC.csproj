@@ -287,6 +287,7 @@
     <Content Include="Scripts\VueJs\Admin\facturacion.js" />
     <Content Include="Scripts\VueJs\Admin\login.js" />
     <Content Include="Scripts\VueJs\Admin\MantAutor.js" />
+    <Content Include="Scripts\VueJs\Admin\MantEstadoFactura.js" />
     <Content Include="Scripts\VueJs\Admin\MantLibros.js" />
     <Content Include="Scripts\VueJs\Admin\MantCaja.js" />
     <Content Include="Scripts\VueJs\Admin\MantTipoTransaccion.js" />

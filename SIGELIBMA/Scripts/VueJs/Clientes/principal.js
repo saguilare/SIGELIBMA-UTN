@@ -59,6 +59,7 @@ data.validations = {  showSpinner: false, loadingMessage : 'Cargando datos de la
 data.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor: false };
 data.date = "";
 data.modalSpinnerText = "Cargando Datos";
+data.quantity = [1,2,3,4,5,6,7,8,9,10];
 
 
 Vue.filter('numeral', function (value) {
@@ -231,7 +232,7 @@ getClient: function () {
         return false;
     }
     var cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: vm.cliente.Cedula };
-    this.$refs.spinner1.show();
+    vm.$refs.spinner.show();
     
     
     $.ajax({
@@ -249,11 +250,11 @@ getClient: function () {
             } else {
                 vm.activateAlertModalShoppingCart('info', 'No se encontro ningun usuario registrado, por favor digite sus datos', true);
             }
-            vm.$refs.spinner1.hide();
+            vm.$refs.spinner.hide();
         },
         error: function (error) {
             vm.activateAlertModalShoppingCart('info','No se pudo encontrar el cliente, por favor digite sus datos',true);
-            vm.$refs.spinner1.hide();
+            vm.$refs.spinner.hide();
         }
     });
 
@@ -292,7 +293,7 @@ openModal: function (object, type) {
 
 validatePayment: function () {
     if (vm.cliente.Nombre1 && vm.cliente.Apellido1 && vm.cliente.Cedula && vm.cliente.Telefono && vm.cliente.Email
-        && vm.deposito.Fecha && vm.deposito.Referencia > 0 && vm.deposito.BancoEmisor && vm.deposito.BancoReceptor > 0) {
+        && vm.deposito.Fecha && vm.deposito.Referencia && vm.deposito.BancoEmisor  && vm.deposito.BancoReceptor ) {
         vm.processPayment();
     } else {
         vm.activateAlertModalShoppingCart('danger', 'Debe llenar los campos requeridos', true);
@@ -304,21 +305,23 @@ validatePayment: function () {
 updateDetail: function (index) {
 
     var detail = vm.shoppingCart.items[index];
-    console.log(detail);
+
     detail.total = parseInt(detail.quantity) * detail.item.Precio;
     vm.shoppingCart.items[index] = detail;
+
+
     vm.shoppingCart.total = 0;
-    vm.shoppingCart.totalItems =0;
-    $.each(vm.shoppingCart.items, function (index, detalle) {
-        vm.shoppingCart.total = vm.shoppingCart.total + detalle.total;
-        vm.shoppingCart.totalItems = vm.shoppingCart.totalItems + parseInt(detail.quantity);
+    vm.shoppingCart.totalItems = 0;
+    $.each(vm.shoppingCart.items, function (index, value) {
+        vm.shoppingCart.total += value.total;
+        vm.shoppingCart.totalItems += value.quantity;
     });
     
 },
 
 processPayment: function () {
     vm.modalCart.currentPage = 4;
-    this.$refs.spinner1.show();
+    vm.$refs.spinner.show();
     
     var productos = [];
     $.each(vm.shoppingCart.items, function (index, object) {
@@ -347,12 +350,12 @@ processPayment: function () {
                     vm.modalCart.currentPage = 1;
                 }
             }
-            vm.$refs.spinner1.hide();
+            vm.$refs.spinner.hide();
         },
         error: function (error) {
             vm.shoppingCart.payment.status = false;
            
-            vm.$refs.spinner1.hide();
+            vm.$refs.spinner.hide();
         }
     });
     
@@ -427,8 +430,13 @@ addToCart: function (item) {
             vm.shoppingCart.items.push(item);
         }
 
-        vm.shoppingCart.total += item.total;
-        vm.shoppingCart.totalItems += item.quantity;
+        vm.shoppingCart.total =0;
+        vm.shoppingCart.totalItems =0;
+        $.each(vm.shoppingCart.items, function (index, value) {
+            vm.shoppingCart.total += value.total;
+            vm.shoppingCart.totalItems += value.quantity;
+        });
+        
         vm.activateAlertModalBookDetails('success', 'El producto fue agregado con exito al carrito', true);
     } else {
         vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para agregar el producto al carrito,por favor intente de nuevo', true);

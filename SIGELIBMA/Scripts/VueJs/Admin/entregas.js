@@ -243,7 +243,7 @@ var vm = new Vue({
         },
 
         cambiarEstadoEntrega : function(){
-            this.$refs.spinner1.show();
+            vm.$refs.spinner1.show();
             var entrega = {NumeroFactura : vm.modalObject.master.numero, Estado : parseInt(vm.modalObject.estado.codigo)};
             $.ajax({
                 url: urlRoot + 'entregas/Entregar',
@@ -261,10 +261,10 @@ var vm = new Vue({
                         vm.activateAlertModal('danger','Ha ocurrido un problema, por favor intente nuevamente.',true);
                     }
                     
-                    vm.$refs.spinner1.hide();
+                    this.$refs.spinner1.hide();
                 },
                 error: function (error) {
-                    vm.$refs.spinner1.hide();
+                    this.$refs.spinner1.hide();
                     vm.activateAlertModal('danger','Ha ocurrido un problema, por favor intente nuevamente.',true);
     
                 }

@@ -242,7 +242,7 @@ var vm = new Vue({
         },
 
         modificar: function () {
-            this.$refs.spinner1.show();
+            vm.$refs.spinner1.show();
             var inv = {Libro: vm.modalObject.libro.codigo ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado.codigo}; 
             $.ajax({
                 url: urlRoot + 'inventario/Modificar',
@@ -258,10 +258,10 @@ var vm = new Vue({
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
-                    vm.$refs.spinner1.hide();
+                    this.$refs.spinner1.hide();
                 },
                 error: function (error) {
-                    vm.$refs.spinner1.hide();
+                    this.$refs.spinner1.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 
@@ -270,7 +270,7 @@ var vm = new Vue({
         },
 
         agregar: function () {
-            this.$refs.spinner2.show();
+            vm.$refs.spinner2.show();
             var inv = {Libro: vm.modalObject.libro ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado}; 
             $.ajax({
                 url: urlRoot + 'inventario/agregar',
@@ -286,10 +286,10 @@ var vm = new Vue({
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
-                    vm.$refs.spinner2.hide();
+                    this.$refs.spinner2.hide();
                 },
                 error: function (error) {
-                    vm.$refs.spinner2.hide();
+                    this.$refs.spinner2.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 

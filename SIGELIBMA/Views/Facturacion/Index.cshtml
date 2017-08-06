@@ -48,18 +48,22 @@
                         <!-- Content-->
                         <div class="row">
                             <div class="col-sm-12 table-responsive">
-                                <spinner v-ref:spinner1 size="md" fixed text="Procesando datos, por favor espere."></spinner>
+                                <spinner v-ref:spinner size="md" fixed text="Procesando datos, por favor espere."></spinner>
                                 <!--page 1-->
                                 <div v-if="modalFact.currentPage === 1">
                                     <h3>Datos Personales</h3><hr />
-                                    <div class="form-group">
+                                    <div class="form-group validate has-feedback ">
+                                        <label class="control-label">Cedula</label>
                                         <div class="input-group">
-                                            <vueinput v-bind:value.sync="factura.master.client.id" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                            <input v-model="factura.master.client.id" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cedula">
+                                            @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
                                             <span class="input-group-btn">
                                                 <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
                                             </span>
                                         </div>
+                                        @*<div class="help-block with-errors" _v-461124e2="">Este campo es requerido. (required)</div>*@
                                     </div>
+                                   
                                     <div class="form-group">
                                         <vueinput v-bind:value.sync="factura.master.client.name" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                     </div>
@@ -264,7 +268,10 @@
                 <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{product.item.Precio}}</p>
                 <div class="form-group text-center" v-if="product.item.Stock === true">
                     <label>Cantidad:</label>
-                    <input class="form-control book-quantity" type="number" min="1" max="100" v-model="product.quantity" v-on:click="updateModalDetailProdTotal() " />
+                    <select v-if="product.item.Stock === true" required v-model="product.quantity" number v-on:mouseup.keyup.change="updateModalDetailProdTotal()">
+                        <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
+                    </select>
+                    @*<input class="form-control book-quantity" type="number" min="1" max="100" v-model="product.quantity" v-on:click="updateModalDetailProdTotal() " />*@
                 </div>
                 <p v-else class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
                 <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{product.total}}</span>
@@ -496,7 +503,10 @@
                                             <td>{{detail.item.Codigo}}</td>
                                             <td>{{detail.item.Titulo}}</td>
                                             <td>
-                                                <input class="form-control" min="1" max="20" type="number" name="name" v-model="detail.quantity" v-on:keyup="updateFacturaDetail($index)" v-on:change="updateFacturaDetail($index)" v-on:blur="updateFacturaDetail($index)" />
+                                                <select required v-model="detail.quantity" number v-on:mouseup.keyup.change="updateFacturaDetail($index)">
+                                                    <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
+                                                </select>
+                                                @*<input class="form-control" min="1" max="20" type="number" name="name" v-model="detail.quantity" v-on:keyup="updateFacturaDetail($index)" v-on:change="updateFacturaDetail($index)" v-on:blur="updateFacturaDetail($index)" />*@
                                             </td>
                                             <td>&#162;{{detail.item.PrecioSinImp}}</td>
                                             <td>&#162;{{detail.subtotal}}</td>

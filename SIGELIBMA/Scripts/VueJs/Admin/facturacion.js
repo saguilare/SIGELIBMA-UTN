@@ -37,7 +37,9 @@ data.movimientosDelDia = [];
 data.modalRetiroAbono = { currentPage: 1 };
 data.movimiento = { caja: {}, tipo: 0, monto: 0, razon:"" ,procesado: false};
 data.tiposMovimiento = [{ codigo: 1, descripcion: 'Abono' }, { codigo: 2, descripcion: 'Retiro' }];
-data.cierre = { saldo: 0 , totalCreditos:0, totalRetiros:0, total:0,montoCaja:0, faltante:0, exedente:0};
+data.cierre = { saldo: 0, totalCreditos: 0, totalRetiros: 0, total: 0, montoCaja: 0, faltante: 0, exedente: 0 };
+data.quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
 })
@@ -98,7 +100,7 @@ var vm = new Vue({
 
         initializeCashBox: function () {
             vm.enableFacturar = false;
-            this.$refs.spinner1.show();
+            vm.$refs.spinner1.show();
             vm.cashier.Estado = 1;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
@@ -141,7 +143,7 @@ var vm = new Vue({
         },
 
         closeCashBox: function () {
-            this.$refs.spinner3.show();
+            vm.$refs.spinner3.show();
             vm.cashier.Estado = 2;
             vm.cashier.Monto = vm.cierre.total;
             $.ajax({
@@ -249,7 +251,7 @@ var vm = new Vue({
         },
 
         aplicarMovimiento: function () {
-            this.$refs.spinner1.show();
+            vm.$refs.spinner1.show();
             vm.cashier.Monto = vm.movimiento.monto;
             vm.cashier.Razon = vm.movimiento.razon;
             vm.cashier.Movimiento = vm.movimiento.tipo;
@@ -409,7 +411,7 @@ var vm = new Vue({
 
         processPayment: function () {
             vm.modalFact.currentPage = 4;
-            this.$refs.spinner1.show();
+            vm.$refs.spinner.show();
 
             //Set cliente
             var cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
@@ -444,12 +446,12 @@ var vm = new Vue({
                         vm.modalFact.currentPage = 2;
                     }
                     
-                    vm.$refs.spinner1.hide();
+                    vm.$refs.spinner.hide();
                 },
                 error: function (error) {
                     vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
                     vm.modalFact.currentPage = 2;
-                    vm.$refs.spinner1.hide();
+                    vm.$refs.spinner.hide();
                     
                 }
             });
@@ -469,7 +471,7 @@ var vm = new Vue({
                 return false;
             }
             var cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: vm.factura.master.client.id };
-            this.$refs.spinner1.show();
+            vm.$refs.spinner.show();
 
 
             $.ajax({
@@ -487,11 +489,11 @@ var vm = new Vue({
                     } else {
                         vm.activateAlertModal('info', 'No se encontro ningun usuario registrado, por favor digite sus datos', true);
                     }
-                    vm.$refs.spinner1.hide();
+                    vm.$refs.spinner.hide();
                 },
                 error: function (error) {
                     vm.activateAlertModal('info', 'No se pudo encontrar el cliente, por favor digite sus datos', true);
-                    vm.$refs.spinner1.hide();
+                    vm.$refs.spinner.hide();
                 }
             });
 
