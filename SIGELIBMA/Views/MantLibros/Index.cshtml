@@ -284,7 +284,7 @@
                                     </th>
                                     <th>
                                         <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Imagen
+                                            Estado
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
@@ -305,7 +305,7 @@
                                     <td>{{libro.PorcentajeGanancia}}</td>
                                     <td>{{libro.PrecioVentaSinImpuestos}}</td>
                                     <td>{{libro.PrecioVentaConImpuestos}}</td>
-                                    <td>{{libro.NombreImagen}}</td>
+                                    <td>{{libro.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
                                     <td>
                                         <button class="btn btn-small btn-success" v-on:click="openEditModal(libro)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
                                         <button class="btn btn-small btn-danger" v-on:click="deleteLibro(libro)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>

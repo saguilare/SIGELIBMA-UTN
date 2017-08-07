@@ -327,8 +327,9 @@ var vm = new Vue({
                        vm.getLibros();
                    } else {
                        vm.activateToastr('danger', 'La operacion ha fallado, por favor intente nuevamente.', true);
-                       vm.displaySpinner(false);
+                      
                    }
+                   vm.displaySpinner(false);
                },
                error: function (error) {
                    vm.displaySpinner(false);

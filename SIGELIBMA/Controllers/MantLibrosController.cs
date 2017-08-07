@@ -157,13 +157,17 @@ namespace SIGELIBMA.Controllers
             try
             {
                 bool resultado = false;
-                Libro libro = new Libro();
-                libro = librop;
-                libro.Autor = librop.Autor1.Codigo;
-                libro.Categoria = librop.Categoria1.Codigo;
-                libro.Proveedor = librop.Proveedor1.Codigo;
-                resultado = LibroServicio.Desabilitar(librop);
+                Libro libro = LibroServicio.ObtenerPorId(new Libro {Codigo = librop.Codigo });
+                if (libro != null)
+                {
+                    libro.Estado = 0;
+                    resultado = LibroServicio.Modificar(libro);
+
+                }
+
                 return Json(new { EstadoOperacion = resultado, Mensaje = "Operation OK" });
+
+                
             }
             catch (Exception e)
             {
@@ -191,13 +195,19 @@ namespace SIGELIBMA.Controllers
                      imagensinextensiones = librop.NombreImagen;
                 }
                 
-                List<string> names = new List<string>(librop.Imagen.Split(','));
-                byte[] imageBytes = Convert.FromBase64String(names[1].ToString());
-                using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
-                {
-                    Image image = Image.FromStream(ms, true);
-                    image.Save(path + librop.NombreImagen);
-                }
+              
+
+                if (librop.Imagen != null)
+                 {
+                   
+                    List<string> names = new List<string>(librop.Imagen.Split(','));
+                    byte[] imageBytes = Convert.FromBase64String(names[1].ToString());
+                    using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        image.Save(path + librop.NombreImagen);
+                    }
+                 }
 
                 DateTime dt = DateTime.ParseExact(librop.Fecha, "MM/dd/yyyy", CultureInfo.InvariantCulture);
 

@@ -24,7 +24,7 @@ namespace IMANA.SIGELIBMA.BLL.Servicios
             try
             {
                 List<Libro> libros = null;
-                libros = unitOfWork.Repository<Libro>().GetAll().Where(x=> x.Estado==1).ToList();
+                libros = unitOfWork.Repository<Libro>().GetAll().ToList();
                 
                 return libros;
             }
