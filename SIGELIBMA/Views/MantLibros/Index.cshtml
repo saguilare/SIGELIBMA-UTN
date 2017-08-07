@@ -95,13 +95,13 @@
                                         <vueinput v-bind:value.sync="libro.PrecioBase" label="Precio Base" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion"  pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.PorcentajeGanancia" label="Ganancia" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PorcentajeGanancia" label="Porcentaje de Ganancia"  v-on:keyup="calcularPrecios(libro)" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Ganancia" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.PrecioVentaSinImpuestos" label="P. sin Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion" pattern="^[0-9]+$" mask=""  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaSinImpuestos" :disabled="true" label="Precio sin Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="P. sin Impuestos" pattern="^[0-9]+$" mask=""  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" label="P. con Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" :disabled="true" label="Precio con Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="P. con Impuestos" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
                                         <div id="app">

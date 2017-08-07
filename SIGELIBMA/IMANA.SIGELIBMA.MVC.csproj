@@ -158,7 +158,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EntregasController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
-    <Compile Include="Controllers\LibroController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -199,6 +198,7 @@
     <Content Include="Content\Admin\Facturacion\Fact.css" />
     <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\EstadoCaja.css" />
+    <Content Include="Content\Admin\Mantenimiento\Libro.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
     <Content Include="Content\Admin\Mantenimiento\Autor.css" />
     <Content Include="Content\Admin\Mantenimiento\Categoria.css" />
