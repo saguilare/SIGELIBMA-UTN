@@ -18,7 +18,7 @@ data.categorias = [],
 data.autores = [];
 data.imagen='';
 data.proveedores = [];
-data.libro = { Codigo: 1, Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria1: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor1: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor1: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: '' }, PrecioBase: '', PorcentajeGanancia: '', PrecioVentaSinImpuestos: '', PrecioVentaConImpuestos: '', NombreImagen: '', Imagen: [], Estado: 0 };
+data.libro = { Codigo: 1, Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria1: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor1: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor1: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: 0 }, PrecioBase: '', PorcentajeGanancia: '', PrecioVentaSinImpuestos: '', PrecioVentaConImpuestos: '', NombreImagen: '', Imagen: [], Estado: 0 };
 data.libros = [];
 data.modalObject = { Codigo: 0, Titulo: '', Descripcion: ''};
 data.alert = { type: 'success', message: 'alert', status: false };
@@ -209,6 +209,12 @@ var vm = new Vue({
             vm.getProveedores();
         },
 
+        calcularPrecios(libro) {
+            libro.PrecioVentaSinImpuestos = ((libro.PrecioBase * libro.PorcentajeGanancia) / 100) + parseInt(libro.PrecioBase);
+            libro.PrecioVentaConImpuestos = (libro.PrecioVentaSinImpuestos * 0.13) + parseInt(libro.PrecioVentaSinImpuestos);
+            
+        },
+
         validarCamposLibro: function (libro,existeLibro) {
             if (existeLibro) {
                 vm.activateAlertModal('danger', 'El Codigo del libro ingresado ya existe', true);
@@ -364,7 +370,7 @@ var vm = new Vue({
         },
 
 
-        getCategorias: function () {
+        getCategorias: function (libro) {
             $.ajax({
                 url: urlRoot + 'mantlibros/ObtenerCategorias',
                 type: 'get',
@@ -373,6 +379,9 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.categorias = result.Categorias;
+                        if (vm.modalAccion === 'Editar Libro') {
+                            vm.categorias[0] = vm.libro.Categoria1;
+                        }
                         vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
                     } else {
                         vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
@@ -396,6 +405,9 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.autores = result.Autores;
+                        if (vm.modalAccion === 'Editar Libro') {
+                            vm.autores[0] = vm.libro.Autor1;
+                        }
                         vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
                     } else {
                         vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
@@ -418,6 +430,10 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.proveedores = result.Proveedores;
+                        if (vm.modalAccion === 'Editar Libro') {
+                            vm.proveedores[0] = vm.libro.Proveedor1;
+                        }
+                        
                         vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
                     } else {
                         vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
