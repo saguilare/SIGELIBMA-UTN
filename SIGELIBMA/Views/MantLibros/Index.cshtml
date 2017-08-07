@@ -107,7 +107,7 @@
                                         <div id="app">
                                             <div>
                                                <h4>Seleccione una Imagen</h4>
-                                              <label class="btn btn-primary">Buscar<input type="file" accept=".jpg" v-model="libro.Imagen" v-on:change="onFileChange" style="display: none;"></label>
+                                              <label class="btn btn-primary">Buscar<input type="file" accept=".jpg"  v-on:change="onFileChange" style="display: none;"></label>
                                             </div>
                                             <div v-if="imagen && modalAccion==='Agregar Libro'">
                                                 <img class="img-edit-model" :src="imagen" style="width:20%"/>
