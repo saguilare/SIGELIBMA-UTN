@@ -185,16 +185,14 @@ var vm = new Vue({
 
         //EndPafinationMothods
 
-        openNewModal: function (libro) {
-            vm.libro = libro;
+        openNewModal: function () {
+            
             vm.modalAccion = 'Agregar Libro';
             vm.modalCart.currentPage = 1;
             vm.activateAlertModal('', '', false);
-            vm.modalObject = libro;
+            vm.libro = { Codigo: '', Titulo: '', Descripcion: '', Fecha: '00/00/0000', Categoria1: { Codigo: 0, Descripcion: '', Estado: 0 }, Autor1: { Codigo: 0, Nombre: '', Apellidos: '', Estado: 0 }, Proveedor1: { Codigo: 0, Nombre: '', Telefono: '', Correo: '', Estado: 0 }, PrecioBase: '', PorcentajeGanancia: '', PrecioVentaSinImpuestos: '', PrecioVentaConImpuestos: '', NombreImagen: '', Imagen: [], Estado: 0 };
             $("#edit-modal").modal({ show: true });
-            vm.getCategorias();
-            vm.getAutores();
-            vm.getProveedores();
+
         },
 
         openEditModal: function (libro) {
@@ -202,11 +200,9 @@ var vm = new Vue({
             vm.libro = libro;
             vm.modalCart.currentPage = 1;
             vm.activateAlertModal('', '', false);
-            vm.modalObject = libro;
+            
             $("#edit-modal").modal({ show: true });
-            vm.getCategorias();
-            vm.getAutores();
-            vm.getProveedores();
+
         },
 
         calcularPrecios(libro) {
@@ -345,96 +341,48 @@ var vm = new Vue({
 
         getLibros: function () {
             $.ajax({
-                url: urlRoot + 'mantlibros/ObtenerTodos',
+                url: urlRoot + 'mantlibros/Libros',
+                type: 'get',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.EstadoOperacion) {
+                        vm.libros = result.Libros;
+                        vm.items = vm.tipos;
+                        vm.filteredItems = vm.tipos;
+                        vm.buildPagination();
+                        vm.selectPage(1);
+                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
+                    } else {
+                        vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                    }
+                    vm.displaySpinner(false,'');
+                },
+                error: function (error) {
+                    vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
+                    vm.displaySpinner(false,'');
+                }
+            });
+              
+            
+        },
+
+        getInitData: function () {
+            $.ajax({
+                url: urlRoot + 'mantlibros/Init',
                 type: 'get',
                 dataType: 'json',
                 async: true,
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.libros = result.Libros;
+                        vm.categorias = result.Categorias;
+                        vm.autores = result.Autores;
+                        vm.proveedores = result.Proveedores;
                         vm.items = vm.libros;
                         vm.filteredItems = vm.libros;
                         vm.buildPagination();
                         vm.selectPage(1);
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-                    } else {
-                        vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
-                    }
-                    vm.displaySpinner(false, '');
-                },
-                error: function (error) {
-                    vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
-                    vm.displaySpinner(false, '');
-                }
-            });
-        },
-
-
-        getCategorias: function (libro) {
-            $.ajax({
-                url: urlRoot + 'mantlibros/ObtenerCategorias',
-                type: 'get',
-                dataType: 'json',
-                async: true,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.categorias = result.Categorias;
-                        if (vm.modalAccion === 'Editar Libro') {
-                            vm.categorias[0] = vm.libro.Categoria1;
-                        }
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-                    } else {
-                        vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
-                    }
-                    vm.displaySpinner(false, '');
-                },
-                error: function (error) {
-                    vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
-                    vm.displaySpinner(false, '');
-                }
-            });
-        },
-
-
-        getAutores: function () {
-            $.ajax({
-                url: urlRoot + 'mantlibros/ObtenerAutores',
-                type: 'get',
-                dataType: 'json',
-                async: true,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.autores = result.Autores;
-                        if (vm.modalAccion === 'Editar Libro') {
-                            vm.autores[0] = vm.libro.Autor1;
-                        }
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
-                    } else {
-                        vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
-                    }
-                    vm.displaySpinner(false, '');
-                },
-                error: function (error) {
-                    vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
-                    vm.displaySpinner(false, '');
-                }
-            });
-        },
-
-        getProveedores: function () {
-            $.ajax({
-                url: urlRoot + 'mantlibros/ObtenerProveedores',
-                type: 'get',
-                dataType: 'json',
-                async: true,
-                success: function (result) {
-                    if (result.EstadoOperacion) {
-                        vm.proveedores = result.Proveedores;
-                        if (vm.modalAccion === 'Editar Libro') {
-                            vm.proveedores[0] = vm.libro.Proveedor1;
-                        }
                         
-                        vm.activateToastr('success', 'La operacion se completo de manera exitosa.', true);
                     } else {
                         vm.activateToastr('danger', 'Ha ocurrido un problema, por favor recargue la pagina.', true);
                     }
@@ -447,6 +395,13 @@ var vm = new Vue({
             });
         },
 
+
+       
+
+
+    
+
+       
 
         displaySpinner: function (status, message) {
             vm.validations.showSpinner = status;
@@ -480,7 +435,7 @@ var vm = new Vue({
         },
 
         init: function () {
-            vm.getLibros();
+            vm.getInitData();
         }
       
     },

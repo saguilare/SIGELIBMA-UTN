@@ -78,7 +78,7 @@
                                         <label class="control-label">Autor</label>
                                         <select v-model="libro.Autor1" required class="form-control">
                                             <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione un Autor --</option>
-                                            <option v-bind:value="autor" v-for="autor in autores">{{autor.Nombre}}</option>
+                                            <option v-bind:value="autor" v-for="autor in autores">{{autor.Apellidos}},{{ autor.Nombre}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -107,16 +107,16 @@
                                         <div id="app">
                                             <div>
                                                <h4>Seleccione una Imagen</h4>
-                                              <label class="btn btn-primary">Explorer<input type="file" v-on:change="onFileChange" style="display: none;"></label>
+                                              <label class="btn btn-primary">Buscar<input type="file" accept=".jpg" v-model="libro.Imagen" v-on:change="onFileChange" style="display: none;"></label>
                                             </div>
                                             <div v-if="imagen && modalAccion==='Agregar Libro'">
                                                 <img class="img-edit-model" :src="imagen" style="width:20%"/>
-                                                <button type="button" class="btn btn-primary" v-on:click="removeImage">Remove image</button>
+                                                <button type="button" class="btn btn-primary" v-on:click="removeImage">Eliminar</button>
                                             </div>
                                             <div v-if="modalAccion==='Editar Libro'">
                                                 <img class="img-edit-model" v-if="!imagen && libro.NombreImagen!=''" src="~/Images/libros/{{libro.NombreImagen}}.jpg" style="width:20%" />
                                                 <img class="img-edit-model" v-if="imagen" :src="imagen" style="width:20%" />
-                                                <button v-if="imagen" type="button" class="btn btn-primary" v-on:click="removeImage">Remove image</button>
+                                                <button v-if="imagen" type="button" class="btn btn-primary" v-on:click="removeImage">Eliminar</button>
                                             </div>
                                         </div>
                                      </div>
@@ -189,13 +189,11 @@
             <!--add itme-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">
                 <div class="col-sm-offset-1 col-sm-10 " style="">
-                    <form name="" class="form-inline" v-on:submit.prevent="addRol(rol)">
-                        <div  class="form-group ">
-                            <button type="button" class="btn btn-success   pull-right"  v-on:click="openNewModal(libro)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-                        </div>
-                    </form>
-                    <hr>
+                    <div  class="">
+                        <button type="button" class="btn btn-success   pull-right"  v-on:click="openNewModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                    </div>
                 </div>
+                
             </div>
             <!--table search-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">

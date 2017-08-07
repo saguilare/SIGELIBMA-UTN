@@ -223,6 +223,7 @@
     <Content Include="Content\Admin\Facturacion\Fact.css" />
     <Content Include="Content\Admin\Login\Login.css" />
     <Content Include="Content\Admin\Mantenimiento\EstadoCaja.css" />
+    <Content Include="Content\Admin\Mantenimiento\Libro.css" />
     <Content Include="Content\Admin\Mantenimiento\Roles.css" />
     <Content Include="Content\Admin\Mantenimiento\Autor.css" />
     <Content Include="Content\Admin\Mantenimiento\Categoria.css" />
