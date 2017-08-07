@@ -190,14 +190,18 @@ namespace SIGELIBMA.Controllers
                 {
                      imagensinextensiones = librop.NombreImagen;
                 }
-                
-                List<string> names = new List<string>(librop.Imagen.Split(','));
-                byte[] imageBytes = Convert.FromBase64String(names[1].ToString());
-                using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+
+                if (librop.Imagen != null)
                 {
-                    Image image = Image.FromStream(ms, true);
-                    image.Save(path + librop.NombreImagen);
+                    List<string> names = new List<string>(librop.Imagen.Split(','));
+                    byte[] imageBytes = Convert.FromBase64String(names[1].ToString());
+                    using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        image.Save(path + librop.NombreImagen);
+                    }
                 }
+
 
                 DateTime dt = DateTime.ParseExact(librop.Fecha, "MM/dd/yyyy", CultureInfo.InvariantCulture);
 
