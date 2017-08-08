@@ -91,7 +91,7 @@ namespace SIGELIBMA.Controllers
                 //filtro 2 == range defult date == current year
                 else
                 {
-                    facturas = servicioFactura.ObtenerTodos().Where(x => x.FechaCreacion >= modelo.FechaInicio && x.FechaCreacion <= modelo.FechaFinal).ToList();
+                    facturas = servicioFactura.ObtenerTodos().Where(x => x.FechaCreacion.Date >= modelo.FechaInicio.Date && x.FechaCreacion.Date <= modelo.FechaFinal.Date).ToList();
                 }
 
                 if (facturas != null)
