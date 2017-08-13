@@ -96,7 +96,7 @@ namespace SIGELIBMA.Controllers
                 foreach(Libro libroDB in librosdb)
                 {
                     LibroModel libro = new LibroModel
-                    { Codigo = libroDB.Codigo, Titulo= libroDB.Titulo, Descripcion = libroDB.Descripcion, Fecha = libroDB.Fecha.ToString("MM/dd/yyyy"),
+                    { Codigo = libroDB.Codigo, Titulo= libroDB.Titulo, Descripcion = libroDB.Descripcion, Fecha = libroDB.Fecha != null ? libroDB.Fecha.ToString(): DateTime.Today.ToString(),
                     Categoria1 = new CategoriaModel { Codigo = libroDB.Categoria1.Codigo, Descripcion = libroDB.Categoria1.Descripcion, Estado = libroDB.Categoria1.Estado == null ? 1 : (Int32)libroDB.Categoria1.Estado },
                     Autor1 = new AutorModel {Codigo = libroDB .Autor1.Codigo, Nombre = libroDB .Autor1.Nombre, Apellidos = libroDB.Autor1.Apellidos, Estado= libroDB.Autor1.Estado == null ? 1 : (Int32)libroDB.Autor1.Estado},
                     Proveedor1= new ProveedorModel {Codigo = libroDB.Proveedor1.Codigo, Nombre= libroDB.Proveedor1.Nombre, Telefono = libroDB.Proveedor1.Telefono, Correo = libroDB.Proveedor1.Correo, Estado = libroDB.Proveedor1.Estado == null ? 1 : (Int32)libroDB.Proveedor1.Estado },

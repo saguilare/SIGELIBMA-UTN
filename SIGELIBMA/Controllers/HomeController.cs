@@ -140,7 +140,7 @@ namespace SIGELIBMA.Controllers
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
                     Titulo =item.Titulo,
-                    Stock = item.Inventario.CantidadStock <= 0 ? false : true
+                    Stock = item.Inventario != null && item.Inventario.CantidadStock > 0 ? item.Inventario.CantidadStock : 0
 
 
                 });
@@ -161,9 +161,28 @@ namespace SIGELIBMA.Controllers
             {
                 
                 CategoriasLibroServicio servicio = new CategoriasLibroServicio();
-                List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1).ToList();
+                List<Categoria> cats = servicio.ObtenerTodos().Where(x => x.Estado == 1 && x.Libro != null && x.Libro.Count > 0).ToList();
                 //remove child elements to avoid circular dependency errors
-                var newList = cats.Where(x => x.Estado == 1 && x.Libro != null && x.Libro.Count > 0).Select(item =>new {
+
+                
+                List<Categoria> cleanCats = new List<Categoria>();
+                if (cats != null && cats.Count > 0)
+                {
+                    foreach (Categoria cat in cats)
+                    {
+                        foreach (Libro libro in cat.Libro)
+                        {
+                            if (libro.Estado == 1 && libro.Inventario != null && libro.Inventario.CantidadStock > 0)
+                            {
+                                cleanCats.Add(cat);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                var newList = cleanCats.Where(x => x.Estado == 1 && x.Libro != null && x.Libro.Count > 0).Select(item => new
+                {
                     Codigo = item.Codigo,
                     Descripcion = item.Descripcion,
                     Libros = item.Libro.Where(x => x.Inventario != null && x.Estado == 1).Select(libro => new {
@@ -173,7 +192,7 @@ namespace SIGELIBMA.Controllers
                         Descripcion = libro.Descripcion,
                         Image = libro.Imagen,
                         Titulo =libro.Titulo,
-                        Stock =  libro.Inventario.CantidadStock <= 0 ? false : true
+                        Stock = libro.Inventario != null && libro.Inventario.CantidadStock > 0 ? libro.Inventario.CantidadStock : 0
                     })
                 });
 

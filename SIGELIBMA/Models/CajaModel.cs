@@ -17,6 +17,7 @@ namespace SIGELIBMA.Models
         public int Sesion { get; set; }
         public int Movimiento { get; set; }
         public decimal Monto { get; set; }
+        public decimal MontoReal { get; set; }
         public string Razon { get; set; }
     }
 }

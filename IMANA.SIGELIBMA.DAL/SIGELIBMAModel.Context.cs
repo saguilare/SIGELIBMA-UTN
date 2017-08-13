@@ -26,28 +26,6 @@ namespace IMANA.SIGELIBMA.DAL
         }
     
         public virtual DbSet<Autor> Autor { get; set; }
-        public virtual DbSet<BitacoraAutor> BitacoraAutor { get; set; }
-        public virtual DbSet<BitacoraCaja> BitacoraCaja { get; set; }
-        public virtual DbSet<BitacoraCajaUsuario> BitacoraCajaUsuario { get; set; }
-        public virtual DbSet<BitacoraCategoria> BitacoraCategoria { get; set; }
-        public virtual DbSet<BitacoraDeposito> BitacoraDeposito { get; set; }
-        public virtual DbSet<BitacoraDetalleFactura> BitacoraDetalleFactura { get; set; }
-        public virtual DbSet<BitacoraEstadoCaja> BitacoraEstadoCaja { get; set; }
-        public virtual DbSet<BitacoraEstadoFactura> BitacoraEstadoFactura { get; set; }
-        public virtual DbSet<BitacoraFactura> BitacoraFactura { get; set; }
-        public virtual DbSet<BitacoraInventario> BitacoraInventario { get; set; }
-        public virtual DbSet<BitacoraLibro> BitacoraLibro { get; set; }
-        public virtual DbSet<BitacoraMovimientoCaja> BitacoraMovimientoCaja { get; set; }
-        public virtual DbSet<BitacoraProveedor> BitacoraProveedor { get; set; }
-        public virtual DbSet<BitacoraRecibo> BitacoraRecibo { get; set; }
-        public virtual DbSet<BitacoraRol> BitacoraRol { get; set; }
-        public virtual DbSet<BitacoraSesion> BitacoraSesion { get; set; }
-        public virtual DbSet<BitacoraTipoMovimientoCaja> BitacoraTipoMovimientoCaja { get; set; }
-        public virtual DbSet<BitacoraTipoPago> BitacoraTipoPago { get; set; }
-        public virtual DbSet<BitacoraTipoTransaccion> BitacoraTipoTransaccion { get; set; }
-        public virtual DbSet<BitacoraTransaccion> BitacoraTransaccion { get; set; }
-        public virtual DbSet<BitacoraUsuario> BitacoraUsuario { get; set; }
-        public virtual DbSet<BitacoraUsuarioRoles> BitacoraUsuarioRoles { get; set; }
         public virtual DbSet<Caja> Caja { get; set; }
         public virtual DbSet<CajaUsuario> CajaUsuario { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }

@@ -18,6 +18,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public int Caja { get; set; }
         public decimal Monto { get; set; }
+        public decimal MontoReal { get; set; }
         public int Tipo { get; set; }
         public System.DateTime Fecha { get; set; }
         public int SesionId { get; set; }

@@ -14,6 +14,7 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Rol
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Rol()
         {
             this.UsuarioRoles = new HashSet<UsuarioRoles>();
@@ -23,6 +24,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuarioRoles> UsuarioRoles { get; set; }
     }
 }

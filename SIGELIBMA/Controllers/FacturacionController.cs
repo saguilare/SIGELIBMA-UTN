@@ -193,6 +193,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                     movimiento.Caja = cajaDb.Codigo;
                     movimiento.Fecha = DateTime.Now;
                     movimiento.Monto = Convert.ToDecimal(caja.Monto);
+                    movimiento.MontoReal = Convert.ToDecimal(caja.MontoReal);
                     movimiento.Tipo = caja.Movimiento == 1 ? 4 : 3;
                     movimiento.SesionId = sesionCaja;
                     if (servicioMovimientos.Agregar(movimiento))
@@ -409,14 +410,13 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 else
                 {
                     SesionModel sesion = Session["SesionSistema"] as SesionModel;
-                    servicioCaja.Cerrar(new Caja { Codigo = caja.Codigo }, sesion.SesionCaja, caja.Monto);
+                    servicioCaja.Cerrar(new Caja { Codigo = caja.Codigo }, sesion.SesionCaja, caja.Monto, caja.MontoReal);
                     sesion.SesionCaja = 0;
                     Session["SesionSistema"] = sesion;
                     return true;
                 }
                 
               
-                return false;
             }
             catch (Exception e)
             {

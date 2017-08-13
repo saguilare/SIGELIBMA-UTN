@@ -14,6 +14,7 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class EstadoCaja
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EstadoCaja()
         {
             this.Caja = new HashSet<Caja>();
@@ -23,6 +24,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Caja> Caja { get; set; }
     }
 }

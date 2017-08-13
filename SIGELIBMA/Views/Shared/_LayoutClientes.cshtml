@@ -68,7 +68,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">
-                            Acerca de esta aplicacion
+                            Acerca de esta aplicacion - SIGELIBMA V1.0
                         </h4>
                     </div>
                     <div class="modal-body ">
@@ -106,17 +106,18 @@
                         <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.item.Precio}}</p>
                         <div class="form-group text-center">
                             <label>Cantidad:</label>
-                            <select v-if="modalObject.item.Stock === true" required v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()">
+                            <select v-if="modalObject.item.Stock > 0" required v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()">
                                 <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
                             </select>
                             @*<input v-if="modalObject.item.Stock === true" class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />*@
                             <p v-else class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
+                            <p v-if="modalObject.item.Stock > 0" class="text-success font-weight-bold">Disponible: {{modalObject.item.Stock}}</p>
                         </div>
                         <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{modalObject.total}}</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button v-if="modalObject.item.Stock === true" type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
+                        <button v-if="modalObject.item.Stock > 0" type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -204,25 +205,18 @@
                                         <!--page 2-->
                                         <div v-if="modalCart.currentPage === 2">
                                             <h3>Datos Personales</h3><hr />
-                                            <div class="form-group validate has-feedback " >
-                                                <label class="control-label" >Cedula</label>
-                                                <div class="input-group">
-                                                    <input v-model="cliente.Cedula" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cedula">
+                                            <div class="form-group validate has-feedback " v-bind:class="{ 'has-error': cedulaStatus === false && validateCedula, 'has-success': cedulaStatus === true && validateCedula}">
+                                                <label class="control-label">Cedula</label>
+                                                <div class="input-group ">
+                                                    <input v-model="cliente.Cedula" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cedula" v-on:onblur="validateCedulaCliente" v-on:keyup="validateCedulaCliente">
                                                     @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
                                                     <span class="input-group-btn">
                                                         <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
                                                     </span>
                                                 </div>
-                                                @*<div class="help-block with-errors" _v-461124e2="">Este campo es requerido. (required)</div>*@
+                                                <div class="has-error" v-if="cedulaStatus === false && validateCedula">Este campo es requerido. (required)</div>
                                             </div>
-                                            @*<div class="form-group">
-                                                <div class="input-group">
-                                                    <vueinput v-bind:value.sync="cliente.Cedula" label="Cedula" help="" error="Este campo es requerido." placeholder="Cedula" pattern="^[a-zA-Z0-9]+$" mask="" minlength="9" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
-                                                    <span class="input-group-btn">
-                                                        <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
-                                                    </span>
-                                                </div>
-                                            </div>*@
+                               
                                             <div class="form-group">
                                                 <vueinput v-bind:value.sync="cliente.Nombre1" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
@@ -238,13 +232,18 @@
                                         </div>
                                         <!--page 3-->
                                         <div v-if="modalCart.currentPage === 3">
-                                            <div class="bg-info bg-accts">
-                                                <h4><b>Cuentas Bancarias:</b> Iglesia Mana S.A</h4>
-                                                <p><strong>Cedula Juridica:</strong> 3-00456-90</p>
-                                                <p><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</p>
-                                                <p><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</p>
-                                            </div>
                                             <h3>Datos Bancarios</h3><hr />
+
+                                            <div class="bg-info bg-accts" style="margin-bottom:15px;">
+                                                <h4><b>Cuentas Bancarias:</b> </h4>
+                                                <ul>
+                                                    <li><strong>Iglesia Mana S.A</strong></li>
+                                                    <li><strong>Cedula Juridica:</strong> 3-00456-90</li>
+                                                    <li><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</li>
+                                                    <li><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</li>
+                                                </ul>
+                                            </div>
+                                            
                                             <div v-bind:class="[{ 'has-error': shoppingCartValidations.date && deposito.Fecha === '' },{'has-success' : shoppingCartValidations.date && deposito.Fecha !== ''},'form-group has-feedback']">
                                                 <label class="control-label">Fecha Deposito: </label>
                                                 <datepicker v-on:blur="shoppingCartValidations.date = true" v-bind:value.sync="deposito.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
@@ -353,13 +352,6 @@
                                 <li>
                                     <form class="navbar-form navbar-left">
                                         <div class="input-group search">
-                                            @*<div class="input-group-btn">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtrar <span class="caret"></span></button>
-                                                <ul class="dropdown-menu">
-                                                    <li v-on:click="searchByData = codigos"><a href="#">Codigo</a></li>
-                                                    <li v-on:click="searchByData = titulos"><a href="#">Titulo</a></li>
-                                                </ul>
-                                            </div>*@<!-- /btn-group -->
                                             <typeahead class="search-input" v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Buscar..."></typeahead>
                                             <span class="input-group-btn">
                                                 <button v-on:click="search()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

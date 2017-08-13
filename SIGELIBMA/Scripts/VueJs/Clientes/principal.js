@@ -59,7 +59,9 @@ data.validations = {  showSpinner: false, loadingMessage : 'Cargando datos de la
 data.shoppingCartValidations = { date: false, bancoEmisor: false, bancoReceptor: false };
 data.date = "";
 data.modalSpinnerText = "Cargando Datos";
-data.quantity = [1,2,3,4,5,6,7,8,9,10];
+data.quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+data.cedulaStatus = true;
+data.validateCedula = false;
 
 
 Vue.filter('numeral', function (value) {
@@ -74,6 +76,8 @@ Vue.component('backtotop', {
         };
     },
     methods: {
+
+        
         initToTopButton: function () {
             document.getElementById('#pageMainContainer').bind('scroll', function () {
                 var backToTopButton = $('.goTop');
@@ -200,15 +204,15 @@ getPageData: function () {
         dataType: 'json',
         success: function (result) {
             if (result.EstadoOperacion) {
-                vm.books = result.Libros;
+                vm.categories = result.Categorias;
                 vm.date = result.Date;
-                if (vm.books !== null && vm.books !== undefined && vm.books.length > 0) {
-                    $.each(vm.books, function (key, book) {
+                $.each(vm.categories, function (index, cat) {
+                    $.each(cat.Libros, function (key, book){
                         vm.codigos.push(book.Codigo.toString());
                         vm.titulos.push(book.Titulo);
+                        vm.books.push(book);
                     });
-                }
-                vm.categories = result.Categorias;
+                });
                 vm.filteredCategories = vm.categories;
                 
             } else {
@@ -293,7 +297,7 @@ openModal: function (object, type) {
 
 validatePayment: function () {
     if (vm.cliente.Nombre1 && vm.cliente.Apellido1 && vm.cliente.Cedula && vm.cliente.Telefono && vm.cliente.Email
-        && vm.deposito.Fecha && vm.deposito.Referencia && vm.deposito.BancoEmisor  && vm.deposito.BancoReceptor ) {
+        && vm.deposito.Fecha && vm.deposito.Referencia && vm.deposito.BancoEmisor !== "" && vm.deposito.BancoReceptor !== "") {
         vm.processPayment();
     } else {
         vm.activateAlertModalShoppingCart('danger', 'Debe llenar los campos requeridos', true);
@@ -376,6 +380,7 @@ search: function () {
                 vm.updateModalDetailTotal();
                 $("#modalDetails").modal({ show: true });
                 itemFound = true;
+                vm.searchSelected = "";
                 return;
             }
         });
@@ -401,6 +406,15 @@ hideShowArrowsOnLoad: function() {
             $(this).find('.scrollBtn').hide();
         }
     });
+},
+
+validateCedulaCliente: function () {
+    if (vm.cliente.Cedula === "" || vm.cliente.Cedula.length < 9) {
+        vm.cedulaStatus = false;
+    } else {
+        vm.cedulaStatus = true;
+    }
+    vm.validateCedula = true;
 },
  
 removeFromCart: function (index, object) {

@@ -14,6 +14,7 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Proveedor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Proveedor()
         {
             this.Libro = new HashSet<Libro>();
@@ -25,6 +26,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Correo { get; set; }
         public Nullable<int> Estado { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Libro> Libro { get; set; }
     }
 }

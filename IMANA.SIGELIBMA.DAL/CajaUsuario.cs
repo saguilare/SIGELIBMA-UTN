@@ -14,6 +14,7 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class CajaUsuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CajaUsuario()
         {
             this.MovimientoCaja = new HashSet<MovimientoCaja>();
@@ -22,11 +23,12 @@ namespace IMANA.SIGELIBMA.DAL
         public int Sesion { get; set; }
         public int Caja { get; set; }
         public string Usuario { get; set; }
-        public System.DateTime Apertura { get; set; }
-        public Nullable<System.DateTime> Cierre { get; set; }
+        public System.DateTime Ingreso { get; set; }
+        public Nullable<System.DateTime> Salida { get; set; }
     
         public virtual Caja Caja1 { get; set; }
         public virtual Usuario Usuario1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
     }
 }

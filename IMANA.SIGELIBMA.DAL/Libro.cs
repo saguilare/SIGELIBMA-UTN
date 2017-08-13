@@ -14,6 +14,7 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class Libro
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Libro()
         {
             this.DetalleFactura = new HashSet<DetalleFactura>();
@@ -22,7 +23,7 @@ namespace IMANA.SIGELIBMA.DAL
         public string Codigo { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
         public int Categoria { get; set; }
         public int Autor { get; set; }
         public int Proveedor { get; set; }
@@ -35,6 +36,7 @@ namespace IMANA.SIGELIBMA.DAL
     
         public virtual Autor Autor1 { get; set; }
         public virtual Categoria Categoria1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleFactura> DetalleFactura { get; set; }
         public virtual Inventario Inventario { get; set; }
         public virtual Proveedor Proveedor1 { get; set; }

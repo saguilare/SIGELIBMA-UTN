@@ -23,7 +23,7 @@ data.searchSelected = "";
 data.product = { item: {}, quantity: 1,subtotal:0,total:0 };
 data.modalObject = { Codigo: 0, Descripcion: '', Usuario: null, Rol: 0 };
 data.modalFact = { currentPage: 1 };
-data.cashier = { Codigo: 0, Descripcion: "", Estado:0, Monto:0 };
+data.cashier = { Codigo: 0, Descripcion: "", Estado: 0, Monto: 0, MontoReal :0};
 data.cashBoxes = [];
 data.tiposPago = [];
 data.alert = { type: 'success', message: 'alert', status: false };
@@ -102,6 +102,7 @@ var vm = new Vue({
             vm.enableFacturar = false;
             vm.$refs.spinner1.show();
             vm.cashier.Estado = 1;
+            vm.cashier.MontoReal = vm.cashier.Monto;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
@@ -146,6 +147,7 @@ var vm = new Vue({
             vm.$refs.spinner3.show();
             vm.cashier.Estado = 2;
             vm.cashier.Monto = vm.cierre.total;
+            vm.cashier.MontoReal = vm.cierre.montoCaja;
             $.ajax({
                 url: urlRoot + 'Facturacion/AbrirCerrarCaja',
                 type: 'post',
@@ -253,6 +255,7 @@ var vm = new Vue({
         aplicarMovimiento: function () {
             vm.$refs.spinner1.show();
             vm.cashier.Monto = vm.movimiento.monto;
+            vm.cashier.MontoReal = vm.movimiento.monto;
             vm.cashier.Razon = vm.movimiento.razon;
             vm.cashier.Movimiento = vm.movimiento.tipo;
             $.ajax({
@@ -280,7 +283,7 @@ var vm = new Vue({
         openModal: function (object, target) {
             vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
-                vm.cashier = { Codigo: 0, Descripcion: "", Estado: 0, Monto: 0 };
+                vm.cashier = { Codigo: 0, Descripcion: "", Estado: 0, Monto: 0, MontoReal :0 };
                 if (vm.cashBoxes === null || vm.cashBoxes.length < 1) {
                     vm.activateAlertModal("danger","Lo sentimos todas las cajas estan abiertas en este momento", true);
                 } else {
