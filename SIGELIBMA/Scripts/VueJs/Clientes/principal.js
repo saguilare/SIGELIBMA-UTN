@@ -62,7 +62,7 @@ data.modalSpinnerText = "Cargando Datos";
 data.quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 data.cedulaStatus = true;
 data.validateCedula = false;
-
+data.disableBuyButton = false;
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
@@ -265,7 +265,7 @@ getClient: function () {
 },
 
 openModal: function (object, type) {
-
+    vm.disableBuyButton = false;
     if (type === 'bookDetails') {
         vm.activateAlertModalBookDetails('success', '', false);
         vm.modalObject = { item: {}, quantity: 1, total: 0 };
@@ -348,7 +348,7 @@ processPayment: function () {
                 if (result.Agotados !== null || result.Agotados.length > 0) {
                     var lista = "";
                     $.each(result.Agotados, function (index, object) {
-                        lista += object.Titulo + ", ";
+                        lista += object.Titulo + " Existencia: "+object.Existencia+", ";
                     });
                     vm.activateAlertModalShoppingCart("danger", "Los siguientes libros no estan disponibles: "+lista+".", true);
                     vm.modalCart.currentPage = 1;
@@ -474,7 +474,14 @@ init: function () {
     
 },
 
-
+verifyStock: function () {
+    if (vm.modalObject.quantity > vm.modalObject.item.Stock) {
+        vm.activateAlertModalBookDetails("danger", "No puede comprar una cantidad mayor a la disponible", true);
+        vm.disableBuyButton = true;
+    } else {
+        vm.disableBuyButton = false;
+    }
+},
 
 },
     

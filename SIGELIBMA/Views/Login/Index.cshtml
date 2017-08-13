@@ -39,15 +39,14 @@
                         <strong>Atencion!</strong>La sesion ha sido terminada o ha expirado.
                     </div>
                 }
-                else
-                {
-                    <div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
-                        <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alert.type) ==='danger'">Atencion!</strong>
-                        <strong v-else>Info!</strong>
-                        {{alert.message}}
-                    </div>
-                }
+
+                <div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+                    <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong v-if="lowerCase(alert.type) ==='danger'">Atencion!</strong>
+                    <strong v-else>Info!</strong>
+                    {{alert.message}}
+                </div>
+                
                 <div class="form-group">
                     <vueinput v-bind:value.sync="login.Username" label="" help="Ingrese su nombre de usuario." error="Verifique su nombre de usuario" placeholder="Nombre de Usuario" pattern="^[a-zA-Z0-9]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                 </div>

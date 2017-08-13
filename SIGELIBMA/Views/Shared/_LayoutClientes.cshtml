@@ -106,7 +106,7 @@
                         <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{modalObject.item.Precio}}</p>
                         <div class="form-group text-center">
                             <label>Cantidad:</label>
-                            <select v-if="modalObject.item.Stock > 0" required v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()">
+                            <select v-if="modalObject.item.Stock > 0" required v-model="modalObject.quantity" number v-on:mouseup.keyup.change="verifyStock()">
                                 <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
                             </select>
                             @*<input v-if="modalObject.item.Stock === true" class="form-control book-quantity" type="number" min="1" max="100" v-model="modalObject.quantity" number v-on:mouseup.keyup.change="updateModalDetailTotal()" />*@
@@ -117,7 +117,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button v-if="modalObject.item.Stock > 0" type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
+                        <button v-if="modalObject.item.Stock > 0 && disableBuyButton === false" type="button" class="btn btn-primary btn-addtocart" v-on:click="addToCart(modalObject)"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

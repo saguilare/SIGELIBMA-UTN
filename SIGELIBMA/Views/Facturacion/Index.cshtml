@@ -160,23 +160,17 @@
                         {{alertModal.message}}
                     </div>
                     <div v-if="cashBoxes !== null && cashBoxes.length > 0">
-                        <div class="form-group">
-                            <vueinput v-bind:value.sync="session.user.name" label="Usuario" help="" error="Este campo es requerido" v-bind:enter-submit="true" readonly required></vueinput>
-                        </div>
-                        <div class="form-group">
-                            <vueinput v-bind:value.sync="session.user.username" label="Nombre de Usuario" error="Este campo es requerido" v-bind:enter-submit="true" readonly required></vueinput>
-                        </div>
-                        <div v-bind:class="[{ 'has-error':cashier.Codigo === null || cashier.Codigo === 0},{'has-success' : cashier !== null && cashier.Codigo > 0},'form-group has-feedback']">
+                        <div v-bind:class="[{ 'has-error':((cashier.Codigo === null || cashier.Codigo === 0) && validateCajaCombo)},{'has-success' : ((cashier !== null && cashier.Codigo > 0) && validateCajaCombo)},'form-group has-feedback']">
                             <label for="message-text" class="control-label">Caja:</label>
-                            <select v-model="cashier" class="form-control">
-                                <option v-bind:value="cashier" disabled>-- Seleccione una Caja --</option>
+                            <select v-model="cashier" class="form-control" v-on:change="validateCajaCombo = true">
+                                <option v-bind:value="cashier" disabled selected>-- Seleccione una Caja --</option>
                                 <option v-for="item in cashBoxes" v-bind:value="item">{{item.Descripcion}}</option>
                             </select>
-                            <span v-if="cashier.Codigo === null || cashier.Codigo === 0" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
-                            <span v-if="cashier !== null && cashier.Codigo > 0" class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                            <span v-if="(cashier.Codigo === null || cashier.Codigo === 0) && validateCajaCombo" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                            <span v-if="(cashier !== null && cashier.Codigo > 0) && validateCajaCombo " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
                         </div>
                         <div v-if="cashier !== null && cashier.Codigo >= 0" class="form-group">
-                            <vueinput v-bind:value.sync="cashier.Monto" label="Monto Inicio" error="Este campo es requerido. Solo numeros." type="number" patter="^[0-9]$" v-bind:enter-submit="true" required></vueinput>
+                            <vueinput v-bind:value.sync="cashier.Monto" min="1" label="Monto Inicio" error="Este campo es requerido. Solo numeros." type="number" patter="^[0-9]$" v-bind:enter-submit="true" required></vueinput>
                         </div>
                     </div>
                 </div>
@@ -216,7 +210,7 @@
                                 <h3>Movimiento de Dinero</h3><hr />
                                 <div class="form-group" required>
                                     <select class="form-control" v-model="movimiento.tipo" required>
-                                        <option value="0" disabled>-- Seleccione un Tipo --</option>
+                                        <option value="" disabled>-- Seleccione un Tipo --</option>
                                         <option v-for="mov in tiposMovimiento" v-bind:value="mov.codigo">{{mov.descripcion}}</option>
                                     </select>
                                 </div>
@@ -266,19 +260,19 @@
                 <h2>{{product.item.Titulo}}</h2>
                 <p>{{product.item.Descripcion}}</p>
                 <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{product.item.Precio}}</p>
-                <div class="form-group text-center" v-if="product.item.Stock === true">
+                <div class="form-group text-center" v-if="product.item.Stock >0">
                     <label>Cantidad:</label>
-                    <select v-if="product.item.Stock === true" required v-model="product.quantity" number v-on:mouseup.keyup.change="updateModalDetailProdTotal()">
+                    <select v-if="product.item.Stock > 0" required v-model="product.quantity" number v-on:mouseup.keyup.change="verifyStock()">
                         <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
                     </select>
-                    @*<input class="form-control book-quantity" type="number" min="1" max="100" v-model="product.quantity" v-on:click="updateModalDetailProdTotal() " />*@
                 </div>
                 <p v-else class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
+                <p v-if="product.item.Stock > 0" class="text-success font-weight-bold">Disponible: {{product.item.Stock}}</p>
                 <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{product.total}}</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button v-if="product.item.Stock === true" v-on:click="addToFactura(product)" type="button" class="btn btn-primary btn-proceed"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
+                <button v-if="product.item.Stock > true && disableBuyButton === false" v-on:click="addToFactura(product)" type="button" class="btn btn-primary btn-proceed"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -102,7 +102,12 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         {
             try
             {
-       
+
+                var agotados = VerificarInvetario(fatura.Productos);
+                if (agotados != null)
+                {
+                    return Json(new { EstadoOperacion = false, Agotados = agotados, Confirmacion = "", Mensaje = "La factura no se proceso, no hay articulos en existencia" });
+                }
 
                 fatura.Cliente.Nombre2 = (fatura.Cliente.Nombre1 != "" && fatura.Cliente.Nombre1.Contains(" ")) ? fatura.Cliente.Nombre1.Split(' ')[1] : "";
                 fatura.Cliente.Apellido2 = (fatura.Cliente.Apellido1 != "" && fatura.Cliente.Apellido1.Contains(" ")) ? fatura.Cliente.Apellido1.Split(' ')[1] : "";
@@ -159,7 +164,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
             {
                 SesionModel sesion = Session["SesionSistema"] as SesionModel;
                 int sesionCaja = sesion.SesionCaja;
-                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.SesionId == sesionCaja).ToList();
+                List<MovimientoCaja> movimientos = servicioMovimientos.ObtenerTodos().Where(x => x.Caja == caja.Codigo && x.Fecha.Date == DateTime.Today).ToList();
                 //remove child elements to avoid circular dependency errors
                 var newList = movimientos.Select(item => new
                 {
@@ -325,7 +330,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                     Descripcion = item.Descripcion,
                     Image = item.Imagen,
                     Titulo = item.Titulo,
-                    Stock = item.Inventario.CantidadStock <= 0 ? false : true
+                    Stock = item.Inventario.CantidadStock
 
 
                 });
@@ -359,7 +364,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                         Descripcion = libro.Descripcion,
                         Image = libro.Imagen,
                         Titulo = libro.Titulo,
-                        Stock = libro.Inventario.CantidadStock <= 0 ? false : true
+                        Stock = libro.Inventario.CantidadStock
                     })
                 });
 
@@ -641,6 +646,31 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
                 throw;
             }
+        }
+
+        private object VerificarInvetario(List<ProductoModel> productos)
+        {
+            List<Libro> agotados = new List<Libro>();
+            foreach (ProductoModel item in productos)
+            {
+                Libro l = servicioLibro.ObtenerPorId(new Libro { Codigo = item.Codigo });
+                if (l.Inventario == null || l.Inventario.CantidadStock <= 0 || l.Inventario.CantidadStock < item.Cantidad)
+                {
+                    agotados.Add(l);
+                }
+            }
+            if (agotados == null || agotados.Count <= 0)
+            {
+                return null;
+            }
+
+            var transformados = agotados.Select(x => new
+            {
+                Codigo = x.Codigo,
+                Titulo = x.Titulo,
+                Existencia = x.Inventario != null ? x.Inventario.CantidadStock : 0
+            });
+            return transformados;
         }
     }
 }

@@ -39,6 +39,8 @@ data.movimiento = { caja: {}, tipo: 0, monto: 0, razon:"" ,procesado: false};
 data.tiposMovimiento = [{ codigo: 1, descripcion: 'Abono' }, { codigo: 2, descripcion: 'Retiro' }];
 data.cierre = { saldo: 0, totalCreditos: 0, totalRetiros: 0, total: 0, montoCaja: 0, faltante: 0, exedente: 0 };
 data.quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+data.validateCajaCombo = false;
+data.disableBuyButton = false;
 
 Vue.filter('numeral', function (value) {
     return numeral(value).format('0,0');
@@ -99,6 +101,10 @@ var vm = new Vue({
         },
 
         initializeCashBox: function () {
+            if (vm.cashier.Monto <= 0) {
+                vm.activateAlertModal("danger","El fondo de caja no puede ser menor o igual a 0",true);
+                return false;
+            }
             vm.enableFacturar = false;
             vm.$refs.spinner1.show();
             vm.cashier.Estado = 1;
@@ -218,6 +224,15 @@ var vm = new Vue({
 
         },
 
+        verifyStock: function () {
+            if (vm.product.quantity > vm.product.item.Stock) {
+                vm.activateAlertModal("danger","No puede comprar una cantidad mayor a la disponible",true);
+                vm.disableBuyButton = true;
+            } else {
+                vm.disableBuyButton = false;
+            }
+        },
+
         getInitData: function () {
             $.ajax({
                 url: urlRoot + 'facturacion/Init',
@@ -281,6 +296,7 @@ var vm = new Vue({
         },
 
         openModal: function (object, target) {
+            vm.disableBuyButton = false;
             vm.activateAlertModal('info','',false);
             if (target.toLowerCase() === 'modal-caja') {
                 vm.cashier = { Codigo: 0, Descripcion: "", Estado: 0, Monto: 0, MontoReal :0 };
@@ -445,8 +461,16 @@ var vm = new Vue({
                         vm.actualizarMovimientos();
 
                     } else {
-                        vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
-                        vm.modalFact.currentPage = 2;
+                        if (result.Agotados !== null || result.Agotados.length > 0) {
+                            var lista = "";
+                            $.each(result.Agotados, function (index, object) {
+                                lista += object.Titulo + " Existencia: " + object.Existencia + ", ";
+                            });
+                            vm.activateAlertModal("danger", "Los siguientes libros no estan disponibles: " + lista + ".", true);
+                            vm.modalFact.currentPage = 2;
+                        }
+                        //vm.activateAlertModal('danger', 'No se proceso la factura, por favor intente nuevamente.', true);
+                        //vm.modalFact.currentPage = 2;
                     }
                     
                     vm.$refs.spinner.hide();
