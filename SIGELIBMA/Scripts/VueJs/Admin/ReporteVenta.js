@@ -97,6 +97,7 @@ var vm = new Vue({
             else {
                 this.selectPage(currentPage)
             }
+            vm.getTotales();
         },
 
         buildPagination : function() {
@@ -180,6 +181,18 @@ var vm = new Vue({
             return stringValue.toLowerCase();
         },
 
+        getTotales:function(){
+            vm.totales.subtotal = 0;
+            vm.totales.impuestos =0;
+            vm.totales.total = 0;
+
+            $.each(vm.paginatedItems,function(index, venta){
+                vm.totales.subtotal += venta.subtotal;
+                vm.totales.impuestos += venta.impuestos;
+                vm.totales.total += venta.total;
+            });
+        },
+
         getInitData: function () {
             $.ajax({
                 url: urlRoot + 'reporteventa/Initdata',
@@ -217,6 +230,19 @@ var vm = new Vue({
             }else if (vm.model.Filtro === 2 && (!vm.model.FechaInicio  || !vm.model.FechaFinal ) ) {
                 vm.activateToastr("danger","Debe ingresar la fecha",true);
                 return false;
+            }else if(vm.model.Filtro === 2){
+                var inicio = vm.model.FechaInicio.split("/");
+                var final = vm.model.FechaFinal.split("/");
+                if (parseInt(inicio[2]) > parseInt(final[2])) {
+                    vm.activateToastr("danger","La fecha inicial debe ser menor a la fecha final",true);
+                    return false;
+                }else if (parseInt(inicio[2]) <= parseInt(final[2]) && parseInt(inicio[0]) > parseInt(final[0])) {
+                    vm.activateToastr("danger","La fecha inicial debe ser menor a la fecha final",true);
+                    return false;
+                }else if (parseInt(inicio[2]) <= parseInt(final[2]) && parseInt(inicio[0]) === parseInt(final[0]) && parseInt(inicio[1]) > parseInt(final[1])) {
+                    vm.activateToastr("danger","La fecha inicial debe ser menor a la fecha final",true);
+                    return false;
+                }
             }
             vm.displaySpinner(true,'Generando Reporte');
             $.ajax({

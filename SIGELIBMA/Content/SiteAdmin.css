@@ -23,49 +23,50 @@ body {
 
 
 /*override color in tool nav bar*/
-nav.navbar-main{
+nav.navbar-default{
     background-color: #232f3E;
     border-color:#232f3e;
     border-radius: 0;
 }
 
-nav.navbar-main .navbar-brand{
+nav.navbar-default .navbar-brand{
     color: white;
 }
 
-nav.navbar-main .navbar-brand:hover{
+nav.navbar-default .navbar-brand:hover{
     color: white;
 }
 
-nav.navbar-main .navbar-text{
+nav.navbar-default .navbar-text{
     color: white;
 }
 
-.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
     color:white;
 }
 
-.navbar-main .navbar-nav>.active>p, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+.navbar-default .navbar-nav>.active>p, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
     color:white;
 }
 
-.navbar-default .navbar-nav>.active>a:hover{
+.navbar-default .navbar-nav > li > a:hover{
     background-color: black;
+    color:white;
 }
 
-.navbar-main .navbar-header img{
+.navbar-default .navbar-header img{
     padding: 10px 15px;
 }
 
-.navbar-main .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus{
     background-color: black;
 }
 
- .navbar-main .navbar-nav>.active>a:hover{
+ .navbar-default .navbar-nav>.active>a:hover{
     background-color: black;
 }
 
-  .navbar-main .navbar-nav>.active>a{
+  .navbar-default .navbar-nav>.active>a{
     background-color: #232f3e;
 }
 #nameandjobtitlebar>a:hover{

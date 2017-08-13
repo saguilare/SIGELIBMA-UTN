@@ -44,11 +44,10 @@
         </section>
         <!--content-->
         <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
-            <!--add itme-->
+            <!--Filter-->
             <div class="row" style="padding-top:20px;margin-bottom:15px">
                 <div class="col-sm-offset-1 col-sm-10 " style=" ">
-                    <form name="" class="form-inline" v-on:submit.prevent="filtrar()">
-                        
+                    <form name="" class="form-inline" v-on:submit.prevent="filtrar()">                        
                         <div class="form-group">
                             <label for="rol">Filtro</label>
                             <select v-model="model.Filtro" required class="form-control" v-on:change="model.FechaInicio = '', model.FechaFinal = ''">
@@ -100,7 +99,6 @@
                 </div>
             </div>
             <!--table content-->
-            
             <div class="row">
                 <div class="col-sm-offset-1 col-sm-10 ">
                     <div class="table-responsive">
