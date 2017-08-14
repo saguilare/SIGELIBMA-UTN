@@ -25,21 +25,22 @@
                         <!-- Content-->
                         <div class="row">
                             <div class="col-sm-12 table-responsive">
-                                <spinner v-ref:spinner2 size="md" fixed text="Procesando, por favor espere."></spinner>
+                                <spinner v-ref:spinner1 size="md" fixed text="Procesando, por favor espere."></spinner>
                                 <div>
                                     <div class="form-group">
                                         <select class="form-control" required v-model="modalObject.libro">
-                                            <option v-bind:value="libro.codigo" v-for="libro in libros">{{libro.codigo}}-{{libro.titulo}}</option>
+                                            <option v-bind:value="modalObject.libro" selected disabled>--Seleccione un libro--</option>
+                                            <option v-bind:value="libro" v-for="libro in libros">{{libro.codigo}}-{{libro.titulo}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <vueinput v-bind:value.sync="modalObject.stock" min="0" label="Cantidad Existencia" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.minimo" min="0" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.minimo" min="1" label="Cantidad Minima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="modalObject.maximo" min="0" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
+                                        <vueinput v-bind:value.sync="modalObject.maximo" min="1" label="Cantidad Maxima" help="" type="number" error="Este campo es requerido/Solo acepta numeros." placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" required icon></vueinput>
                                     </div>
                                     <div class="form-group">
                                         <label>Estado</label>

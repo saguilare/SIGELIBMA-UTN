@@ -350,9 +350,6 @@
                                     <th>Tipo</th>
                                     <th>Credito</th>
                                     <th>Retiro</th>
-
-
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -386,9 +383,9 @@
                         </table>
 
                         <div class="form-group">
-                            <vueinput type="number" v-on:blur="updateClosing()" v-on:keyup="updateClosing()" v-bind:value.sync="cierre.montoCaja" label="Monto en caja" help="Ingrese el monto de caja." error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
-                            <vueinput type="number" v-bind:value.sync="cierre.faltante" label="Faltante" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
-                            <vueinput type="number" v-bind:value.sync="cierre.exedente" label="Exedente" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
+                            <vueinput type="number" min="1" v-on:blur="updateClosing()" v-on:keyup="updateClosing()" v-bind:value.sync="cierre.montoCaja" label="Monto en caja" help="Ingrese el monto de caja." error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                            <vueinput v-if="cierre.faltante > 0" type="number" v-bind:value.sync="cierre.faltante" label="Faltante" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
+                            <vueinput v-if="cierre.exedente > 0" type="number" v-bind:value.sync="cierre.exedente" label="Exedente" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
                         </div>
                     </div>
 

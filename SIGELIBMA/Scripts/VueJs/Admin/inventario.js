@@ -21,7 +21,7 @@ data.toastr = {show : false, placement: "top-right", duration: "3000", type :"da
 data.validations = { activateFieldValidations:false, showSpinner: false, loadingMessage : 'Cargando datos de la base de datos, por favor espere! ...' };
 data.editmodal= {currentPage : 1};
 
-data.modalObject ={};
+data.modalObject ={libro:{codigo:"",titulo:""}};
 data.estados = [];
 
 data.sortKey = 'libro.codigo';
@@ -73,16 +73,13 @@ var vm = new Vue({
             else {
                 this.filteredItems = _.filter(vm.items, function (v, k) {
                     console.log(v,searchText);
-                    if ((v.libro.codigo!=null)&&(v.libro.titulo!=null)&&(v.estado.descripcion!=null)
-                        &&(v.stock!=null)&&(v.maximo!=null)&&(v.minimo!=null)
-                        ) {
+                    if ((v.libro.codigo!=null)&&(v.libro.titulo!=null)&&(v.estado.descripcion!=null))
+                    {
                         return 
                         ( !v.selected && v.libro.codigo.toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
                         | (!v.selected && v.libro.titulo.toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
                         | (!v.selected && v.estado.descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-                        | (!v.selected && v.stock.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-                        | (!v.selected && v.minimo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-                        | (!v.selected && v.maximo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+            
                     } 
  
                     
@@ -200,6 +197,18 @@ var vm = new Vue({
                         vm.filteredItems = vm.inventarios;
                         vm.buildPagination();
                         vm.selectPage(1);
+                        var toDelete = [];
+                        $.each(vm.libros,function(index,libro){
+                            $.each(vm.inventarios,function(ind, inv){
+                                if (inv.libro.codigo === libro.codigo) {
+                                    toDelete.push(index);
+                                }
+                            })
+                        });
+
+                        $.each(toDelete,function(index,value){
+                            vm.libros.splice(index,1);
+                        });
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
                     }
@@ -228,6 +237,7 @@ var vm = new Vue({
                         vm.buildPagination();
                         vm.selectPage(1);
                         vm.activateToastr('success', 'La lista de inventario fue actualizada con exito.', true);
+                       
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema actualizando la lista de inventario, por favor recargue la pagina.',true);
                     }
@@ -242,6 +252,18 @@ var vm = new Vue({
         },
 
         modificar: function () {
+
+            if (vm.modalObject.minimo >= vm.modalObject.maximo) {
+                vm.activateAlertModal("danger","El minimo debe ser menor a la cantidad maxima",true);
+                return false;
+            }else if (vm.modalObject.maxima <= vm.modalObject.minimo) {
+                vm.activateAlertModal("danger","El maximo debe ser mayor a la cantidad minima",true);
+                return false;
+            }else if (vm.modalObject.stock < vm.modalObject.minimo || vm.modalObject.stock > vm.modalObject.maximo) {
+                vm.activateAlertModal("danger","El disponible debe ser menor o igual al maximo y mayor al minimo",true);
+                return false;
+            }
+
             vm.$refs.spinner1.show();
             var inv = {Libro: vm.modalObject.libro.codigo ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado.codigo}; 
             $.ajax({
@@ -254,7 +276,6 @@ var vm = new Vue({
                         vm.getInventarios();
                         $("#edit-modal").modal('hide' );
                         vm.activateToastr('success', 'La operacion se realizo con exito.', true);
-
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
@@ -270,8 +291,20 @@ var vm = new Vue({
         },
 
         agregar: function () {
-            vm.$refs.spinner2.show();
-            var inv = {Libro: vm.modalObject.libro ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado}; 
+
+            if (vm.modalObject.minimo >= vm.modalObject.maximo) {
+                vm.activateAlertModal("danger","El minimo debe ser menor a la cantidad maxima",true);
+                return false;
+            }else if (vm.modalObject.maxima <= vm.modalObject.minimo) {
+                vm.activateAlertModal("danger","El maximo debe ser mayor a la cantidad minima",true);
+                return false;
+            }else if (vm.modalObject.stock < vm.modalObject.minimo || vm.modalObject.stock > vm.modalObject.maximo) {
+                vm.activateAlertModal("danger","El disponible debe ser menor o igual al maximo y mayor al minimo",true);
+                return false;
+            }
+
+            this.$refs.spinner1.show();
+            var inv = {Libro: vm.modalObject.libro.codigo ,Stock: vm.modalObject.stock,Maximo: vm.modalObject.maximo,Minimo: vm.modalObject.minimo,Estado: vm.modalObject.estado}; 
             $.ajax({
                 url: urlRoot + 'inventario/agregar',
                 type: 'post',
@@ -282,14 +315,21 @@ var vm = new Vue({
                         vm.getInventarios();
                         $("#agregar-modal").modal('hide' );
                         vm.activateToastr('success', 'La operacion se realizo con exito.', true);
-
+                        var toDelete;
+                        $.each(vm.libros,function(index,libro){
+                            if (vm.modalObject.libro.codigo  === libro.codigo) {
+                                toDelete = index;
+                                
+                            }
+                        });
+                        vm.libros.splice(index,1);
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
-                    this.$refs.spinner2.hide();
+                    vm.$refs.spinner1.hide();
                 },
                 error: function (error) {
-                    this.$refs.spinner2.hide();
+                    vm.$refs.spinner1.hide();
                     vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                 }
                 
@@ -332,7 +372,7 @@ var vm = new Vue({
                 $("#edit-modal").modal({show:true});
             }else {
                 vm.activateAlertModal('','',false);
-                vm.modalObject = {libro: vm.libros[1].codigo ,stock: 1,maximo: 1,minimo: 1,estado: vm.estados[1].codigo}; 
+                vm.modalObject = {libro: {codigo:"",titulo:""} ,stock: 1,maximo: 1,minimo: 1,estado: vm.estados[1].codigo}; 
                 $("#agregar-modal").modal({show:true});
             }
             
