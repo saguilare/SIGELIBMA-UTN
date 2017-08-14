@@ -207,7 +207,7 @@ var vm = new Vue({
                         });
 
                         $.each(toDelete,function(index,value){
-                            vm.libros.splice(index,1);
+                            vm.libros.splice(value,1);
                         });
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
@@ -319,10 +319,9 @@ var vm = new Vue({
                         $.each(vm.libros,function(index,libro){
                             if (vm.modalObject.libro.codigo  === libro.codigo) {
                                 toDelete = index;
-                                
                             }
                         });
-                        vm.libros.splice(index,1);
+                        vm.libros.splice(toDelete,1);
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
