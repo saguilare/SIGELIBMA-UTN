@@ -336,8 +336,10 @@ var vm = new Vue({
                 $("#modal-retiroAbono").modal({ show: true });
             } else if (target.toLowerCase() === 'modal-cierre') {
                 vm.activateAlertModal("danger", "", false);
+                vm.cierre.totalCreditos = 0;
+                vm.cierre.totalRetiros = 0;
                 $.each(vm.movimientosDelDia, function (index, mov) {
-                    if (mov.Tipo.Codigo === 1 || mov.Tipo.Codigo === 4 || mov.Tipo.Codigo === 5) {
+                    if (mov.Tipo.Codigo === 1 || mov.Tipo.Codigo === 4 || mov.Tipo.Codigo === 5 || mov.Tipo.Codigo === 6) {
                         vm.cierre.totalCreditos += mov.Monto;
                     }
                     if (mov.Tipo.Codigo === 3) {

@@ -354,7 +354,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="movimiento.Tipo.Codigo !== 6" v-for="movimiento in movimientosDelDia">
+                                <tr  v-for="movimiento in movimientosDelDia">
                                     <td>{{movimiento.Fecha}}</td>
                                     <td>{{movimiento.Descripcion}}</td>
                                     <td>{{movimiento.Tipo.Descripcion}}</td>
