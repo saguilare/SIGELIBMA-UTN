@@ -325,6 +325,8 @@ var vm = new Vue({
                 
             } else if (target.toLowerCase() === 'modal-factura') {
                 vm.showFacturaModelNavbar = true;
+                vm.modalFact.currentPage = 1;
+                
                 $("#modal-factura").modal({ show: true });
             } else if (target.toLowerCase() === 'modal-movimientos') {
                 vm.obtenerMovimientos();
