@@ -55,47 +55,19 @@ var vm = new Vue({
 
     methods: {
 
-        onFileChange(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            if (files[0].type === 'image/jpeg') {
-                vm.libro.NombreImagen = files[0].name;
-                this.createImage(files[0]);
-            } else {
-                vm.activateAlertModal('danger', 'Solo imagenes jpg', true);
-            }
-        },
-
-        createImage(file) {
-            var imagen = new Image();
-            var reader = new FileReader();
-            var vm = this;
-
-            reader.onload = (e) => {
-                vm.imagen = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
-
-        removeImage: function (e) {
-            this.imagen = '';
-            vm.libro.NombreImagen = '';
-        },
-
         //PaginationMethods
 
-        clearSearchItem: function () {
+        clearSearchItem : function() {
             this.searchItem = undefined
             this.searchInTheList('')
         },
 
-        setSort: function (sortkey, reverse) {
+        setSort: function(sortkey, reverse){
             vm.sortKey = sortkey;
             vm.reverse = reverse;
         },
 
-        searchInTheList: function (searchText, currentPage) {
+        searchInTheList : function(searchText, currentPage) {
             if (_.isUndefined(searchText)) {
                 this.filteredItems = _.filter(vm.items, function (v, k) {
                     return !v.selected
@@ -103,18 +75,15 @@ var vm = new Vue({
             }
             else {
                 this.filteredItems = _.filter(vm.items, function (v, k) {
-                    if ((v.Codigo != null) && (v.Descripcion != null)) {
-                        return (!v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1) | (!v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-                    } else {
-                        if (v.Codigo != null) {
-                            return !v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1
-                        } else {
-                            if (v.Descripcion != null) {
-                                return !v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-                            }
-                        }
-                    }
-
+                    console.log(vm.items);
+                    if ((v.Codigo!=null)&&(v.Descripcion!=null)&&(v.Titulo!=null)&&(v.Proveedor1.Nombre!=null)) {
+                        return (!v.selected && v.Codigo.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1) 
+                            | (!v.selected && v.Descripcion.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                          | (!v.selected && v.Titulo.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                        | (!v.selected && v.Proveedor1.Nombre.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+                       
+                    } 
+                    
                 })
             }
             this.filteredItems.forEach(function (v, k) {
@@ -130,7 +99,7 @@ var vm = new Vue({
             }
         },
 
-        buildPagination: function () {
+        buildPagination : function() {
             let numberOfPage = Math.ceil(this.filteredItems.length / this.pagination.itemPerPage)
             this.pagination.items = []
             for (var i = 0; i < numberOfPage; i++) {
@@ -138,7 +107,7 @@ var vm = new Vue({
             }
         },
 
-        selectPage: function (item) {
+        selectPage : function(item) {
             this.pagination.currentPage = item
 
             let start = 0
@@ -177,13 +146,37 @@ var vm = new Vue({
             vm.selectPage(1);
         },
 
-        activateAlertModal: function (type, message, status) {
-            vm.alertModal.type = type;
-            vm.alertModal.message = message;
-            vm.alertModal.status = status;
+        //EndPafinationMothods
+
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            if (files[0].type === 'image/jpeg') {
+                vm.libro.NombreImagen = files[0].name;
+                this.createImage(files[0]);
+            } else {
+                vm.activateAlertModal('danger', 'Solo imagenes jpg', true);
+            }
         },
 
-        //EndPafinationMothods
+        createImage(file) {
+            var imagen = new Image();
+            var reader = new FileReader();
+            var vm = this;
+
+            reader.onload = (e) => {
+                vm.imagen = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+
+        removeImage: function (e) {
+            this.imagen = '';
+            vm.libro.NombreImagen = '';
+        },
+
+        
 
         openNewModal: function () {
             
