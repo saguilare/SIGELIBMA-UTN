@@ -481,6 +481,7 @@ verifyStock: function () {
     } else {
         vm.disableBuyButton = false;
     }
+    vm.updateModalDetailTotal();
 },
 
 },

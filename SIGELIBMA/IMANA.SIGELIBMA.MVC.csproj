@@ -261,6 +261,8 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

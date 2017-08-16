@@ -9,6 +9,277 @@
     <Property Name="Apellidos" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Estado" Type="int" />
   </EntityType>
+  <EntityType Name="BitacoraAutor">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Apellidos" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraCaja">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraCajaUsuario">
+    <Key>
+      <PropertyRef Name="Sesion" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Sesion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Caja" Type="int" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Ingreso" Type="datetime" Nullable="false" />
+    <Property Name="Salida" Type="datetime" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraCategoria">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraDeposito">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Factura" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Referencia" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BancoEmisor" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BancoReceptor" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraDetalleFactura">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Factura" Type="int" Nullable="false" />
+    <Property Name="Articulo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraEstadoCaja">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraEstadoFactura">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraFactura">
+    <Key>
+      <PropertyRef Name="Numero" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cliente" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Caja" Type="int" Nullable="false" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaCancelacion" Type="datetime" />
+    <Property Name="Subtotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Impuestos" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Pendiente" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TipoPago" Type="int" Nullable="false" />
+    <Property Name="Referencia" Type="nvarchar" MaxLength="100" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraInventario">
+    <Key>
+      <PropertyRef Name="CodigoLibro" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="CodigoLibro" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CantidadStock" Type="int" Nullable="false" />
+    <Property Name="CantidadMinima" Type="int" Nullable="false" />
+    <Property Name="CantidadMaxima" Type="int" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraLibro">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Titulo" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="300" />
+    <Property Name="Fecha" Type="datetime" />
+    <Property Name="Categoria" Type="int" Nullable="false" />
+    <Property Name="Autor" Type="int" Nullable="false" />
+    <Property Name="Proveedor" Type="int" Nullable="false" />
+    <Property Name="PrecioBase" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PorcentajeGanancia" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PrecioVentaSinImpuestos" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PrecioVentaConImpuestos" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Imagen" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraMovimientoCaja">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Caja" Type="int" Nullable="false" />
+    <Property Name="Monto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MontoReal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Tipo" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="SesionId" Type="int" Nullable="false" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraProveedor">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraRecibo">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Factura" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Abono" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="SaldoAnterior" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="SaldoActual" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraRol">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraSesion">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Inicio" Type="datetime" Nullable="false" />
+    <Property Name="Finalizacion" Type="datetime" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraTipoMovimientoCaja">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraTipoPago">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraTipoTransaccion">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraTransaccion">
+    <Key>
+      <PropertyRef Name="Codigo" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Sesion" Type="int" Nullable="false" />
+    <Property Name="Tabla" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Tipo" Type="int" Nullable="false" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraUsuario">
+    <Key>
+      <PropertyRef Name="Cedula" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Usuario" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Clave" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Segundo_Nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="Apellido1" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Apellido2" Type="nvarchar" MaxLength="100" />
+    <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="50" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BitacoraUsuarioRoles">
+    <Key>
+      <PropertyRef Name="Usuario" />
+      <PropertyRef Name="Rol" />
+      <PropertyRef Name="TransaccionId" />
+    </Key>
+    <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Caja">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -169,6 +440,16 @@
     <Property Name="Inicio" Type="datetime" Nullable="false" />
     <Property Name="Finalizacion" Type="datetime" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TipoMovimientoCaja">
     <Key>
       <PropertyRef Name="Codigo" />
@@ -227,6 +508,270 @@
     <Property Name="Rol" Type="int" Nullable="false" />
     <Property Name="Estado" Type="int" />
   </EntityType>
+  <Association Name="FK__BitacoraA__Trans__72C60C4A">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraAutor" Type="Self.BitacoraAutor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraAutor">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraC__Trans__0C85DE4D">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraCaja" Type="Self.BitacoraCaja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraCaja">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraC__Trans__1332DBDC">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraCajaUsuario" Type="Self.BitacoraCajaUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraCajaUsuario">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraC__Trans__76969D2E">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraCategoria" Type="Self.BitacoraCategoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraCategoria">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraD__Trans__1F98B2C1">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraDetalleFactura" Type="Self.BitacoraDetalleFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraDetalleFactura">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraD__Trans__22751F6C">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraDeposito" Type="Self.BitacoraDeposito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraDeposito">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraE__Trans__05D8E0BE">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraEstadoFactura" Type="Self.BitacoraEstadoFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraEstadoFactura">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraE__Trans__09A971A2">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraEstadoCaja" Type="Self.BitacoraEstadoCaja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraEstadoCaja">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraF__Trans__1CBC4616">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraFactura" Type="Self.BitacoraFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraFactura">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraI__Trans__02084FDA">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraInventario" Type="Self.BitacoraInventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraInventario">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraL__Trans__7E37BEF6">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraLibro" Type="Self.BitacoraLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraLibro">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraM__Trans__160F4887">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraMovimientoCaja" Type="Self.BitacoraMovimientoCaja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraMovimientoCaja">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraP__Trans__7A672E12">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraProveedor" Type="Self.BitacoraProveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraProveedor">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraR__Trans__25518C17">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraRecibo" Type="Self.BitacoraRecibo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraRecibo">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraR__Trans__5DCAEF64">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraRol" Type="Self.BitacoraRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraRol">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraS__Trans__68487DD7">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraSesion" Type="Self.BitacoraSesion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraSesion">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraT__Trans__10566F31">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraTipoMovimientoCaja" Type="Self.BitacoraTipoMovimientoCaja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraTipoMovimientoCaja">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraT__Trans__19DFD96B">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraTipoPago" Type="Self.BitacoraTipoPago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraTipoPago">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraT__Trans__6C190EBB">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraTipoTransaccion" Type="Self.BitacoraTipoTransaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraTipoTransaccion">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraT__Trans__6EF57B66">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraTransaccion" Type="Self.BitacoraTransaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraTransaccion">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraU__Trans__619B8048">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraUsuario" Type="Self.BitacoraUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraUsuario">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BitacoraU__Trans__656C112C">
+    <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+    <End Role="BitacoraUsuarioRoles" Type="Self.BitacoraUsuarioRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="BitacoraUsuarioRoles">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Caja__Estado__3C69FB99">
     <End Role="EstadoCaja" Type="Self.EstadoCaja" Multiplicity="1" />
     <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
@@ -505,6 +1050,28 @@
   </Association>
   <EntityContainer Name="SIGELIBMAModelStoreContainer">
     <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraAutor" EntityType="Self.BitacoraAutor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraCaja" EntityType="Self.BitacoraCaja" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraCajaUsuario" EntityType="Self.BitacoraCajaUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraCategoria" EntityType="Self.BitacoraCategoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraDeposito" EntityType="Self.BitacoraDeposito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraDetalleFactura" EntityType="Self.BitacoraDetalleFactura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraEstadoCaja" EntityType="Self.BitacoraEstadoCaja" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraEstadoFactura" EntityType="Self.BitacoraEstadoFactura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraFactura" EntityType="Self.BitacoraFactura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraInventario" EntityType="Self.BitacoraInventario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraLibro" EntityType="Self.BitacoraLibro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraMovimientoCaja" EntityType="Self.BitacoraMovimientoCaja" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraProveedor" EntityType="Self.BitacoraProveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraRecibo" EntityType="Self.BitacoraRecibo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraRol" EntityType="Self.BitacoraRol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraSesion" EntityType="Self.BitacoraSesion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraTipoMovimientoCaja" EntityType="Self.BitacoraTipoMovimientoCaja" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraTipoPago" EntityType="Self.BitacoraTipoPago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraTipoTransaccion" EntityType="Self.BitacoraTipoTransaccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraTransaccion" EntityType="Self.BitacoraTransaccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraUsuario" EntityType="Self.BitacoraUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BitacoraUsuarioRoles" EntityType="Self.BitacoraUsuarioRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CajaUsuario" EntityType="Self.CajaUsuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
@@ -520,12 +1087,101 @@
     <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoMovimientoCaja" EntityType="Self.TipoMovimientoCaja" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoPago" EntityType="Self.TipoPago" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoTransaccion" EntityType="Self.TipoTransaccion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaccion" EntityType="Self.Transaccion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsuarioRoles" EntityType="Self.UsuarioRoles" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BitacoraA__Trans__72C60C4A" Association="Self.FK__BitacoraA__Trans__72C60C4A">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraAutor" EntitySet="BitacoraAutor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraC__Trans__0C85DE4D" Association="Self.FK__BitacoraC__Trans__0C85DE4D">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraCaja" EntitySet="BitacoraCaja" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraC__Trans__1332DBDC" Association="Self.FK__BitacoraC__Trans__1332DBDC">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraCajaUsuario" EntitySet="BitacoraCajaUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraC__Trans__76969D2E" Association="Self.FK__BitacoraC__Trans__76969D2E">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraCategoria" EntitySet="BitacoraCategoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraD__Trans__1F98B2C1" Association="Self.FK__BitacoraD__Trans__1F98B2C1">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraDetalleFactura" EntitySet="BitacoraDetalleFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraD__Trans__22751F6C" Association="Self.FK__BitacoraD__Trans__22751F6C">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraDeposito" EntitySet="BitacoraDeposito" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraE__Trans__05D8E0BE" Association="Self.FK__BitacoraE__Trans__05D8E0BE">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraEstadoFactura" EntitySet="BitacoraEstadoFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraE__Trans__09A971A2" Association="Self.FK__BitacoraE__Trans__09A971A2">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraEstadoCaja" EntitySet="BitacoraEstadoCaja" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraF__Trans__1CBC4616" Association="Self.FK__BitacoraF__Trans__1CBC4616">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraFactura" EntitySet="BitacoraFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraI__Trans__02084FDA" Association="Self.FK__BitacoraI__Trans__02084FDA">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraInventario" EntitySet="BitacoraInventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraL__Trans__7E37BEF6" Association="Self.FK__BitacoraL__Trans__7E37BEF6">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraLibro" EntitySet="BitacoraLibro" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraM__Trans__160F4887" Association="Self.FK__BitacoraM__Trans__160F4887">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraMovimientoCaja" EntitySet="BitacoraMovimientoCaja" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraP__Trans__7A672E12" Association="Self.FK__BitacoraP__Trans__7A672E12">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraProveedor" EntitySet="BitacoraProveedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraR__Trans__25518C17" Association="Self.FK__BitacoraR__Trans__25518C17">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraRecibo" EntitySet="BitacoraRecibo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraR__Trans__5DCAEF64" Association="Self.FK__BitacoraR__Trans__5DCAEF64">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraRol" EntitySet="BitacoraRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraS__Trans__68487DD7" Association="Self.FK__BitacoraS__Trans__68487DD7">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraSesion" EntitySet="BitacoraSesion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraT__Trans__10566F31" Association="Self.FK__BitacoraT__Trans__10566F31">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraTipoMovimientoCaja" EntitySet="BitacoraTipoMovimientoCaja" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraT__Trans__19DFD96B" Association="Self.FK__BitacoraT__Trans__19DFD96B">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraTipoPago" EntitySet="BitacoraTipoPago" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraT__Trans__6C190EBB" Association="Self.FK__BitacoraT__Trans__6C190EBB">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraTipoTransaccion" EntitySet="BitacoraTipoTransaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraT__Trans__6EF57B66" Association="Self.FK__BitacoraT__Trans__6EF57B66">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraTransaccion" EntitySet="BitacoraTransaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraU__Trans__619B8048" Association="Self.FK__BitacoraU__Trans__619B8048">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraUsuario" EntitySet="BitacoraUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BitacoraU__Trans__656C112C" Association="Self.FK__BitacoraU__Trans__656C112C">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="BitacoraUsuarioRoles" EntitySet="BitacoraUsuarioRoles" />
+    </AssociationSet>
     <AssociationSet Name="FK__Caja__Estado__3C69FB99" Association="Self.FK__Caja__Estado__3C69FB99">
       <End Role="EstadoCaja" EntitySet="EstadoCaja" />
       <End Role="Caja" EntitySet="Caja" />

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\BitacoraServicio.cs" />
     <Compile Include="Servicios\CajaUsuarioServicio.cs" />
     <Compile Include="Servicios\TipoPagoServicio.cs" />
     <Compile Include="Servicios\TipoTransaccionServicio.cs" />
