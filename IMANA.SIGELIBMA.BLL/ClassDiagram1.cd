@@ -1,2 +1,151 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.AutorServicio">
+    <Position X="4" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\AutorServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.CajaServicio">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAQAAAAAAiACAAAAACAAACAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\CajaServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.CajaUsuarioServicio">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\CajaUsuarioServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.CategoriasLibroServicio">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\CategoriasLibroServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.DepositoServicio">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\DepositoServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.EstadoCajaServicio">
+    <Position X="5.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\EstadoCajaServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.EstadoFacturaServicio">
+    <Position X="2.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\EstadoFacturaServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.FacturaServicio">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\FacturaServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.InventarioServicio">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\InventarioServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.LibroServicio">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\LibroServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.MovimientoCajaServicio">
+    <Position X="7.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\MovimientoCajaServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.ProveedorServicio">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\ProveedorServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.ReciboServicio">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\ReciboServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.RolServicio">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\RolService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.SesionServicio">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\SesionServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.TipoMovCajaServicio">
+    <Position X="9.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\TipoMovCajaServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.TipoPagoServicio">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\TipoPagoServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.TipoTransaccionServicio">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\TipoTransaccionServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.TransaccionServicio">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAmACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\TransaccionServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.UsuarioRolesServicio">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\UsuarioRolesServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMANA.SIGELIBMA.BLL.Servicios.UsuarioServicio">
+    <Position X="11" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAiACAAAAACAAAAAAUAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicios\UsuarioServicio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

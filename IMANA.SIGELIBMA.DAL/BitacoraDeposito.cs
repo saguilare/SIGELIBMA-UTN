@@ -12,17 +12,17 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoPago
+    public partial class BitacoraDeposito
     {
-        public TipoPago()
-        {
-            this.Factura = new HashSet<Factura>();
-        }
-    
         public int Codigo { get; set; }
+        public int Factura { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public string Referencia { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<int> Estado { get; set; }
+        public string BancoEmisor { get; set; }
+        public string BancoReceptor { get; set; }
+        public int TransaccionId { get; set; }
     
-        public virtual ICollection<Factura> Factura { get; set; }
+        public virtual Transaccion Transaccion { get; set; }
     }
 }

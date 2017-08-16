@@ -12,17 +12,12 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoPago
+    public partial class sysdiagrams
     {
-        public TipoPago()
-        {
-            this.Factura = new HashSet<Factura>();
-        }
-    
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public Nullable<int> Estado { get; set; }
-    
-        public virtual ICollection<Factura> Factura { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

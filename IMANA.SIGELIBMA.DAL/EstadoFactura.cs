@@ -14,7 +14,6 @@ namespace IMANA.SIGELIBMA.DAL
     
     public partial class EstadoFactura
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EstadoFactura()
         {
             this.Factura = new HashSet<Factura>();
@@ -24,7 +23,6 @@ namespace IMANA.SIGELIBMA.DAL
         public string Descripcion { get; set; }
         public Nullable<int> Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }
     }
 }

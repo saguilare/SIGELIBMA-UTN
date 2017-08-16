@@ -12,21 +12,15 @@ namespace IMANA.SIGELIBMA.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CajaUsuario
+    public partial class BitacoraCajaUsuario
     {
-        public CajaUsuario()
-        {
-            this.MovimientoCaja = new HashSet<MovimientoCaja>();
-        }
-    
         public int Sesion { get; set; }
         public int Caja { get; set; }
         public string Usuario { get; set; }
         public System.DateTime Ingreso { get; set; }
         public Nullable<System.DateTime> Salida { get; set; }
+        public int TransaccionId { get; set; }
     
-        public virtual Caja Caja1 { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
-        public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
+        public virtual Transaccion Transaccion { get; set; }
     }
 }
