@@ -34,7 +34,15 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
 
             return View();
         }
+
         
+        public ActionResult ImprimirFactura(int factura)
+        {
+            Factura fact = servicioFactura.ObtenerPorId(new Factura { Numero = factura });
+
+            return View(fact);
+        }
+
         [HttpGet]
         public JsonResult Init() {
             try

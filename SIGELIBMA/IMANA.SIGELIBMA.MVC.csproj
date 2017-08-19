@@ -335,6 +335,7 @@
     <Content Include="Views\ReporteInventario\Index.cshtml" />
     <Content Include="Views\MantCaja\Index.cshtml" />
     <Content Include="Views\MantTipoTransaccion\Index.cshtml" />
+    <Content Include="Views\Facturacion\ImprimirFactura.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@
         <div class="modal-content">
             <form >
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
                     <h4 class="modal-title">Factura</h4>
                 </div>
                 <div class="modal-body">
@@ -125,9 +125,9 @@
                                         <li v-if="modalFact.currentPage === 2" v-on:click="processPayment() ">
                                             <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
                                         </li>
-                                        @*<li v-if="modalFact.currentPage === 3" >
-                                            <a href="#" class="imprimir">Imprimir <span class="glyphicon glyphicon-print"></span></a>
-                                        </li>*@
+                                        <li v-if="modalFact.currentPage === 3" >
+                                            <a href="/facturacion/imprimirfactura?factura={{factura.master.id}}" target="_blank" class="imprimir">Imprimir <span class="glyphicon glyphicon-print"></span></a>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>

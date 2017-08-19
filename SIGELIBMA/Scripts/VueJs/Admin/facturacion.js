@@ -184,6 +184,27 @@ var vm = new Vue({
 
         },
 
+        print: function () {
+            
+            $.ajax({
+                url: urlRoot + 'Facturacion/ImprimirFactura',
+                type: 'get',
+                dataType: 'json',
+                
+                success: function (result) {
+                    //if (result.EstadoOperacion) {
+                    //    vm.movimientosDelDia = result.Movimientos;
+                    //    $("#modal-movimientos").modal({ show: true });
+                    //} else {
+                    //    vm.activateToastr("danger", "Hubo un problema obteniendo los movimientos de la caja", true);
+                    //}
+                },
+                error: function (error) {
+                    vm.activateToastr("danger", "Hubo un problema al imprimir, trate nuevamente", true);
+                }
+            });
+        },
+
         obtenerMovimientos: function () {
             $.ajax({
                 url: urlRoot + 'Facturacion/MovimientosCaja',
@@ -230,6 +251,8 @@ var vm = new Vue({
                 vm.disableBuyButton = true;
             } else {
                 vm.disableBuyButton = false;
+                vm.updateModalDetailProdTotal();
+                
             }
         },
 

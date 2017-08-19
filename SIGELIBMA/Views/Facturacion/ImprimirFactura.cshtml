@@ -1,0 +1,102 @@
+﻿@model IMANA.SIGELIBMA.DAL.Factura
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ImprimirFactura</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                Estimado(a) @Model.Usuario.Nombre, @Model.Usuario.Apellido1
+                <label class="pull-right">Factura: @Model.Numero</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 ">
+                <div class="table-responsive">
+                    <fieldset >
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    
+                                    <th><a>Codigo</a></th>
+                                    <th><a>Titulo</a></th>
+                                    <th><a>Cantidad</a></th>
+                                    <th><a>Precio Unitario</a></th>
+                                    <th><a>Precio Total</a></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in @Model.DetalleFactura)
+                                {
+                                    <tr >
+                                        <td>@item.Libro.Codigo</td>
+                                        <td>@item.Libro.Titulo</td>
+                                        <td>@item.Cantidad</td>
+                                        <td>&#162;@item.Libro.PrecioVentaSinImpuestos</td>
+                                        <td>&#162;@((item.Libro.PrecioVentaSinImpuestos * item.Cantidad).ToString())</td>
+                                    </tr>
+
+                                }
+                                
+                                <tr>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Subtotal: </td>
+                                    <td>&#162;@Model.Subtotal</td>
+                                </tr>
+                                <tr>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Impuestos (I.V.A): </td>
+                                    <td>&#162;@Model.Impuestos</td>
+                                </tr>
+                                <tr>
+
+                                  
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total (I.V.I): </td>
+                                    <td>&#162;@Model.Total</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Bootstrap core JavaScript
+       ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/VueJsFramework/vue1.js"></script>
+<script src="~/Scripts/vue-strap/vue-strap.js"></script>
+
+<script>
+    $(document).ready(function () {
+        window.print();
+
+    });
+</script>
