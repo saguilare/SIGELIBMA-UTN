@@ -119,7 +119,7 @@
                                         <li v-if="modalFact.currentPage > 1 && modalFact.currentPage <3" v-on:click="modalFact.currentPage -= 1">
                                             <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
                                         </li>
-                                        <li v-if="modalFact.currentPage >= 1 && modalFact.currentPage <2" v-on:click="modalFact.currentPage += 1 ">
+                                        <li v-if="modalFact.currentPage >= 1 && modalFact.currentPage <2" v-on:click="validateModalCartFields()">
                                             <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
                                         </li>
                                         <li v-if="modalFact.currentPage === 2" v-on:click="processPayment() ">

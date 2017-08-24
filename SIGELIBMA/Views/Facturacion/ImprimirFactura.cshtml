@@ -17,10 +17,18 @@
     <div>
         <div class="row">
             <div class="col-sm-12">
-                Estimado(a) @Model.Usuario.Nombre, @Model.Usuario.Apellido1
+                <label>@ViewBag.Fecha</label>
                 <label class="pull-right">Factura: @Model.Numero</label>
             </div>
         </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                Estimado(a) @Model.Usuario.Nombre, @Model.Usuario.Apellido1
+            </div>
+        </div>
+        <br />
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10 ">
                 <div class="table-responsive">
@@ -80,6 +88,15 @@
                         </table>
                     </fieldset>
                 </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Para informacion, reclamos u otros asuntos contactenos a los siguientes medios:</p>
+                <p>Telefono: 2430-1000</p>
+                <p>Correo: libreriamana@gmail.com</p>
             </div>
         </div>
     </div>

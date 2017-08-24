@@ -39,7 +39,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
         public ActionResult ImprimirFactura(int factura)
         {
             Factura fact = servicioFactura.ObtenerPorId(new Factura { Numero = factura });
-
+            ViewBag.Fecha = DateTime.Now.ToString();
             return View(fact);
         }
 

@@ -303,7 +303,7 @@
                                         <button class="btn btn-default btn-pager" v-if="modalCart.currentPage > 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage -= 1">
                                             <span class="glyphicon glyphicon-arrow-left"></span> Regresar
                                         </button>
-                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="modalCart.currentPage += 1 ">
+                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="validateModalCartFields() ">
                                             Siguiente <span class="glyphicon glyphicon-arrow-right"></span>
                                         </button>
                                         <button type="submit" class="btn btn-default btn-pager" v-if="modalCart.currentPage === 3">

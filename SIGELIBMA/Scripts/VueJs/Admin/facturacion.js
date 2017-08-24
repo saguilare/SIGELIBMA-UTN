@@ -378,6 +378,20 @@ var vm = new Vue({
 
         },
 
+        validateModalCartFields: function () {
+            if (vm.modalFact.currentPage === 1) {
+                if (vm.factura.master.client.id !== "" && vm.factura.master.client.name !== "" && vm.factura.master.client.lastname !== ""
+                    && vm.factura.master.client.phone !== "" && vm.factura.master.client.email !== "") {
+                    vm.modalFact.currentPage += 1;
+                } else {
+                    vm.activateAlertModal("danger", "Debe ingresar los datos personales", true);
+                }
+            } else {
+                vm.modalFact.currentPage += 1;
+            }
+
+        },
+
         updateModalDetailProdTotal: function () {
             vm.product.subtotal = (vm.product.item.PrecioSinImp * vm.product.quantity);
             vm.product.total = (vm.product.item.Precio * vm.product.quantity);

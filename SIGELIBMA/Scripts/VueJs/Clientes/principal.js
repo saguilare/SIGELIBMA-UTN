@@ -264,6 +264,19 @@ getClient: function () {
 
 },
 
+validateModalCartFields: function () {
+    if (vm.modalCart.currentPage === 2) {
+        if (vm.cliente.Cedula !== "" && vm.cliente.Nombre1 !== "" && vm.cliente.Apellido1 !== "" && vm.cliente.Telefono !== ""  && vm.cliente.Email !== "") {
+            vm.modalCart.currentPage += 1;
+        } else {
+            vm.activateAlertModalShoppingCart("danger", "Debe ingresar los datos personales",true);
+        }
+    } else {
+        vm.modalCart.currentPage += 1;
+    }
+
+},
+
 openModal: function (object, type) {
     vm.disableBuyButton = false;
     if (type === 'bookDetails') {
