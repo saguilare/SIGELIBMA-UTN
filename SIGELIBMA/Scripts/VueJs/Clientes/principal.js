@@ -1,12 +1,12 @@
 ﻿
 
-//function move_right(index) {
-//    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
-//}
+function move_right(index) {
+    document.getElementById('mainbookcontainer' + index).scrollLeft += 90;
+}
 
-//function move_left(index) {
-//    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
-//}
+function move_left(index) {
+    document.getElementById('mainbookcontainer'+index).scrollLeft -= 90;
+}
 
 
 function updateArrows() {

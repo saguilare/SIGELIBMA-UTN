@@ -40,12 +40,22 @@ font-size: 50px;
 .scrollBtn:focus { outline: none; }
 
 div.producto{ 
+
     margin-right: 50px;
     background-color:#fafafa;
     border: 3px ridge #f08804;
     border-radius: 10px;
     width:180px;
-    padding:40px 0px;
+    padding:40px 5px;
+}
+
+.title {
+    height:30px;
+    margin-bottom:15px;
+}
+
+.img-circle {
+     margin-bottom:15px;
 }
 
 .category-header h1{

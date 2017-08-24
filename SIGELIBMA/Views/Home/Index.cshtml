@@ -36,8 +36,8 @@
                 </div>
                 <div class="row category-body" id="mainbookcontainer{{index}}">
                     <div class="col-xs-4 producto text-center" v-for="book in category.Libros">
-                        <p style="color:#232f3e;">{{book.Titulo}}</p>
-                        <img class="img-circle " src="~/Images/libros/{{book.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                        <div class="title"><p style="color:#232f3e;" class="text-primary">{{book.Titulo}}</p></div>
+                        <img class="img-circle" src="~/Images/libros/{{book.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
                         <p class="precio">&#162;{{book.Precio}} I.V.I</p>
                         <p v-if="book.Stock === false" class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
                         <p><a class="btn btn-default btn-details" v-on:click="openModal(book,'bookDetails')" role="button">Ver Detalles »</a></p>
