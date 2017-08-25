@@ -155,6 +155,9 @@
                                             <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 3 }" v-on:click="modalCart.currentPage = 3">
                                                 <a href="#">Info Bancaria</a>
                                             </li>
+                                            <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 4 }" v-on:click="modalCart.currentPage = 4">
+                                                <a href="#">Condiciones</a>
+                                            </li>
                                         </ul>
                                         <hr class="navbar-separator" />
                                     </div>
@@ -281,6 +284,25 @@
                                         </div>
                                         <!--page 4-->
                                         <div v-if="modalCart.currentPage === 4">
+                                            <h3>Condiciones Compras en Linea</h3><hr />
+
+                                            <div class="bg-info bg-accts" style="margin-bottom:15px;">
+                                                
+                                                <ul>
+                                                    <li>Debido a limitaciones logisticas no se realizan envios a domicilio</li>
+                                                    <li>Toda compra debe ser retirada en la Iglesia Mana</li>
+                                                    <li>Debrea presentar su identificacion para hacer el retiro</li>
+                                                    <li>Horario de entregas es Lunes - Viernes de 8am-7pm</li>
+                                                </ul>
+                                                <div class="text-center">
+                                                    <button type="button" class="btn btn-default btn-acceptance" v-on:click="modalCart.acceptance = true">
+                                                        <span class="glyphicon glyphicon-check"></span> Aceptar Condiciones
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--page 5-->
+                                        <div v-if="modalCart.currentPage === 5 ">
                                             <h3>Resumen Transaccion</h3><hr />
                                             <div class="bg-success" v-if="shoppingCart.payment.status">
                                                 <h5><b>Su compra ha sido procesada!</b></h5>
@@ -295,18 +317,18 @@
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
+                                     </div>
                                 </div>
                                 <!-- Pager Btns-->
                                 <div class="row">
                                     <div class="col-sm-12 text-center">   
-                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage > 1 && modalCart.currentPage <4" v-on:click="modalCart.currentPage -= 1">
+                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage > 1 && modalCart.currentPage <5" v-on:click="modalCart.currentPage -= 1">
                                             <span class="glyphicon glyphicon-arrow-left"></span> Regresar
                                         </button>
-                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <3" v-on:click="validateModalCartFields() ">
+                                        <button class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <4" v-on:click="validateModalCartFields() ">
                                             Siguiente <span class="glyphicon glyphicon-arrow-right"></span>
                                         </button>
-                                        <button type="submit" class="btn btn-default btn-pager" v-if="modalCart.currentPage === 3">
+                                        <button type="submit" class="btn btn-default btn-pager" v-if=" modalCart.acceptance === true && modalCart.currentPage == 4">
                                             Procesar <span class="glyphicon glyphicon-arrow-right"></span>
                                         </button>
                                     </div>

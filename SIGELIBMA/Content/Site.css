@@ -11,6 +11,12 @@ body {
     border-radius:15pt;
 }
 
+.btn-acceptance {
+    background-color:#337ab7;
+    color:white;
+    border-radius:15pt;
+}
+
 .btn-pager:focus {
     outline:none;
 }

@@ -49,7 +49,7 @@ data.showModalShoppingCartNavBar = true;
 data.toastr = {show : false, placement: "top-right", duration: "3000", type :"danger" ,width:"400px", dismissable:true,message:''};
 data.alert = { type: 'success', message: 'alert', status: false };
 data.alertModal = { type: 'success', message: 'alert', status: true };
-data.modalCart = { currentPage : 0};
+data.modalCart = { currentPage : 0, acceptance : false};
 data.alertModalShoppingCart = { type: 'success', message: 'alert', status: true };
 data.alertModalBookDetails = { type: 'success', message: 'alert', status: true };
 data.cliente = { Nombre1: "", Nombre2: "", Apellido1: "", Apellido2: "", Cedula: "", Telefono: "", Email: "" };
@@ -287,6 +287,7 @@ openModal: function (object, type) {
         $("#modalDetails").modal({ show: true });
     } else if (type === 'modalShoppingCart') {
         vm.modalCart.currentPage = 1;
+        vm.modalCart.acceptance = false;
         if (vm.shoppingCart.items.length <= 0) {
             vm.activateToastr('danger', 'El carrito esta vacio.', true);
             //vm.activateAlertModalShoppingCart('info', ' El carrito esta vacio', true);
@@ -356,6 +357,7 @@ processPayment: function () {
                 vm.shoppingCart.payment.code = result.Confirmacion;
                 vm.shoppingCart.payment.status = true;
                 vm.showModalShoppingCartNavBar = false;
+                vm.modalCart.currentPage = 5;
                 
             } else {
                 if (result.Agotados !== null || result.Agotados.length > 0) {
