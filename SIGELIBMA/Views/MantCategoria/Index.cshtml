@@ -20,7 +20,7 @@
                         {{alertModal.message}}
                     </div>
                     <div class="form-group ">
-                        <vueinput v-bind:value.sync="modalObject.descripcion" label="Descripcion" help="" error="" placeholder="Descripcion" pattern="^[a-zA-Z\s]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                        <vueinput v-bind:value.sync="modalObject.descripcion" label="Descripción" help="" error="" placeholder="Descripción" pattern="^[a-zA-Z\s]+$" mask="" minlength="4" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
                     </div>
                     <div class="form-group">
                         <label for="rol">Estado</label>
@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="title-bar title-bar-blur">
-                        <span class="title-bar-title">Administracion</span>
+                        <span class="title-bar-title">Administración</span>
                         <span class="title-bar-subtitle">Categorias</span>
                     </div>
                 </div>
@@ -120,13 +120,13 @@
                                 <tr>
                                     <th>
                                         <a v-on:click="setSort('codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Codigo
+                                            Código
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
                                     <th>
                                         <a v-on:click="setSort('descripcion',reverse === 1 ? reverse = -1 : reverse = 1)">
-                                            Descripcion
+                                            Descripción
                                             <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
                                         </a>
                                     </th>
