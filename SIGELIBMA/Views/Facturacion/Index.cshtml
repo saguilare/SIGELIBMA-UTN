@@ -7,7 +7,7 @@
 <toastr v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
     <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
     <span v-else class="glyphicon glyphicon-info-sign"></span>
-    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atención!</strong>
     <strong v-else>Info!</strong>
     <p>{{toastr.message}}</p>
 </toastr>
@@ -26,7 +26,7 @@
                  
                         <div v-if="alertModal.status" class="col-sm-12 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                             <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                             <strong v-else>Info!</strong>
                             {{alertModal.message}}
                         </div>
@@ -53,9 +53,9 @@
                                 <div v-if="modalFact.currentPage === 1">
                                     <h3>Datos Personales</h3><hr />
                                     <div class="form-group validate has-feedback ">
-                                        <label class="control-label">Cedula</label>
+                                        <label class="control-label">Cédula</label>
                                         <div class="input-group">
-                                            <input v-model="factura.master.client.id" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cedula">
+                                            <input v-model="factura.master.client.id" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cédula">
                                             @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
                                             <span class="input-group-btn">
                                                 <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
@@ -88,7 +88,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group" v-if="factura.master.tipoPago && factura.master.tipoPago.Codigo !== 1">
-                                        <vueinput v-bind:value.sync="factura.master.referencia" label="No Referencia/Deposito: " help="" error="" placeholder="" pattern="^[a-zA-Z0-9]+$" mask="" minlength="5" v-bind:enter-submit="true" v-bind:clear-button="false" icon></vueinput>
+                                        <vueinput v-bind:value.sync="factura.master.referencia" label="No Referencia/
+                                                  : " help="" error="" placeholder="" pattern="^[a-zA-Z0-9]+$" mask="" minlength="5" v-bind:enter-submit="true" v-bind:clear-button="false" icon></vueinput>
                                     </div>
                                     <div class="form-group">
                                         <vueinput v-bind:value.sync="factura.master.total" label="Monto a Pagar:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon readonly></vueinput>
@@ -104,7 +105,7 @@
                                 <div v-if="modalFact.currentPage === 3">
                                     <h3>Resumen Transaccion</h3><hr />
                                     <div class="bg-info" >
-                                        <h5><b>La compra ha sido procesada con exito!</b></h5>
+                                        <h5><b>La compra ha sido procesada con éxito!</b></h5>
                                         <p>Factura #<strong>{{factura.master.id}}</strong></p>
                                         <p>La factura sera enviada a la direccion de correo del cliente.</p>
                                     </div>
@@ -156,7 +157,7 @@
                     <spinner v-ref:spinner1 size="md" fixed text="Procesando datos, por favor espere."></spinner>
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
@@ -197,7 +198,7 @@
                     <!-- Alert-->
                     <div v-if="alertModal.status" class="col-sm-12 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
@@ -227,7 +228,7 @@
                             <div v-if="movimiento.procesado === true">
                                 <h3>Resumen Movimiento</h3><hr />
                                 <div class="bg-info">
-                                    <h5><b>El movimiento se efectuo con exito!</b></h5>
+                                    <h5><b>El movimiento se efectuo con éxito!</b></h5>
                                 </div>
                             </div>
                         </div>
@@ -293,7 +294,7 @@
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
-                                    <th>Descripcion</th>
+                                    <th>Descripción</th>
                                     <th>Monto</th>
                                     <th>Tipo</th>
                                 </tr>
@@ -311,7 +312,7 @@
                     </div>
                     <div v-else class="alert alert-dismissible alert-danger" role="alert">
                         <button type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                         No se registran movimientos para esta caja
                     </div>
                 </div>
@@ -336,7 +337,7 @@
                     <!--alert-->
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
@@ -347,9 +348,9 @@
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
-                                    <th>Descripcion</th>
+                                    <th>Descripción</th>
                                     <th>Tipo</th>
-                                    <th>Credito</th>
+                                    <th>Crédito</th>
                                     <th>Retiro</th>
                                 </tr>
                             </thead>
@@ -409,7 +410,7 @@
 <!-- Alert page critical errors-->
 <div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
     <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
+    <strong v-if="lowerCase(alert.type) === 'danger' ">Atención!</strong>
     <strong v-else>Info!</strong>
     {{alert.message}}
 </div>
@@ -425,7 +426,7 @@
                 <div class="col-sm-12">
                     <div class="title-bar title-bar-blur">
                         <span class="title-bar-title">Ventas</span>
-                        <span class="title-bar-subtitle">Facturacion</span>
+                        <span class="title-bar-subtitle">Facturación</span>
                     </div>
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -455,7 +456,7 @@
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtro <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li v-on:click="searchByData = codigos, searchSelected = ''"><a href="#">Codigo</a></li>
+                                        <li v-on:click="searchByData = codigos, searchSelected = ''"><a href="#">Código</a></li>
                                         <li v-on:click="searchByData = titulos, searchSelected = ''"><a href="#">Titulo</a></li>
                                     </ul>
                                 </div><!-- /btn-group -->
@@ -479,7 +480,7 @@
                                     <thead>
                                         <tr>
                                             <th><a>Accion</a></th>
-                                            <th><a>Codigo</a></th>
+                                            <th><a>Código</a></th>
                                             <th><a>Titulo</a></th>
                                             <th><a>Cantidad</a></th>
                                             <th><a>Precio Unitario</a></th>

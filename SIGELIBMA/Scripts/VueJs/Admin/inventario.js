@@ -236,7 +236,7 @@ var vm = new Vue({
                         vm.filteredItems = vm.inventarios;
                         vm.buildPagination();
                         vm.selectPage(1);
-                        vm.activateToastr('success', 'La lista de inventario fue actualizada con exito.', true);
+                        vm.activateToastr('success', 'La lista de inventario fue actualizada con éxito.', true);
                        
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema actualizando la lista de inventario, por favor recargue la pagina.',true);
@@ -275,7 +275,7 @@ var vm = new Vue({
                     if (result.EstadoOperacion) {
                         vm.getInventarios();
                         $("#edit-modal").modal('hide' );
-                        vm.activateToastr('success', 'La operacion se realizo con exito.', true);
+                        vm.activateToastr('success', 'La operacion se realizo con éxito.', true);
                     } else {
                         vm.activateAlertModal("danger","Ha ocurrido un error, intente nuevamente", true);  
                     }   
@@ -314,7 +314,7 @@ var vm = new Vue({
                     if (result.EstadoOperacion) {
                         vm.getInventarios();
                         $("#agregar-modal").modal('hide' );
-                        vm.activateToastr('success', 'La operacion se realizo con exito.', true);
+                        vm.activateToastr('success', 'La operacion se realizo con éxito.', true);
                         var toDelete;
                         $.each(vm.libros,function(index,libro){
                             if (vm.modalObject.libro.codigo  === libro.codigo) {
@@ -348,7 +348,7 @@ var vm = new Vue({
                     if (result.EstadoOperacion) {
                         vm.getInventarios();
                         $("#edit-modal").modal('hide' );
-                        vm.activateToastr('success', 'La operacion se realizo con exito.', true);
+                        vm.activateToastr('success', 'La operacion se realizo con éxito.', true);
 
                     } else {
                         vm.activateToastr("danger","Ha ocurrido un error, intente nuevamente", true);  
@@ -378,7 +378,7 @@ var vm = new Vue({
         },
      
         init: function () {
-            vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
+            vm.displaySpinner(true, 'Obteniendo información de la base de datos, por favor espere!');
             vm.getInitData();
             vm.activateAlert('danger', '', false);
         }

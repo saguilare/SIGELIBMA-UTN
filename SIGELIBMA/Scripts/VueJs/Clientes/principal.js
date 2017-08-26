@@ -437,7 +437,7 @@ removeFromCart: function (index, object) {
             vm.shoppingCart.items.splice(index, 1);
             vm.shoppingCart.total -= object.total;
             vm.shoppingCart.totalItems -= object.quantity;
-            vm.activateAlertModalBookDetails('success','El producto fue eliminado con exito del carrito', true);
+            vm.activateAlertModalBookDetails('success', 'El producto fue eliminado con éxito del carrito', true);
     } else {
         vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para eliminar el producto del carrito,por favor intente de nuevo', true);
     }
@@ -466,7 +466,7 @@ addToCart: function (item) {
             vm.shoppingCart.totalItems += value.quantity;
         });
         
-        vm.activateAlertModalBookDetails('success', 'El producto fue agregado con exito al carrito', true);
+        vm.activateAlertModalBookDetails('success', 'El producto fue agregado con éxito al carrito', true);
     } else {
         vm.activateAlertModalBookDetails('danger', 'Hemos encontrado un problema para agregar el producto al carrito,por favor intente de nuevo', true);
     }
@@ -483,7 +483,7 @@ updateModalDetailTotal: function () {
 //},
 
 init: function () {
-    vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
+    vm.displaySpinner(true, 'Obteniendo información de la base de datos, por favor espere!');
     vm.activateAlert('danger', '', false);
     vm.getPageData();
     

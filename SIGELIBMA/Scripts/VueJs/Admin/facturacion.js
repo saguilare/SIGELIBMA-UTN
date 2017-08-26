@@ -31,7 +31,7 @@ data.alertModal = { type: 'success', message: 'alert', status: true };
 data.toastr = { show: false, placement: "top-right", duration: "3000", type: "danger", width: "400px", dismissable: true, message: '' };
 data.session = { id: 1, user: {name : 'steven aguilar', username : 'saguilar'}};
 data.factura = { master: { id: "", client: { id: "", name: '',lastname:"",phone:"",email:"" },tipoPago:{Codigo:0,Descripcion:""},referencia:"", taxes: 0,subtotal:0, total: 0, totalReceived: 0, change: 0, totalItems: 0, date: '00/00/0000' }, details: [] };
-data.validations = {showSpinner : false, loadingMessage : 'Cargando informacion de la base de datos, por favor espere.'};
+data.validations = { showSpinner: false, loadingMessage: 'Cargando información de la base de datos, por favor espere.' };
 data.showFacturaModelNavbar = false;
 data.movimientosDelDia = [];
 data.modalRetiroAbono = { currentPage: 1 };
@@ -161,7 +161,7 @@ var vm = new Vue({
                 data: vm.cashier,
                 success: function (result) {
                     if (result.EstadoOperacion) {                   
-                        vm.activateToastr('success', 'La caja ha sido cerrada con exito.', true);
+                        vm.activateToastr('success', 'La caja ha sido cerrada con éxito.', true);
                         $('#modal-cierre').modal('hide');
                         $('#collapseFactMain').collapse('hide');
                         vm.cashier = {};
@@ -568,7 +568,7 @@ var vm = new Vue({
         },
 
         init: function () {
-            vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
+            vm.displaySpinner(true, 'Obteniendo información de la base de datos, por favor espere!');
             vm.activateAlert('danger', '', false);
             vm.getInitData();
             //$('#collapseFactMain').collapse('show');

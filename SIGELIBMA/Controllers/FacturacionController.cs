@@ -240,10 +240,10 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                     item.Libro = servicioLibro.ObtenerPorId(new Libro { Codigo = item.Articulo });
                 }
                 string from = ConfigurationManager.AppSettings["from"];
-                var fromAddress = new MailAddress(from, "Libreria Iglesia Mana");
+                var fromAddress = new MailAddress(from, "Librería Iglesia Mana");
                 var toAddress = new MailAddress(factura.Usuario.Correo, factura.Usuario.Correo);
                 string fromPassword = ConfigurationManager.AppSettings["password"];
-                string subject = "Confirmacion Compra - #" + factura.Numero;
+                string subject = "Confirmación Compra - #" + factura.Numero;
                 StringBuilder str = new StringBuilder();
                 str.AppendLine("Estimado(a): " + factura.Usuario.Nombre);
                 str.AppendLine("<br/>");
@@ -254,7 +254,7 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 str.AppendLine(" <table >");
                 str.AppendLine("<thead>");
                 str.AppendLine("<tr>");
-                str.AppendLine("<th><a>Codigo</a></th><th><a>Titulo</a></th><th><a>Cantidad</a></th><th><a>Precio Unitario</a></th><th><a>Precio Total</a></th>");
+                str.AppendLine("<th><a>Código</a></th><th><a>Titulo</a></th><th><a>Cantidad</a></th><th><a>Precio Unitario</a></th><th><a>Precio Total</a></th>");
                 str.AppendLine("</tr>");
                 str.AppendLine("</thead>");
                 str.AppendLine("<tbody>");

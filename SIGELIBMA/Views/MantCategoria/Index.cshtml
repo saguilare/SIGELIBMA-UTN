@@ -15,7 +15,7 @@
                 <div class="modal-body">
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
@@ -48,7 +48,7 @@
 <div class="row" v-if="alert.status">
     <div class="col-sm-offset-2 col-sm-8 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
         <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
+        <strong v-if="lowerCase(alert.type) === 'danger' ">Atención!</strong>
         <strong v-else>Info!</strong>
         {{alert.message}}
     </div>
@@ -57,7 +57,7 @@
 <alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
     <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
     <span v-else class="glyphicon glyphicon-info-sign"></span>
-    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atención!</strong>
     <strong v-else>Info!</strong>
     <p>{{toastr.message}}</p>
 </alert>
@@ -181,7 +181,7 @@
                                 </li>
                                 <li class="last">
                                     <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
-                                        Last
+                                        Ultimo
                                     </a>
                                 </li>
                             </ul>

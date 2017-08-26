@@ -30,19 +30,19 @@
                 @if (ViewBag.code == 1)
                 {
                     <div class="alert alert-dismissible alert-danger" role="alert">
-                        <strong>Atencion!</strong>No existen sesiones activas, debe iniciar una.
+                        <strong>Atención!</strong>No existen sesiones activas, debe iniciar una.
                     </div>
                 }
                 else if (ViewBag.code == 2)
                 {
                     <div class="alert alert-dismissible alert-danger" role="alert">
-                        <strong>Atencion!</strong>La sesion ha sido terminada o ha expirado.
+                        <strong>Atención!</strong>La sesión ha sido terminada o ha expirado.
                     </div>
                 }
 
                 <div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
                     <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong v-if="lowerCase(alert.type) ==='danger'">Atencion!</strong>
+                    <strong v-if="lowerCase(alert.type) ==='danger'">Atención!</strong>
                     <strong v-else>Info!</strong>
                     {{alert.message}}
                 </div>

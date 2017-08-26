@@ -15,7 +15,7 @@
                 <div class="modal-body">
                     <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
                         <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
                         <strong v-else>Info!</strong>
                         {{alertModal.message}}
                     </div>
@@ -182,7 +182,7 @@
                                 </li>
                                 <li class="last">
                                     <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
-                                        Last
+                                        Ultimo
                                     </a>
                                 </li>
                             </ul>

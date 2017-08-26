@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Libreria Mana</title>
+    <title>Librería Mana</title>
 
     <!-- Bootstrap core CSS -->
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
@@ -25,7 +25,7 @@
         <alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
             <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
             <span v-else class="glyphicon glyphicon-info-sign"></span>
-            <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+            <strong v-if="lowerCase(toastr.type) === 'danger' ">Atención!</strong>
             <strong v-else>Info!</strong>
             <p>{{toastr.message}}</p>
         </alert>
@@ -36,11 +36,11 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">
-                            Informacion de Contacto
+                            Información de Contacto
                         </h4>
                     </div>
                     <div class="modal-body ">
-                        Telefono:
+                        Teléfono:
                         <ul>
                             <li>+506 2433 8569</li>                           
                         </ul>
@@ -48,7 +48,7 @@
                         <ul>
                             <li>info@manaalajuela.com</li>
                         </ul>
-                        Visitenos:
+                        Visítenos:
                         <ul>
                             <li>25 sur del Complejo Deportivo Wilmer López, Plywood Alajuela, Costa Rica
                             Alajuela</li>
@@ -68,16 +68,16 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">
-                            Acerca de esta aplicacion - SIGELIBMA V1.0
+                            Acerca de esta aplicación - SIGELIBMA V1.0
                         </h4>
                     </div>
                     <div class="modal-body ">
-                        Esta aplicacion ha sido desarrollada por:
+                        Esta aplicación ha sido desarrollada por:
                         <ul>
                             <li>Aguilar Espinoza, Steven</li>    
                             <li>Viquez Arana, Johnathan</li>
                         </ul>
-                        <p>Estudiantes de ultimo nivel de la carrera de Ingenieria del Software de la UTN.</p>
+                        <p>Estudiantes de ultimo nivel de la carrera de Ingeniería del Software de la UTN.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -96,7 +96,7 @@
                     <div class="modal-body text-center">
                         <div v-if="alertModalBookDetails.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalBookDetails.type) === 'danger' , 'alert-info ' : lowerCase(alertModalBookDetails.type) === 'info','alert-success ' : lowerCase(alertModalBookDetails.type) === 'success'}">
                             <button type="button" class="close" v-on:click="alertModalBookDetails.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong v-if="lowerCase(alertModalBookDetails.type) === 'danger' ">Atencion!</strong>
+                            <strong v-if="lowerCase(alertModalBookDetails.type) === 'danger' ">Atención!</strong>
                             <strong v-else>Info!</strong>
                             {{alertModalBookDetails.message}}
                         </div>
@@ -136,7 +136,7 @@
                             <div class="row text-center">
                                 <div v-if="alertModalShoppingCart.status" class=" alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModalShoppingCart.type) === 'danger' , 'alert-info ' : lowerCase(alertModalShoppingCart.type) === 'info','alert-success ' : lowerCase(alertModalShoppingCart.type) === 'success'}">
                                     <button type="button" class="close" v-on:click="alertModalShoppingCart.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong v-if="lowerCase(alertModalShoppingCart.type) === 'danger' ">Atencion!</strong>
+                                    <strong v-if="lowerCase(alertModalShoppingCart.type) === 'danger' ">Atención!</strong>
                                     <strong v-else>Info!</strong>
                                     {{alertModalShoppingCart.message}}
                                 </div>
@@ -172,7 +172,7 @@
                                             <table class="table table-hover table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Codigo</th>
+                                                        <th>Código</th>
                                                         <th>Titulo</th>
                                                         <th>Precio</th>
                                                         <th>Cantidad</th>
@@ -209,9 +209,9 @@
                                         <div v-if="modalCart.currentPage === 2">
                                             <h3>Datos Personales</h3><hr />
                                             <div class="form-group validate has-feedback " v-bind:class="{ 'has-error': cedulaStatus === false && validateCedula, 'has-success': cedulaStatus === true && validateCedula}">
-                                                <label class="control-label">Cedula</label>
+                                                <label class="control-label">Cédula</label>
                                                 <div class="input-group ">
-                                                    <input v-model="cliente.Cedula" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cedula" v-on:onblur="validateCedulaCliente" v-on:keyup="validateCedulaCliente">
+                                                    <input v-model="cliente.Cedula" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cédula" v-on:onblur="validateCedulaCliente" v-on:keyup="validateCedulaCliente">
                                                     @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
                                                     <span class="input-group-btn">
                                                         <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
@@ -227,7 +227,7 @@
                                                 <vueinput v-bind:value.sync="cliente.Apellido1" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
                                             <div class="form-group">
-                                                <vueinput v-bind:value.sync="cliente.Telefono" label="Telefono" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Telefono" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                                <vueinput v-bind:value.sync="cliente.Telefono" label="Teléfono" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Teléfono" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
                                             </div>
                                             <div class="form-group">
                                                 <vueinput v-bind:value.sync="cliente.Email" label="Email" help="" type="email" error="Este campo es requerido." placeholder="Email" pattern="[a-zA-Z0-9._%+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
@@ -241,14 +241,14 @@
                                                 <h4><b>Cuentas Bancarias:</b> </h4>
                                                 <ul>
                                                     <li><strong>Iglesia Mana S.A</strong></li>
-                                                    <li><strong>Cedula Juridica:</strong> 3-00456-90</li>
+                                                    <li><strong>Cédula Jurídica:</strong> 3-00456-90</li>
                                                     <li><strong>Banco Nacional (Colones):</strong> 12332445-0 / 2417932898749090</li>
                                                     <li><strong>BCR (Colones):</strong> 001-293435-0 / 365456789778900121</li>
                                                 </ul>
                                             </div>
                                             
                                             <div v-bind:class="[{ 'has-error': shoppingCartValidations.date && deposito.Fecha === '' },{'has-success' : shoppingCartValidations.date && deposito.Fecha !== ''},'form-group has-feedback']">
-                                                <label class="control-label">Fecha Deposito: </label>
+                                                <label class="control-label">Fecha Depósito: </label>
                                                 <datepicker v-on:blur="shoppingCartValidations.date = true" v-bind:value.sync="deposito.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
                                                 </datepicker>
                                                 <span v-if="shoppingCartValidations.date && deposito.Fecha === ''  " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
@@ -284,14 +284,14 @@
                                         </div>
                                         <!--page 4-->
                                         <div v-if="modalCart.currentPage === 4">
-                                            <h3>Condiciones Compras en Linea</h3><hr />
+                                            <h3>Condiciones Compras en Línea</h3><hr />
 
                                             <div class="bg-info bg-accts" style="margin-bottom:15px;">
                                                 
                                                 <ul>
-                                                    <li>Debido a limitaciones logisticas no se realizan envios a domicilio</li>
-                                                    <li>Toda compra debe ser retirada en la Iglesia Mana</li>
-                                                    <li>Debrea presentar su identificacion para hacer el retiro</li>
+                                                    <li>Debido a limitaciones logísticas no se realizan envíos a domicilio.</li>
+                                                    <li>Toda compra debe ser retirada en la Iglesia Mana.</li>
+                                                    <li>Deberá presentar su identificación para hacer el retiro.</li>
                                                     <li>Horario de entregas es Lunes - Viernes de 8am-7pm</li>
                                                 </ul>
                                                 <div class="text-center">
@@ -306,8 +306,8 @@
                                             <h3>Resumen Transaccion</h3><hr />
                                             <div class="bg-success" v-if="shoppingCart.payment.status">
                                                 <h5><b>Su compra ha sido procesada!</b></h5>
-                                                <p>Usted recibira un correo con el detalle de su compra. </p>
-                                                <p>Confirmacion # <strong>{{shoppingCart.payment.code}}</strong></p>
+                                                <p>Usted recibirá un correo con el detalle de su compra. </p>
+                                                <p>Confirmación # <strong>{{shoppingCart.payment.code}}</strong></p>
                                             </div>
                                             <div v-else class="bg-danger">
                                                 <h5><b>Ha sucedido un problema!</b></h5>
@@ -335,7 +335,7 @@
                                 </div>
                             </form>
                         </div>
-                        <h4 v-else class="text-center">El carrito esta vacio</h4>
+                        <h4 v-else class="text-center">El carrito esta vacío</h4>
                     </div>
                     <div class="modal-footer">
                         <button v-if="shoppingCart.payment.status" type="button" v-on:click="cleanCart()" class="btn btn-info" data-dismiss="modal">Cerrar</button>
@@ -357,7 +357,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                             <img class="navbar-brand" src="~/Images/imanaicon.png">
-                            <a class="navbar-brand" style="color:white">Libreria Mana</a>
+                            <a class="navbar-brand" style="color:white">Librería Mana</a>
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
@@ -369,7 +369,7 @@
                                         <li  v-for="item in categories" v-on:click="filterCategory(item)"><a href="#">{{item.Descripcion}}</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#" v-on:click="openModal(null,'modal-contacto')">Contactenos</a></li>
+                                <li><a href="#" v-on:click="openModal(null,'modal-contacto')">Contáctenos</a></li>
                                 <li><a href="#" v-on:click="openModal(null,'modal-about')">Acerca</a></li>
                                 <li><a href="#" v-on:click="openModal(null,'modal-about')">Ayuda</a></li>
 
@@ -392,7 +392,7 @@
                                     <a href="#">
 
                                         <span class="badge badgequantity">
-                                            <strong>Articulos: </strong>{{shoppingCart.totalItems}}
+                                            <strong>Artículos: </strong>{{shoppingCart.totalItems}}
                                             <strong>Precio Total: </strong><strong class="">&#162;{{shoppingCart.total}}</strong>
                                         </span>
 

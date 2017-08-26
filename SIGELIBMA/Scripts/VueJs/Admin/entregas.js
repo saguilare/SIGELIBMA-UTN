@@ -227,7 +227,7 @@ var vm = new Vue({
                         vm.filteredItems = vm.entregas;
                         vm.buildPagination();
                         vm.selectPage(1);
-                        vm.activateToastr('success', 'La lista de pedidos fue actualizada con exito.', true);
+                        vm.activateToastr('success', 'La lista de pedidos fue actualizada con éxito.', true);
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema actualizando la lista de pedidos, por favor recargue la pagina.',true);
                     }
@@ -253,7 +253,7 @@ var vm = new Vue({
                 success: function (result) {
                     if (result.EstadoOperacion) {
                         vm.getEntregas();
-                        vm.activateToastr('success','La operacion se efectuo con exito.',true);
+                        vm.activateToastr('success','La operacion se efectuo con éxito.',true);
                         $("#edit-modal").modal('hide');
                         vm.editmodal.currentPage = 1;
                     } else {
@@ -281,7 +281,7 @@ var vm = new Vue({
         },
      
         init: function () {
-            vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
+            vm.displaySpinner(true, 'Obteniendo información de la base de datos, por favor espere!');
             vm.getInitData();
             vm.activateAlert('danger', '', false);
         }

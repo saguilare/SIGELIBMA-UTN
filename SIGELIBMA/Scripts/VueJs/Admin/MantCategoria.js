@@ -314,7 +314,7 @@ var vm = new Vue({
         },
      
         init: function () {
-            vm.displaySpinner(true, 'Obteniendo informacion de la base de datos, por favor espere!');
+            vm.displaySpinner(true, 'Obteniendo información de la base de datos, por favor espere!');
             vm.getInitData();
             vm.activateAlert('danger', '', false);
         }
