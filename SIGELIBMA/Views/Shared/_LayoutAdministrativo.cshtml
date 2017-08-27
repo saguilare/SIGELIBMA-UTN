@@ -77,18 +77,18 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/inventario">Inventario</a></li>
-                            <li><a href="/mantroles">Roles</a></li>
                             <li><a href="/mantautor">Autores</a></li>
-                            <li><a href="/mantlibros">Libros</a></li>
-                            <li><a href="/mantcategoria">Categorias</a></li>
-                            <li><a href="/mantproveedor">Proveedores</a></li>
                             <li><a href="/mantcaja">Cajas</a></li>
+                            <li><a href="/mantcategoria">Categorias</a></li>
                             <li><a href="/mantestadocaja">Estado Cajas</a></li>
-                            <li><a href="/manttipomovcaja">Tipo Mov Cajas</a></li>
-                            <li><a href="/manttipotransaccion">Tipo Transacción</a></li>
                             <li><a href="/mantestadofactura">Estado Facturas</a></li>
+                            <li><a href="/inventario">Inventario</a></li>
+                            <li><a href="/mantlibros">Libros</a></li>
+                            <li><a href="/mantproveedor">Proveedores</a></li>
+                            <li><a href="/mantroles">Roles</a></li>
+                            <li><a href="/manttipomovcaja">Tipo Mov Cajas</a></li>
                             <li><a href="/manttipopago">Tipos Pago</a></li>
+                            <li><a href="/manttipotransaccion">Tipo Transacción</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -99,7 +99,7 @@
                         </ul>
                     </li>
                     <li><a href="#" >Acerca</a></li>
-                    <li><a href="#" >Ayuda</a></li>
+                    <li><a href="#" onclick="openAyuda()">Ayuda</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li id="nameandjobtitlebar" class="active"><a class=""><i class="intelicon-user-person-outlined" aria-hidden="true"></i>{{sesion.username}} | {{sesion.usuario}}</a></li>
@@ -108,6 +108,31 @@
             </div>
         </div>
     </nav>
+
+    <!-- MODAL Acerca de -->
+    <div id="modal-about" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">
+                        Acerca de esta aplicación - SIGELIBMA V1.0
+                    </h4>
+                </div>
+                <div class="modal-body ">
+                    Esta aplicación ha sido desarrollada por:
+                    <ul>
+                        <li>Aguilar Espinoza, Steven</li>
+                        <li>Viquez Arana, Johnathan</li>
+                    </ul>
+                    <p>Para la Iglesia Mana Alajuela</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div id="pageMainContainer" class="">
 
         @RenderBody()
@@ -190,6 +215,11 @@
         <script src="~/Scripts/VueJs/Admin/ReporteInventario.js"></script>
     }
 
+    <script>
+        function openAyuda(){
+            $("#modal-about").modal({ show: true });
+        }
+    </script>
     
 </body>
 </html>
