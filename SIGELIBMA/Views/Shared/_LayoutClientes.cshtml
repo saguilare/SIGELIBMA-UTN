@@ -212,7 +212,6 @@
                                                 <label class="control-label">Cédula</label>
                                                 <div class="input-group ">
                                                     <input autofocus v-model="cliente.Cedula" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cédula" v-on:onblur="validateCedulaCliente" v-on:keyup="validateCedulaCliente">
-                                                    @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
                                                     <span class="input-group-btn">
                                                         <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
                                                     </span>

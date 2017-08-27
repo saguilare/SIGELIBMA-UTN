@@ -122,9 +122,14 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 fatura.Cliente.Nombre2 = (fatura.Cliente.Nombre1 != "" && fatura.Cliente.Nombre1.Contains(" ")) ? fatura.Cliente.Nombre1.Split(' ')[1] : "";
                 fatura.Cliente.Apellido2 = (fatura.Cliente.Apellido1 != "" && fatura.Cliente.Apellido1.Contains(" ")) ? fatura.Cliente.Apellido1.Split(' ')[1] : "";
                 Factura factura = CrearFactura(fatura);
+
+
                 if (factura != null && factura.Numero > 0)
                 {
                     SendEmail(factura);
+
+                    bool resultado = RetirarInvetario(fatura.Productos);
+
                     return Json(new { EstadoOperacion = true, Factura = factura.Numero, Mensaje = "Transaccion Exitosa" });
                 }
                 else
@@ -685,6 +690,28 @@ namespace IMANA.SIGELIBMA.MVC.Controllers
                 Existencia = x.Inventario != null ? x.Inventario.CantidadStock : 0
             });
             return transformados;
+        }
+
+        private bool RetirarInvetario(List<ProductoModel> productos)
+        {
+            try
+            {
+                List<Libro> agotados = new List<Libro>();
+            foreach (ProductoModel item in productos)
+            {
+                Libro l = servicioLibro.ObtenerPorId(new Libro { Codigo = item.Codigo });
+                l.Inventario.CantidadStock -= item.Cantidad;
+                servicioLibro.Modificar(l);
+            }
+
+            return true;
+            }
+            catch (Exception)
+            {
+                
+                return false;
+            }
+
         }
     }
 }
