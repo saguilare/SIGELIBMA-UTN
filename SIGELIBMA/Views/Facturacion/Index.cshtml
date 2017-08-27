@@ -81,7 +81,7 @@
                                 <div v-if="modalFact.currentPage === 2">
                                     <h3>Resumen Pago</h3><hr />
                                     <div class="form-group">
-                                        <label>Tipo Pago: </label>
+                                        <label>Tipo Pago (Colones): </label>
                                         <select v-model="factura.master.tipoPago" required class="form-control" >
                                             <option value="" selected disabled>-- Seleccione Tipo --</option>
                                             <option v-bind:value="tipo" v-for="tipo in tiposPago">{{tipo.Descripcion}}</option>
@@ -92,10 +92,10 @@
                                                   : " help="" error="" placeholder="" pattern="^[a-zA-Z0-9]+$" mask="" minlength="5" v-bind:enter-submit="true" v-bind:clear-button="false" icon></vueinput>
                                     </div>
                                     <div class="form-group">
-                                        <vueinput v-bind:value.sync="factura.master.total" label="Monto a Pagar:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon readonly></vueinput>
+                                        <vueinput v-bind:value.sync="factura.master.total" label="Monto a Pagar (Colones):" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon readonly></vueinput>
                                     </div>
                                     <div class="form-group" v-if="factura.master.tipoPago && factura.master.tipoPago.Codigo === 1">
-                                        <vueinput v-bind:value.sync="factura.master.totalReceived" label="Monto Recibido:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false"  icon v-on:blur="updateChange()"></vueinput>
+                                        <vueinput v-bind:value.sync="factura.master.totalReceived" label="Monto Recibido (Colones):" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" icon v-on:blur="updateChange()"></vueinput>
                                     </div>
                                     <div class="form-group" v-if="factura.master.tipoPago && factura.master.tipoPago.Codigo === 1">
                                         <vueinput v-bind:value.sync="factura.master.change" label="Cambio:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false"  icon readonly></vueinput>
@@ -172,7 +172,7 @@
                             <span v-if="(cashier !== null && cashier.Codigo > 0) && validateCajaCombo " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
                         </div>
                         <div v-if="cashier !== null && cashier.Codigo >= 0" class="form-group">
-                            <vueinput v-bind:value.sync="cashier.Monto" min="1" label="Monto Inicio" error="Este campo es requerido. Solo numeros." type="number" patter="^[0-9]$" v-bind:enter-submit="true" required></vueinput>
+                            <vueinput v-bind:value.sync="cashier.Monto" min="1" label="Monto Inicio (Colones)" error="Este campo es requerido. Solo numeros." type="number" patter="^[0-9]$" v-bind:enter-submit="true" required></vueinput>
                         </div>
                     </div>
                 </div>
