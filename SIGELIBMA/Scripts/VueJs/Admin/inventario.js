@@ -206,9 +206,9 @@ var vm = new Vue({
                             })
                         });
 
-                        $.each(toDelete,function(index,value){
-                            vm.libros.splice(value,1);
-                        });
+                        //$.each(toDelete,function(index,value){
+                        //    vm.libros.splice(value,1);
+                        //});
                     } else {
                         vm.activateToastr('danger','Ha ocurrido un problema, por favor recargue la pagina.',true);
                     }

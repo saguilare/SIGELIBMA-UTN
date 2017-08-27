@@ -470,6 +470,16 @@ var vm = new Vue({
         },
 
         processPayment: function () {
+            if (vm.factura.master.tipoPago.Codigo === 1 && (vm.factura.master.totalReceived === 0 || vm.factura.master.totalReceived === "")) {
+                vm.activateAlertModal('danger', 'Debe ingresar el monto recibido.', true);
+                return false;
+            }
+
+            if (vm.factura.master.tipoPago.Codigo === 1 && (vm.factura.master.totalReceived < vm.factura.master.total)) {
+                vm.activateAlertModal('danger', 'El monto recibido no puede ser menor al monto a pagar.', true);
+                return false;
+            }
+
             vm.modalFact.currentPage = 4;
             vm.$refs.spinner.show();
 

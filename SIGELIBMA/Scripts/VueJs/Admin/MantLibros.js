@@ -148,7 +148,7 @@ var vm = new Vue({
 
         //EndPafinationMothods
 
-        onFileChange(e) {
+        onFileChange:function(e) {
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length)
                 return;
@@ -160,7 +160,7 @@ var vm = new Vue({
             }
         },
 
-        createImage(file) {
+        createImage:function(file) {
             var imagen = new Image();
             var reader = new FileReader();
             var vm = this;
@@ -178,7 +178,7 @@ var vm = new Vue({
 
         
 
-        openNewModal: function () {
+        openNewModal: function() {
             
             vm.modalAccion = 'Agregar Libro';
             vm.modalCart.currentPage = 1;
