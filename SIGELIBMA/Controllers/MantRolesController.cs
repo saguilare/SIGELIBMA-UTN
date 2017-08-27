@@ -40,10 +40,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -63,10 +61,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -80,10 +76,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -98,10 +92,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -116,10 +108,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 
@@ -134,10 +124,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Exception thrown, please verify backend services" }, JsonRequestBehavior.AllowGet);
+                throw e;
             }
         }
 

@@ -54,11 +54,10 @@ namespace SIGELIBMA.Controllers
                     return Json(new { EstadoOperacion = false, redirectUrl = Url.Action("Index", "Login") , Mensaje = "Operacion OK"},JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "System error,unable to get session" });
+                throw e;
             }
         }
 
@@ -82,11 +81,10 @@ namespace SIGELIBMA.Controllers
                 return RedirectToAction("Index", new {code = 2 });
                 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "System error,unable to get session" });
+                throw e;
             }
         }
 
@@ -111,7 +109,7 @@ namespace SIGELIBMA.Controllers
             catch (Exception e)
             {
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "System error,validate login ex thrown" });
+                throw e;
             }
 
         }

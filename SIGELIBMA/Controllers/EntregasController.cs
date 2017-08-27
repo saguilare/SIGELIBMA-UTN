@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace SIGELIBMA.Controllers
 {
     [ValidateSessionFilter]
-    
+    [ExceptionFilter]
     public class EntregasController : Controller
     {
         private FacturaServicio servicioFactura = new FacturaServicio();
@@ -38,7 +38,7 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
+                Response.StatusCode = 400;
                 throw e;
             }
         }
@@ -54,7 +54,7 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
+                Response.StatusCode = 400;
                 throw e;
             }
         }
@@ -77,6 +77,7 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
+                Response.StatusCode = 400;
                 throw e;
             }
 

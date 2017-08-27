@@ -58,10 +58,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Operation FAILED" });
+                throw e;
             }
         }
 
@@ -100,10 +98,8 @@ namespace SIGELIBMA.Controllers
             }
             catch (Exception e)
             {
-
-                //TODO handle ex
                 Response.StatusCode = 400;
-                return Json(new { EstadoOperacion = false, Mensaje = "Operation FAILED" });
+                throw e;
             }
         }
     }
