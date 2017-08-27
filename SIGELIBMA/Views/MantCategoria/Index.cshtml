@@ -163,7 +163,7 @@
                             <ul class="nav nav-PaginationJustified">
                                 <li class="first">
                                     <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
-                                        First
+                                        Inicio
                                     </a>
                                 </li>
                                 <li v-if="pagination.filteredItems.length > 0 && pagination.currentPage > 1" v-on:click="selectPage(pagination.currentPage - 1)">
