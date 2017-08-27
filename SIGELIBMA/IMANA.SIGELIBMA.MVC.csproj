@@ -280,6 +280,7 @@
     </Content>
     <Content Include="ClassDiagram1.cd" />
     <Content Include="ClassDiagram2.cd" />
+    <Content Include="Content\manual.pdf" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
