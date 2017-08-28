@@ -38,7 +38,7 @@ namespace SIGELIBMA
         {
 
             //closed session at expiration
-            if (Session != null || Session["SesionSistema"] != null)
+            if (Session != null && Session["SesionSistema"] != null)
             {
                 SesionModel ses = Session["SesionSistema"] as SesionModel;
                 if (ses.Id != null && ses.Id > 0)
