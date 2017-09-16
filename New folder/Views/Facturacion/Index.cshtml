@@ -1,0 +1,556 @@
+﻿@{
+    //ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
+}
+
+<!--VUESTRAP ALERT == TOASTR-->
+<toastr v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+    <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
+    <span v-else class="glyphicon glyphicon-info-sign"></span>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atención!</strong>
+    <strong v-else>Info!</strong>
+    <p>{{toastr.message}}</p>
+</toastr>
+
+<!--MODAL FACTURA-->
+<div id="modal-factura" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form >
+                <div class="modal-header">
+                    
+                    <h4 class="modal-title">Factura</h4>
+                </div>
+                <div class="modal-body">
+                    <div v-if="factura.details.length > 0">
+                        <!-- Alert-->
+                 
+                        <div v-if="alertModal.status" class="col-sm-12 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
+                      
+                        <!-- Navbar-->
+                        <div class="row">
+                            <div class="col-sm-12" v-if="showFacturaModelNavbar === true">
+                                <ul class="nav nav-pills nav-justified">
+                                    <li role="presentation" v-bind:class="{ active: modalFact.currentPage === 1 }" v-on:click="modalFact.currentPage = 1">
+                                        <a href="#">Info Cliente</a>
+                                    </li>
+                                    <li role="presentation" v-bind:class="{ active: modalFact.currentPage === 2 }" v-on:click="modalFact.currentPage = 2">
+                                        <a href="#">Info Montos</a>
+                                    </li>
+                                </ul>
+                                <hr class="navbar-separator" />
+                            </div>
+                        </div>
+                        <!-- Content-->
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <spinner v-ref:spinner size="md" fixed text="Procesando datos, por favor espere."></spinner>
+                                <!--page 1-->
+                                <div v-if="modalFact.currentPage === 1">
+                                    <h3>Datos Personales</h3><hr />
+                                    <div class="form-group validate has-feedback ">
+                                        <label class="control-label">Cédula</label>
+                                        <div class="input-group">
+                                            <input v-model="factura.master.client.id" class="form-control" type="text" title="Este campo es requerido. (min. length: 9)" require placeholder="Cédula">
+                                            @*<span aria-hidden="true" style="right:70px" class="form-control-feedback glyphicon glyphicon-remove"></span>*@
+                                            <span class="input-group-btn">
+                                                <button v-on:click="getClient()" class="btn btn-success" type="button">Buscar!</button>
+                                            </span>
+                                        </div>
+                                        @*<div class="help-block with-errors" _v-461124e2="">Este campo es requerido. (required)</div>*@
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="factura.master.client.name" label="Nombre" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Nombre" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-gr<up">
+                                        <vueinput v-bind:value.sync="factura.master.client.lastname" label="Apellido" help="" error="Este campo es requerido/Solo acepta letras." placeholder="Apellido" pattern="^[a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="factura.master.client.phone" label="Telefono" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Telefono" pattern="^[0-9]+$" mask="" minlength="8" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="factura.master.client.email" label="Email" help="" type="email" error="Este campo es requerido." placeholder="Email" pattern="[a-zA-Z0-9._%+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                    </div>
+                                </div>
+                                <!--page 2-->
+                                <div v-if="modalFact.currentPage === 2">
+                                    <h3>Resumen Pago</h3><hr />
+                                    <div class="form-group">
+                                        <label>Tipo Pago (Colones): </label>
+                                        <select v-model="factura.master.tipoPago" required class="form-control" >
+                                            <option value="" selected disabled>-- Seleccione Tipo --</option>
+                                            <option v-bind:value="tipo" v-for="tipo in tiposPago">{{tipo.Descripcion}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" v-if="factura.master.tipoPago && factura.master.tipoPago.Codigo !== 1">
+                                        <vueinput v-bind:value.sync="factura.master.referencia" label="No Referencia/Deposito
+                                                  : " help="" error="" placeholder="" pattern="^[a-zA-Z0-9]+$" mask="" minlength="5" v-bind:enter-submit="true" v-bind:clear-button="false" icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="factura.master.total" label="Monto a Pagar (Colones):" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon readonly></vueinput>
+                                    </div>
+                                    <div class="form-group" v-if="factura.master.tipoPago && factura.master.tipoPago.Codigo === 1">
+                                        <vueinput v-bind:value.sync="factura.master.totalReceived" label="Monto Recibido (Colones):" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false" icon v-on:blur="updateChange()"></vueinput>
+                                    </div>
+                                    <div class="form-group" v-if="factura.master.tipoPago && factura.master.tipoPago.Codigo === 1">
+                                        <vueinput v-bind:value.sync="factura.master.change" label="Cambio:" help="" error="" placeholder="" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="false"  icon readonly></vueinput>
+                                    </div>
+                                </div>
+                                <!--page 3-->
+                                <div v-if="modalFact.currentPage === 3">
+                                    <h3>Resumen Transaccion</h3><hr />
+                                    <div class="bg-info" >
+                                        <h5><b>La compra ha sido procesada con éxito!</b></h5>
+                                        <p>Factura #<strong>{{factura.master.id}}</strong></p>
+                                        <p>La factura sera enviada a la direccion de correo del cliente.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pager Btns-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <nav aria-label="...">
+                                    <ul class="pager">
+                                        <li v-if="modalFact.currentPage > 1 && modalFact.currentPage <3" v-on:click="modalFact.currentPage -= 1">
+                                            <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+                                        </li>
+                                        <li v-if="modalFact.currentPage >= 1 && modalFact.currentPage <2" v-on:click="validateModalCartFields()">
+                                            <a href="#">Siguiente <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                        </li>
+                                        <li v-if="modalFact.currentPage === 2" v-on:click="processPayment() ">
+                                            <a href="#">Procesar <span class="glyphicon glyphicon-arrow-right"></span></a>
+                                        </li>
+                                        <li v-if="modalFact.currentPage === 3" >
+                                            <a href="/facturacion/imprimirfactura?factura={{factura.master.id}}" target="_blank" class="imprimir">Imprimir <span class="glyphicon glyphicon-print"></span></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 v-else class="text-center">Debe agregar un item a la factura</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default " data-dismiss="modal" v-on:click="modalFacturaClose()">Cerrar</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--MODAL CAJA-->
+<div id="modal-caja" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form v-on:submit.prevent="initializeCashBox()">
+                <div class="modal-header modal-mant">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Iniciar Caja</h4>
+                </div>
+                <div class="modal-body">
+                    <spinner v-ref:spinner1 size="md" fixed text="Procesando datos, por favor espere."></spinner>
+                    <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                        <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
+                        <strong v-else>Info!</strong>
+                        {{alertModal.message}}
+                    </div>
+                    <div v-if="cashBoxes !== null && cashBoxes.length > 0">
+                        <div v-bind:class="[{ 'has-error':((cashier.Codigo === null || cashier.Codigo === 0) && validateCajaCombo)},{'has-success' : ((cashier !== null && cashier.Codigo > 0) && validateCajaCombo)},'form-group has-feedback']">
+                            <label for="message-text" class="control-label">Caja:</label>
+                            <select v-model="cashier" class="form-control" v-on:change="validateCajaCombo = true">
+                                <option v-bind:value="cashier" disabled selected>-- Seleccione una Caja --</option>
+                                <option v-for="item in cashBoxes" v-bind:value="item">{{item.Descripcion}}</option>
+                            </select>
+                            <span v-if="(cashier.Codigo === null || cashier.Codigo === 0) && validateCajaCombo" class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                            <span v-if="(cashier !== null && cashier.Codigo > 0) && validateCajaCombo " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                        </div>
+                        <div v-if="cashier !== null && cashier.Codigo >= 0" class="form-group">
+                            <vueinput v-bind:value.sync="cashier.Monto" min="1" label="Monto Inicio (Colones)" error="Este campo es requerido. Solo numeros." type="number" patter="^[0-9]$" v-bind:enter-submit="true" required></vueinput>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button v-if="cashBoxes !== null && cashBoxes.length > 0" type="submit" class="btn btn-save ">Iniciar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--MODAL RETIROABONO CAJA-->
+<div id="modal-retiroAbono" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="abonar" name="abform" v-on:submit.prevent="aplicarMovimiento()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Movimiento Dinero</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Alert-->
+                    <div v-if="alertModal.status" class="col-sm-12 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                        <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
+                        <strong v-else>Info!</strong>
+                        {{alertModal.message}}
+                    </div>
+
+                    <!-- Content-->
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <spinner v-ref:spinner1 size="md" fixed text="Procesando datos, por favor espere."></spinner>
+                            <!--page 1-->
+                            <div v-if="movimiento.procesado === false">
+                                <h3>Movimiento de Dinero</h3><hr />
+                                <div class="form-group" required>
+                                    <select class="form-control" v-model="movimiento.tipo" required>
+                                        <option value="" disabled>-- Seleccione un Tipo --</option>
+                                        <option v-for="mov in tiposMovimiento" v-bind:value="mov.codigo">{{mov.descripcion}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <vueinput v-bind:value.sync="movimiento.monto" min="1" type="number" label="Monto" help="" error="Este campo es requerido/Solo acepta numeros." placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                </div>
+                                <div class="form-gr<up">
+                                    <vueinput v-bind:value.sync="movimiento.razon" label="Descripcion" help="" error="Este campo es requerido." placeholder="Justificacion" pattern="^[0-9a-zA-Z\s]+$" mask="" minlength="" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                                </div>
+                            </div>
+
+                            <!--page 2-->
+                            <div v-if="movimiento.procesado === true">
+                                <h3>Resumen Movimiento</h3><hr />
+                                <div class="bg-info">
+                                    <h5><b>El movimiento se efectuo con éxito!</b></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pager Btns-->
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-default btn-pager" v-if="movimiento.procesado === false" type="submit">Procesar <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- MODAL BOOK DETAILS -->
+<div id="modal-product" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Detalle Producto</h4>
+            </div>
+            <div class="modal-body text-center">
+                <img class="img-circle popimage" src="~/Images/libros/{{product.item.Image}}.jpg" alt="Generic placeholder image" width="140" height="140">
+                <h2>{{product.item.Titulo}}</h2>
+                <p>{{product.item.Descripcion}}</p>
+                <p class="precio"><strong>Precio (I.V.I)</strong>: &#162;{{product.item.Precio}}</p>
+                <div class="form-group text-center" v-if="product.item.Stock >0">
+                    <label>Cantidad:</label>
+                    <select v-if="product.item.Stock > 0" required v-model="product.quantity" number v-on:mouseup.keyup.change="verifyStock()">
+                        <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
+                    </select>
+                </div>
+                <p v-else class="" style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>Agotado</strong></p>
+                <p v-if="product.item.Stock > 0" class="text-success font-weight-bold">Disponible: {{product.item.Stock}}</p>
+                <span class="badge badgequantity"><strong>Total (I.V.I)</strong>:&#162;{{product.total}}</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button v-if="product.item.Stock > 0 && disableBuyButton === false" v-on:click="addToFactura(product)" type="button" class="btn btn-primary btn-proceed"><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--MODAL MOVIMIENTOS DEL DIA-->
+<div id="modal-movimientos" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header modal-mant">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Movimientos</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" v-if="movimientosDelDia !== null && movimientosDelDia.length > 0">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                    <th>Monto</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="movimiento in movimientosDelDia">
+                                    <td>{{movimiento.Fecha}}</td>
+                                    <td>{{movimiento.Descripcion}}</td>
+                                    <td>&#162;{{movimiento.Monto}}</td>
+                                    <td>{{movimiento.Tipo.Descripcion}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div v-else class="alert alert-dismissible alert-danger" role="alert">
+                        <button type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
+                        No se registran movimientos para esta caja
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--MODAL CIERRE-->
+<div id="modal-cierre" class="modal fade" data-backdrop="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="" v-on:submit.prevent="closeCashBox()">
+                <div class="modal-header modal-mant">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cierre Caja</h4>
+                </div>
+                <div class="modal-body">
+                    <spinner v-ref:spinner3 size="md" fixed text="Procesando Cierre, por favor espere."></spinner>
+                    <!--alert-->
+                    <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                        <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atención!</strong>
+                        <strong v-else>Info!</strong>
+                        {{alertModal.message}}
+                    </div>
+                    <!--Content-->
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                    <th>Tipo</th>
+                                    <th>Crédito</th>
+                                    <th>Retiro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  v-for="movimiento in movimientosDelDia">
+                                    <td>{{movimiento.Fecha}}</td>
+                                    <td>{{movimiento.Descripcion}}</td>
+                                    <td>{{movimiento.Tipo.Descripcion}}</td>
+                                    <td v-if="movimiento.Tipo.Codigo === 1 || movimiento.Tipo.Codigo === 4 || movimiento.Tipo.Codigo === 5|| movimiento.Tipo.Codigo === 6">&#162;{{movimiento.Monto}}</td>
+                                    <td v-if="movimiento.Tipo.Codigo === 1 || movimiento.Tipo.Codigo === 4 || movimiento.Tipo.Codigo === 5|| movimiento.Tipo.Codigo === 6"></td>
+
+                                    <td v-if="movimiento.Tipo.Codigo === 3"></td>
+                                    <td v-if="movimiento.Tipo.Codigo === 3">&#162;{{movimiento.Monto}}</td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Totales: </td>
+                                    <td>&#162;{{cierre.totalCreditos}}</td>
+                                    <td>&#162;{{cierre.totalRetiros}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total Caja:</td>
+                                    <td>&#162;{{cierre.total}}</td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="form-group">
+                            <vueinput type="number" min="1" v-on:blur="updateClosing()" v-on:keyup="updateClosing()" v-bind:value.sync="cierre.montoCaja" label="Monto en caja" help="Ingrese el monto de caja." error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required icon></vueinput>
+                            <vueinput v-if="cierre.faltante > 0" type="number" v-bind:value.sync="cierre.faltante" label="Faltante" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
+                            <vueinput v-if="cierre.exedente > 0" type="number" v-bind:value.sync="cierre.exedente" label="Exedente" help="" error="Solo puede ingresar numeros" placeholder="Monto" pattern="^[0-9]+$" mask="" minlength="1" v-bind:enter-submit="true" v-bind:clear-button="true" required readonly icon></vueinput>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" >Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--Loading info container-->
+<div class="row" v-show="validations.showSpinner">
+    <div class="loading col-sm-12 ">
+        <img src="~/Images/spinner.gif" width="100px" height="100px" />
+        <p>{{validations.loadingMessage}}</p>
+    </div>
+</div>
+<!-- Alert page critical errors-->
+<div v-if="alert.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+    <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong v-if="lowerCase(alert.type) === 'danger' ">Atención!</strong>
+    <strong v-else>Info!</strong>
+    {{alert.message}}
+</div>
+
+
+<div id="wrapper" v-show="!validations.showSpinner">
+    
+    <!-- PAGE BODY -->
+    <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
+        <!-- TITLE BAR -->
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-bar title-bar-blur">
+                        <span class="title-bar-title">Ventas</span>
+                        <span class="title-bar-subtitle">Facturación</span>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opciones de Caja 
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" v-if="cashier && cashier.Estado === 1">
+                            <li v-on:click="openModal(null,'modal-cierre')"><a href="#">Cerrar</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li v-on:click="openModal(null,'modal-retiroAbono')"><a href="#">Abonar/Retirar</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li v-on:click="openModal(null,'modal-movimientos')"><a href="#">Movimientos del Dia</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" v-else>
+                            <li v-on:click="openModal(null, 'modal-caja')" ><a href="#">Abrir</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->           
+                </div>
+            </div>
+        </section>
+        <!-- BODY -->
+        <section class="collapse " id="collapseFactMain" style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">        
+                <div class="row" style="padding-top:20px;">
+                    <div class="col-sm-offset-1 col-sm-10 form-inline" style="margin-bottom:25px">
+                        <form name="" class="" >
+                            <div class="input-group search">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtro <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li v-on:click="searchByData = codigos, searchSelected = ''"><a href="#">Código</a></li>
+                                        <li v-on:click="searchByData = titulos, searchSelected = ''"><a href="#">Titulo</a></li>
+                                    </ul>
+                                </div><!-- /btn-group -->
+                                <typeahead v-bind:value.sync="searchSelected" v-bind:data="searchByData" placeholder="Busqueda">
+                                </typeahead>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" v-on:click="openModal(null,'modal-product')" type="button">Mostrar!</button>
+                                </span>
+                            </div><!-- /input-group -->
+
+                        </form>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-10 ">
+                        <div @*v-if="factura !== null && factura.details !== null && factura.details.length >0"*@ class="table-responsive">
+                            <fieldset v-bind:disabled="enableFacturar === false && (factura === null || factura.details === null || factura.details <= 0)">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th><a>Accion</a></th>
+                                            <th><a>Código</a></th>
+                                            <th><a>Titulo</a></th>
+                                            <th><a>Cantidad</a></th>
+                                            <th><a>Precio Unitario</a></th>
+                                            <th><a>Precio Total</a></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="detail in factura.details">
+                                            <td>
+                                                <button class="btn btn-small btn-danger btn-removeFromFactura" v-on:click="removeFromFactura($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar</button>
+                                            </td>
+                                            <td>{{detail.item.Codigo}}</td>
+                                            <td>{{detail.item.Titulo}}</td>
+                                            <td>
+                                                <select required v-model="detail.quantity" number v-on:mouseup.keyup.change="updateFacturaDetail($index)">
+                                                    <option v-bind:value="item" v-for="item in quantity">{{item}}</option>
+                                                </select>
+                                                @*<input class="form-control" min="1" max="20" type="number" name="name" v-model="detail.quantity" v-on:keyup="updateFacturaDetail($index)" v-on:change="updateFacturaDetail($index)" v-on:blur="updateFacturaDetail($index)" />*@
+                                            </td>
+                                            <td>&#162;{{detail.item.PrecioSinImp}}</td>
+                                            <td>&#162;{{detail.subtotal}}</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Subtotal: </td>
+                                            <td>&#162;{{factura.master.subtotal}}</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Impuestos (I.V.A): </td>
+                                            <td>&#162;{{factura.master.taxes}}</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total (I.V.I): </td>
+                                            <td>&#162;{{factura.master.total}}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-lg btn-block btn-info" v-on:click="openModal(null, 'modal-factura')">Facturar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+        </section>
+    </section>
+</div>
+<!--custom directive-->
+@*<back-to-top />*@

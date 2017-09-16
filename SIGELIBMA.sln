@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMANA.SIGELIBMA.DAL", "IMAN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMANA.SIGELIBMA.BLL", "IMANA.SIGELIBMA.BLL\IMANA.SIGELIBMA.BLL.csproj", "{CEB618E4-F923-4D18-BE6B-BB025E2B0AFF}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WebSetup", "WebSetup\WebSetup.vdproj", "{B9EC7416-52CF-4000-BF53-40E3FD74B747}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{CEB618E4-F923-4D18-BE6B-BB025E2B0AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEB618E4-F923-4D18-BE6B-BB025E2B0AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEB618E4-F923-4D18-BE6B-BB025E2B0AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9EC7416-52CF-4000-BF53-40E3FD74B747}.Debug|Any CPU.ActiveCfg = Debug
+		{B9EC7416-52CF-4000-BF53-40E3FD74B747}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

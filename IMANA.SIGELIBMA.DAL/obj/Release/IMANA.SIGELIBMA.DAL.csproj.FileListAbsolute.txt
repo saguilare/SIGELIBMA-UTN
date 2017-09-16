@@ -8,3 +8,12 @@
 /Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Release/IMANA.SIGELIBMA.DAL.csproj.CoreCompileInputs.cache
 /Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Release/IMANA.SIGELIBMA.DAL.dll
 /Users/stevenaguilar/Documents/SIGELIBMA/IMANA.SIGELIBMA.DAL/obj/Release/IMANA.SIGELIBMA.DAL.pdb
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\IMANA.SIGELIBMA.DAL.dll.config
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\IMANA.SIGELIBMA.DAL.dll
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\IMANA.SIGELIBMA.DAL.pdb
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\EntityFramework.dll
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\EntityFramework.xml
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Release\IMANA.SIGELIBMA.DAL.dll
+C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Release\IMANA.SIGELIBMA.DAL.pdb
