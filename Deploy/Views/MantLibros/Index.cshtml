@@ -1,0 +1,358 @@
+﻿
+@{
+   // ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
+}
+
+<!-- EDIT MODAL --->
+<div id="edit-modal" data-backdrop="false" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-mant">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{modalAccion}}</h4>
+            </div>
+            <div class="modal-body ">
+                    <!-- Alert-->
+                    <div class="row text-center">
+                        <div v-if="alertModal.status" class="alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alertModal.type) === 'danger' , 'alert-info ' : lowerCase(alertModal.type) === 'info','alert-success ' : lowerCase(alertModal.type) === 'success'}">
+                            <button type="button" class="close" v-on:click="alertModal.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong v-if="lowerCase(alertModal.type) === 'danger' ">Atencion!</strong>
+                            <strong v-else>Info!</strong>
+                            {{alertModal.message}}
+                        </div>
+                    </div>
+                    <form  v-on:submit.prevent="validarCodigoLibro(libro)">
+                        <!-- Navbar-->
+                        <div class="row">
+                            <div  class="col-sm-12">
+                                <ul class="nav nav-pills nav-justified">
+                                    <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 1 }" v-on:click="modalCart.currentPage = 1">
+                                        <a href="#">Info Libro</a>
+                                    </li>
+                                    <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 2 }" v-on:click="modalCart.currentPage = 2">
+                                        <a href="#">Propiedades Libro</a>
+                                    </li>
+                                    <li role="presentation" v-bind:class="{ active: modalCart.currentPage === 3 }" v-on:click="modalCart.currentPage = 3">
+                                        <a href="#">Costos Libro</a>
+                                    </li>
+                                </ul>
+                                <hr class="navbar-separator" />
+                            </div>
+                        </div>
+                        <!-- Content-->
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <spinner v-ref:spinner1 size="md" fixed text="Procesando compra, por favor espere."></spinner>
+                                <!--page 1-->
+                                <div v-if="modalCart.currentPage === 1">
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Codigo" label="Codigo" help="" error="" placeholder="Codigo"  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Titulo" label="Titulo" help="" error="" placeholder="Titulo"  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.Descripcion" label="Descripcion" help="" error="" placeholder="Descripcion"  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <div v-bind:class="[{ 'has-error': validarFechaIngreso.date && deposito.Fecha === '' },{'has-success' : validarFechaIngreso.date && deposito.Fecha !== ''},'form-group has-feedback']">
+                                            <label class="control-label">Fecha Ingreso: </label>
+                                            <datepicker v-on:blur="validarFechaIngreso.date = true" v-bind:value.sync="libro.Fecha" v-bind:format="datepickerOptions.format" v-bind:clear-button="datepickerOptions.close" v-bind:placeholder="datepickerOptions.placeholder" required>
+                                            </datepicker>
+                                            <span v-if="validarFechaIngreso.date && libro.Fecha === ''  " class="glyphicon glyphicon-remove form-control-feedback selectspan" aria-hidden="true"></span>
+                                            <span v-if="validarFechaIngreso.date && libro.Fecha !== ''  " class="glyphicon glyphicon-ok form-control-feedback selectspan" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--page 2-->
+                                <div v-if="modalCart.currentPage === 2">
+                                    <div class="form-group">
+                                        <label class="control-label">Categoria</label>
+                                        <select v-model="libro.Categoria1" required class="form-control">
+                                            <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione una Categoria --</option>
+                                            <option v-bind:value="categoria" v-for="categoria in categorias">{{categoria.Descripcion}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Autor</label>
+                                        <select v-model="libro.Autor1" required class="form-control">
+                                            <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione un Autor --</option>
+                                            <option v-bind:value="autor" v-for="autor in autores">{{autor.Apellidos}},{{ autor.Nombre}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Proveedor</label>
+                                        <select v-model="libro.Proveedor1" required class="form-control">
+                                            <option v-if="modalAccion==='Agregar Libro'" value="0" selected disabled>-- Seleccione un Proveedor --</option>
+                                            <option v-bind:value="proveedor" v-for="proveedor in proveedores">{{proveedor.Nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--page 3-->
+                                <div v-if="modalCart.currentPage === 3">
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PrecioBase" label="Precio Base" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Descripcion"  pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PorcentajeGanancia" label="Porcentaje de Ganancia"  v-on:keyup="calcularPrecios(libro)" help="" error="Este campo es requerido/Solo acepta numero." placeholder="Ganancia" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaSinImpuestos" :disabled="true" label="Precio sin Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="P. sin Impuestos" pattern="^[0-9]+$" mask=""  v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <vueinput v-bind:value.sync="libro.PrecioVentaConImpuestos" :disabled="true" label="Precio con Impuestos" help="" error="Este campo es requerido/Solo acepta numero." placeholder="P. con Impuestos" pattern="^[0-9]+$" mask="" v-bind:enter-submit="true" v-bind:clear-button="false" required icon></vueinput>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="app">
+                                            <div>
+                                               <h4>Seleccione una Imagen</h4>
+                                              <label class="btn btn-primary">Buscar<input type="file" accept=".jpg"  v-on:change="onFileChange" style="display: none;"></label>
+                                            </div>
+                                            <div v-if="imagen && modalAccion==='Agregar Libro'">
+                                                <img class="img-edit-model" :src="imagen" style="width:20%"/>
+                                                <button type="button" class="btn btn-primary" v-on:click="removeImage">Eliminar</button>
+                                            </div>
+                                            <div v-if="modalAccion==='Editar Libro'">
+                                                <img class="img-edit-model" v-if="!imagen && libro.NombreImagen!=''" src="~/Images/libros/{{libro.NombreImagen}}.jpg" style="width:20%" />
+                                                <img class="img-edit-model" v-if="imagen" :src="imagen" style="width:20%" />
+                                                <button v-if="imagen" type="button" class="btn btn-primary" v-on:click="removeImage">Eliminar</button>
+                                            </div>
+                                        </div>
+                                     </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pager Btns-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <button type="button" class="btn btn-default btn-pager" v-if="modalCart.currentPage > 1 && modalCart.currentPage <=3" v-on:click="modalCart.currentPage -= 1">
+                                    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+                                </button>
+                                <button type="button" class="btn btn-default btn-pager" v-if="modalCart.currentPage >= 1 && modalCart.currentPage <=2" v-on:click="modalCart.currentPage += 1 ">
+                                    Siguiente <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                                <button type="submit" class="btn btn-default btn-pager" v-if="modalCart.currentPage === 3">
+                                    Procesar <span class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--Loading page container-->
+<div class="row" v-show="validations.showSpinner">
+    <div class="loading col-sm-12 ">
+        <img src="~/Images/spinner.gif" width="100px" height="100px" />
+        <p>{{validations.loadingMessage}}</p>
+    </div>
+</div>
+<!-- Alert for critical error -->
+<div class="row" v-if="alert.status">
+    <div class="col-sm-offset-2 col-sm-8 alert alert-dismissible" role="alert" v-bind:class="{ 'alert-danger ' : lowerCase(alert.type) === 'danger' , 'alert-info ' : lowerCase(alert.type) === 'info','alert-success ' : lowerCase(alert.type) === 'success'}">
+        <button type="button" class="close" v-on:click="alert.status = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong v-if="lowerCase(alert.type) === 'danger' ">Atencion!</strong>
+        <strong v-else>Info!</strong>
+        {{alert.message}}
+    </div>
+</div>
+<!--VUESTRAP ALERT == TOASTR-->
+<alert v-bind:show.sync="toastr.show" v-bind:placement="toastr.placement" v-bind:duration="toastr.duration" v-bind:type="toastr.type" v-bind:width="toastr.width" dismissable>
+    <span v-if="lowerCase(toastr.type) === 'danger' " class="glyphicon glyphicon-warning-sign"></span>
+    <span v-else class="glyphicon glyphicon-info-sign"></span>
+    <strong v-if="lowerCase(toastr.type) === 'danger' ">Atencion!</strong>
+    <strong v-else>Info!</strong>
+    <p>{{toastr.message}}</p>
+</alert>
+
+<div id="wrapper" v-show="!validations.showSpinner && alert.status === false">
+    <section class="section-body" style="background-color: #e3e6e8; margin: 10px 0px;padding: 10px 10px">
+        <!--title bar-->
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-bar title-bar-blur">
+                        <span class="title-bar-title">Administración</span>
+                        <span class="title-bar-subtitle">Libros</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--content-->
+        <section style="background-color: white;padding: 10px 30px;margin:0px 0px 10px 0px">
+            <!--add itme-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class="col-sm-offset-1 col-sm-10 " style="">
+                    <div  class="">
+                        <button type="button" class="btn btn-success   pull-right"  v-on:click="openNewModal()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+                    </div>
+                </div>
+                
+            </div>
+            <!--table search-->
+            <div class="row" style="padding-top:20px;margin-bottom:15px">
+                <div class=" col-sm-offset-1 col-sm-10 form-inline">
+                    <div class="pull-left">
+                        <span class="glyphicon glyphicon-search"> </span> <input v-model="searchItem" v-on:keyup="searchInTheList(searchItem)" class="form-control" type="text" placeholder="Buscar en la tabla ...">
+                    </div>
+                    <div class="form-group pull-right">
+                        <label for="search">Lineas por pagina: </label>
+                        <input type="number" min="1" max="15" class="form-control" size="10" v-model="pagination.itemPerPage" v-on:click="changePagination()" v-on:keyup="changePagination()">
+                        <label>Pagina: {{pagination.currentPage}}</label>
+                    </div>
+                </div>
+            </div>
+            <!--table content-->
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10 ">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <!--<th class="text-center" style="color:#337ab7">Action</th>-->
+                                    <th>
+                                        <a v-on:click="setSort('Codigo',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Codigo
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Descripcion',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Titulo
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Descripcion
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Fecha
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Categoria
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Autor
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Proveedor
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            PrecioBase
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Ganancia
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            VentaSinImpuestos
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            VentaConImpuestos
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a v-on:click="setSort('Estado',reverse === 1 ? reverse = -1 : reverse = 1)">
+                                            Estado
+                                            <span v-bind:class="[ reverse === 1 ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down']"></span>
+                                        </a>
+                                    </th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="libro in paginatedItems | filterBy customFilter | orderBy sortKey reverse">
+
+                                    <td>{{libro.Codigo}}</td>
+                                    <td>{{libro.Titulo}}</td>
+                                    <td>{{libro.Descripcion}}</td>
+                                    <td>{{libro.Fecha}}</td>
+                                    <td>{{libro.Categoria1.Descripcion}}</td>
+                                    <td>{{libro.Autor1.Nombre}}</td>
+                                    <td>{{libro.Proveedor1.Nombre}}</td>
+                                    <td>{{libro.PrecioBase}}</td>
+                                    <td>{{libro.PorcentajeGanancia}}</td>
+                                    <td>{{libro.PrecioVentaSinImpuestos}}</td>
+                                    <td>{{libro.PrecioVentaConImpuestos}}</td>
+                                    <td>{{libro.Estado === 1 ? 'Activo' : 'Inactivo'}}</td>
+                                    <td>
+                                        <button class="btn btn-small btn-success" v-on:click="openEditModal(libro)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
+                                        <button class="btn btn-small btn-danger" v-on:click="deleteLibro(libro)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>  Borrar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--pagination navbar-->
+            <div class="row">
+                <div class="col-sm-12 other-controller">
+                    <div class="text-center">
+                        <nav v-if="pagination.items.length > 1">
+                            <ul class="nav nav-PaginationJustified">
+                                <li class="first">
+                                    <a class="button" v-on:click="selectPage(pagination.items[0])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[0] || this.pagination.items.length==0}">
+                                        Inicio
+                                    </a>
+                                </li>
+                                <li v-if="pagination.filteredItems.length > 0 && pagination.currentPage > 1" v-on:click="selectPage(pagination.currentPage - 1)">
+                                    <a>
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                </li>
+                                <li v-for="item in pagination.filteredItems">
+                                    <a class="button" v-on:click="selectPage(item)" v-bind:class="{'is-info': item == pagination.currentPage}">{{item}}</a>
+                                </li>
+                                <li v-if="pagination.currentPage < pagination.filteredItems.length " v-on:click="selectPage(pagination.currentPage + 1)">
+                                    <a>
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </li>
+                                <li class="last">
+                                    <a class="button" v-on:click="selectPage(pagination.items[pagination.items.length-1])" v-bind:class="{'is-disabled': this.pagination.currentPage==this.pagination.items[this.pagination.items.length-1] || this.pagination.items.length==0}">
+                                        Last
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+<!--custom directive-->
+@*<back-to-top />*@
+

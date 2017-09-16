@@ -17,3 +17,4 @@ C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DA
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\bin\Release\EntityFramework.SqlServer.xml
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Release\IMANA.SIGELIBMA.DAL.dll
 C:\Users\stevenag\Documents\NE NMA Projects\own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Release\IMANA.SIGELIBMA.DAL.pdb
+C:\Users\stevenag\Documents\NE NMA Projects\Own\SIGELIBMA-UTN\IMANA.SIGELIBMA.DAL\obj\Release\IMANA.SIGELIBMA.DAL.csprojResolveAssemblyReference.cache
